@@ -3,53 +3,118 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LegalDocs AI – ContractHero for Business Contracts</title>
-  <meta name="description" content="LegalDocs AI (ContractHero) helps small business owners generate lawyer-style contracts in minutes – NDAs, service agreements, leases and more. Not a law firm. No legal advice." />
+  <title>AIWorkHub – AI-Powered Freelance Marketplace</title>
+  <meta name="description" content="AIWorkHub connects global clients with AI-powered freelancers for writing, design, automation and more. Clients get tasks done fast. Freelancers earn from anywhere." />
 
   <style>
     :root {
-      --bg: #050b1a;
-      --bg-soft: #0d1730;
-      --bg-card: #111b36;
-      --border-soft: rgba(255,255,255,0.06);
-      --accent: #d4af37;          /* 金色 */
-      --accent-soft: rgba(212,175,55,0.1);
-      --accent-strong: #f5d979;
-      --text-main: #f5f7ff;
-      --text-soft: #a9b2d4;
-      --danger: #ff5d6c;
-      --shadow-soft: 0 24px 60px rgba(0,0,0,0.55);
-      --radius-lg: 20px;
-      --radius-md: 14px;
+      --bg: #020617;
+      --bg-soft: #02091f;
+      --bg-card: #020b26;
+      --bg-card-soft: #05112f;
+      --border-soft: rgba(148,163,184,0.3);
+      --accent: #38bdf8;
+      --accent-strong: #0ea5e9;
+      --accent-soft: rgba(56,189,248,0.12);
+      --accent-purple: #a855f7;
+      --accent-green: #22c55e;
+      --text-main: #e5f0ff;
+      --text-soft: #9ca3c7;
+      --danger: #fb7185;
+      --shadow-soft: 0 24px 70px rgba(15,23,42,0.95);
+      --radius-xl: 24px;
+      --radius-lg: 18px;
+      --radius-md: 12px;
       --radius-pill: 999px;
       --transition-fast: 0.18s ease-out;
-      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --transition-med: 0.28s ease-out;
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     body {
       font-family: var(--font-main);
-      background: radial-gradient(circle at top, #192650 0, #050b1a 55%, #02030a 100%);
+      background: radial-gradient(circle at top, #0b1120 0, #020617 55%, #000 100%);
       color: var(--text-main);
       min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* 背景动态渐变层 */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 10% 0%, rgba(59,130,246,0.28) 0, transparent 45%),
+        radial-gradient(circle at 80% 0%, rgba(14,165,233,0.35) 0, transparent 48%),
+        radial-gradient(circle at 15% 90%, rgba(168,85,247,0.24) 0, transparent 50%);
+      opacity: 0.8;
+      mix-blend-mode: screen;
+      z-index: -2;
+      animation: bgPulse 22s linear infinite alternate;
+    }
+
+    @keyframes bgPulse {
+      0%   { transform: translate3d(0,0,0) scale(1);   filter: hue-rotate(0deg); }
+      50%  { transform: translate3d(-2%,2%,0) scale(1.05); filter: hue-rotate(12deg); }
+      100% { transform: translate3d(2%,-2%,0) scale(1.03); filter: hue-rotate(-8deg); }
     }
 
     .page {
-      max-width: 1100px;
+      max-width: 1120px;
       margin: 0 auto;
-      padding: 32px 18px 40px;
+      padding: 24px 18px 42px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* 漂浮光球 */
+    .orb {
+      position: fixed;
+      width: 220px;
+      height: 220px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, rgba(248,250,252,0.9) 0, rgba(56,189,248,0.3) 40%, rgba(15,23,42,0) 70%);
+      opacity: 0.16;
+      filter: blur(0.5px);
+      pointer-events: none;
+      z-index: -1;
+      animation: floatOrb 18s ease-in-out infinite alternate;
+    }
+    .orb--right {
+      right: -30px;
+      top: 30%;
+      animation-delay: -6s;
+      background: radial-gradient(circle at 70% 10%, rgba(248,250,252,0.9) 0, rgba(129,140,248,0.35) 40%, rgba(15,23,42,0) 72%);
+    }
+    .orb--left {
+      left: -80px;
+      top: 8%;
+    }
+
+    @keyframes floatOrb {
+      0%   { transform: translate3d(0,0,0) scale(1); }
+      50%  { transform: translate3d(20px,-16px,0) scale(1.08); }
+      100% { transform: translate3d(8px,18px,0) scale(0.96); }
     }
 
     header {
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 26px;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 24px;
     }
 
-    .logo-wrap {
+    .logo {
       display: flex;
       align-items: center;
       gap: 10px;
@@ -58,20 +123,37 @@
     .logo-mark {
       width: 34px;
       height: 34px;
+      border-radius: 12px;
+      background: conic-gradient(from 210deg, #22c55e, #0ea5e9, #6366f1, #22c55e);
+      padding: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 12px 30px rgba(15,23,42,0.9);
+      animation: spinBorder 9s linear infinite;
+    }
+
+    .logo-inner {
+      width: 100%;
+      height: 100%;
       border-radius: 10px;
-      background: radial-gradient(circle at 20% 10%, #ffffff 0, #f8f3dc 12%, #d4af37 40%, #886b1f 100%);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.55);
+      background: radial-gradient(circle at 30% 20%, #e0f2fe 0, #020617 55%);
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 800;
-      font-size: 18px;
-      color: #1a1300;
+      font-size: 16px;
+      color: #020617;
+    }
+
+    @keyframes spinBorder {
+      0%   { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
 
     .logo-text-main {
       font-weight: 700;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
       font-size: 14px;
     }
@@ -81,341 +163,540 @@
       color: var(--text-soft);
     }
 
-    .tagline-top {
-      font-size: 11px;
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+    }
+
+    .badge-mini {
       padding: 4px 10px;
       border-radius: var(--radius-pill);
-      border: 1px solid rgba(212,175,55,0.5);
-      background: radial-gradient(circle at 10% 0, rgba(212,175,55,0.3) 0, rgba(3,5,20,0.95) 45%, rgba(3,5,20,1) 100%);
-      color: #fdf6da;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
+      border: 1px solid rgba(148,163,184,0.5);
+      background: rgba(15,23,42,0.9);
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      box-shadow: 0 8px 26px rgba(0,0,0,0.6);
-    }
-
-    .tagline-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: #44e28c;
-      box-shadow: 0 0 12px rgba(68,226,140,0.9);
-    }
-
-    .layout {
-      display: grid;
-      grid-template-columns: minmax(0, 3fr) minmax(0, 2.5fr);
-      gap: 26px;
-    }
-
-    @media (max-width: 860px) {
-      header { flex-direction: column; align-items: flex-start; }
-      .layout { grid-template-columns: minmax(0,1fr); }
-    }
-
-    main {
-      background: linear-gradient(145deg, rgba(13,23,48,0.96), rgba(7,12,30,0.98));
-      border-radius: var(--radius-lg);
-      padding: 24px 22px 22px;
-      box-shadow: var(--shadow-soft);
-      border: 1px solid rgba(255,255,255,0.06);
-      position: relative;
-      overflow: hidden;
-    }
-
-    main::before {
-      content: "";
-      position: absolute;
-      inset: -60px;
-      background:
-        radial-gradient(circle at -10% 0%, rgba(212,175,55,0.18) 0, transparent 60%),
-        radial-gradient(circle at 110% 20%, rgba(93,167,255,0.26) 0, transparent 60%);
-      opacity: 0.95;
-      pointer-events: none;
-    }
-
-    .main-inner { position: relative; z-index: 1; }
-
-    h1 {
-      font-size: clamp(26px, 3.1vw, 32px);
-      line-height: 1.15;
-      margin-top: 10px;
-      margin-bottom: 10px;
-    }
-
-    h1 span.highlight {
-      color: var(--accent-strong);
-    }
-
-    .main-subtitle {
-      font-size: 14px;
       color: var(--text-soft);
-      max-width: 520px;
-      line-height: 1.55;
-      margin-bottom: 16px;
     }
-
-    .bullets {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 18px;
-    }
-
-    .bullet-pill {
-      border-radius: var(--radius-pill);
-      border: 1px solid rgba(255,255,255,0.1);
-      padding: 5px 11px 5px 9px;
-      font-size: 11px;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(4,8,24,0.9);
-      backdrop-filter: blur(6px);
-    }
-
-    .bullet-dot {
-      width: 9px;
-      height: 9px;
+    .badge-dot {
+      width: 7px;
+      height: 7px;
       border-radius: 999px;
-      background: linear-gradient(135deg, #35d69c, #61e1ff);
-      box-shadow: 0 0 12px rgba(97,225,255,0.9);
+      background: var(--accent-green);
+      box-shadow: 0 0 14px rgba(34,197,94,0.9);
     }
 
-    .cta-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      align-items: center;
-      margin-bottom: 14px;
-    }
-
-    .btn-primary {
+    .btn-outline {
       border-radius: var(--radius-pill);
-      padding: 9px 20px;
-      font-size: 14px;
-      font-weight: 600;
-      border: none;
-      cursor: pointer;
-      background: linear-gradient(135deg, #f2d575, #d4af37);
-      color: #1d1605;
-      box-shadow: 0 14px 32px rgba(0,0,0,0.6);
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: transform var(--transition-fast), box-shadow var(--transition-fast), filter var(--transition-fast);
-      text-decoration: none;
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 18px 40px rgba(0,0,0,0.75);
-      filter: brightness(1.05);
-    }
-
-    .btn-secondary {
-      border-radius: var(--radius-pill);
-      padding: 8px 16px;
-      font-size: 13px;
-      border: 1px solid rgba(255,255,255,0.25);
-      background: rgba(3,8,25,0.7);
+      border: 1px solid rgba(148,163,184,0.65);
+      padding: 7px 14px;
+      background: rgba(15,23,42,0.8);
       color: var(--text-main);
       cursor: pointer;
+      font-size: 12px;
       display: inline-flex;
       align-items: center;
       gap: 6px;
       text-decoration: none;
       transition: background var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
     }
-
-    .btn-secondary:hover {
-      background: rgba(8,16,40,0.95);
-      border-color: rgba(255,255,255,0.45);
+    .btn-outline:hover {
+      background: rgba(15,23,42,0.95);
+      border-color: rgba(226,232,240,0.8);
       transform: translateY(-1px);
     }
 
-    .cta-note {
-      font-size: 11px;
-      color: var(--text-soft);
-      max-width: 440px;
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 3.1fr) minmax(0, 2.4fr);
+      gap: 26px;
+      align-items: stretch;
+      margin-bottom: 28px;
     }
 
-    .trusted-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 18px;
-      align-items: center;
+    @media (max-width: 880px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
     }
 
-    .trust-label {
-      font-size: 11px;
-      color: var(--text-soft);
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-    }
-
-    .trust-badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .trust-badge {
-      font-size: 11px;
-      border-radius: var(--radius-pill);
-      padding: 4px 10px;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(4,10,30,0.95);
-      color: #dadff8;
-    }
-
-    /* Right side – “card” like a contract desk */
-    .side-card {
-      background: radial-gradient(circle at 0 0, rgba(212,175,55,0.15), transparent 40%),
-                  radial-gradient(circle at 100% 0, rgba(94,155,255,0.25), transparent 46%),
-                  linear-gradient(145deg, #050815, #02030b);
-      border-radius: var(--radius-lg);
-      padding: 20px 18px 18px;
-      border: 1px solid rgba(255,255,255,0.07);
+    .hero-main {
+      background: radial-gradient(circle at 0 0, rgba(59,130,246,0.18), transparent 55%),
+                  radial-gradient(circle at 80% 0, rgba(37,99,235,0.16), transparent 60%),
+                  linear-gradient(140deg, #020617, #020817);
+      border-radius: var(--radius-xl);
+      padding: 22px 22px 18px;
+      border: 1px solid rgba(148,163,184,0.5);
       box-shadow: var(--shadow-soft);
       position: relative;
       overflow: hidden;
     }
 
-    .side-heading {
-      font-size: 13px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--text-soft);
+    .hero-main::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle at 10% 0%, rgba(56,189,248,0.3), transparent 58%);
+      opacity: 0.55;
+      mix-blend-mode: screen;
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border-radius: var(--radius-pill);
+      padding: 4px 10px;
+      font-size: 11px;
+      background: rgba(15,23,42,0.85);
+      border: 1px solid rgba(56,189,248,0.5);
+      box-shadow: 0 10px 26px rgba(15,23,42,0.9);
       margin-bottom: 10px;
     }
 
-    .side-title {
-      font-size: 18px;
-      margin-bottom: 8px;
+    .hero-tag-pill {
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      background: rgba(15,118,110,0.22);
+      color: #6ee7b7;
     }
 
-    .step-list {
-      list-style: none;
-      margin: 10px 0 14px;
-      padding: 0;
+    h1 {
+      font-size: clamp(26px, 3vw, 32px);
+      line-height: 1.15;
+      margin-bottom: 10px;
     }
 
-    .step-item {
+    h1 span.accent {
+      color: var(--accent-strong);
+    }
+
+    .hero-sub {
+      font-size: 14px;
+      color: var(--text-soft);
+      max-width: 540px;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .hero-actions {
       display: flex;
+      flex-wrap: wrap;
       gap: 10px;
-      margin-bottom: 9px;
-      align-items: flex-start;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .btn-primary {
+      position: relative;
+      border-radius: var(--radius-pill);
+      padding: 9px 20px;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      color: #0f172a;
+      background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 18px 40px rgba(15,23,42,0.9);
+      text-decoration: none;
+      overflow: hidden;
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast), filter var(--transition-fast);
+    }
+
+    .btn-primary::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -40%;
+      width: 40%;
+      height: 100%;
+      background: linear-gradient(120deg, transparent, rgba(248,250,252,0.8), transparent);
+      opacity: 0.0;
+      transform: skewX(-20deg);
+      animation: shine 3.2s ease-in-out infinite;
+    }
+
+    @keyframes shine {
+      0% { opacity: 0; transform: translateX(-60%) skewX(-20deg); }
+      40% { opacity: 0; }
+      55% { opacity: 0.9; }
+      100% { opacity: 0; transform: translateX(220%) skewX(-20deg); }
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 22px 50px rgba(15,23,42,0.95);
+      filter: brightness(1.03);
+    }
+
+    .btn-secondary {
+      border-radius: var(--radius-pill);
+      padding: 8px 16px;
+      font-size: 13px;
+      border: 1px solid rgba(148,163,184,0.7);
+      background: rgba(15,23,42,0.86);
+      color: var(--text-main);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      text-decoration: none;
+      transition: background var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
+    }
+    .btn-secondary:hover {
+      background: rgba(15,23,42,0.98);
+      border-color: rgba(226,232,240,0.85);
+      transform: translateY(-1px);
+    }
+
+    .hero-note {
+      font-size: 11px;
+      color: var(--text-soft);
+      max-width: 450px;
+    }
+
+    .hero-stats {
+      margin-top: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    .hero-stat-pill {
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      background: rgba(15,23,42,0.9);
+      border: 1px solid rgba(148,163,184,0.45);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hero-stat-pill strong {
+      font-size: 13px;
+      color: #e5f0ff;
+    }
+
+    /* 右侧动画卡片 */
+    .hero-side {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .side-card {
+      background: radial-gradient(circle at 0 0, rgba(56,189,248,0.15), transparent 60%),
+                  linear-gradient(145deg, #020617, #02091c);
+      border-radius: var(--radius-xl);
+      padding: 16px 14px;
+      border: 1px solid rgba(148,163,184,0.6);
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .side-card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: conic-gradient(from 200deg, rgba(56,189,248,0.2), transparent, rgba(168,85,247,0.18), transparent);
+      opacity: 0.6;
+      mix-blend-mode: screen;
+      filter: blur(2px);
+      animation: rotateGlow 22s linear infinite;
+    }
+
+    @keyframes rotateGlow {
+      0% { transform: rotate(0deg);}
+      100% { transform: rotate(360deg);}
+    }
+
+    .side-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .side-header {
+      font-size: 12px;
+      color: var(--text-soft);
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .side-chip {
+      padding: 3px 8px;
+      border-radius: var(--radius-pill);
+      font-size: 10px;
+      background: rgba(15,23,42,0.9);
+      border: 1px solid rgba(56,189,248,0.6);
+      color: #bae6fd;
+    }
+
+    .task-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .task-card {
+      border-radius: var(--radius-md);
+      padding: 8px 9px;
+      background: rgba(15,23,42,0.86);
+      border: 1px solid rgba(51,65,85,0.9);
+      display: grid;
+      grid-template-columns: minmax(0, 1.8fr) minmax(0, 1.2fr);
+      gap: 8px;
+      align-items: center;
+      font-size: 11px;
+      animation: floatCard 11s ease-in-out infinite alternate;
+    }
+
+    .task-card:nth-child(2) { animation-delay: -4s; }
+    .task-card:nth-child(3) { animation-delay: -7s; }
+
+    @keyframes floatCard {
+      0%   { transform: translateY(0); box-shadow: 0 0 0 rgba(15,23,42,0); }
+      50%  { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(15,23,42,0.85); }
+      100% { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(15,23,42,0.7); }
+    }
+
+    .task-title {
+      font-size: 11px;
+      color: #e5f0ff;
+      margin-bottom: 2px;
+    }
+    .task-meta {
+      font-size: 10px;
+      color: var(--text-soft);
+    }
+    .task-price {
+      text-align: right;
+    }
+    .task-price strong {
+      font-size: 13px;
+      color: #bef264;
+    }
+    .task-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 7px;
+      border-radius: var(--radius-pill);
+      font-size: 10px;
+      background: rgba(15,118,110,0.2);
+      color: #6ee7b7;
+      margin-top: 3px;
+    }
+
+    .side-footer {
+      margin-top: 6px;
+      font-size: 10px;
+      color: var(--text-soft);
+      display: flex;
+      justify-content: space-between;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .side-meter {
+      flex: 1;
+      height: 4px;
+      border-radius: 999px;
+      background: rgba(15,23,42,0.9);
+      overflow: hidden;
+      position: relative;
+    }
+    .side-meter-fill {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, #22c55e, #bef264, #22c55e);
+      width: 72%;
+      animation: pulseMeter 4.4s ease-in-out infinite;
+    }
+    @keyframes pulseMeter {
+      0%   { width: 58%; }
+      50%  { width: 84%; }
+      100% { width: 70%; }
+    }
+
+    /* 下方模块 */
+    .section {
+      margin-top: 26px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: 15px;
+    }
+
+    .section-sub {
+      font-size: 12px;
+      color: var(--text-soft);
+      max-width: 420px;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .pill {
+      font-size: 11px;
+      padding: 3px 9px;
+      border-radius: var(--radius-pill);
+      background: rgba(15,23,42,0.95);
+      border: 1px solid rgba(51,65,85,0.9);
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    @media (max-width: 880px) {
+      .grid-3 {
+        grid-template-columns: minmax(0,1fr);
+      }
+    }
+
+    .step-card,
+    .category-card,
+    .market-card {
+      background: linear-gradient(145deg, #020617, #020918);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(51,65,85,0.95);
+      padding: 12px 12px 10px;
+      font-size: 12px;
+      color: var(--text-soft);
+      box-shadow: 0 16px 30px rgba(15,23,42,0.95);
+      position: relative;
+      overflow: hidden;
+      cursor: default;
+      transition: transform var(--transition-med), box-shadow var(--transition-med), border-color var(--transition-med), background var(--transition-med);
+    }
+
+    .step-card:hover,
+    .category-card:hover,
+    .market-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 24px 50px rgba(15,23,42,0.98);
+      border-color: rgba(148,163,184,0.9);
+      background: radial-gradient(circle at 0 0, rgba(56,189,248,0.14), transparent 58%),
+                  linear-gradient(145deg, #020617, #02061a);
     }
 
     .step-num {
       width: 20px;
       height: 20px;
-      border-radius: 50%;
-      border: 1px solid rgba(212,175,55,0.9);
+      border-radius: 999px;
+      border: 1px solid rgba(56,189,248,0.7);
+      font-size: 11px;
       display: flex;
       align-items: center;
       justify-content: center;
+      color: #e0f2fe;
+      margin-bottom: 6px;
+    }
+
+    .card-title {
+      font-size: 13px;
+      color: #e5f0ff;
+      margin-bottom: 4px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+      font-size: 10px;
+      border: 1px solid rgba(56,189,248,0.7);
+      background: rgba(15,23,42,0.9);
+      color: #bae6fd;
+      margin-bottom: 4px;
+    }
+
+    .market-card-price {
+      font-size: 13px;
+      color: #bef264;
+      margin-top: 4px;
+    }
+
+    .market-meta {
       font-size: 11px;
-      color: var(--accent-strong);
-      flex-shrink: 0;
-    }
-
-    .step-text {
-      font-size: 12px;
       color: var(--text-soft);
-      line-height: 1.5;
+      margin-top: 2px;
     }
 
-    .contract-tags {
+    .highlight {
+      color: var(--accent-strong);
+    }
+
+    .cta-band {
+      margin-top: 26px;
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(56,189,248,0.7);
+      background: radial-gradient(circle at 0 0, rgba(56,189,248,0.25), transparent 60%),
+                  linear-gradient(120deg, #020617, #020b20);
+      padding: 16px 16px 14px;
       display: flex;
       flex-wrap: wrap;
-      gap: 7px;
-      margin-bottom: 10px;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      box-shadow: 0 24px 60px rgba(15,23,42,1);
     }
 
-    .contract-tag {
-      font-size: 11px;
-      border-radius: var(--radius-pill);
-      padding: 4px 9px;
-      background: rgba(8,15,40,0.9);
-      border: 1px solid rgba(255,255,255,0.12);
-    }
-
-    .mini-card {
-      margin-top: 10px;
-      border-radius: var(--radius-md);
-      padding: 9px 10px;
-      border: 1px dashed rgba(255,255,255,0.25);
-      background: rgba(3,7,24,0.9);
-      font-size: 11px;
-      color: var(--text-soft);
-      line-height: 1.5;
-    }
-
-    /* lower section */
-    .section {
-      margin-top: 26px;
-      display: grid;
-      grid-template-columns: minmax(0, 2.4fr) minmax(0, 2.2fr);
-      gap: 18px;
-    }
-
-    @media (max-width: 860px) {
-      .section { grid-template-columns: minmax(0,1fr); }
-    }
-
-    .list-block {
-      background: rgba(4,9,26,0.96);
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--border-soft);
-      padding: 16px 16px 14px;
-    }
-
-    .list-title {
-      font-size: 14px;
-      margin-bottom: 8px;
-    }
-
-    .list-title span {
-      color: var(--accent-strong);
-    }
-
-    .list-items {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      font-size: 12px;
-      color: var(--text-soft);
-    }
-
-    .list-items li {
-      margin-bottom: 6px;
-      display: flex;
-      gap: 8px;
-      align-items: flex-start;
-    }
-
-    .list-bullet {
-      color: var(--accent-strong);
-      margin-top: 2px;
+    .cta-text {
       font-size: 13px;
+      max-width: 520px;
     }
 
-    .badge-line {
-      font-size: 11px;
-      margin-top: 10px;
-      color: var(--text-soft);
+    .cta-text strong {
+      color: #e5f0ff;
     }
 
     footer {
       margin-top: 22px;
       font-size: 11px;
       color: var(--text-soft);
-      border-top: 1px solid rgba(255,255,255,0.1);
+      border-top: 1px solid rgba(30,64,175,0.7);
       padding-top: 10px;
       display: flex;
       flex-wrap: wrap;
@@ -432,169 +713,364 @@
     a.footer-link:hover {
       text-decoration: underline;
     }
+
+    /* 锚点平滑滚动（仅视觉） */
+    html {
+      scroll-behavior: smooth;
+    }
   </style>
 </head>
 
 <body>
+  <!-- 漂浮光球 -->
+  <div class="orb orb--left"></div>
+  <div class="orb orb--right"></div>
+
   <div class="page">
     <header>
-      <div class="logo-wrap">
-        <div class="logo-mark">L</div>
+      <div class="logo">
+        <div class="logo-mark">
+          <div class="logo-inner">A</div>
+        </div>
         <div>
-          <div class="logo-text-main">LegalDocs AI</div>
-          <div class="logo-text-sub">ContractHero for Business Contracts</div>
+          <div class="logo-text-main">AIWorkHub</div>
+          <div class="logo-text-sub">AI-powered freelance marketplace</div>
         </div>
       </div>
-      <div class="tagline-top">
-        <span class="tagline-dot"></span>
-        RISK-AWARE CONTRACT WORKFLOW FOR BUSINESS OWNERS
+
+      <div class="nav-right">
+        <div class="badge-mini">
+          <span class="badge-dot"></span>
+          Open for early experts · invite-only beta
+        </div>
+        <a href="#freelancers" class="btn-outline">
+          Become an AI freelancer
+        </a>
       </div>
     </header>
 
-    <div class="layout">
-      <!-- 左侧主内容 -->
-      <main>
-        <div class="main-inner">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-main">
+        <div class="hero-inner">
+          <div class="hero-tag">
+            <span class="hero-tag-pill">New</span>
+            <span>AI-powered tasks · clients in US, UK & EU</span>
+          </div>
           <h1>
-            Lawyer-style contracts in <span class="highlight">minutes</span>,
-            without hourly legal fees.
+            Hire <span class="accent">AI-powered freelancers</span>
+            or earn from anywhere using AI skills.
           </h1>
-          <p class="main-subtitle">
-            LegalDocs AI (ContractHero) helps small business owners and consultants generate
-            clear, professional contracts in plain English – NDAs, service agreements, leases,
-            contractor agreements and more.
+          <p class="hero-sub">
+            AIWorkHub connects businesses with AI-first freelancers for writing, design,
+            automation and data tasks. Clients get work done faster. Freelancers earn without
+            needing to be a “big influencer”.
           </p>
 
-          <div class="bullets">
-            <div class="bullet-pill">
-              <span class="bullet-dot"></span>
-              Designed for US, UK & EU-based businesses
-            </div>
-            <div class="bullet-pill">
-              <span class="bullet-dot"></span>
-              Structure inspired by real law-firm contracts
-            </div>
-            <div class="bullet-pill">
-              <span class="bullet-dot"></span>
-              You stay in control – you approve before signing
-            </div>
-          </div>
-
-          <div class="cta-row">
-            <a class="btn-primary" href="#get-started">
-              Generate my first contract
+          <div class="hero-actions">
+            <a href="#marketplace" class="btn-primary">
+              Hire AI talent
               <span>→</span>
             </a>
-            <a class="btn-secondary" href="#how-it-works">
-              See how it works
+            <a href="#freelancers" class="btn-secondary">
+              I want to earn with AI
             </a>
           </div>
 
-          <div class="cta-note">
-            No subscription required to start. You can test the structure and clauses before you ever
-            use a contract in your real business.
+          <div class="hero-note">
+            Early access: we manually review each AI freelancer profile to keep the marketplace
+            focused on reliable, real people using AI – not low-quality spam.
           </div>
 
-          <div class="trusted-row">
-            <div class="trust-label">STRUCTURED LIKE</div>
-            <div class="trust-badges">
-              <span class="trust-badge">Non-disclosure agreements (NDA)</span>
-              <span class="trust-badge">Service & consulting agreements</span>
-              <span class="trust-badge">Freelancer / contractor agreements</span>
+          <div class="hero-stats">
+            <div class="hero-stat-pill">
+              <strong>100+ tasks</strong>
+              <span>writing, images, automation, data</span>
+            </div>
+            <div class="hero-stat-pill">
+              <strong>24–72h delivery</strong>
+              <span>most common task turnaround</span>
+            </div>
+            <div class="hero-stat-pill">
+              <strong>Global</strong>
+              <span>clients in US, UK, EU & more</span>
             </div>
           </div>
-        </div>
-      </main>
-
-      <!-- 右侧卡片：流程 + 合同类型 -->
-      <aside class="side-card">
-        <div class="side-heading">Quick preview · No obligation</div>
-        <div class="side-title">What you’ll see inside your contract</div>
-
-        <ul class="step-list" id="how-it-works">
-          <li class="step-item">
-            <div class="step-num">1</div>
-            <div class="step-text">
-              Answer a few business questions (who is hiring whom, what services, fees, timing,
-              and which country/state you are in).
-            </div>
-          </li>
-          <li class="step-item">
-            <div class="step-num">2</div>
-            <div class="step-text">
-              LegalDocs AI suggests well-structured clauses based on real-world contracts used by
-              small firms and consultants.
-            </div>
-          </li>
-          <li class="step-item">
-            <div class="step-num">3</div>
-            <div class="step-text">
-              You review the draft, adjust plain-English language, and export to Word or PDF
-              to share with your client.
-            </div>
-          </li>
-        </ul>
-
-        <div class="contract-tags">
-          <span class="contract-tag">NDA (Mutual / One-way)</span>
-          <span class="contract-tag">Service Agreement</span>
-          <span class="contract-tag">Independent Contractor</span>
-          <span class="contract-tag">Consulting Agreement</span>
-          <span class="contract-tag">Simple Lease / Office Use</span>
-        </div>
-
-        <div class="mini-card">
-          <strong>Important:</strong> LegalDocs AI is not a law firm and does not provide legal advice.
-          You are responsible for reviewing each contract and, where appropriate, obtaining
-          advice from a qualified lawyer in your own jurisdiction.
-        </div>
-      </aside>
-    </div>
-
-    <!-- 下方两个信息块：适用人群 + 风险提示 -->
-    <section class="section">
-      <div class="list-block" id="get-started">
-        <div class="list-title">Who <span>LegalDocs AI</span> is designed for</div>
-        <ul class="list-items">
-          <li><span class="list-bullet">•</span><span>Small business owners who need recurring contracts with clients or suppliers.</span></li>
-          <li><span class="list-bullet">•</span><span>Consultants, coaches and freelancers working with US, UK or EU-based clients.</span></li>
-          <li><span class="list-bullet">•</span><span>Landlords and small property owners who want clear agreements in plain English.</span></li>
-          <li><span class="list-bullet">•</span><span>Agencies hiring subcontractors and needing consistent written terms.</span></li>
-        </ul>
-        <div class="badge-line">
-          Typical use cases: NDAs, simple service contracts, consulting, marketing, IT support,
-          maintenance and similar commercial arrangements.
         </div>
       </div>
 
-      <div class="list-block">
-        <div class="list-title">Where you should still talk to a <span>licensed lawyer</span></div>
-        <ul class="list-items">
-          <li><span class="list-bullet">•</span><span>Complex M&A, fundraising, equity or investor documents.</span></li>
-          <li><span class="list-bullet">•</span><span>Highly regulated industries (financial services, medical, securities, etc.).</span></li>
-          <li><span class="list-bullet">•</span><span>Employment law questions, terminations or disputes.</span></li>
-          <li><span class="list-bullet">•</span><span>Any situation where you are unsure about your rights or obligations.</span></li>
-        </ul>
-        <div class="badge-line">
-          LegalDocs AI is a drafting assistant only. It helps you organise your thoughts into a clear
-          written contract – it does not replace professional legal advice.
+      <!-- 右侧动态卡片区：像任务看板 -->
+      <aside class="hero-side">
+        <div class="side-card">
+          <div class="side-inner">
+            <div class="side-header">
+              <span>Live task board · demo</span>
+              <span class="side-chip">AI tasks filling every hour</span>
+            </div>
+
+            <div class="task-list">
+              <div class="task-card">
+                <div>
+                  <div class="task-title">Product images for Shopify store</div>
+                  <div class="task-meta">AI-enhanced lifestyle photos · 15 images</div>
+                </div>
+                <div class="task-price">
+                  <strong>$38</strong>
+                  <div class="task-pill">
+                    <span>Image · Midjourney</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="task-card">
+                <div>
+                  <div class="task-title">Rewrite 3 blog posts using AI</div>
+                  <div class="task-meta">SEO-friendly · keep brand voice</div>
+                </div>
+                <div class="task-price">
+                  <strong>$52</strong>
+                  <div class="task-pill">
+                    <span>Writing · GPT-4 class</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="task-card">
+                <div>
+                  <div class="task-title">Lead list + email draft automation</div>
+                  <div class="task-meta">B2B outreach · CSV + email templates</div>
+                </div>
+                <div class="task-price">
+                  <strong>$95</strong>
+                  <div class="task-pill">
+                    <span>Automation · Python / AI</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="side-footer">
+              <div>Platform fee applies only when work is completed.</div>
+              <div class="side-meter">
+                <div class="side-meter-fill"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- How it works -->
+    <section class="section" id="how-it-works">
+      <div class="section-header">
+        <div>
+          <div class="section-title">How AIWorkHub works</div>
+          <div class="section-sub">
+            Simple for both sides: clients post AI-friendly work, freelancers deliver using AI tools,
+            the platform takes a transparent fee only when value is created.
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <div class="step-card">
+          <div class="step-num">1</div>
+          <div class="card-title">Clients post AI-ready tasks</div>
+          <p>
+            Businesses describe what they need: “rewrite 10 pages”, “generate 30 product images”,
+            “clean this spreadsheet”, “summarise customer feedback”, etc.
+          </p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">2</div>
+          <div class="card-title">AI freelancers apply & deliver</div>
+          <p>
+            Pre-screened AI freelancers pick tasks they can handle using tools like GPT-4, Midjourney,
+            Claude, automation scripts and more.
+          </p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">3</div>
+          <div class="card-title">You take a platform fee</div>
+          <p>
+            When the task is successfully completed and confirmed, the platform collects a fee
+            (e.g. 20–35%) and releases the rest to the freelancer.
+          </p>
         </div>
       </div>
     </section>
 
+    <!-- Categories -->
+    <section class="section" id="marketplace">
+      <div class="section-header">
+        <div>
+          <div class="section-title">Popular AI task categories</div>
+          <div class="section-sub">
+            You can highlight specific categories and featured offers on your homepage – clients
+            see real examples, freelancers know what sells.
+          </div>
+          <div class="pill-row">
+            <span class="pill">Copy & content with AI</span>
+            <span class="pill">AI images & social creatives</span>
+            <span class="pill">Automation & data cleanup</span>
+            <span class="pill">Video captions & shorts</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <div class="category-card">
+          <div class="chip">Writing · GPT-class models</div>
+          <div class="card-title">AI copy & content</div>
+          <p>
+            Blog rewrites, product descriptions, landing page copy, email sequences, LinkedIn posts –
+            structured and polished by AI, finalised by humans.
+          </p>
+        </div>
+
+        <div class="category-card">
+          <div class="chip">Images · Midjourney / others</div>
+          <div class="card-title">Visuals & creatives</div>
+          <p>
+            Product photos, ad creatives, social feed images, simple brand illustrations – generated
+            with AI and curated by freelancers.
+          </p>
+        </div>
+
+        <div class="category-card">
+          <div class="chip">Automation · Scripts & tools</div>
+          <div class="card-title">Automation & data</div>
+          <p>
+            Spreadsheet cleanup, lead lists, customer segment exports, simple scrapers, lightweight
+            workflows powered by AI and code.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sample marketplace cards -->
+    <section class="section">
+      <div class="section-header">
+        <div>
+          <div class="section-title">Example offers on AIWorkHub</div>
+          <div class="section-sub">
+            These are the kinds of listings you can allow freelancers to create. Each one has a clear
+            scope, a starting price, and tags describing the AI tools they use.
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <div class="market-card">
+          <div class="card-title">“Rewrite your website copy using AI”</div>
+          <p>
+            I’ll take up to 5 website pages and rewrite them using GPT-class models, keeping your tone
+            but improving clarity and conversions.
+          </p>
+          <div class="pill-row" style="margin-top:6px;">
+            <span class="pill">GPT-4 class</span>
+            <span class="pill">Landing pages</span>
+          </div>
+          <div class="market-card-price">From $45 per project</div>
+          <div class="market-meta">Platform fee: you keep 70–80% · AIWorkHub keeps 20–30%</div>
+        </div>
+
+        <div class="market-card">
+          <div class="card-title">“AI-enhanced product image pack”</div>
+          <p>
+            I’ll generate or enhance 15–25 product images for your ecommerce store using AI,
+            including simple backgrounds and lighting tweaks.
+          </p>
+          <div class="pill-row" style="margin-top:6px;">
+            <span class="pill">Midjourney / SD</span>
+            <span class="pill">Ecommerce</span>
+          </div>
+          <div class="market-card-price">From $35 per pack</div>
+          <div class="market-meta">Fast delivery: 48–72h for most stores</div>
+        </div>
+
+        <div class="market-card">
+          <div class="card-title">“Spreadsheet cleanup + AI summaries”</div>
+          <p>
+            I’ll clean your messy CSV/Excel, remove duplicates, fix formats and produce AI-generated
+            summaries of key metrics in plain English.
+          </p>
+          <div class="pill-row" style="margin-top:6px;">
+            <span class="pill">Automation</span>
+            <span class="pill">Data cleanup</span>
+          </div>
+          <div class="market-card-price">From $60 per dataset</div>
+          <div class="market-meta">Ideal for small businesses and marketing teams</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Freelancer section -->
+    <section class="section" id="freelancers">
+      <div class="section-header">
+        <div>
+          <div class="section-title">Earn as an AI freelancer on AIWorkHub</div>
+          <div class="section-sub">
+            You don’t need to be a celebrity creator. If you can reliably use AI tools to deliver real
+            work, you can earn from clients in the US, UK and EU.
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <div class="step-card">
+          <div class="card-title">Who it’s for</div>
+          <p>
+            People comfortable using AI for tasks like writing, image generation, summaries, data cleanup
+            or simple automations. A laptop and reliable internet is enough.
+          </p>
+        </div>
+        <div class="step-card">
+          <div class="card-title">How you earn</div>
+          <p>
+            You create clear offers with fixed starting prices. When clients order and work is completed,
+            you get paid and AIWorkHub takes a platform fee.
+          </p>
+        </div>
+        <div class="step-card">
+          <div class="card-title">Why clients choose AIWorkHub</div>
+          <p>
+            They don’t want to “learn all the AI tools”. They want outcomes: content, assets and cleaned
+            data – delivered by real humans who know how to drive AI.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-band">
+      <div class="cta-text">
+        <strong>Ready to test the idea?</strong>  
+        Use this site as your AIWorkHub landing page: invite a few AI freelancers, list their services,
+        and route clients through chat or email while you validate demand and your ideal fee structure.
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;">
+        <a href="#freelancers" class="btn-primary" style="font-size:13px;padding:8px 18px;">
+          Onboard first AI freelancers
+        </a>
+        <a href="#marketplace" class="btn-secondary" style="font-size:12px;">
+          View marketplace examples
+        </a>
+      </div>
+    </section>
+
     <footer>
-      <div>© <span id="year"></span> LegalDocs AI · ContractHero for Business Contracts</div>
+      <div>© <span id="year"></span> AIWorkHub · Concept: AI-powered freelance marketplace</div>
       <div>
-        <a class="footer-link" href="#how-it-works">How it works</a> ·
-        <a class="footer-link" href="#get-started">Who it’s for</a> ·
-        <span style="opacity:.7;">Not a law firm. No attorney-client relationship.</span>
+        <a href="#how-it-works" class="footer-link">How it works</a> ·
+        <a href="#freelancers" class="footer-link">For AI freelancers</a> ·
+        <span style="opacity:.75;">You control pricing. Platform fee only when work is completed.</span>
       </div>
     </footer>
   </div>
 
   <script>
-    // 自动显示当前年份
-    document.getElementById('year').textContent = new Date().getFullYear();
+    document.getElementById("year").textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
