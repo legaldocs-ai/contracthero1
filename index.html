@@ -1,0 +1,1704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ContractHero AI – Instant Legal-Style Contracts</title>
+  <meta name="description" content="Create lawyer-style contracts and business documents in 30 seconds with ContractHero AI. NDAs, Service Agreements, Lease contracts, employment documents and more." />
+  <style>
+    :root {
+      --bg: #060814;
+      --bg-soft: #0d1020;
+      --bg-card: #121528;
+      --accent: #4f8dff;
+      --accent-soft: rgba(79, 141, 255, 0.12);
+      --accent-strong: #2c6bff;
+      --text-main: #f5f7ff;
+      --text-soft: #a8b0d8;
+      --border-soft: #252a40;
+      --danger: #ff5d8c;
+      --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.55);
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-pill: 999px;
+      --transition-fast: 0.18s ease-out;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #151a30 0, #050712 55%);
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    /* Layout */
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background:
+        radial-gradient(circle at 10% 0, rgba(79, 141, 255, 0.15), transparent 60%),
+        radial-gradient(circle at 90% 0, rgba(153, 85, 255, 0.18), transparent 60%),
+        linear-gradient(180deg, #050712, #02030a);
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 18px;
+    }
+
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(14px);
+      background: linear-gradient(to bottom, rgba(2, 3, 12, 0.96), rgba(2, 3, 12, 0.85), transparent);
+      border-bottom: 1px solid rgba(53, 61, 103, 0.6);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 14px;
+      background: conic-gradient(from 190deg, #4f8dff, #9b6bff, #ff7aa2, #4f8dff);
+      box-shadow: 0 0 22px rgba(79, 141, 255, 0.68);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 700;
+      color: #f7f8ff;
+    }
+
+    .logo-text-main {
+      font-weight: 650;
+      letter-spacing: 0.03em;
+      font-size: 17px;
+    }
+
+    .logo-text-sub {
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      font-size: 14px;
+      color: var(--text-soft);
+    }
+
+    .nav-links a {
+      position: relative;
+      padding-bottom: 2px;
+      cursor: pointer;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      width: 0;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #4f8dff, #b473ff);
+      transition: width var(--transition-fast);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-cta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn {
+      border-radius: var(--radius-pill);
+      padding: 8px 18px;
+      font-size: 14px;
+      font-weight: 500;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast),
+        background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+      background: transparent;
+      color: var(--text-main);
+    }
+
+    .btn-outline {
+      border-color: rgba(165, 174, 220, 0.4);
+      color: var(--text-soft);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--accent);
+      color: var(--text-main);
+      box-shadow: 0 0 18px rgba(79, 141, 255, 0.45);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+      box-shadow: 0 18px 36px rgba(31, 79, 196, 0.55);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 20px 40px rgba(31, 79, 196, 0.7);
+    }
+
+    .btn-sm {
+      padding: 6px 14px;
+      font-size: 13px;
+    }
+
+    .mobile-menu-toggle {
+      display: none;
+      border: none;
+      background: transparent;
+      color: var(--text-main);
+      font-size: 22px;
+      cursor: pointer;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 42px 0 40px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: 32px;
+      align-items: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 10px 5px 5px;
+      border-radius: 999px;
+      background: rgba(7, 17, 60, 0.85);
+      border: 1px solid rgba(101, 124, 209, 0.8);
+      margin-bottom: 16px;
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    .hero-badge-pill {
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: linear-gradient(120deg, rgba(79, 141, 255, 0.9), rgba(180, 115, 255, 0.9));
+      font-size: 10px;
+      font-weight: 600;
+      color: #050715;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .hero-title {
+      font-size: 32px;
+      line-height: 1.1;
+      letter-spacing: 0.02em;
+      margin-bottom: 16px;
+    }
+
+    .hero-title span.gradient {
+      background: linear-gradient(120deg, #9bb6ff, #ffffff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 14px;
+      color: var(--text-soft);
+      max-width: 480px;
+      margin-bottom: 22px;
+    }
+
+    .hero-cta-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+
+    .hero-note {
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    .hero-note strong {
+      color: #e8ecff;
+    }
+
+    .hero-trust {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-top: 10px;
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    .hero-avatars {
+      display: flex;
+      align-items: center;
+    }
+
+    .hero-avatar {
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      border: 1px solid #13162a;
+      background: linear-gradient(145deg, #3b4c91, #15172c);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      margin-left: -6px;
+      box-shadow: 0 0 0 1px #050714;
+    }
+
+    .hero-avatar:first-child {
+      margin-left: 0;
+    }
+
+    .hero-avatars span.more {
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      background: rgba(20, 26, 53, 0.85);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: var(--text-soft);
+      margin-left: -6px;
+      box-shadow: 0 0 0 1px #050714;
+    }
+
+    .hero-right {
+      position: relative;
+    }
+
+    .hero-card {
+      background: radial-gradient(circle at top left, #283369, #111325 55%, #080919);
+      border-radius: 22px;
+      padding: 18px 18px 16px;
+      border: 1px solid rgba(95, 117, 209, 0.35);
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .hero-card-title {
+      font-size: 13px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hero-card-pill {
+      font-size: 11px;
+      padding: 3px 7px;
+      border-radius: 999px;
+      background: rgba(11, 19, 55, 0.9);
+      border: 1px solid rgba(122, 143, 225, 0.8);
+      color: var(--text-soft);
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #4bffb4;
+      box-shadow: 0 0 12px rgba(75, 255, 180, 0.8);
+    }
+
+    .hero-card-body {
+      font-size: 12px;
+      margin-bottom: 14px;
+    }
+
+    .hero-card-grid {
+      display: grid;
+      gap: 8px;
+      margin-top: 10px;
+      margin-bottom: 6px;
+    }
+
+    .field-label {
+      font-size: 11px;
+      color: var(--text-soft);
+      margin-bottom: 3px;
+    }
+
+    .field-pill {
+      padding: 7px 9px;
+      border-radius: 10px;
+      background: rgba(6, 9, 27, 0.9);
+      border: 1px solid rgba(88, 104, 182, 0.6);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+    }
+
+    .field-pill span.value {
+      color: #f4f6ff;
+    }
+
+    .field-pill span.tag {
+      font-size: 10px;
+      padding: 3px 6px;
+      border-radius: 999px;
+      background: rgba(26, 206, 124, 0.12);
+      color: #8ef7c7;
+    }
+
+    .hero-card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 6px;
+    }
+
+    .hero-card-kpi {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      font-size: 11px;
+    }
+
+    .hero-card-kpi span.value {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .hero-card-kpi span.up {
+      color: #7bffb4;
+      font-size: 10px;
+    }
+
+    .hero-card-btn {
+      border-radius: var(--radius-pill);
+      border: none;
+      padding: 8px 14px;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      background: linear-gradient(135deg, #4f8dff, #8a63ff);
+      color: #050712;
+      box-shadow: 0 12px 24px rgba(34, 74, 190, 0.7);
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+    }
+
+    .hero-card-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 16px 32px rgba(34, 74, 190, 0.85);
+    }
+
+    .hero-tag-floater {
+      position: absolute;
+      right: -10px;
+      bottom: 10px;
+      background: rgba(4, 8, 30, 0.95);
+      border-radius: 999px;
+      border: 1px solid rgba(121, 139, 223, 0.7);
+      padding: 6px 12px;
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-soft);
+      backdrop-filter: blur(8px);
+    }
+
+    .hero-tag-floater span.dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #ffda7b;
+      box-shadow: 0 0 10px rgba(255, 218, 123, 0.8);
+    }
+
+    /* Trusted strip */
+    .trusted-strip {
+      padding: 4px 0 22px;
+    }
+
+    .trusted-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 32px;
+      align-items: center;
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    .trusted-label {
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-size: 10px;
+      opacity: 0.9;
+    }
+
+    .trusted-logos {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .pill-logo {
+      font-size: 11px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: rgba(13, 19, 53, 0.9);
+      border: 1px solid rgba(60, 75, 137, 0.8);
+      color: var(--text-soft);
+    }
+
+    /* Sections */
+    section {
+      padding: 32px 0;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    .section-subtitle {
+      font-size: 12px;
+      color: var(--text-soft);
+      max-width: 420px;
+    }
+
+    .section-tag {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(82, 98, 169, 0.85);
+      color: var(--text-soft);
+      background: rgba(11, 16, 40, 0.9);
+    }
+
+    /* How it works */
+    .how-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .step-card {
+      background: rgba(9, 13, 33, 0.95);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      border: 1px solid rgba(47, 59, 111, 0.9);
+      box-shadow: 0 16px 28px rgba(0, 0, 0, 0.55);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .step-id {
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      background: rgba(78, 110, 219, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      box-shadow: 0 0 18px rgba(91, 129, 235, 0.9);
+    }
+
+    .step-title {
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+
+    .step-text {
+      font-size: 12px;
+      color: var(--text-soft);
+      margin-bottom: 8px;
+    }
+
+    .step-meta {
+      font-size: 11px;
+      color: #d5defb;
+      opacity: 0.9;
+    }
+
+    /* Documents */
+    .docs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .doc-card {
+      background: linear-gradient(145deg, rgba(11, 16, 40, 0.98), rgba(10, 18, 60, 0.98));
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(54, 73, 152, 0.9);
+      padding: 14px 13px 13px;
+      font-size: 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 138px;
+      box-shadow: 0 14px 26px rgba(0, 0, 0, 0.6);
+    }
+
+    .doc-type-pill {
+      font-size: 10px;
+      padding: 3px 7px;
+      border-radius: 999px;
+      background: rgba(35, 48, 109, 0.9);
+      color: var(--text-soft);
+      margin-bottom: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .doc-title {
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    .doc-text {
+      font-size: 11px;
+      color: var(--text-soft);
+      margin-bottom: 10px;
+    }
+
+    .doc-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .doc-meta {
+      font-size: 10px;
+      color: var(--text-soft);
+    }
+
+    .doc-btn {
+      font-size: 11px;
+      border-radius: 999px;
+      padding: 5px 10px;
+      border: 1px solid rgba(102, 135, 245, 0.95);
+      background: rgba(7, 13, 40, 0.96);
+      color: #dfe6ff;
+      cursor: pointer;
+      transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+      white-space: nowrap;
+    }
+
+    .doc-btn:hover {
+      background: linear-gradient(135deg, #4f8dff, #8a63ff);
+      transform: translateY(-1px);
+      box-shadow: 0 0 18px rgba(79, 141, 255, 0.8);
+    }
+
+    /* Pricing */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .price-card {
+      background: radial-gradient(circle at top, #293260, #0b0f21 60%);
+      border-radius: var(--radius-lg);
+      padding: 18px 16px 16px;
+      border: 1px solid rgba(66, 91, 185, 0.95);
+      box-shadow: 0 18px 36px rgba(0, 0, 0, 0.7);
+      position: relative;
+    }
+
+    .price-card.popular {
+      border-color: #ffda7b;
+      box-shadow: 0 24px 50px rgba(255, 218, 123, 0.25);
+    }
+
+    .price-popular-tag {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      font-size: 10px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(255, 218, 123, 0.16);
+      color: #ffda7b;
+      border: 1px solid rgba(255, 218, 123, 0.7);
+    }
+
+    .price-name {
+      font-size: 14px;
+      font-weight: 550;
+      margin-bottom: 3px;
+    }
+
+    .price-desc {
+      font-size: 11px;
+      color: var(--text-soft);
+      margin-bottom: 10px;
+    }
+
+    .price-value {
+      font-size: 22px;
+      font-weight: 650;
+      margin-bottom: 2px;
+    }
+
+    .price-cycle {
+      font-size: 11px;
+      color: var(--text-soft);
+      margin-bottom: 10px;
+    }
+
+    .price-features {
+      list-style: none;
+      font-size: 11px;
+      color: var(--text-soft);
+      margin-bottom: 10px;
+    }
+
+    .price-features li {
+      margin-bottom: 4px;
+      display: flex;
+      gap: 6px;
+      align-items: flex-start;
+    }
+
+    .price-features span.bullet {
+      font-size: 13px;
+      line-height: 1;
+      margin-top: 1px;
+    }
+
+    .price-btn {
+      border-radius: 999px;
+      border: 1px solid rgba(82, 113, 230, 0.95);
+      background: rgba(10, 16, 45, 0.98);
+      color: #e3e8ff;
+      font-size: 12px;
+      padding: 7px 13px;
+      cursor: pointer;
+      transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+      width: 100%;
+      text-align: center;
+    }
+
+    .price-card.popular .price-btn {
+      background: linear-gradient(135deg, #4f8dff, #8a63ff);
+      box-shadow: 0 18px 32px rgba(34, 74, 190, 0.8);
+      border-color: transparent;
+    }
+
+    .price-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 26px rgba(18, 36, 110, 0.85);
+    }
+
+    /* Testimonials */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .testimonial-card {
+      background: rgba(8, 12, 30, 0.96);
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(51, 67, 138, 0.9);
+      padding: 13px 13px 12px;
+      font-size: 11px;
+      box-shadow: 0 14px 26px rgba(0, 0, 0, 0.6);
+    }
+
+    .testimonial-quote {
+      color: var(--text-soft);
+      margin-bottom: 10px;
+    }
+
+    .testimonial-author {
+      font-size: 11px;
+      color: #e4e8ff;
+      font-weight: 500;
+    }
+
+    .testimonial-role {
+      font-size: 10px;
+      color: var(--text-soft);
+    }
+
+    /* FAQ */
+    .faq-list {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(53, 67, 138, 0.9);
+      background: rgba(7, 11, 30, 0.95);
+      box-shadow: 0 18px 36px rgba(0, 0, 0, 0.7);
+      overflow: hidden;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid rgba(39, 50, 100, 0.9);
+    }
+
+    .faq-item:last-child {
+      border-bottom: none;
+    }
+
+    .faq-question {
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+
+    .faq-question span {
+      font-weight: 500;
+    }
+
+    .faq-toggle {
+      width: 20px;
+      height: 20px;
+      border-radius: 999px;
+      border: 1px solid rgba(81, 103, 195, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      color: var(--text-soft);
+    }
+
+    .faq-answer {
+      padding: 0 14px 10px;
+      font-size: 11px;
+      color: var(--text-soft);
+      display: none;
+    }
+
+    .faq-item.open .faq-answer {
+      display: block;
+    }
+
+    /* CTA banner */
+    .cta-banner {
+      margin-top: 12px;
+      border-radius: 20px;
+      padding: 18px 16px;
+      background: radial-gradient(circle at top left, rgba(67, 105, 255, 0.4), rgba(9, 12, 28, 0.98));
+      border: 1px solid rgba(116, 138, 241, 0.9);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      box-shadow: 0 18px 42px rgba(15, 35, 117, 0.85);
+    }
+
+    .cta-text-main {
+      font-size: 16px;
+      font-weight: 550;
+      margin-bottom: 4px;
+    }
+
+    .cta-text-sub {
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid rgba(41, 51, 101, 0.9);
+      margin-top: 32px;
+      padding: 16px 0 22px;
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    .footer-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 24px;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .footer-links a {
+      opacity: 0.8;
+    }
+
+    .footer-links a:hover {
+      opacity: 1;
+      text-decoration: underline;
+    }
+
+    /* Modal (Generate Document) */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(2, 3, 12, 0.82);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+      padding: 18px;
+    }
+
+    .modal {
+      background: radial-gradient(circle at top, #262f66, #050814 70%);
+      border-radius: 20px;
+      border: 1px solid rgba(103, 129, 234, 0.95);
+      max-width: 420px;
+      width: 100%;
+      padding: 18px 18px 16px;
+      box-shadow: 0 26px 60px rgba(0, 0, 0, 0.85);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .modal-title {
+      font-size: 15px;
+      font-weight: 550;
+    }
+
+    .modal-close {
+      border-radius: 999px;
+      width: 24px;
+      height: 24px;
+      border: 1px solid rgba(125, 141, 221, 0.9);
+      background: rgba(7, 10, 32, 0.96);
+      color: var(--text-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .modal-body {
+      font-size: 12px;
+      color: var(--text-soft);
+      margin-bottom: 10px;
+    }
+
+    .form-field {
+      margin-bottom: 10px;
+    }
+
+    .form-label {
+      font-size: 11px;
+      margin-bottom: 4px;
+      color: var(--text-soft);
+      display: block;
+    }
+
+    .form-input,
+    .form-select {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid rgba(88, 112, 211, 0.9);
+      background: rgba(5, 8, 26, 0.96);
+      color: #f3f5ff;
+      font-size: 12px;
+      padding: 8px 9px;
+      outline: none;
+    }
+
+    .form-input::placeholder {
+      color: #6f78a9;
+    }
+
+    .form-help {
+      font-size: 10px;
+      color: var(--text-soft);
+      margin-top: 2px;
+    }
+
+    .modal-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .modal-note {
+      font-size: 10px;
+      color: var(--text-soft);
+    }
+
+    .btn-solid {
+      border-radius: 999px;
+      border: none;
+      padding: 8px 14px;
+      font-size: 12px;
+      font-weight: 500;
+      background: linear-gradient(135deg, #4f8dff, #8a63ff);
+      color: #050712;
+      cursor: pointer;
+      box-shadow: 0 16px 32px rgba(34, 74, 190, 0.8);
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+    }
+
+    .btn-solid:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 20px 40px rgba(34, 74, 190, 0.95);
+    }
+
+    /* Responsive */
+    @media (max-width: 880px) {
+      .hero-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .hero {
+        padding-top: 26px;
+      }
+
+      .hero-right {
+        order: -1;
+      }
+
+      .docs-grid,
+      .pricing-grid,
+      .how-grid,
+      .testimonials-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 720px) {
+      .nav-links {
+        display: none;
+      }
+      .nav-cta {
+        display: none;
+      }
+      .mobile-menu-toggle {
+        display: block;
+      }
+      .mobile-nav {
+        display: none;
+        padding-bottom: 12px;
+      }
+      .mobile-nav.open {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        font-size: 14px;
+        color: var(--text-soft);
+      }
+      .mobile-nav a {
+        padding: 3px 0;
+      }
+      .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      header {
+        border-bottom-color: rgba(29, 39, 86, 0.9);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <!-- Header -->
+    <header>
+      <div class="container">
+        <nav class="nav">
+          <div class="logo">
+            <div class="logo-icon">C</div>
+            <div>
+              <div class="logo-text-main">ContractHero AI</div>
+              <div class="logo-text-sub">Instant legal-style documents</div>
+            </div>
+          </div>
+          <div class="nav-links">
+            <a data-scroll-target="#features">Features</a>
+            <a data-scroll-target="#documents">Documents</a>
+            <a data-scroll-target="#pricing">Pricing</a>
+            <a data-scroll-target="#faq">FAQ</a>
+          </div>
+          <div class="nav-cta">
+            <button class="btn btn-outline">Log in</button>
+            <button class="btn btn-primary" data-open-modal>Start free</button>
+          </div>
+          <button class="mobile-menu-toggle" id="mobileMenuToggle">☰</button>
+        </nav>
+        <div class="mobile-nav" id="mobileNav">
+          <a data-scroll-target="#features">Features</a>
+          <a data-scroll-target="#documents">Documents</a>
+          <a data-scroll-target="#pricing">Pricing</a>
+          <a data-scroll-target="#faq">FAQ</a>
+          <a href="#">Log in</a>
+          <a href="#" data-open-modal>Start free</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero -->
+    <main>
+      <section class="hero">
+        <div class="container">
+          <div class="hero-grid">
+            <div class="hero-left">
+              <div class="hero-badge">
+                <span class="hero-badge-pill">New</span>
+                <span>Generate NDAs, service agreements & leases in seconds.</span>
+              </div>
+              <h1 class="hero-title">
+                <span class="gradient">Instant, lawyer-style contracts</span><br />
+                for small businesses & consultants.
+              </h1>
+              <p class="hero-subtitle">
+                ContractHero AI lets you create tailored NDAs, service agreements, leases and employment documents in under 30 seconds. No legal jargon, no generic templates.
+              </p>
+              <div class="hero-cta-row">
+                <button class="btn btn-primary" data-open-modal>Start free – no card needed</button>
+                <button class="btn btn-outline btn-sm" data-scroll-target="#documents">Browse example contracts</button>
+              </div>
+              <div class="hero-note">
+                <strong>Not a law firm.</strong> We help you generate business documents – you remain in control.
+              </div>
+              <div class="hero-trust">
+                <div class="hero-avatars">
+                  <div class="hero-avatar">B</div>
+                  <div class="hero-avatar">R</div>
+                  <div class="hero-avatar">L</div>
+                  <span class="more">+37</span>
+                </div>
+                <div>Trusted by consultants, agencies and property owners.</div>
+              </div>
+            </div>
+
+            <div class="hero-right">
+              <div class="hero-card">
+                <div class="hero-card-header">
+                  <div class="hero-card-title">
+                    <span>New contract draft</span>
+                    <span class="hero-card-pill">AI assisted</span>
+                  </div>
+                  <div class="status-dot"></div>
+                </div>
+                <div class="hero-card-body">
+                  <div class="field-label">Document type</div>
+                  <div class="field-pill">
+                    <span class="value">Service Agreement • US</span>
+                    <span class="tag">Ready in 12 sec</span>
+                  </div>
+
+                  <div class="hero-card-grid">
+                    <div>
+                      <div class="field-label">Your role</div>
+                      <div class="field-pill">
+                        <span class="value">Consultant</span>
+                        <span class="tag">Liability limited</span>
+                      </div>
+                    </div>
+                    <div>
+                      <div class="field-label">Client name</div>
+                      <div class="field-pill">
+                        <span class="value">BrightSide Marketing LLC</span>
+                        <span class="tag">Autofilled</span>
+                      </div>
+                    </div>
+                    <div>
+                      <div class="field-label">Payment terms</div>
+                      <div class="field-pill">
+                        <span class="value">Net 14 • 30% upfront</span>
+                        <span class="tag">Best practice</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="hero-card-footer">
+                    <div class="hero-card-kpi">
+                      <span class="value">00:12</span>
+                      <span>Estimated draft time</span>
+                      <span class="up">3× faster than manual editing</span>
+                    </div>
+                    <button class="hero-card-btn" data-open-modal>Generate contract</button>
+                  </div>
+                </div>
+                <div class="hero-tag-floater">
+                  <span class="dot"></span>
+                  <span>Includes jurisdiction & governing law clause</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="trusted-strip">
+            <div class="trusted-row">
+              <div class="trusted-label">Trusted by</div>
+              <div class="trusted-logos">
+                <div class="pill-logo">Consultants & coaches</div>
+                <div class="pill-logo">Marketing agencies</div>
+                <div class="pill-logo">Property owners</div>
+                <div class="pill-logo">Freelancers & creators</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Features / How it works -->
+      <section id="features">
+        <div class="container">
+          <div class="section-header">
+            <div>
+              <div class="section-title">How ContractHero AI works</div>
+              <div class="section-subtitle">
+                Skip the confusing templates. Answer a few plain-English questions and let AI assemble a tailored document – with the clauses business owners expect.
+              </div>
+            </div>
+            <div class="section-tag">Built for US, UK & EU businesses</div>
+          </div>
+
+          <div class="how-grid">
+            <div class="step-card">
+              <div class="step-id">1</div>
+              <div class="step-title">Choose your document</div>
+              <div class="step-text">
+                Select NDAs, service agreements, lease contracts, employment letters and more from our growing catalog of business documents.
+              </div>
+              <div class="step-meta">20+ contract types included from day one.</div>
+            </div>
+            <div class="step-card">
+              <div class="step-id">2</div>
+              <div class="step-title">Answer simple questions</div>
+              <div class="step-text">
+                We ask what matters: parties, payment, scope, term, termination and governing law – no legal terminology required.
+              </div>
+              <div class="step-meta">Your inputs are stored securely & can be reused.</div>
+            </div>
+            <div class="step-card">
+              <div class="step-id">3</div>
+              <div class="step-title">Download & reuse instantly</div>
+              <div class="step-text">
+                Get a clean, structured document in minutes. Export to Word, PDF or copy-paste into your own template and adjust as needed.
+              </div>
+              <div class="step-meta">You stay in control. We just save you hours.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Documents -->
+      <section id="documents">
+        <div class="container">
+          <div class="section-header">
+            <div>
+              <div class="section-title">High-value contracts, ready in seconds</div>
+              <div class="section-subtitle">
+                Start with the documents that normally cost hundreds per draft. ContractHero AI helps you generate business-grade versions in a fraction of the time.
+              </div>
+            </div>
+            <div class="section-tag">No generic templates</div>
+          </div>
+
+          <div class="docs-grid">
+            <div class="doc-card">
+              <div>
+                <div class="doc-type-pill"><span>Business</span> • NDA</div>
+                <div class="doc-title">Mutual Non-Disclosure Agreement</div>
+                <div class="doc-text">
+                  Standard NDA for protecting confidential information between two parties, with governing law & non-solicitation options.
+                </div>
+              </div>
+              <div class="doc-footer">
+                <div class="doc-meta">Avg. draft time: 18 sec</div>
+                <button class="doc-btn" data-open-modal>Generate NDA</button>
+              </div>
+            </div>
+
+            <div class="doc-card">
+              <div>
+                <div class="doc-type-pill"><span>Service</span> • Agreement</div>
+                <div class="doc-title">Consulting / Service Agreement</div>
+                <div class="doc-text">
+                  Define scope, milestones, payment, IP ownership and liability limitations in clear, business-friendly language.
+                </div>
+              </div>
+              <div class="doc-footer">
+                <div class="doc-meta">Popular with agencies & coaches</div>
+                <button class="doc-btn" data-open-modal>Create service contract</button>
+              </div>
+            </div>
+
+            <div class="doc-card">
+              <div>
+                <div class="doc-type-pill"><span>Real estate</span> • Lease</div>
+                <div class="doc-title">Residential Lease Agreement</div>
+                <div class="doc-text">
+                  Generate leases with rent, deposit, pets, maintenance and termination clauses tailored to your property and tenants.
+                </div>
+              </div>
+              <div class="doc-footer">
+                <div class="doc-meta">Landlords & property managers</div>
+                <button class="doc-btn" data-open-modal>Draft lease</button>
+              </div>
+            </div>
+
+            <div class="doc-card">
+              <div>
+                <div class="doc-type-pill"><span>Employment</span> • HR</div>
+                <div class="doc-title">Employment Contract & Offer Letter</div>
+                <div class="doc-text">
+                  Create compliant offer letters and employment contracts with probation periods, bonus schemes and confidentiality clauses.
+                </div>
+              </div>
+              <div class="doc-footer">
+                <div class="doc-meta">Great for growing teams</div>
+                <button class="doc-btn" data-open-modal>Create employment doc</button>
+              </div>
+            </div>
+
+            <div class="doc-card">
+              <div>
+                <div class="doc-type-pill"><span>Online</span> • Website</div>
+                <div class="doc-title">Website Terms & Privacy Policy</div>
+                <div class="doc-text">
+                  Generate clear terms of service and privacy policies for your website, SaaS or online store in minutes.
+                </div>
+              </div>
+              <div class="doc-footer">
+                <div class="doc-meta">Ideal for new online businesses</div>
+                <button class="doc-btn" data-open-modal>Draft website terms</button>
+              </div>
+            </div>
+
+            <div class="doc-card">
+              <div>
+                <div class="doc-type-pill"><span>Company</span> • LLC</div>
+                <div class="doc-title">LLC Operating Agreement</div>
+                <div class="doc-text">
+                  Outline ownership, profit distribution, decision-making and exit scenarios for your US limited liability company.
+                </div>
+              </div>
+              <div class="doc-footer">
+                <div class="doc-meta">Peace of mind for co-founders</div>
+                <button class="doc-btn" data-open-modal>Build operating agreement</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Pricing -->
+      <section id="pricing">
+        <div class="container">
+          <div class="section-header">
+            <div>
+              <div class="section-title">Simple pricing for serious businesses</div>
+              <div class="section-subtitle">
+                Pay once for a single document, or keep ContractHero AI on call with a monthly or annual subscription. Cancel anytime, keep every contract you’ve already generated.
+              </div>
+            </div>
+            <div class="section-tag">Start free • upgrade when ready</div>
+          </div>
+
+          <div class="pricing-grid">
+            <div class="price-card">
+              <div class="price-name">Single document</div>
+              <div class="price-desc">Perfect when you just need one contract done right.</div>
+              <div class="price-value">$29</div>
+              <div class="price-cycle">One-time • per document</div>
+              <ul class="price-features">
+                <li><span class="bullet">•</span> Generate 1 full contract of your choice</li>
+                <li><span class="bullet">•</span> Word & PDF export included</li>
+                <li><span class="bullet">•</span> 7 days of free edits</li>
+              </ul>
+              <button class="price-btn" data-open-modal>Get started with 1 document</button>
+            </div>
+
+            <div class="price-card popular">
+              <div class="price-popular-tag">Most popular</div>
+              <div class="price-name">Business Pro</div>
+              <div class="price-desc">For consultants, agencies and property owners who draft monthly.</div>
+              <div class="price-value">$49</div>
+              <div class="price-cycle">Per month • cancel anytime</div>
+              <ul class="price-features">
+                <li><span class="bullet">•</span> Unlimited contracts & revisions</li>
+                <li><span class="bullet">•</span> Full access to all 20+ document types</li>
+                <li><span class="bullet">•</span> Save & reuse your party details</li>
+                <li><span class="bullet">•</span> Priority support within 24 hours</li>
+              </ul>
+              <button class="price-btn" data-open-modal>Start free 7-day trial</button>
+            </div>
+
+            <div class="price-card">
+              <div class="price-name">Annual & teams</div>
+              <div class="price-desc">Best for teams, family offices and busy in-house counsel.</div>
+              <div class="price-value">$199</div>
+              <div class="price-cycle">Per year • up to 3 users</div>
+              <ul class="price-features">
+                <li><span class="bullet">•</span> Everything in Business Pro</li>
+                <li><span class="bullet">•</span> 3 team seats included</li>
+                <li><span class="bullet">•</span> Shared document library</li>
+                <li><span class="bullet">•</span> Priority roadmap requests</li>
+              </ul>
+              <button class="price-btn" data-open-modal>Talk to us about teams</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Testimonials -->
+      <section>
+        <div class="container">
+          <div class="section-header">
+            <div>
+              <div class="section-title">Used by people who sign things for a living</div>
+              <div class="section-subtitle">
+                ContractHero AI is built for the business owners who always end up being “the grown-up in the room” – the one who signs the contracts and takes the risk.
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonials-grid">
+            <div class="testimonial-card">
+              <div class="testimonial-quote">
+                “I used to copy-paste old contracts and pray I didn’t miss anything. Now I answer a few questions and I’m done in minutes. It feels like having an in-house legal team.”
+              </div>
+              <div class="testimonial-author">Mark L.</div>
+              <div class="testimonial-role">Owner, trucking company • Texas, USA</div>
+            </div>
+
+            <div class="testimonial-card">
+              <div class="testimonial-quote">
+                “As a marketing consultant I sign NDAs and service agreements every week. ContractHero keeps everything consistent and professional without me hiring a lawyer every time.”
+              </div>
+              <div class="testimonial-author">Sarah P.</div>
+              <div class="testimonial-role">Brand & marketing consultant • UK</div>
+            </div>
+
+            <div class="testimonial-card">
+              <div class="testimonial-quote">
+                “We manage several rental properties. Being able to adjust lease terms and generate a clean contract for each tenant has saved us hours on every new move-in.”
+              </div>
+              <div class="testimonial-author">James & Laura</div>
+              <div class="testimonial-role">Property owners • Florida, USA</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section id="faq">
+        <div class="container">
+          <div class="section-header">
+            <div>
+              <div class="section-title">Frequently asked questions</div>
+              <div class="section-subtitle">
+                Clear answers to the most common questions business owners ask before they move away from generic templates and into AI-assisted documents.
+              </div>
+            </div>
+            <div class="section-tag">Straightforward & transparent</div>
+          </div>
+
+          <div class="faq-list">
+            <div class="faq-item open">
+              <div class="faq-question">
+                <span>Are you a law firm or giving legal advice?</span>
+                <div class="faq-toggle">−</div>
+              </div>
+              <div class="faq-answer">
+                No. ContractHero AI is not a law firm and does not provide legal advice. We help you generate business documents using AI and standardized structures. You remain responsible for reviewing each document and, when needed, discussing it with your own attorney.
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question">
+                <span>Which countries do you support?</span>
+                <div class="faq-toggle">+</div>
+              </div>
+              <div class="faq-answer">
+                Right now we focus on English-language contracts commonly used in the United States, United Kingdom and European Union. Many documents are written in a way that can be adapted in other English-speaking countries, but you should always verify with a local professional if you are unsure.
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question">
+                <span>Can I edit the contracts after generating them?</span>
+                <div class="faq-toggle">+</div>
+              </div>
+              <div class="faq-answer">
+                Yes. Every contract can be exported to Word and PDF, or simply copy-pasted into your own format. You are free to edit, add or remove clauses as needed before signing.
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question">
+                <span>Is my data secure and private?</span>
+                <div class="faq-toggle">+</div>
+              </div>
+              <div class="faq-answer">
+                We only use your data to generate documents for you. Party details and contract drafts are stored securely and are never sold to third parties. You can request deletion of your data at any time.
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question">
+                <span>Can I cancel my subscription?</span>
+                <div class="faq-toggle">+</div>
+              </div>
+              <div class="faq-answer">
+                Yes, you can cancel anytime with a couple of clicks from inside your account. When you cancel, you keep every document you have already generated.
+              </div>
+            </div>
+          </div>
+
+          <div class="cta-banner">
+            <div>
+              <div class="cta-text-main">Ready to stop wrestling with old templates?</div>
+              <div class="cta-text-sub">
+                Start a free trial and generate your first NDA, service agreement or lease in the next 10 minutes. No credit card required to try it out.
+              </div>
+            </div>
+            <div>
+              <button class="btn btn-primary" data-open-modal>Start free – generate your first contract</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-row">
+          <div>© <span id="year"></span> ContractHero AI. All rights reserved.</div>
+          <div class="footer-links">
+            <a href="#">Terms</a>
+            <a href="#">Privacy</a>
+            <a href="#">Data & security</a>
+            <a href="#">Contact</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal-backdrop" id="modalBackdrop" aria-hidden="true">
+    <div class="modal">
+      <div class="modal-header">
+        <div>
+          <div class="modal-title">Generate your first contract</div>
+          <div class="modal-body">
+            Fill in a few details and we’ll guide you through creating a tailored document. This is a demo form – connect it to your backend or no-code tool to go live.
+          </div>
+        </div>
+        <button class="modal-close" id="modalClose">×</button>
+      </div>
+
+      <div>
+        <div class="form-field">
+          <label class="form-label" for="docType">Document type</label>
+          <select id="docType" class="form-select">
+            <option>Mutual NDA</option>
+            <option>Service / Consulting Agreement</option>
+            <option>Residential Lease Agreement</option>
+            <option>Employment Contract</option>
+            <option>Website Terms & Privacy</option>
+            <option>LLC Operating Agreement</option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label class="form-label" for="businessType">Your business / role</label>
+          <input id="businessType" class="form-input" placeholder="e.g. Marketing consultant, trucking company, property owner" />
+        </div>
+
+        <div class="form-field">
+          <label class="form-label" for="email">Work email</label>
+          <input id="email" class="form-input" type="email" placeholder="you@company.com" />
+          <div class="form-help">We’ll send you a secure link to access your draft.</div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <div class="modal-note">
+          By continuing, you agree this is information only and not legal advice.
+        </div>
+        <button class="btn-solid" id="modalSubmit">Continue</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Year in footer
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Smooth scroll
+    document.querySelectorAll("[data-scroll-target]").forEach(function (el) {
+      el.addEventListener("click", function () {
+        const target = document.querySelector(el.getAttribute("data-scroll-target"));
+        if (target) {
+          window.scrollTo({
+            top: target.offsetTop - 80,
+            behavior: "smooth",
+          });
+        }
+      });
+    });
+
+    // Mobile nav toggle
+    const mobileToggle = document.getElementById("mobileMenuToggle");
+    const mobileNav = document.getElementById("mobileNav");
+    if (mobileToggle && mobileNav) {
+      mobileToggle.addEventListener("click", function () {
+        mobileNav.classList.toggle("open");
+      });
+    }
+
+    // FAQ toggle
+    document.querySelectorAll(".faq-item").forEach(function (item) {
+      const question = item.querySelector(".faq-question");
+      const toggle = item.querySelector(".faq-toggle");
+      question.addEventListener("click", function () {
+        const isOpen = item.classList.contains("open");
+        document.querySelectorAll(".faq-item").forEach(function (i) {
+          i.classList.remove("open");
+          const t = i.querySelector(".faq-toggle");
+          if (t) t.textContent = "+";
+        });
+        if (!isOpen) {
+          item.classList.add("open");
+          if (toggle) toggle.textContent = "−";
+        }
+      });
+    });
+
+    // Modal logic
+    const modalBackdrop = document.getElementById("modalBackdrop");
+    const modalClose = document.getElementById("modalClose");
+    const modalSubmit = document.getElementById("modalSubmit");
+
+    function openModal() {
+      if (modalBackdrop) {
+        modalBackdrop.style.display = "flex";
+        modalBackdrop.setAttribute("aria-hidden", "false");
+      }
+    }
+
+    function closeModal() {
+      if (modalBackdrop) {
+        modalBackdrop.style.display = "none";
+        modalBackdrop.setAttribute("aria-hidden", "true");
+      }
+    }
+
+    document.querySelectorAll("[data-open-modal]").forEach(function (btn) {
+      btn.addEventListener("click", function (e) {
+        e.preventDefault();
+        openModal();
+      });
+    });
+
+    if (modalClose) {
+      modalClose.addEventListener("click", closeModal);
+    }
+
+    if (modalBackdrop) {
+      modalBackdrop.addEventListener("click", function (e) {
+        if (e.target === modalBackdrop) {
+          closeModal();
+        }
+      });
+    }
+
+    if (modalSubmit) {
+      modalSubmit.addEventListener("click", function () {
+        alert("In production, this button would send the form data to your backend or no-code workflow to generate the document.");
+        closeModal();
+      });
+    }
+  </script>
+</body>
+</html>
