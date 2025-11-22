@@ -1,173 +1,877 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AIFreelance Hub – AI-Powered Freelance Marketplace</title>
-    <link rel="icon" type="image/png" href="favicon32.png">
-    
-    <style>
-        :root {
-            --bg: #020617;
-            --card: #051225;
-            --highlight: #3aa0ff;
-            --text-main: #e5f0ff;
-            --text-soft: #9cb5d1;
-            --radius: 14px;
-            --btn-blue: linear-gradient(to right, #3b82f6, #2563eb);
-            --btn-green: linear-gradient(to right, #22c55e, #16a34a);
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AIFreelance Hub – AI-Powered Freelance Marketplace</title>
+  <meta name="description" content="AIFreelance Hub connects premium clients in the US, UK and EU with AI-powered freelancers for writing, design, data tasks and automation. Simple pricing and direct WhatsApp or email contact.">
+  <link rel="icon" type="image/png" href="favicon32.png" />
 
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: "Inter", sans-serif;
-            background: var(--bg);
-            color: var(--text-main);
-        }
+  <style>
+    :root {
+      --bg: #020617;
+      --bg-soft: #02091f;
+      --bg-card: #020b26;
+      --border-soft: rgba(148,163,184,0.4);
+      --accent: #38bdf8;
+      --accent-strong: #0ea5e9;
+      --accent-green: #22c55e;
+      --text-main: #e5f0ff;
+      --text-soft: #9ca3c7;
+      --shadow-soft: 0 24px 70px rgba(15,23,42,0.95);
+      --radius-xl: 26px;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-pill: 999px;
+      --transition-fast: 0.18s ease-out;
+      --transition-med: 0.28s ease-out;
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+    }
 
-        .container {
-            max-width: 760px;
-            margin: 80px auto;
-            background: var(--card);
-            padding: 40px;
-            border-radius: var(--radius);
-            box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
-        }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; }
+    body {
+      font-family:var(--font-main);
+      background:radial-gradient(circle at top,#0b1120 0,#020617 55%,#000 100%);
+      color:var(--text-main);
+      min-height:100vh;
+      overflow-x:hidden;
+      position:relative;
+    }
+    body::before{
+      content:"";
+      position:fixed;
+      inset:-40%;
+      background:
+        radial-gradient(circle at 10% 0%,rgba(59,130,246,.3) 0,transparent 45%),
+        radial-gradient(circle at 80% 0%,rgba(14,165,233,.35) 0,transparent 48%),
+        radial-gradient(circle at 15% 90%,rgba(168,85,247,.25) 0,transparent 50%);
+      mix-blend-mode:screen;
+      opacity:.85;
+      z-index:-2;
+      animation:bgPulse 22s linear infinite alternate;
+    }
+    @keyframes bgPulse{
+      0%{transform:translate3d(0,0,0) scale(1);filter:hue-rotate(0deg)}
+      50%{transform:translate3d(-2%,2%,0) scale(1.05);filter:hue-rotate(12deg)}
+      100%{transform:translate3d(2%,-2%,0) scale(1.03);filter:hue-rotate(-8deg)}
+    }
+    .page{max-width:1120px;margin:0 auto;padding:90px 18px 40px;position:relative;z-index:1}
 
-        .section-title {
-            font-size: 28px;
-            margin-bottom: 25px;
-            font-weight: 700;
-            color: var(--highlight);
-        }
+    .orb{
+      position:fixed;width:220px;height:220px;border-radius:999px;
+      background:radial-gradient(circle at 30% 20%,rgba(248,250,252,.9) 0,rgba(56,189,248,.3) 40%,rgba(15,23,42,0) 70%);
+      opacity:.16;filter:blur(.5px);pointer-events:none;z-index:-1;
+      animation:floatOrb 18s ease-in-out infinite alternate;
+    }
+    .orb--right{right:-30px;top:30%;animation-delay:-6s}
+    .orb--left{left:-80px;top:8%}
+    @keyframes floatOrb{
+      0%{transform:translateY(0) scale(1)}
+      50%{transform:translateY(-10px) scale(1.05)}
+      100%{transform:translateY(4px) scale(.97)}
+    }
 
-        .form-group {
-            margin-bottom: 22px;
-        }
+    /* === NAV === */
+    .nav-shell{
+      position:fixed;top:10px;left:0;right:0;z-index:20;
+      display:flex;justify-content:center;pointer-events:none;
+    }
+    .nav-bar{
+      pointer-events:auto;
+      width:100%;max-width:1120px;
+      padding:9px 14px;
+      border-radius:999px;
+      background:radial-gradient(circle at 0 0,rgba(59,130,246,.35) 0,rgba(15,23,42,.96) 40%,rgba(15,23,42,.98) 100%);
+      display:flex;align-items:center;justify-content:space-between;gap:16px;
+      border:1px solid rgba(148,163,184,.65);
+      box-shadow:0 18px 50px rgba(15,23,42,0.9);
+      backdrop-filter:blur(18px);
+    }
+    .nav-left{display:flex;align-items:center;gap:10px}
+    .logo-mark{
+      width:32px;height:32px;border-radius:12px;
+      background:conic-gradient(from 210deg,#22c55e,#0ea5e9,#6366f1,#22c55e);
+      padding:2px;display:flex;align-items:center;justify-content:center;
+      box-shadow:0 12px 30px rgba(15,23,42,.9);
+      animation:spinBorder 9s linear infinite;
+    }
+    .logo-inner{
+      width:100%;height:100%;border-radius:10px;
+      background:radial-gradient(circle at 30% 20%,#e0f2fe 0,#020617 55%);
+      display:flex;align-items:center;justify-content:center;
+      font-weight:800;font-size:16px;color:#020617;
+    }
+    @keyframes spinBorder{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
+    .logo-text-main{font-weight:650;letter-spacing:.08em;text-transform:uppercase;font-size:13px}
+    .logo-text-sub{font-size:11px;color:var(--text-soft)}
+    .nav-center{display:flex;align-items:center;gap:12px;font-size:12px}
+    .nav-link{
+      color:var(--text-soft);text-decoration:none;
+      padding:4px 9px;border-radius:999px;border:1px solid transparent;
+      transition:all var(--transition-fast);white-space:nowrap;
+    }
+    .nav-link:hover{
+      color:var(--text-main);
+      border-color:rgba(148,163,184,.85);
+      background:rgba(15,23,42,.95);
+    }
+    .nav-right{display:flex;align-items:center;gap:8px;font-size:12px}
+    .nav-pill{
+      padding:4px 9px;border-radius:999px;border:1px solid rgba(148,163,184,.6);
+      background:rgba(15,23,42,.96);color:var(--text-soft);
+      display:inline-flex;align-items:center;gap:6px;font-size:11px;
+    }
+    .nav-dot{
+      width:8px;height:8px;border-radius:999px;
+      background:var(--accent-green);box-shadow:0 0 14px rgba(34,197,94,.9);
+    }
+    .nav-btn{
+      border-radius:999px;padding:7px 16px;font-size:12px;font-weight:600;
+      border:none;cursor:pointer;background:linear-gradient(135deg,#38bdf8,#0ea5e9);
+      color:#020617;display:inline-flex;align-items:center;gap:6px;
+      box-shadow:0 16px 40px rgba(15,23,42,.95);text-decoration:none;
+      transition:transform var(--transition-fast),box-shadow var(--transition-fast),filter var(--transition-fast);
+      white-space:nowrap;
+    }
+    .nav-btn:hover{
+      transform:translateY(-1px);
+      box-shadow:0 22px 50px rgba(15,23,42,.98);
+      filter:brightness(1.05);
+    }
+    @media (max-width:880px){
+      .nav-center{display:none}
+      .nav-bar{padding-inline:12px}
+    }
 
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: var(--text-soft);
-            font-size: 15px;
-        }
+    /* === HERO === */
+    .hero{
+      display:grid;
+      grid-template-columns:minmax(0,3.1fr) minmax(0,2.4fr);
+      gap:26px;align-items:stretch;margin-bottom:26px;
+    }
+    @media (max-width:880px){.hero{grid-template-columns:minmax(0,1fr)}}
+    .hero-main{
+      background:radial-gradient(circle at 0 0,rgba(59,130,246,.18),transparent 55%),
+                 radial-gradient(circle at 80% 0,rgba(37,99,235,.16),transparent 60%),
+                 linear-gradient(140deg,#020617,#020817);
+      border-radius:var(--radius-xl);
+      padding:22px 22px 18px;
+      border:1px solid rgba(148,163,184,.5);
+      box-shadow:var(--shadow-soft);
+      position:relative;overflow:hidden;
+    }
+    .hero-main::before{
+      content:"";position:absolute;inset:-40%;
+      background:radial-gradient(circle at 10% 0,rgba(56,189,248,.25),transparent 60%);
+      opacity:.55;mix-blend-mode:screen;pointer-events:none;
+    }
+    .hero-inner{position:relative;z-index:1}
+    .hero-tag{
+      display:inline-flex;align-items:center;gap:6px;
+      border-radius:var(--radius-pill);padding:4px 10px;
+      font-size:11px;background:rgba(15,23,42,.85);
+      border:1px solid rgba(56,189,248,.55);
+      box-shadow:0 10px 26px rgba(15,23,42,.9);
+      margin-bottom:10px;
+    }
+    .hero-tag-pill{
+      border-radius:999px;padding:2px 8px;font-size:10px;
+      text-transform:uppercase;letter-spacing:.12em;
+      background:rgba(15,118,110,.22);color:#6ee7b7;
+    }
+    h1{font-size:clamp(26px,3vw,32px);line-height:1.15;margin-bottom:10px}
+    h1 span.accent{color:var(--accent-strong)}
+    .hero-sub{
+      font-size:14px;color:var(--text-soft);max-width:540px;
+      line-height:1.6;margin-bottom:16px;
+    }
+    .hero-actions{
+      display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:10px;
+    }
+    .btn-primary{
+      border-radius:var(--radius-pill);padding:9px 20px;border:none;
+      cursor:pointer;font-size:14px;font-weight:600;color:#0f172a;
+      background:linear-gradient(135deg,#38bdf8,#0ea5e9);
+      display:inline-flex;align-items:center;gap:8px;
+      box-shadow:0 18px 40px rgba(15,23,42,.9);
+      text-decoration:none;
+      transition:transform var(--transition-fast),box-shadow var(--transition-fast),filter var(--transition-fast);
+    }
+    .btn-primary:hover{
+      transform:translateY(-1px);
+      box-shadow:0 22px 50px rgba(15,23,42,.95);
+      filter:brightness(1.03);
+    }
+    .btn-secondary{
+      border-radius:var(--radius-pill);padding:8px 16px;font-size:13px;
+      border:1px solid rgba(148,163,184,.7);background:rgba(15,23,42,.86);
+      color:var(--text-main);cursor:pointer;display:inline-flex;align-items:center;gap:7px;
+      text-decoration:none;
+      transition:background var(--transition-fast),border-color var(--transition-fast),transform var(--transition-fast);
+    }
+    .btn-secondary:hover{
+      background:rgba(15,23,42,.98);
+      border-color:rgba(226,232,240,.85);
+      transform:translateY(-1px);
+    }
+    .hero-note{font-size:11px;color:var(--text-soft);max-width:460px;}
 
-        input, select, textarea {
-            width: 100%;
-            padding: 14px;
-            background: #081a33;
-            border: 1px solid #13324f;
-            color: var(--text-main);
-            border-radius: var(--radius);
-            font-size: 15px;
-            outline: none;
-        }
+    .hero-side{
+      background:linear-gradient(145deg,#020617,#020918);
+      border-radius:var(--radius-xl);
+      padding:16px 14px;
+      border:1px solid rgba(148,163,184,.6);
+      box-shadow:var(--shadow-soft);
+    }
+    .side-header{
+      font-size:12px;color:var(--text-soft);
+      margin-bottom:8px;display:flex;justify-content:space-between;gap:8px;
+    }
+    .side-chip{
+      padding:3px 8px;border-radius:var(--radius-pill);font-size:10px;
+      background:rgba(15,23,42,.9);border:1px solid rgba(56,189,248,.6);color:#bae6fd;
+    }
+    .task-list{display:flex;flex-direction:column;gap:8px;font-size:11px}
+    .task-card{
+      border-radius:var(--radius-md);padding:8px 9px;
+      background:rgba(15,23,42,.86);
+      border:1px solid rgba(51,65,85,.9);
+      display:flex;justify-content:space-between;gap:8px;
+    }
+    .task-title{font-size:11px;color:#e5f0ff;margin-bottom:2px}
+    .task-meta{font-size:10px;color:var(--text-soft)}
+    .task-price{text-align:right}
+    .task-price strong{font-size:13px;color:#bef264}
+    .task-pill{
+      display:inline-flex;align-items:center;gap:4px;
+      padding:2px 7px;border-radius:var(--radius-pill);
+      font-size:10px;background:rgba(15,118,110,.2);
+      color:#6ee7b7;margin-top:3px;
+    }
+    .side-footer{margin-top:8px;font-size:10px;color:var(--text-soft)}
 
-        textarea {
-            height: 140px;
-            resize: none;
-        }
+    .metrics{
+      margin-top:10px;margin-bottom:18px;
+      display:flex;flex-wrap:wrap;gap:14px;
+    }
+    .metric{
+      flex:1 1 130px;
+      border-radius:var(--radius-lg);
+      border:1px solid rgba(30,64,175,.7);
+      background:rgba(15,23,42,.92);
+      padding:10px 12px;
+      font-size:11px;
+      color:var(--text-soft);
+    }
+    .metric strong{display:block;font-size:15px;color:#e5f0ff;margin-bottom:2px}
 
-        .submit-btn {
-            width: 100%;
-            padding: 18px;
-            background: var(--btn-blue);
-            color: #fff;
-            border: none;
-            border-radius: var(--radius);
-            font-size: 18px;
-            cursor: pointer;
-            margin-top: 5px;
-        }
+    .section{margin-top:26px}
+    .section-header{
+      display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px;
+    }
+    .section-title{font-size:15px}
+    .section-sub{font-size:12px;color:var(--text-soft);max-width:420px;}
 
-        .wa-btn {
-            width: 100%;
-            display: block;
-            padding: 18px;
-            margin-top: 18px;
-            background: var(--btn-green);
-            color: #fff;
-            font-size: 18px;
-            text-align: center;
-            border-radius: var(--radius);
-            text-decoration: none;
-        }
+    .grid-3{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:14px;
+    }
+    @media (max-width:880px){.grid-3{grid-template-columns:minmax(0,1fr)}}
 
-        footer {
-            text-align: center;
-            color: #58718c;
-            margin-top: 40px;
-            font-size: 14px;
-        }
-    </style>
+    .card{
+      background:linear-gradient(145deg,#020617,#020918);
+      border-radius:var(--radius-lg);
+      border:1px solid rgba(51,65,85,.95);
+      padding:12px 12px 10px;
+      font-size:12px;color:var(--text-soft);
+      box-shadow:0 16px 30px rgba(15,23,42,.95);
+      transition:transform var(--transition-med),box-shadow var(--transition-med),border-color var(--transition-med),background var(--transition-med);
+    }
+    .card:hover{
+      transform:translateY(-3px);
+      box-shadow:0 24px 50px rgba(15,23,42,.98);
+      border-color:rgba(148,163,184,.9);
+      background:radial-gradient(circle at 0 0,rgba(56,189,248,.14),transparent 58%),
+                 linear-gradient(145deg,#020617,#02061a);
+    }
+    .card-title{font-size:13px;color:#e5f0ff;margin-bottom:4px;}
+
+    .step-list{font-size:12px;color:var(--text-soft);line-height:1.7;padding-left:16px;}
+
+    footer{
+      margin-top:26px;font-size:11px;color:var(--text-soft);
+      border-top:1px solid rgba(30,64,175,.7);
+      padding-top:10px;
+      display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;
+    }
+    a.footer-link{color:var(--accent-strong);text-decoration:none;font-size:11px;}
+    a.footer-link:hover{text-decoration:underline}
+
+    /* === CONTACT / FORMS === */
+    #contact{margin-top:34px;}
+    .contact-container{
+      max-width:780px;margin:0 auto;text-align:center;
+      padding:26px 0 10px;
+    }
+    .contact-title{font-size:18px;margin-bottom:6px;}
+    .contact-subtitle{color:#9db4cd;margin-top:-2px;font-size:13px;}
+
+    .role-switch{
+      margin:20px 0 14px;
+      display:flex;justify-content:center;gap:10px;flex-wrap:wrap;
+    }
+    .role-btn{
+      padding:8px 16px;border-radius:999px;
+      border:1px solid #3b82f6;background:transparent;
+      color:#e5f0ff;cursor:pointer;font-size:13px;
+      transition:all var(--transition-fast);
+    }
+    .role-btn.active{
+      background:#3b82f6;
+      box-shadow:0 10px 30px rgba(37,99,235,.6);
+    }
+    .form-box{
+      max-width:640px;margin:0 auto;
+      background:rgba(15,23,42,0.94);
+      padding:24px 22px 20px;
+      border-radius:18px;
+      border:1px solid rgba(51,65,85,.95);
+      text-align:left;
+      box-shadow:0 18px 40px rgba(15,23,42,.96);
+    }
+    .form-box.hidden{display:none;}
+    .form-box h3{margin-bottom:8px;font-size:15px;}
+    .form-box p.tip{font-size:11px;color:#9db4cd;margin-bottom:6px;}
+
+    .form-group{margin-top:11px;}
+    .form-box label{
+      display:block;margin-bottom:4px;font-size:12px;color:#d8e2ff;
+    }
+    .form-box input,
+    .form-box select,
+    .form-box textarea{
+      width:100%;padding:9px 10px;border-radius:10px;
+      border:1px solid rgba(30,64,175,.8);
+      background:#020817;color:#e5f0ff;
+      font-size:13px;outline:none;
+    }
+    .form-box textarea{min-height:90px;resize:vertical;}
+    .form-box select[multiple]{height:82px;}
+
+    .submit-btn{
+      margin-top:14px;width:100%;padding:11px;
+      background:linear-gradient(135deg,#3b82f6,#2563eb);
+      color:#fff;border-radius:999px;border:none;cursor:pointer;
+      font-size:14px;font-weight:600;
+      box-shadow:0 16px 40px rgba(15,23,42,.95);
+      transition:all var(--transition-fast);
+    }
+    .submit-btn:hover{
+      filter:brightness(1.05);transform:translateY(-1px);
+    }
+    .wa-btn{
+      display:block;text-align:center;margin-top:10px;padding:9px;
+      background:linear-gradient(135deg,#22c55e,#16a34a);
+      color:#fff;text-decoration:none;border-radius:999px;
+      font-size:13px;font-weight:500;
+      box-shadow:0 14px 34px rgba(21,128,61,.7);
+      transition:all var(--transition-fast);
+    }
+    .wa-btn:hover{
+      filter:brightness(1.05);
+      transform:translateY(-1px);
+    }
+    .email-note{
+      margin-top:8px;font-size:11px;color:#9db4cd;
+    }
+
+    @media (max-width:620px){
+      .container{padding:0 14px;}
+    }
+  </style>
 </head>
 
 <body>
-    <div class="container">
-        <h2 class="section-title">Client Project Request Form</h2>
+  <div class="orb orb--left"></div>
+  <div class="orb orb--right"></div>
 
-        <!-- FORM -->
-        <form action="mailto:sophieinbg@gmail.com" method="post" enctype="text/plain">
+  <!-- NAV -->
+  <div class="nav-shell">
+    <nav class="nav-bar">
+      <div class="nav-left">
+        <div class="logo-mark"><div class="logo-inner">A</div></div>
+        <div>
+          <div class="logo-text-main">AIFreelance Hub</div>
+          <div class="logo-text-sub">AI-Powered Freelance Marketplace</div>
+        </div>
+      </div>
 
-            <div class="form-group">
-                <label>Your Name</label>
-                <input type="text" name="Name" placeholder="Enter your name" required />
+      <div class="nav-center">
+        <a href="#top" class="nav-link">Home</a>
+        <a href="#services" class="nav-link">Services</a>
+        <a href="#pricing" class="nav-link">Pricing</a>
+        <a href="#how-it-works" class="nav-link">How it works</a>
+        <a href="#faq" class="nav-link">FAQ</a>
+      </div>
+
+      <div class="nav-right">
+        <div class="nav-pill">
+          <span class="nav-dot"></span>
+          Invite-only beta
+        </div>
+        <a href="#contact" class="nav-btn">Join / Contact</a>
+      </div>
+    </nav>
+  </div>
+
+  <div class="page">
+    <a id="top"></a>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-main">
+        <div class="hero-inner">
+          <div class="hero-tag">
+            <span class="hero-tag-pill">New</span>
+            <span>AI-powered tasks · Clients in US, UK & EU</span>
+          </div>
+          <h1>
+            A simple place where <span class="accent">clients hire AI-powered freelancers</span> –
+            and freelancers earn from anywhere.
+          </h1>
+          <p class="hero-sub">
+            AIFreelance Hub connects serious clients with real people who use AI tools to deliver
+            writing, design, data and automation work. No influencer status required, just results.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#contact" class="btn-primary">
+              I am a client – submit a project
+            </a>
+            <a href="#contact" class="btn-secondary">
+              I am a freelancer – apply to join
+            </a>
+          </div>
+
+          <div class="hero-note">
+            Early access: profiles are manually reviewed to keep the marketplace small, premium and focused on
+            reliable, high-quality work.
+          </div>
+        </div>
+      </div>
+
+      <aside class="hero-side">
+        <div class="side-header">
+          <span>Example AI-friendly projects</span>
+          <span class="side-chip">Typical budgets</span>
+        </div>
+        <div class="task-list">
+          <div class="task-card">
+            <div>
+              <div class="task-title">Product photos for Shopify store</div>
+              <div class="task-meta">15 AI-enhanced lifestyle images</div>
             </div>
-
-            <div class="form-group">
-                <label>Contact (Email or WhatsApp)</label>
-                <input type="text" name="Contact" placeholder="Your email or WhatsApp number" required />
+            <div class="task-price">
+              <strong>$220</strong>
+              <div class="task-pill">Images · Midjourney + editing</div>
             </div>
-
-            <div class="form-group">
-                <label>Project Type</label>
-                <select name="Project Type" required>
-                    <option value="">Select a category</option>
-                    <option>Writing & Copywriting</option>
-                    <option>Graphic Design</option>
-                    <option>Branding Package</option>
-                    <option>Web Design / Landing Page</option>
-                    <option>AI Automation Setup</option>
-                    <option>Social Media Content Package</option>
-                    <option>Video Editing</option>
-                    <option>Marketing Strategy</option>
-                    <option>Other</option>
-                </select>
+          </div>
+          <div class="task-card">
+            <div>
+              <div class="task-title">Rewrite 10 blog posts for SEO</div>
+              <div class="task-meta">Keep brand voice, update to 2025</div>
             </div>
-
-            <div class="form-group">
-                <label>Budget Range</label>
-                <select name="Budget" required>
-                    <option value="">Select a budget</option>
-                    <option>$300 – $600 USD</option>
-                    <option>$600 – $1,500 USD</option>
-                    <option>$1,500 – $3,000 USD</option>
-                    <option>$3,000+ USD (Premium Projects)</option>
-                </select>
+            <div class="task-price">
+              <strong>$340</strong>
+              <div class="task-pill">Writing · GPT-class model</div>
             </div>
-
-            <div class="form-group">
-                <label>Project Description (Optional)</label>
-                <textarea name="Project Description" placeholder="Briefly describe your project..."></textarea>
+          </div>
+          <div class="task-card">
+            <div>
+              <div class="task-title">Lead list + outreach system</div>
+              <div class="task-meta">CSV + email templates + setup</div>
             </div>
+            <div class="task-price">
+              <strong>$680</strong>
+              <div class="task-pill">Automation · APIs + AI</div>
+            </div>
+          </div>
+        </div>
+        <div class="side-footer">
+          Platform fee only applies when work is delivered and approved.
+        </div>
+      </aside>
+    </section>
 
-            <button class="submit-btn">Submit Form</button>
-        </form>
-
-        <!-- WhatsApp Button -->
-        <a 
-          class="wa-btn"
-          href="https://wa.me/16467446241?text=I%20want%20to%20work%20with%20AIFreelanceHub"
-          target="_blank"
-        >
-          Contact Us on WhatsApp (Fast Response)
-        </a>
+    <!-- METRICS -->
+    <div class="metrics">
+      <div class="metric">
+        <strong>Premium-first positioning</strong>
+        Focus on clients who expect to pay fairly for speed, quality and reliability – not the $5 race.
+      </div>
+      <div class="metric">
+        <strong>AI-friendly by design</strong>
+        Tasks are written for AI-assisted workflows, so freelancers can deliver more value in less time.
+      </div>
+      <div class="metric">
+        <strong>Simple business model</strong>
+        You earn from a clear platform fee per completed project. No ads, no pay-to-bid spam.
+      </div>
     </div>
 
-    <footer>
-        © 2025 AIFreelance Hub — Intelligent Freelance Marketplace Concept
-    </footer>
+    <!-- SERVICES -->
+    <section class="section" id="services">
+      <div class="section-header">
+        <div>
+          <div class="section-title">What happens on AIFreelance Hub</div>
+          <div class="section-sub">
+            Four main categories to keep the marketplace simple and easy to understand for busy clients.
+          </div>
+        </div>
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-title">Writing & Content</div>
+          <p>
+            Long-form articles, website copy, landing pages, email sequences, social content
+            and rewriting existing material using AI plus human editing.
+          </p>
+        </div>
+        <div class="card">
+          <div class="card-title">Design & Visuals</div>
+          <p>
+            Brand-style social posts, product images, presentation slides, ad creatives and
+            simple landing page mockups powered by AI image tools and design sense.
+          </p>
+        </div>
+        <div class="card">
+          <div class="card-title">Automation & Data</div>
+          <p>
+            Lead lists, research summaries, simple automations, spreadsheet cleanup and
+            workflow assistants that save hours of repetitive manual work.
+          </p>
+        </div>
+      </div>
+    </section>
 
+    <!-- PRICING -->
+    <section class="section" id="pricing">
+      <div class="section-header">
+        <div>
+          <div class="section-title">Transparent pricing ranges</div>
+          <div class="section-sub">
+            These ranges are designed for serious clients in the US, UK and EU. You can adjust them
+            later once you see which projects convert best.
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <div class="card" style="border-top:3px solid #38bdf8;">
+          <div class="card-title">Starter</div>
+          <p style="font-size:13px;margin-bottom:6px;">
+            For individuals or small teams testing one AI-powered project.
+          </p>
+          <ul style="font-size:12px;line-height:1.7;color:#b7c4e0;padding-left:16px;">
+            <li>Short-form writing or design tasks</li>
+            <li>Basic data cleanup or research</li>
+            <li>Typical turnaround: 24–72 hours</li>
+            <li>Email support</li>
+          </ul>
+          <div style="margin-top:10px;font-size:15px;">
+            <strong>$300 – $600 / project</strong>
+          </div>
+        </div>
+
+        <div class="card" style="border-top:3px solid #0ea5e9;transform:scale(1.03);box-shadow:0 22px 50px rgba(15,23,42,.98);">
+          <div class="card-title">Pro</div>
+          <p style="font-size:13px;margin-bottom:6px;">
+            Most popular for growing businesses and creators who want ongoing support.
+          </p>
+          <ul style="font-size:12px;line-height:1.7;color:#b7c4e0;padding-left:16px;">
+            <li>Content packages or image bundles</li>
+            <li>Automation setup or sales assets</li>
+            <li>Priority matching with top freelancers</li>
+            <li>WhatsApp support</li>
+          </ul>
+          <div style="margin-top:10px;font-size:15px;">
+            <strong>$600 – $1,500 / project</strong>
+          </div>
+        </div>
+
+        <div class="card" style="border-top:3px solid #22c55e;">
+          <div class="card-title">Enterprise</div>
+          <p style="font-size:13px;margin-bottom:6px;">
+            For high-value clients who need complex or multi-step AI workflows handled end-to-end.
+          </p>
+          <ul style="font-size:12px;line-height:1.7;color:#b7c4e0;padding-left:16px;">
+            <li>Multiple deliverables and stakeholders</li>
+            <li>Ongoing automation & reporting</li>
+            <li>Dedicated project lead</li>
+            <li>Flexible scope and deadlines</li>
+          </ul>
+          <div style="margin-top:10px;font-size:15px;">
+            <strong>$1,500 – $3,000+ / project</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="section" id="how-it-works">
+      <div class="section-header">
+        <div>
+          <div class="section-title">How the marketplace works</div>
+          <div class="section-sub">
+            Easy to explain in one message to any client or freelancer: three clear steps.
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-title">1 · Client submits a project</div>
+          <ul class="step-list">
+            <li>Short form with budget, task type and deadline.</li>
+            <li>Client can attach links or references if needed.</li>
+            <li>You can help refine the brief if something is unclear.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title">2 · Match with AI freelancers</div>
+          <ul class="step-list">
+            <li>Shortlist of suitable freelancers is prepared.</li>
+            <li>Client picks the best fit based on scope and rate.</li>
+            <li>Work is delivered in 2–5 days for most projects.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title">3 · Approve, pay, repeat</div>
+          <ul class="step-list">
+            <li>Client approves work and pays the agreed amount.</li>
+            <li>Freelancer is paid; platform keeps a clear fee.</li>
+            <li>Happy clients come back for ongoing projects.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section" id="faq">
+      <div class="section-header">
+        <div>
+          <div class="section-title">FAQ</div>
+          <div class="section-sub">
+            You can keep the answers short now and expand them into a full Help Center later.
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-title">Do I need to be a developer?</div>
+          <p>
+            No. Many successful freelancers here are writers, designers, marketers or operators
+            who simply know how to use AI tools to work faster and smarter.
+          </p>
+        </div>
+        <div class="card">
+          <div class="card-title">Which countries can use the platform?</div>
+          <p>
+            Clients mainly come from the US, UK and EU. Freelancers can apply from most countries
+            as long as they can communicate in English and receive payments.
+          </p>
+        </div>
+        <div class="card">
+          <div class="card-title">How does AIFreelance Hub make money?</div>
+          <p>
+            The platform earns from a transparent fee on completed projects, plus optional “Pro”
+            upgrades later. No hidden charges and no selling user data.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT / JOIN -->
+    <section id="contact">
+      <div class="contact-container">
+        <div class="contact-title">Get started – Clients or Freelancers</div>
+        <div class="contact-subtitle">
+          Choose your role below. We usually respond within 24 hours on business days.
+        </div>
+
+        <div class="role-switch">
+          <button class="role-btn active" onclick="showForm('client')">I am a Client</button>
+          <button class="role-btn" onclick="showForm('freelancer')">I am a Freelancer</button>
+        </div>
+
+        <!-- CLIENT FORM -->
+        <form
+          id="clientForm"
+          class="form-box"
+          action="mailto:sophieinbg@gmail.com"
+          method="post"
+          enctype="text/plain"
+        >
+          <h3>Client project request</h3>
+          <p class="tip">Tell us what you need. A short description is enough to start.</p>
+
+          <div class="form-group">
+            <label>Your name</label>
+            <input type="text" name="Name" placeholder="Enter your name" required />
+          </div>
+
+          <div class="form-group">
+            <label>Contact (email or WhatsApp)</label>
+            <input type="text" name="Contact" placeholder="your@email.com or WhatsApp number" required />
+          </div>
+
+          <div class="form-group">
+            <label>Project type</label>
+            <select name="Project type" required>
+              <option value="">Select a category</option>
+              <option>Writing & Copywriting</option>
+              <option>Graphic / Social Media Design</option>
+              <option>Branding & Sales Assets</option>
+              <option>Automation / Workflows</option>
+              <option>Data & Research</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Budget range (USD)</label>
+            <select name="Budget range" required>
+              <option value="">Select a budget</option>
+              <option>$300 – $600</option>
+              <option>$600 – $1,500</option>
+              <option>$1,500 – $3,000</option>
+              <option>$3,000+ (Premium project)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Project description (optional)</label>
+            <textarea name="Description" placeholder="Briefly describe your project, goals or links..."></textarea>
+          </div>
+
+          <button type="submit" class="submit-btn">Submit project via email</button>
+
+          <a
+            class="wa-btn"
+            href="https://wa.me/16467446241?text=Hi%2C%20I%20want%20to%20post%20a%20project%20on%20AIFreelance%20Hub"
+            target="_blank"
+          >
+            Or contact us on WhatsApp (fastest)
+          </a>
+
+          <div class="email-note">
+            Submitting the form may open your email app and create a draft with your
+            answers. If it does not work on your device, please contact us through WhatsApp directly.
+          </div>
+        </form>
+
+        <!-- FREELANCER FORM -->
+        <form
+          id="freelancerForm"
+          class="form-box hidden"
+          action="mailto:sophieinbg@gmail.com"
+          method="post"
+          enctype="text/plain"
+        >
+          <h3>Freelancer application</h3>
+          <p class="tip">
+            We are building a small, curated group of AI-powered freelancers. Share how you work and what you offer.
+          </p>
+
+          <div class="form-group">
+            <label>Your name</label>
+            <input type="text" name="Name" placeholder="Enter your name" required />
+          </div>
+
+          <div class="form-group">
+            <label>Email or WhatsApp</label>
+            <input type="text" name="Contact" placeholder="your@email.com or WhatsApp number" required />
+          </div>
+
+          <div class="form-group">
+            <label>Main skills (you can list more in the notes)</label>
+            <select name="Skills" multiple>
+              <option>Writing & Copywriting</option>
+              <option>Design / Images</option>
+              <option>Video Editing</option>
+              <option>Automation / No-Code</option>
+              <option>Data & Research</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Preferred project range (USD)</label>
+            <select name="Preferred rate">
+              <option>$150 – $300</option>
+              <option>$300 – $600</option>
+              <option>$600 – $1,500</option>
+              <option>$1,500+ per project</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Links / portfolio / additional details</label>
+            <textarea name="Portfolio" placeholder="Share links, platforms, or what type of work you prefer..."></textarea>
+          </div>
+
+          <button type="submit" class="submit-btn">Submit application via email</button>
+
+          <a
+            class="wa-btn"
+            href="https://wa.me/16467446241?text=Hi%2C%20I%20want%20to%20join%20AIFreelance%20Hub%20as%20a%20freelancer"
+            target="_blank"
+          >
+            Or message us on WhatsApp
+          </a>
+
+          <div class="email-note">
+            If email submission does not work on your device, just send the same information directly via WhatsApp
+            and we will review it.
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <footer>
+      <div>© <span id="year"></span> AIFreelance Hub · AI-powered freelance marketplace concept</div>
+      <div>
+        <a href="#services" class="footer-link">Services</a> ·
+        <a href="#pricing" class="footer-link">Pricing</a> ·
+        <a href="#contact" class="footer-link">Contact</a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    function showForm(role) {
+      const clientForm = document.getElementById("clientForm");
+      const freelancerForm = document.getElementById("freelancerForm");
+      const buttons = document.querySelectorAll(".role-btn");
+
+      clientForm.classList.add("hidden");
+      freelancerForm.classList.add("hidden");
+
+      if (role === "client") {
+        clientForm.classList.remove("hidden");
+      } else {
+        freelancerForm.classList.remove("hidden");
+      }
+
+      buttons.forEach(btn => btn.classList.remove("active"));
+      if (role === "client") buttons[0].classList.add("active");
+      else buttons[1].classList.add("active");
+    }
+  </script>
 </body>
 </html>
