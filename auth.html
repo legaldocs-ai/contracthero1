@@ -207,7 +207,7 @@
       padding: 10px 0 18px;
     }
 
-    /* ===== 新增：验证码登录用的小样式 ===== */
+    /* Divider & inline row */
     .divider-row {
       margin: 14px 0 10px;
       display: flex;
@@ -293,76 +293,89 @@
         <div class="panel-tab" id="tabSignUp">Create account</div>
       </div>
 
-      <!-- Sign-in form -->
+      <!-- ===== Sign-in form ===== -->
       <div id="signInForm">
         <div class="panel-title">Welcome back</div>
         <div class="panel-sub">Use your email and password to access your Desk.</div>
+
         <div class="field">
           <label for="loginEmail">Work email</label>
           <input type="email" id="loginEmail" placeholder="you@example.com" />
         </div>
+
         <div class="field">
           <label for="loginPassword">Password</label>
           <input type="password" id="loginPassword" placeholder="Enter your password" />
         </div>
+
         <button class="btn-primary" id="btnLogin">Sign in</button>
         <div class="status" id="loginStatus"></div>
+
         <p class="muted">
           New here? <a href="#" id="goToSignUpLink">Create an Aurum account</a>.
         </p>
 
-        <!-- ===== 新增：手机号 + 验证码登录 ===== -->
+        <!-- Phone login -->
         <div class="divider-row">Or sign in with phone</div>
 
         <div class="field">
           <label for="phoneLogin">Mobile number (with country code)</label>
-          <input
-            type="tel"
-            id="phoneLogin"
-            placeholder="+1 555 123 4567"
-          />
+          <input type="tel" id="phoneLogin" placeholder="+1 555 123 4567" />
         </div>
 
         <div class="inline-row" style="margin-bottom:10px;">
           <div class="field-inline">
             <label for="phoneCode">Verification code</label>
-            <input
-              type="text"
-              id="phoneCode"
-              placeholder="6-digit code"
-              maxlength="10"
-            />
+            <input type="text" id="phoneCode" placeholder="6-digit code" maxlength="10" />
           </div>
-          <button type="button" class="btn-outline" id="btnSendCode">
-            Send code
-          </button>
+          <button type="button" class="btn-outline" id="btnSendCode">Send code</button>
         </div>
 
         <button class="btn-primary" id="btnPhoneLogin" style="margin-top:2px;">
           Sign in with phone
         </button>
         <div class="status" id="phoneStatus"></div>
-        <!-- ===== 新增结束 ===== -->
       </div>
 
-      <!-- Sign-up form -->
+      <!-- ===== Sign-up form ===== -->
       <div id="signUpForm" style="display:none;">
         <div class="panel-title">Create your Aurum account</div>
         <div class="panel-sub">
-          Free accounts receive 30% previews. Subscribers see full drafts with copy enabled.
+          Register with your email and verify your mobile number. Free accounts
+          receive 30% previews; subscribers see full drafts with copy enabled.
         </div>
+
         <div class="field">
           <label for="signupName">Your name</label>
           <input type="text" id="signupName" placeholder="First name or full name" />
         </div>
+
         <div class="field">
           <label for="signupEmail">Work email</label>
           <input type="email" id="signupEmail" placeholder="you@example.com" />
         </div>
+
         <div class="field">
           <label for="signupPassword">Password</label>
           <input type="password" id="signupPassword" placeholder="At least 8 characters" />
         </div>
+
+        <!-- 新增：手机号 + 验证码（注册用） -->
+        <div class="field">
+          <label for="signupPhone">Mobile number (with country code)</label>
+          <input type="tel" id="signupPhone" placeholder="+1 555 123 4567" />
+        </div>
+
+        <div class="inline-row" style="margin-bottom:10px;">
+          <div class="field-inline">
+            <label for="signupCode">Verification code</label>
+            <input type="text" id="signupCode" placeholder="6-digit code" maxlength="10" />
+          </div>
+          <button type="button" class="btn-outline" id="btnSignupSendCode">
+            Send code
+          </button>
+        </div>
+
         <div class="field">
           <label for="signupPlan">Plan</label>
           <select id="signupPlan">
@@ -370,8 +383,10 @@
             <option value="subscriber">Subscriber · Full drafts unlocked</option>
           </select>
         </div>
+
         <button class="btn-primary" id="btnSignup">Create account</button>
         <div class="status" id="signupStatus"></div>
+
         <p class="muted">
           By continuing you agree to our standard terms. You can upgrade or
           downgrade your plan later from your account.
@@ -415,7 +430,7 @@
     activateTab("signup");
   });
 
-  // --- Sign in (email + password) ---
+  // === Email + password sign in ===
   const loginEmail = document.getElementById("loginEmail");
   const loginPassword = document.getElementById("loginPassword");
   const btnLogin = document.getElementById("btnLogin");
@@ -462,22 +477,82 @@
     }
   });
 
-  // --- Sign up (email + password) ---
+  // === Sign up (email + password + phone + code) ===
   const signupName = document.getElementById("signupName");
   const signupEmail = document.getElementById("signupEmail");
   const signupPassword = document.getElementById("signupPassword");
+  const signupPhone = document.getElementById("signupPhone");
+  const signupCode = document.getElementById("signupCode");
   const signupPlan = document.getElementById("signupPlan");
   const btnSignup = document.getElementById("btnSignup");
+  const btnSignupSendCode = document.getElementById("btnSignupSendCode");
   const signupStatus = document.getElementById("signupStatus");
+
+  let signupTimer = null;
+  let signupCountdown = 0;
+
+  function startSignupCountdown(seconds) {
+    signupCountdown = seconds;
+    btnSignupSendCode.textContent = "Resend in " + signupCountdown + "s";
+    btnSignupSendCode.disabled = true;
+    if (signupTimer) clearInterval(signupTimer);
+    signupTimer = setInterval(() => {
+      signupCountdown -= 1;
+      if (signupCountdown <= 0) {
+        clearInterval(signupTimer);
+        signupTimer = null;
+        btnSignupSendCode.disabled = false;
+        btnSignupSendCode.textContent = "Send code";
+      } else {
+        btnSignupSendCode.textContent = "Resend in " + signupCountdown + "s";
+      }
+    }, 1000);
+  }
+
+  // 发送注册验证码（只用手机号，不给邮箱发）
+  btnSignupSendCode.addEventListener("click", async () => {
+    const phone = signupPhone.value.trim();
+    if (!phone) {
+      signupStatus.textContent = "Please enter your mobile number (with country code).";
+      signupStatus.className = "status status-err";
+      return;
+    }
+
+    signupStatus.textContent = "Sending verification code...";
+    signupStatus.className = "status";
+    btnSignupSendCode.disabled = true;
+
+    try {
+      const res = await fetch(API_BASE + "/auth/send-code", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ phone })
+      });
+      const data = await res.json();
+      if (!res.ok || !data.ok) {
+        throw new Error(data.error || ("HTTP " + res.status));
+      }
+      signupStatus.textContent = "Code sent. Please check your phone.";
+      signupStatus.className = "status status-ok";
+      startSignupCountdown(60);
+    } catch (err) {
+      signupStatus.textContent = "Send failed: " + err.message;
+      signupStatus.className = "status status-err";
+      btnSignupSendCode.disabled = false;
+      btnSignupSendCode.textContent = "Send code";
+    }
+  });
 
   btnSignup.addEventListener("click", async () => {
     const name = signupName.value.trim();
     const email = signupEmail.value.trim();
     const password = signupPassword.value.trim();
+    const phone = signupPhone.value.trim();
+    const code = signupCode.value.trim();
     const plan = signupPlan.value;
 
-    if (!name || !email || !password) {
-      signupStatus.textContent = "Please fill in all fields.";
+    if (!name || !email || !password || !phone || !code) {
+      signupStatus.textContent = "Please fill in all fields, including phone and code.";
       signupStatus.className = "status status-err";
       return;
     }
@@ -492,21 +567,25 @@
     signupStatus.className = "status";
 
     try {
+      // 后端需支持依据 phone + code 完成验证并注册
       const res = await fetch(API_BASE + "/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
-        body: JSON.stringify({ name, email, password, plan })
+        body: JSON.stringify({ name, email, password, plan, phone, code })
       });
       const data = await res.json();
       if (!res.ok || !data.ok) {
         throw new Error(data.error || ("HTTP " + res.status));
       }
+
       localStorage.setItem("aurum_user", JSON.stringify({
         name: data.user?.name,
         email: data.user?.email,
+        phone: data.user?.phone || phone,
         plan: data.user?.plan
       }));
+
       signupStatus.textContent = "Account created. Redirecting to your Desk...";
       signupStatus.className = "status status-ok";
       setTimeout(() => {
@@ -520,7 +599,7 @@
     }
   });
 
-  // === 新增：手机验证码登录逻辑 ===
+  // === Phone login ===
   const phoneInput = document.getElementById("phoneLogin");
   const codeInput = document.getElementById("phoneCode");
   const btnSendCode = document.getElementById("btnSendCode");
