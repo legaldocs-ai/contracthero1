@@ -1,227 +1,384 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aurum Task Desk — Pricing</title>
-  <link rel="icon" type="image/png" href="favicon.png">
-<style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aurum Task Desk — Pricing</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      background: #f5f3ef;
+      color: #1d2734;
+      line-height: 1.6;
+    }
+    a { text-decoration: none; color: inherit; }
 
-body {
-  margin: 0;
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: #f5f3ef;
-  background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
-  color: #1d2a39;
-  line-height: 1.6;
-}
-a { text-decoration: none; color: inherit; }
-.container {
-  max-width: 1180px;
-  margin: auto;
-  padding: 20px;
-}
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 18px 0;
-  border-bottom: 1px solid #d5d3ce;
-}
-.nav-left {
-  font-size: 22px;
-  font-weight: 700;
-  color: #0f1c2c;
-}
-.nav-right a {
-  margin-left: 24px;
-  font-size: 15px;
-  opacity: 0.85;
-}
-.nav-right a:hover { opacity: 1; }
-.footer {
-  margin-top: 70px;
-  border-top: 1px solid #d2cfca;
-  padding: 35px 0;
-  text-align: center;
-  font-size: 14px;
-  opacity: 0.75;
-}
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 20px;
+    }
 
-.page-header {
-  margin-top: 40px;
-}
-.header-title {
-  font-size: 34px;
-  font-weight: 800;
-  color: #132033;
-}
-.header-sub {
-  font-size: 16px;
-  opacity: 0.85;
-  max-width: 720px;
-}
-.section-block {
-  margin-top: 50px;
-}
-.section-title {
-  font-size: 24px;
-  font-weight: 700;
-  color: #132033;
-  margin-bottom: 8px;
-}
-.section-sub {
-  font-size: 15px;
-  opacity: 0.85;
-  max-width: 680px;
-}
-.pricing-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 24px;
-  margin-top: 24px;
-}
-.price-card {
-  padding: 22px;
-  border-radius: 8px;
-  background: #ffffff;
-  border: 1px solid #d8d5cf;
-}
-.price-card h3 {
-  font-size: 20px;
-  margin-bottom: 6px;
-  color: #132033;
-}
-.price-tag {
-  font-size: 30px;
-  font-weight: 700;
-  margin: 8px 0;
-  color: #132033;
-}
-.price-note {
-  font-size: 13px;
-  opacity: 0.8;
-  margin-bottom: 10px;
-}
-.price-list {
-  list-style: none;
-  padding-left: 0;
-  font-size: 14px;
-  opacity: 0.95;
-}
-.price-list li {
-  margin-bottom: 4px;
-}
-.desk-fee-box {
-  margin-top: 26px;
-  padding: 20px;
-  border-radius: 8px;
-  background: rgba(255,255,255,0.78);
-  border: 1px solid #d3d0ca;
-  font-size: 14px;
-}
-.desk-fee-title {
-  font-weight: 700;
-  margin-bottom: 6px;
-  color: #132033;
-}
-</style>
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 0;
+      border-bottom: 1px solid #d5d3ce;
+      background: rgba(245,243,239,0.92);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .nav-left {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #111927;
+    }
+    .nav-right a {
+      margin-left: 22px;
+      font-size: 14px;
+      opacity: 0.85;
+    }
+    .nav-right a:hover {
+      opacity: 1;
+      color: #7a642f;
+    }
+
+    /* Header */
+    .page-header {
+      margin-top: 32px;
+      margin-bottom: 16px;
+    }
+    .header-title {
+      font-size: 30px;
+      font-weight: 800;
+      color: #132033;
+      margin-bottom: 6px;
+    }
+    .header-sub {
+      font-size: 14px;
+      max-width: 640px;
+      color: #55514a;
+    }
+
+    /* Pricing layout */
+    .pricing-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.3fr);
+      gap: 24px;
+      margin-top: 26px;
+      align-items: flex-start;
+    }
+    @media (max-width: 900px) {
+      .pricing-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: rgba(255,255,255,0.96);
+      border-radius: 16px;
+      border: 1px solid #dcd9d3;
+      padding: 20px 20px 22px;
+    }
+    .card-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: #132033;
+    }
+    .card-sub {
+      font-size: 13px;
+      color: #6c6558;
+      margin-bottom: 16px;
+    }
+
+    /* One-time card */
+    .one-time-price {
+      font-size: 26px;
+      font-weight: 800;
+      margin-bottom: 4px;
+      color: #132033;
+    }
+    .muted {
+      font-size: 12px;
+      color: #7c7567;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      padding: 9px 18px;
+      border-radius: 999px;
+      border: 1px solid #24364c;
+      background: #24364c;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .btn-primary:hover {
+      filter: brightness(1.03);
+    }
+
+    /* Plans */
+    .plans-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+      margin-top: 8px;
+    }
+    .plan-card {
+      background: #fefcf7;
+      border-radius: 14px;
+      border: 1px solid #ded3c1;
+      padding: 16px 16px 18px;
+      position: relative;
+      overflow: hidden;
+    }
+    .plan-badge {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #8d7140;
+      margin-bottom: 4px;
+    }
+    .plan-name {
+      font-size: 17px;
+      font-weight: 700;
+      color: #1b2836;
+      margin-bottom: 4px;
+    }
+    .plan-price {
+      font-size: 24px;
+      font-weight: 800;
+      color: #1b2836;
+      margin-bottom: 4px;
+    }
+    .plan-price span {
+      font-size: 13px;
+      font-weight: 500;
+      color: #7b7569;
+    }
+    .plan-desc {
+      font-size: 13px;
+      color: #615a4d;
+      margin-bottom: 10px;
+    }
+    .plan-list {
+      font-size: 13px;
+      color: #4e473a;
+      padding-left: 18px;
+      margin: 0 0 10px;
+    }
+    .plan-list li {
+      margin-bottom: 4px;
+    }
+
+    .btn-outline {
+      display: inline-block;
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: 1px solid #b89452;
+      background: #f9f2e4;
+      font-size: 13px;
+      font-weight: 600;
+      color: #6e5321;
+      cursor: pointer;
+      margin-top: 4px;
+    }
+    .btn-outline:hover {
+      background: #f0e3cc;
+    }
+
+    .plan-tagline {
+      font-size: 12px;
+      color: #7a7369;
+      margin-top: 6px;
+    }
+
+    .highlight {
+      border-color: #c39a4f;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+    }
+
+    /* FAQish block */
+    .note-block {
+      margin-top: 26px;
+      padding: 16px 16px 18px;
+      border-radius: 14px;
+      border: 1px solid #d2c9b7;
+      background: #fbf7ee;
+      font-size: 13px;
+      color: #5a5347;
+    }
+    .note-block strong {
+      color: #3b3121;
+    }
+
+    .footer {
+      margin-top: 50px;
+      border-top: 1px solid #d2cfca;
+      padding: 26px 0 36px;
+      text-align: center;
+      font-size: 13px;
+      color: #746e64;
+    }
+  </style>
 </head>
 <body>
-
-<nav class="navbar container">
-  <div class="nav-left">Aurum Task Desk</div>
-  <div class="nav-right">
-    <a href="index.html">Home</a>
-    <a href="tasks.html">Task Marketplace</a>
-    <a href="about.html">About</a>
-    <a href="pricing.html">Pricing</a>
-    <a href="contact.html">Contact</a>
-  </div>
-</nav>
-
-
-<section class="page-header container">
-  <h1 class="header-title">Pricing & Desk Fee Model</h1>
-  <p class="header-sub">
-    Aurum Task Desk can be used with simple monthly packages or one‑off tasks. In every case,
-    the financial logic is clear: the client pays one number, contributors receive a net amount,
-    and the Desk keeps the spread as its fee.
-  </p>
-</section>
-
-<section class="section-block container">
-  <h2 class="section-title">Monthly Desk Packages</h2>
-  <p class="section-sub">
-    Useful for clients who prefer ongoing support: letters, content, follow‑ups, and structured communication.
-  </p>
-
-  <div class="pricing-grid">
-    <div class="price-card">
-      <h3>Starter Desk</h3>
-      <div class="price-tag">$250 / month</div>
-      <p class="price-note">For light but recurring needs.</p>
-      <ul class="price-list">
-        <li>Up to 5 important letters or emails</li>
-        <li>AI‑assisted drafts with human editing</li>
-        <li>Small content pieces or notes</li>
-        <li>Desk fee already inside the $250</li>
-      </ul>
+  <!-- NAVBAR -->
+  <nav class="navbar container">
+    <div class="nav-left">Aurum Task Desk</div>
+    <div class="nav-right">
+      <a href="index.html">Home</a>
+      <a href="tasks.html">Task Marketplace</a>
+      <a href="about.html">About</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="contact.html">Contact</a>
     </div>
+  </nav>
 
-    <div class="price-card">
-      <h3>Professional Desk</h3>
-      <div class="price-tag">$480 / month</div>
-      <p class="price-note">Most common tier for US/EU professionals.</p>
-      <ul class="price-list">
-        <li>1 long‑form article (2,500–3,000+ words)</li>
-        <li>Up to 10 short‑form posts per month</li>
-        <li>Help with tone, structure, and messaging</li>
-        <li>Desk fee already inside the $480</li>
-      </ul>
-    </div>
-
-    <div class="price-card">
-      <h3>Private Desk Tier</h3>
-      <div class="price-tag">$950 / month</div>
-      <p class="price-note">For clients who want calm but high‑touch support.</p>
-      <ul class="price-list">
-        <li>Priority access for urgent tasks</li>
-        <li>Combination of writing, scripts, and flows</li>
-        <li>Guidance on what to say and how to say it</li>
-        <li>Desk fee already inside the $950</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="desk-fee-box">
-    <div class="desk-fee-title">How the Desk Fee Works in Monthly Packages</div>
-    <p>
-      The client only sees the package price on Stripe (for example, USD 480). Behind the scenes, the Desk
-      decides how much of that goes to contributors. The difference between the package price and their net
-      payout is the Desk’s coordination fee.
+  <!-- HEADER -->
+  <header class="container page-header">
+    <h1 class="header-title">Pricing & Desk Models</h1>
+    <p class="header-sub">
+      Aurum Task Desk offers a simple structure: you can start with a one-time task,
+      or move into a private Desk subscription when you want calmer, long-term support.
     </p>
-  </div>
-</section>
+  </header>
 
-<section class="section-block container">
-  <h2 class="section-title">Per‑Task Example</h2>
-  <p class="section-sub">
-    Not everyone needs a monthly arrangement. Some tasks can be handled one at a time.
-  </p>
+  <main class="container pricing-layout">
+    <!-- LEFT: One-time -->
+    <section class="card">
+      <h2 class="card-title">One-Time Task</h2>
+      <p class="card-sub">
+        Best for first-time clients or one-off needs. A single draft you can copy,
+        adjust, and send.
+      </p>
+      <div class="one-time-price">$19.90</div>
+      <div class="muted">per task · pay as you go</div>
 
-  <div class="desk-fee-box">
-    <div class="desk-fee-title">Single Task, Clear Spread</div>
-    <p>
-      A client asks for a 2,000‑word article and is quoted USD 450. The Desk later agrees a net payout of
-      USD 320 with the person who writes it. The remaining USD 130 is the Desk’s fee for scoping, refining,
-      supervising, and delivering the work.
-    </p>
-  </div>
-</section>
+      <ul class="plan-list" style="margin-top:10px;">
+        <li>One complete draft (email, letter, short post, or message)</li>
+        <li>Calm, respectful tone for older US/EU audiences</li>
+        <li>Suitable for family, business, or simple legal-style language</li>
+        <li>No subscription, no login — just pay and receive the text</li>
+      </ul>
 
-<footer class="footer">
-  © 2025 Aurum Task Desk — Private AI Task Coordination Desk
-</footer>
+      <a href="tasks.html" class="btn-primary">Start with a one-time task</a>
+      <p class="muted" style="margin-top:8px;">
+        Ideal for testing the Desk before moving into a monthly relationship.
+      </p>
+    </section>
+
+    <!-- RIGHT: Desk plans -->
+    <section class="card">
+      <h2 class="card-title">Monthly Desk Plans</h2>
+      <p class="card-sub">
+        Monthly Desks are for people who prefer a quiet, ongoing writing partner:
+        tone is remembered, context is saved, and tasks are handled calmly over time.
+      </p>
+
+      <div class="plans-grid">
+        <!-- Starter -->
+        <article class="plan-card">
+          <div class="plan-badge">Entry Desk</div>
+          <div class="plan-name">Starter Desk</div>
+          <div class="plan-price">$140 <span>/ month</span></div>
+          <p class="plan-desc">
+            For clients who occasionally need a calm, reliable writing desk.
+          </p>
+          <ul class="plan-list">
+            <li>Up to 5 tasks per month</li>
+            <li>Tone & preferences remembered</li>
+            <li>Priority delivery (within 48 hours)</li>
+            <li>Personal Desk page (after subscription)</li>
+            <li>Email-based communication only</li>
+          </ul>
+          <!-- TODO: replace href with your Stripe subscription link for Starter plan -->
+          <a href="https://YOUR_STARTER_DESK_STRIPE_LINK" class="btn-outline">
+            Start Starter Desk
+          </a>
+          <div class="plan-tagline">
+            Good for letters, replies, and occasional business writing.
+          </div>
+        </article>
+
+        <!-- Professional -->
+        <article class="plan-card highlight">
+          <div class="plan-badge">Most Popular</div>
+          <div class="plan-name">Professional Desk</div>
+          <div class="plan-price">$280 <span>/ month</span></div>
+          <p class="plan-desc">
+            For US/EU professionals, veterans, and business owners who need steady, structured help.
+          </p>
+          <ul class="plan-list">
+            <li>Up to 12 tasks per month</li>
+            <li>One long-form piece included (1000–1500 words)</li>
+            <li>Ongoing tone & story continuity</li>
+            <li>Light content planning each month</li>
+            <li>Priority delivery (24–48 hours)</li>
+            <li>Personal Desk page for tasks</li>
+          </ul>
+          <!-- TODO: replace href with your Stripe subscription link for Professional plan -->
+          <a href="https://YOUR_PRO_DESK_STRIPE_LINK" class="btn-outline">
+            Start Professional Desk
+          </a>
+          <div class="plan-tagline">
+            Designed for people who want a quiet, long-term writing partner.
+          </div>
+        </article>
+
+        <!-- Private -->
+        <article class="plan-card">
+          <div class="plan-badge">Private Office</div>
+          <div class="plan-name">Private Desk</div>
+          <div class="plan-price">$580 <span>/ month</span></div>
+          <p class="plan-desc">
+            Reserved for clients who want a private writing office, not a platform.
+          </p>
+          <ul class="plan-list">
+            <li>Unlimited short tasks (fair use)</li>
+            <li>Up to 3 long-form pieces per month</li>
+            <li>Full tone & background memory</li>
+            <li>Support for sensitive family or work communication</li>
+            <li>Highest priority in the Desk queue</li>
+            <li>Premium Personal Desk page</li>
+          </ul>
+          <!-- TODO: replace href with your Stripe subscription link for Private plan -->
+          <a href="https://YOUR_PRIVATE_DESK_STRIPE_LINK" class="btn-outline">
+            Start Private Desk
+          </a>
+          <div class="plan-tagline">
+            For clients who prefer a quiet, ongoing relationship instead of one-off tasks.
+          </div>
+        </article>
+      </div>
+
+      <div class="note-block">
+        <strong>How Desk fees work:</strong><br />
+        Clients see one clear price (for example, $280). Contributors and tools are
+        paid from that amount. The difference is the Desk fee — compensation for
+        scoping, coordination, and quality control.
+        <br /><br />
+        <strong>Already a Desk client?</strong><br />
+        If you are already on a monthly Desk plan, please do not pay again on the
+        one-time task page. Use your Personal Desk page instead.
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    © 2025 Aurum Task Desk — Private AI Task Coordination Desk
+  </footer>
 </body>
 </html>
