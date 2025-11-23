@@ -662,3 +662,70 @@
   </script>
 </body>
 </html>
+<script>
+(function () {
+  // 获取 URL 参数（查看是哪种订阅）
+  const urlParams = new URLSearchParams(window.location.search);
+  const plan = urlParams.get("plan"); // starter / pro / private
+
+  // 只对订阅用户显示倒计时
+  if (!["starter", "pro", "private"].includes(plan)) return;
+
+  const timerBox = document.getElementById("plan-timer");
+  const countdownEl = document.getElementById("plan-countdown");
+
+  // 每个订阅独立储存倒计时
+  const key = "aurum_subscription_" + plan;
+
+  // 现在时间
+  const now = new Date().getTime();
+
+  // 查本地是否已有倒计时记录
+  let expireTime = localStorage.getItem(key);
+
+  // 第一次订阅（没有记录）
+  if (!expireTime) {
+    expireTime = now + 30 * 24 * 60 * 60 * 1000; // 30 天
+    localStorage.setItem(key, expireTime);
+  }
+
+  // 显示倒计时区域
+  timerBox.style.display = "block";
+
+  function updateTimer() {
+    const nowTime = new Date().getTime();
+    const distance = expireTime - nowTime;
+
+    // 已过期
+    if (distance <= 0) {
+      countdownEl.textContent = "Expired";
+      disableDesk();
+      setTimeout(() => {
+        window.location.href = "pricing.html";
+      }, 4000);
+      return;
+    }
+
+    // 计算天/时/分/秒
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const mins = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const secs = Math.floor((distance % (1000 * 60)) / 1000);
+
+    countdownEl.textContent = `${days}d ${hours}h ${mins}m ${secs}s`;
+  }
+
+  // 订阅到期 → 禁用按钮 + 显示提示
+  function disableDesk() {
+    const generateBtn = document.getElementById("generate-btn");
+    if (generateBtn) {
+      generateBtn.disabled = true;
+      generateBtn.style.opacity = "0.45";
+      generateBtn.textContent = "Subscription expired";
+    }
+  }
+
+  updateTimer();
+  setInterval(updateTimer, 1000);
+})();
+</script>
