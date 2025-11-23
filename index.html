@@ -44,7 +44,34 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      position: relative;
+      overflow: hidden;
     }
+
+    /* 背景装饰光晕 */
+    .page::before,
+    .page::after {
+      content: "";
+      position: fixed;
+      width: 420px;
+      height: 420px;
+      border-radius: 999px;
+      filter: blur(55px);
+      opacity: 0.22;
+      pointer-events: none;
+      z-index: -1;
+    }
+    .page::before {
+      background: radial-gradient(circle, rgba(250,204,21,0.55), transparent 60%);
+      top: -120px;
+      right: -160px;
+    }
+    .page::after {
+      background: radial-gradient(circle, rgba(56,189,248,0.5), transparent 60%);
+      bottom: -160px;
+      left: -120px;
+    }
+
     .container {
       width: 100%;
       max-width: 1180px;
@@ -388,8 +415,60 @@
       cursor:pointer;
     }
 
+    /* metrics ribbon + logo strip */
+    .metrics-ribbon {
+      margin-top: 6px;
+      padding: 10px 0 6px;
+      border-top: 1px solid rgba(148,163,184,0.18);
+      border-bottom: 1px solid rgba(15,23,42,0.9);
+      background: radial-gradient(circle at top, rgba(250,204,21,0.08), transparent 65%);
+    }
+    .metrics-row {
+      display:flex;
+      flex-wrap:wrap;
+      gap:16px;
+      font-size:11px;
+      color: var(--text-soft);
+      align-items:center;
+      justify-content:space-between;
+    }
+    .metric-item {
+      display:flex;
+      flex-direction:column;
+      min-width: 140px;
+    }
+    .metric-label {
+      text-transform:uppercase;
+      letter-spacing:0.12em;
+      font-size:10px;
+      color:#9ca3af;
+      margin-bottom:2px;
+    }
+    .metric-value {
+      font-size:14px;
+      font-weight:600;
+      color:var(--gold);
+    }
+
+    .logo-strip {
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      align-items:center;
+      font-size:11px;
+      color: var(--text-soft);
+    }
+    .logo-pill {
+      border-radius:999px;
+      padding:4px 10px;
+      border:1px solid rgba(55,65,81,0.85);
+      background: rgba(6,7,18,0.96);
+      font-size:11px;
+      color:#e5e7eb;
+    }
+
     /* SECTION TITLES */
-    section { padding: 10px 0 26px; }
+    section { padding: 16px 0 26px; }
     .section-header {
       display:flex;
       justify-content:space-between;
@@ -598,6 +677,255 @@
       position:absolute;
       left:3px;
       color:#6b7280;
+    }
+
+    /* PRICING */
+    .pricing-section {
+      padding: 10px 0 28px;
+    }
+    .pricing-grid {
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap:16px;
+    }
+    @media (max-width: 960px) {
+      .pricing-grid {
+        grid-template-columns: minmax(0,1fr);
+      }
+    }
+    .pricing-card {
+      position:relative;
+      background:
+        radial-gradient(circle at top, rgba(250,204,21,0.18), rgba(6,7,18,1));
+      border-radius:22px;
+      border:1px solid rgba(250,204,21,0.7);
+      padding:16px 16px 14px;
+      box-shadow: 0 20px 45px rgba(0,0,0,0.95);
+    }
+    .pricing-card.tier-standard {
+      border-color: rgba(56,189,248,0.8);
+      background:
+        radial-gradient(circle at top, rgba(56,189,248,0.24), rgba(6,7,18,1));
+    }
+    .pricing-badge {
+      position:absolute;
+      top:10px;
+      right:16px;
+      font-size:10px;
+      padding:3px 9px;
+      border-radius:999px;
+      background: rgba(22,163,74,0.18);
+      border:1px solid rgba(34,197,94,0.7);
+      color:#bbf7d0;
+    }
+    .pricing-name {
+      font-size:15px;
+      font-weight:600;
+      margin-bottom:4px;
+      color:var(--gold);
+    }
+    .pricing-price {
+      font-size:22px;
+      font-weight:700;
+      margin-bottom:2px;
+    }
+    .pricing-sub {
+      font-size:11px;
+      color: var(--text-soft);
+      margin-bottom:8px;
+    }
+    .pricing-list {
+      list-style:none;
+      padding-left:0;
+      margin:6px 0 10px;
+      font-size:12px;
+      color: var(--text-soft);
+    }
+    .pricing-list li {
+      position:relative;
+      padding-left:16px;
+      margin-bottom:4px;
+    }
+    .pricing-list li::before {
+      content:"✓";
+      position:absolute;
+      left:2px;
+      color:#4ade80;
+      font-size:11px;
+    }
+    .pricing-cta {
+      margin-top:4px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:8px;
+      font-size:11px;
+    }
+    .pricing-cta button {
+      border-radius:999px;
+      border:1px solid rgba(250,204,21,0.85);
+      background:rgba(23,23,23,0.96);
+      padding:6px 12px;
+      font-size:11px;
+      color:var(--gold);
+      cursor:pointer;
+      white-space:nowrap;
+      transition:0.18s ease-out;
+    }
+    .pricing-cta button:hover {
+      background:rgba(250,204,21,0.16);
+    }
+
+    /* TESTIMONIALS */
+    .testimonial-section {
+      padding: 10px 0 26px;
+    }
+    .testimonial-grid {
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap:16px;
+    }
+    @media (max-width: 960px) {
+      .testimonial-grid { grid-template-columns: minmax(0,1fr); }
+    }
+    .testimonial-card {
+      background: var(--panel);
+      border-radius:18px;
+      border:1px solid rgba(31,41,55,0.9);
+      padding:13px 13px 11px;
+      font-size:12px;
+      color:var(--text-soft);
+      box-shadow:0 14px 40px rgba(0,0,0,0.9);
+      position:relative;
+      overflow:hidden;
+    }
+    .testimonial-card::before {
+      content:"";
+      position:absolute;
+      inset:0;
+      background: radial-gradient(circle at top left, rgba(250,204,21,0.1), transparent 60%);
+      opacity:0.7;
+      pointer-events:none;
+    }
+    .testimonial-body {
+      position:relative;
+      z-index:1;
+    }
+    .testimonial-name {
+      margin-top:8px;
+      font-size:12px;
+      color:#e5e7eb;
+      font-weight:500;
+    }
+    .testimonial-role {
+      font-size:11px;
+      color:var(--text-soft);
+    }
+    .quote-mark {
+      font-size:24px;
+      color:rgba(250,204,21,0.6);
+      line-height:1;
+      margin-bottom:4px;
+    }
+
+    /* FAQ + CTA */
+    .faq-section {
+      padding: 10px 0 30px;
+    }
+    .faq-grid {
+      display:grid;
+      grid-template-columns: minmax(0,2fr) minmax(0,1.3fr);
+      gap:18px;
+    }
+    @media (max-width: 960px) {
+      .faq-grid { grid-template-columns: minmax(0,1fr); }
+    }
+
+    .faq-list {
+      border-radius:18px;
+      border:1px solid var(--border);
+      background: rgba(6,7,18,0.98);
+      overflow:hidden;
+    }
+    .faq-item {
+      border-bottom:1px solid rgba(31,41,55,0.9);
+    }
+    .faq-item:last-child { border-bottom:none; }
+    .faq-header {
+      padding:10px 14px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      cursor:pointer;
+      font-size:13px;
+    }
+    .faq-question {
+      margin-right:10px;
+      color:#e5e7eb;
+    }
+    .faq-toggle {
+      font-size:16px;
+      color:var(--text-soft);
+      transition:var(--transition-fast);
+    }
+    .faq-body {
+      display:none;
+      padding:0 14px 10px;
+      font-size:12px;
+      color:var(--text-soft);
+    }
+    .faq-item.open .faq-body {
+      display:block;
+    }
+    .faq-item.open .faq-toggle {
+      transform:rotate(90deg);
+    }
+
+    .faq-side {
+      border-radius:18px;
+      border:1px solid rgba(250,204,21,0.7);
+      background:
+        radial-gradient(circle at top, rgba(250,204,21,0.16), rgba(6,7,18,1));
+      padding:14px 14px 12px;
+      box-shadow:0 18px 45px rgba(0,0,0,0.95);
+      font-size:12px;
+      color:var(--text-soft);
+    }
+    .faq-side-title {
+      font-size:14px;
+      font-weight:600;
+      color:var(--gold);
+      margin-bottom:6px;
+    }
+
+    .cta-bar {
+      margin-top:12px;
+      padding:10px 14px;
+      border-radius:14px;
+      border:1px solid rgba(250,204,21,0.7);
+      background: radial-gradient(circle at left, rgba(250,204,21,0.22), rgba(6,7,18,1));
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      gap:10px;
+      font-size:12px;
+    }
+    .cta-bar strong {
+      color:#e5e7eb;
+    }
+    .cta-bar button {
+      margin-left:auto;
+      border-radius:999px;
+      border:1px solid rgba(250,204,21,0.9);
+      background:#111827;
+      color:var(--gold);
+      font-size:12px;
+      padding:6px 13px;
+      cursor:pointer;
+      white-space:nowrap;
+    }
+    .cta-bar button:hover {
+      background:rgba(250,204,21,0.16);
     }
 
     /* FOOTER */
@@ -842,6 +1170,36 @@
       </div>
     </section>
 
+    <!-- METRICS + LOGOS -->
+    <section class="metrics-ribbon">
+      <div class="container">
+        <div class="metrics-row">
+          <div class="metric-item">
+            <div class="metric-label">SAMPLE VOLUME</div>
+            <div class="metric-value">$1,350</div>
+            <div style="font-size:11px;color:var(--text-soft);">Based on demo tasks</div>
+          </div>
+          <div class="metric-item">
+            <div class="metric-label">TYPICAL FEE</div>
+            <div class="metric-value">10–20%</div>
+            <div style="font-size:11px;color:var(--text-soft);">You define margin via Stripe</div>
+          </div>
+          <div class="metric-item">
+            <div class="metric-label">CLIENT PROFILE</div>
+            <div class="metric-value">US 55+ men</div>
+            <div style="font-size:11px;color:var(--text-soft);">Retirees, executives, owners</div>
+          </div>
+          <div class="logo-strip">
+            <span style="font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:#9ca3af;">BUILT FOR</span>
+            <span class="logo-pill">Advisors</span>
+            <span class="logo-pill">Veterans</span>
+            <span class="logo-pill">Logistics & trucking</span>
+            <span class="logo-pill">Small business owners</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- TASK MARKETPLACE -->
     <section>
       <div class="container">
@@ -923,6 +1281,205 @@
               <li data-i18n="how_owner_3">The site stays minimal; your real value is relationship and guidance.</li>
             </ul>
           </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING -->
+    <section class="pricing-section">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">SIGNATURE PACKAGES</h2>
+            <p class="section-sub">
+              These are pre-defined offers you can talk about in chat. When a client agrees, you send a Stripe link and post a task here.
+            </p>
+          </div>
+        </div>
+
+        <div class="pricing-grid">
+          <!-- Tier 1 -->
+          <article class="pricing-card">
+            <div class="pricing-badge">Starter</div>
+            <h3 class="pricing-name">Letter & Email Desk</h3>
+            <div class="pricing-price">$199</div>
+            <div class="pricing-sub">
+              For US 55+ men who just want their words to sound clear, calm and professional.
+            </div>
+            <ul class="pricing-list">
+              <li>Up to 5 letters or long emails</li>
+              <li>Includes “soft but firm” wording</li>
+              <li>One revision per piece</li>
+              <li>Delivered privately through this desk</li>
+            </ul>
+            <div class="pricing-cta">
+              <span>Good entry point.</span>
+              <button onclick="alert('Talk in chat, then send them a Stripe link for $199.')">How to sell</button>
+            </div>
+          </article>
+
+          <!-- Tier 2 -->
+          <article class="pricing-card tier-standard">
+            <div class="pricing-badge">Most used</div>
+            <h3 class="pricing-name">Retirement Presence Bundle</h3>
+            <div class="pricing-price">$450</div>
+            <div class="pricing-sub">
+              Long-form article + social presence for advisors, veterans, or small business owners.
+            </div>
+            <ul class="pricing-list">
+              <li>One 3,000+ word AI-assisted article</li>
+              <li>10 LinkedIn posts tailored to his voice</li>
+              <li>Polished by hand for clarity</li>
+              <li>Guidance on what to post first</li>
+            </ul>
+            <div class="pricing-cta">
+              <span>Ideal for “I need to look serious online.”</span>
+              <button onclick="alert('Create a $450 Stripe payment link and paste it into the task form.')">Use this offer</button>
+            </div>
+          </article>
+
+          <!-- Tier 3 -->
+          <article class="pricing-card">
+            <div class="pricing-badge">Premium</div>
+            <h3 class="pricing-name">WhatsApp & Follow-up Flow</h3>
+            <div class="pricing-price">$580</div>
+            <div class="pricing-sub">
+              Fully written WhatsApp / SMS flow to keep conversations warm without sounding like a bot.
+            </div>
+            <ul class="pricing-list">
+              <li>Welcome + 5–7 follow-up messages</li>
+              <li>Separate paths for “serious / not ready / no”</li>
+              <li>Suitable for older US men & family tone</li>
+              <li>Hooks ready for Stripe payment requests</li>
+            </ul>
+            <div class="pricing-cta">
+              <span>Great for side-business owners.</span>
+              <button onclick="alert('Create a $580 Stripe link, then mention this package in chat.')">Position this</button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="testimonial-section">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">QUIET FEEDBACK</h2>
+            <p class="section-sub">
+              This is the style of words your clients might say. You can adapt, translate, or show it directly once you have real cases.
+            </p>
+          </div>
+        </div>
+
+        <div class="testimonial-grid">
+          <article class="testimonial-card">
+            <div class="testimonial-body">
+              <div class="quote-mark">“</div>
+              <p>
+                I’m not good with words, but she made my letters sound like me, just calmer. My daughters said
+                it was the first time I sounded ‘soft but still dad’.
+              </p>
+              <div class="testimonial-name">US Veteran · 62</div>
+              <div class="testimonial-role">Texas · Family letters & apologies</div>
+            </div>
+          </article>
+          <article class="testimonial-card">
+            <div class="testimonial-body">
+              <div class="quote-mark">“</div>
+              <p>
+                The LinkedIn posts you wrote started real conversations. I didn’t want fake “hustle” content,
+                just honest stories. That’s exactly what I got.
+              </p>
+              <div class="testimonial-name">Truck Fleet Owner · 57</div>
+              <div class="testimonial-role">Midwest US · LinkedIn presence</div>
+            </div>
+          </article>
+          <article class="testimonial-card">
+            <div class="testimonial-body">
+              <div class="quote-mark">“</div>
+              <p>
+                WhatsApp used to drain me. Now people still feel I’m present, even when I’m on the road. The
+                messages sound human, not like some robot.
+              </p>
+              <div class="testimonial-name">Logistics Executive · 59</div>
+              <div class="testimonial-role">East Coast · WhatsApp flows</div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ + CTA -->
+    <section class="faq-section">
+      <div class="container">
+        <div class="faq-grid">
+          <div>
+            <div class="section-header" style="margin-bottom:10px;">
+              <div>
+                <h2 class="section-title">QUESTIONS & BOUNDARIES</h2>
+                <p class="section-sub">
+                  You can keep this very honest. Older US men respect clear rules more than “big promises”.
+                </p>
+              </div>
+            </div>
+            <div class="faq-list" id="faqList">
+              <div class="faq-item">
+                <div class="faq-header">
+                  <span class="faq-question">Do you trade or manage anyone’s money?</span>
+                  <span class="faq-toggle">›</span>
+                </div>
+                <div class="faq-body">
+                  No. This desk is for words and structure only: messages, content, explanation letters, and communication flows.
+                  Money always stays between you, your bank, and Stripe.
+                </div>
+              </div>
+              <div class="faq-item">
+                <div class="faq-header">
+                  <span class="faq-question">Is this a big public platform?</span>
+                  <span class="faq-toggle">›</span>
+                </div>
+                <div class="faq-body">
+                  No. It is intentionally small and quiet. You invite the people you trust. They invite the freelancers they trust.
+                </div>
+              </div>
+              <div class="faq-item">
+                <div class="faq-header">
+                  <span class="faq-question">Who actually sees my tasks?</span>
+                  <span class="faq-toggle">›</span>
+                </div>
+                <div class="faq-body">
+                  Only the people you decide to bring onto the desk. Think of it more like a private office, not like a marketplace with thousands of strangers.
+                </div>
+              </div>
+              <div class="faq-item">
+                <div class="faq-header">
+                  <span class="faq-question">How do payments work?</span>
+                  <span class="faq-toggle">›</span>
+                </div>
+                <div class="faq-body">
+                  When both sides agree on scope and price, you send (or receive) a Stripe Payment Link. The “Pay with Stripe” button only appears when there’s a real link.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <aside class="faq-side">
+            <div class="faq-side-title">How you use this as your “Sophie desk”</div>
+            <p>
+              You don’t have to show anyone the whole system at first. You can:
+            </p>
+            <ul class="dot-list" style="margin-top:6px;">
+              <li>Chat with them like normal, build trust.</li>
+              <li>When they ask for help with words or content, mention this as your “private desk”.</li>
+              <li>Post a task in their name, paste a Stripe link, and use the board to stay organized.</li>
+            </ul>
+            <div class="cta-bar">
+              <span><strong>Next step:</strong> pick one package and talk about it in your chats tonight.</span>
+              <button onclick="document.getElementById('linkScrollTasks').click()">Use the task board</button>
+            </div>
+          </aside>
         </div>
       </div>
     </section>
@@ -1176,12 +1733,11 @@
       const key = el.getAttribute('data-i18n');
       if (!dict[key]) return;
       if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-        // 这里只对 placeholder 不强制翻译，保持简洁
+        // 保留原 placeholder
       } else {
         el.textContent = dict[key];
       }
     });
-    // 更新登录按钮文字（如果未登录）
     const user = getCurrentUser();
     if (!user) {
       const btn = document.getElementById('btnNavLogin');
@@ -1548,6 +2104,18 @@
     document.getElementById('searchInput').addEventListener('input', renderTasks);
   }
 
+  /* ---------- FAQ ---------- */
+  function initFAQ() {
+    const list = document.getElementById('faqList');
+    if (!list) return;
+    list.addEventListener('click', e => {
+      const header = e.target.closest('.faq-header');
+      if (!header) return;
+      const item = header.parentElement;
+      item.classList.toggle('open');
+    });
+  }
+
   /* ---------- Lang & other init ---------- */
   document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('year').textContent = new Date().getFullYear();
@@ -1580,6 +2148,7 @@
 
     initAuth();
     initTasks();
+    initFAQ();
     updateUserLabel();
     renderTasks();
   });
