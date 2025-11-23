@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aurum Task Desk — 任务生成器</title>
-  <link rel="icon" type="image/png" href="favicon.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aurum Task Desk — Your Personal Desk</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
   <style>
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-      background: #f5f3ef;
-      color: #1d2a39;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      background: #050816;
+      color: #f6f4ed;
       line-height: 1.6;
     }
     a { text-decoration: none; color: inherit; }
@@ -22,25 +22,25 @@
       padding: 20px;
     }
 
-    /* 顶部导航 */
+    /* Navbar */
     .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(14px);
+      background: rgba(5, 8, 22, 0.94);
+      border-bottom: 1px solid rgba(204, 188, 119, 0.18);
+      padding: 14px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 18px 0;
-      border-bottom: 1px solid #d5d3ce;
-      background: rgba(245,243,239,0.9);
-      backdrop-filter: blur(8px);
-      position: sticky;
-      top: 0;
-      z-index: 10;
     }
     .nav-left {
-      font-size: 22px;
+      font-size: 20px;
       font-weight: 700;
-      color: #0f1c2c;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
+      color: #f5f2e6;
     }
     .nav-right a {
       margin-left: 22px;
@@ -49,147 +49,167 @@
     }
     .nav-right a:hover {
       opacity: 1;
-      color: #7a642f;
+      color: #f0d37a;
     }
 
-    /* 页面标题 */
+    /* Header */
     .page-header {
-      margin-top: 32px;
-      margin-bottom: 8px;
+      margin-top: 26px;
+      margin-bottom: 10px;
+    }
+    .desk-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: #c8b177;
+      margin-bottom: 4px;
     }
     .header-title {
       font-size: 28px;
       font-weight: 800;
-      color: #132033;
+      color: #f7f5ef;
+      margin-bottom: 4px;
     }
     .header-sub {
       font-size: 14px;
-      opacity: 0.85;
-      max-width: 640px;
+      color: #b7b2a6;
+      max-width: 660px;
     }
 
-    /* 主体布局 */
+    /* Layout */
     .layout {
       display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
-      gap: 24px;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.1fr);
+      gap: 22px;
       margin-top: 24px;
       align-items: flex-start;
     }
     @media (max-width: 900px) {
-      .layout { grid-template-columns: 1fr; }
+      .layout {
+        grid-template-columns: 1fr;
+      }
     }
 
     .card {
-      background: rgba(255,255,255,0.96);
-      border-radius: 12px;
-      border: 1px solid #dcd9d3;
+      background: radial-gradient(circle at top left, #1c1b27, #050816);
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.06);
       padding: 18px 18px 20px;
     }
+
     .card-title {
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 700;
       margin-bottom: 6px;
-      color: #132033;
+      color: #f7f5ef;
     }
     .card-sub {
       font-size: 13px;
-      opacity: 0.8;
-      margin-bottom: 16px;
+      color: #b1aca0;
+      margin-bottom: 14px;
     }
 
-    .form-row { margin-bottom: 12px; }
+    .desk-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 8px 0 10px;
+      font-size: 12px;
+    }
+    .pill {
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(240, 211, 122, 0.6);
+      background: rgba(22, 18, 8, 0.7);
+      color: #f0d37a;
+    }
+    .pill-soft {
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(140, 199, 255, 0.4);
+      background: rgba(12, 30, 60, 0.7);
+      color: #cfe6ff;
+    }
+
+    .hint {
+      font-size: 12px;
+      color: #8f8a7f;
+      margin-top: 4px;
+    }
+
     label {
       display: block;
       font-size: 13px;
       margin-bottom: 4px;
-      color: #132033;
+      color: #f5f2ea;
     }
-    input[type="text"], select, textarea {
+    input[type="text"],
+    select,
+    textarea {
       width: 100%;
       padding: 9px 10px;
-      border-radius: 6px;
-      border: 1px solid #ccc7bf;
-      background: #fcfaf6;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(9, 11, 26, 0.96);
+      color: #f6f4ed;
       font-size: 13px;
       font-family: inherit;
-      box-sizing: border-box;
     }
     textarea {
+      min-height: 140px;
       resize: vertical;
-      min-height: 120px;
     }
 
     .inline {
       display: flex;
       gap: 10px;
+      margin-top: 8px;
     }
-    .inline .form-row { flex: 1; }
-
-    .hint {
-      font-size: 12px;
-      opacity: 0.75;
-      margin-top: 2px;
+    .inline .field {
+      flex: 1;
     }
 
     .btn-primary {
-      padding: 10px 18px;
+      padding: 9px 18px;
       border-radius: 999px;
-      border: 1px solid #24364c;
-      background: #24364c;
-      color: #fff;
+      border: 1px solid #f0d37a;
+      background: linear-gradient(135deg, #f0d37a, #cba84f);
+      color: #15100a;
       font-size: 14px;
       font-weight: 600;
       cursor: pointer;
       margin-right: 8px;
     }
     .btn-primary:disabled {
-      opacity: 0.55;
+      opacity: 0.6;
       cursor: default;
     }
-
-    .btn-outline {
+    .btn-secondary {
       padding: 8px 14px;
-      border-radius: 20px;
-      border: 1px solid #bfa76f;
-      background: #f5f2eb;
-      color: #7a642f;
+      border-radius: 999px;
+      border: 1px solid rgba(240,211,122,0.5);
+      background: transparent;
+      color: #f0d37a;
       font-size: 12px;
       cursor: pointer;
       margin-top: 4px;
     }
-    .btn-outline:hover { background: #ebe3d1; }
-
-    .btn-pay {
-      padding: 9px 16px;
-      border-radius: 999px;
-      border: 1px solid #35a45d;
-      background: linear-gradient(135deg, #35c66a, #1c8a47);
-      color: #04120a;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      margin-right: 8px;
-    }
-    .btn-pay:disabled {
-      opacity: 0.55;
-      cursor: default;
+    .btn-secondary:hover {
+      background: rgba(240,211,122,0.08);
     }
 
     .status-text {
       font-size: 12px;
-      opacity: 0.8;
+      color: #a6a195;
       margin-top: 6px;
     }
 
-    /* 结果区域 */
     .result-box {
-      position: relative;
       margin-top: 10px;
       padding: 12px;
-      border-radius: 8px;
-      background: #fcfbf7;
-      border: 1px solid #e0dcd4;
+      border-radius: 10px;
+      background: radial-gradient(circle at top, #191a2a, #050816);
+      border: 1px solid rgba(255,255,255,0.08);
       font-size: 13px;
       white-space: pre-wrap;
       max-height: 420px;
@@ -197,254 +217,392 @@
     }
     .result-empty {
       font-size: 13px;
-      opacity: 0.7;
+      color: #9a9488;
     }
-
-    .preview-mask {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      height: 70px;
-      background: linear-gradient(to bottom, rgba(252,251,247,0) 0%, rgba(252,251,247,0.96) 70%);
-      pointer-events: none;
-    }
-    .preview-tag {
-      position: absolute;
-      right: 10px;
-      top: 10px;
-      font-size: 11px;
-      padding: 3px 8px;
-      border-radius: 999px;
-      background: rgba(0,0,0,0.45);
-      border: 1px solid #d4c29a;
-      color: #f5f0e2;
-    }
-
-    .pay-note {
-      font-size: 12px;
-      color: #7c7363;
-      margin-top: 6px;
-    }
-    .pay-note strong { color: #514021; }
 
     .footer {
       margin-top: 50px;
-      border-top: 1px solid #d2cfca;
-      padding: 30px 0 40px;
+      border-top: 1px solid rgba(204,188,119,0.22);
+      padding: 24px 0 32px;
       text-align: center;
       font-size: 13px;
-      opacity: 0.75;
+      color: #a8a295;
+    }
+
+    /* Name overlay */
+    .name-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(2,4,12,0.82);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 30;
+    }
+    .name-card {
+      background: #10121e;
+      border-radius: 14px;
+      border: 1px solid rgba(240,211,122,0.6);
+      padding: 18px 18px 16px;
+      max-width: 360px;
+      width: 90%;
+      color: #f6f4ed;
+    }
+    .name-card h2 {
+      font-size: 18px;
+      margin: 0 0 6px;
+    }
+    .name-card p {
+      font-size: 13px;
+      color: #c0bbaf;
+      margin: 0 0 10px;
+    }
+    .name-input-row {
+      margin-top: 8px;
+    }
+    .name-input-row input {
+      width: 100%;
+    }
+    .btn-small {
+      margin-top: 10px;
+      padding: 7px 14px;
+      border-radius: 999px;
+      border: 1px solid #f0d37a;
+      background: #f0d37a;
+      color: #15100a;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
     }
   </style>
 </head>
 <body>
-
-  <!-- 顶部导航 -->
-  <nav class="navbar container">
-    <div class="nav-left">Aurum Task Desk</div>
-    <div class="nav-right">
-      <a href="index.html">首页</a>
-      <a href="tasks.html">任务市场</a>
-      <a href="about.html">关于</a>
-      <a href="pricing.html">我们的定价</a>
-      <a href="contact.html">联系我们</a>
-    </div>
-  </nav>
-
-  <!-- 页面标题 -->
-  <header class="container page-header">
-    <h1 class="header-title">任务生成器（面向客户）</h1>
-    <p class="header-sub">
-      客户可以在这里描述任务。桌面 AI 会立即生成一份草稿。你可以先看预览，满意后再解锁完整稿件并复制使用。
-    </p>
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="nav-left">AURUM TASK DESK</div>
+    <nav class="nav-right">
+      <a href="index.html">Home</a>
+      <a href="tasks.html">Task Marketplace</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="contact.html">Contact</a>
+    </nav>
   </header>
 
-  <main class="container layout">
-    <!-- 左侧：表单 -->
-    <section class="card">
-      <div class="card-title">提交任务</div>
-      <div class="card-sub">
-        面向美国 / 欧洲的年长专业人士、退伍军人、卡车司机、工程师和企业主。语言简洁、语气平和、结构清楚。
+  <!-- NAME OVERLAY (first-time capture) -->
+  <div class="name-overlay" id="nameOverlay" style="display:none;">
+    <div class="name-card">
+      <h2>Your Personal Desk</h2>
+      <p>
+        Before we start, how should the Desk address you?<br />
+        (First name only is fine.)
+      </p>
+      <div class="name-input-row">
+        <input type="text" id="nameInput" placeholder="Mike, John, David..." />
       </div>
+      <button class="btn-small" id="saveNameBtn">Save and open my Desk</button>
+    </div>
+  </div>
 
-      <form id="task-form">
-        <div class="form-row">
-          <label for="clientName">您的名字（可选）</label>
-          <input type="text" id="clientName" placeholder="Mike, John, David...">
-          <div class="hint">可以帮助 AI 个性化语气，不填也可以。</div>
+  <main class="container">
+    <!-- Header -->
+    <section class="page-header">
+      <div class="desk-label">PERSONAL DESK</div>
+      <h1 class="header-title" id="headerTitle">Your Aurum Desk</h1>
+      <p class="header-sub" id="headerSub">
+        This is your private writing desk. You can describe what you want to say in
+        plain language, and the Desk will shape it into a clear, respectful draft.
+      </p>
+    </section>
+
+    <!-- Main layout -->
+    <section class="layout">
+      <!-- LEFT: Plan info + greeting -->
+      <aside class="card">
+        <h2 class="card-title" id="greetingTitle">Welcome back.</h2>
+        <p class="card-sub" id="greetingSub">
+          Your Desk is active. Use it whenever you need quiet, careful writing support.
+        </p>
+
+        <div class="desk-meta">
+          <span class="pill" id="planPill">Desk Plan</span>
+          <span class="pill-soft" id="usagePill">Usage guidance</span>
         </div>
 
-        <div class="inline">
-          <div class="form-row">
-            <label for="taskType">任务类型</label>
+        <!-- 倒计时显示 -->
+        <p class="hint" id="countdownText">
+          Time left in this billing period: calculating…
+        </p>
+
+        <p class="card-sub" id="planDesc">
+          This desk is designed for calm, low-drama communication: letters, emails,
+          replies, and short posts for older US/EU audiences.
+        </p>
+
+        <p class="hint">
+          This countdown is approximate and based on your first visit to this Desk page.
+          When this period ends and the subscription is not renewed, your Desk will
+          redirect you back to the public Pricing page.
+        </p>
+      </aside>
+
+      <!-- RIGHT: Task form + AI result -->
+      <section class="card">
+        <h2 class="card-title">Submit a task to your Desk</h2>
+        <p class="card-sub">
+          Describe the situation in your own words. The Desk will draft a clear message
+          you can copy, adjust, and send.
+        </p>
+
+        <form id="deskForm">
+          <div class="field">
+            <label for="taskType">Task type</label>
             <select id="taskType">
-              <option value="business">商务文本 / 合同式语言</option>
-              <option value="email">邮件 / 信件</option>
-              <option value="whatsapp">WhatsApp / SMS 回复</option>
-              <option value="linkedin">LinkedIn 帖子 / 内容包</option>
-              <option value="speech">讲话稿 / 发言要点</option>
-              <option value="family">家庭沟通类</option>
-              <option value="other">其他</option>
+              <option value="email">Email / Letter</option>
+              <option value="family">Family communication</option>
+              <option value="business">Business text / policy / notice</option>
+              <option value="reply">Reply to an existing message</option>
+              <option value="linkedin">LinkedIn post or update</option>
+              <option value="speech">Short speech / talking points</option>
+              <option value="other">Other (describe below)</option>
             </select>
           </div>
-          <div class="form-row">
-            <label for="tone">语气</label>
-            <select id="tone">
-              <option value="calm">平静、尊重</option>
-              <option value="professional">专业、正式</option>
-              <option value="warm">温和、关心</option>
-              <option value="firm">坚定但礼貌</option>
-              <option value="simple">非常简单的英语</option>
-            </select>
+
+          <div class="inline">
+            <div class="field">
+              <label for="tone">Tone</label>
+              <select id="tone">
+                <option value="calm">Calm and respectful</option>
+                <option value="professional">Professional and clear</option>
+                <option value="warm">Warm and supportive</option>
+                <option value="firm">Firm but polite</option>
+                <option value="simple">Very simple English</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="language">Language</label>
+              <select id="language">
+                <option value="english">English</option>
+                <option value="bilingual">English + Chinese</option>
+                <option value="chinese">Chinese only</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field" style="margin-top:10px;">
+            <label for="audience">Who is this for?</label>
+            <input type="text" id="audience" placeholder="My daughter, my ex-wife, my boss, a client, LinkedIn readers..." />
+          </div>
+
+          <div class="field" style="margin-top:10px;">
+            <label for="details">What do you want to say? (details)</label>
+            <textarea id="details" placeholder="Explain what happened, what you want to say, any key facts or dates. The Desk will shape this into a clear draft."></textarea>
+          </div>
+
+          <div style="margin-top:12px;">
+            <button type="button" class="btn-primary" id="generateBtn">Generate draft</button>
+            <button type="button" class="btn-secondary" id="copyBtn" disabled>Copy current draft</button>
+            <div class="status-text" id="statusText"></div>
+          </div>
+        </form>
+
+        <div id="resultBox" class="result-box" style="margin-top:14px;">
+          <div class="result-empty">
+            No draft yet. Submit a task on this page and your Desk will generate a complete draft for you.
           </div>
         </div>
-
-        <div class="inline">
-          <div class="form-row">
-            <label for="language">语言</label>
-            <select id="language">
-              <option value="english">英文</option>
-              <option value="chinese">中文</option>
-              <option value="bilingual">中英文双语</option>
-            </select>
-          </div>
-          <div class="form-row">
-            <label for="readingLevel">阅读水平</label>
-            <select id="readingLevel">
-              <option value="basic">基础（3–6年级）</option>
-              <option value="middle">中等（7–9年级）</option>
-              <option value="high">较高（10–12年级）</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="form-row">
-          <label for="audience">这是给谁看的？</label>
-          <input type="text" id="audience" placeholder="我的老板、我的女儿、前妻、客户、LinkedIn 关注者…">
-        </div>
-
-        <div class="form-row">
-          <label for="details">你想讲什么？（详细）</label>
-          <textarea id="details" placeholder="解释发生了什么，你希望解决什么问题，有哪些关键事实或句子，AI 会帮你整理成完整稿件。"></textarea>
-        </div>
-
-        <div class="form-row">
-          <button type="button" class="btn-primary" id="generateBtn">使用 Aurum AI 生成（预览）</button>
-          <button type="button" class="btn-outline" id="exampleBtn">加载示例任务</button>
-          <div class="status-text" id="statusText"></div>
-        </div>
-      </form>
+      </section>
     </section>
 
-    <!-- 右侧：AI 草稿 + 收费解锁 -->
-    <section class="card">
-      <div class="card-title">AI 智能草稿</div>
-      <div class="card-sub">
-        下方首先显示 <strong>部分预览</strong>，方便你判断方向是否正确。完整稿件与复制功能需要付款解锁（一次性 $19.99）。
-      </div>
-
-      <div id="resultContainer" class="result-box">
-        <div class="result-empty">
-          还没有草稿。请在左侧填写任务信息，然后点击「使用 Aurum AI 生成（预览）」。
-        </div>
-      </div>
-
-      <div style="margin-top: 12px;">
-        <button type="button" class="btn-pay" id="unlockBtn" disabled>解锁完整稿件（$19.99）</button>
-        <button type="button" class="btn-outline" id="copyBtn" disabled>复制完整稿件</button>
-      </div>
-      <div class="pay-note" id="payNote">
-        预览只展示全文的一部分。支付后会自动返回本页并解锁本次任务的
-        <strong>完整内容 + 复制按钮</strong>，适合直接发送给客户或用于 WhatsApp / 邮件。
-      </div>
-    </section>
+    <footer class="footer">
+      © 2025 Aurum Task Desk — Personal Desk Space
+    </footer>
   </main>
 
-  <footer class="footer">
-    © 2025 Aurum Task Desk — 私人 AI 任务协调平台
-  </footer>
-
   <script>
-    // ✅ 你的 Cloudflare Worker API（后端保护 OpenAI Key）
+    // Cloudflare Worker backend (你的 Worker URL)
     const WORKER_API_URL = "https://aurum-task-worker.sophieinbg.workers.dev/api/generate";
 
-    // ✅ 任务页面专用 Stripe 支付链接（$19.99 解锁完整稿件）
-    // 在 Stripe 新建 Payment Link，价格 19.99 USD，
-    // 成功返回地址 success_url = https://aifreelance-hub.github.io/aifreelance-hub/tasks.html?paid=1
-    const STRIPE_TASK_PAYMENT_URL = "https://YOUR_STRIPE_TASKS_PAYMENT_LINK_HERE";
+    // 计费周期（天数），可以改，比如 30 天
+    const BILLING_DAYS = 30;
 
-    // 表单元素
-    const clientNameEl = document.getElementById('clientName');
-    const taskTypeEl = document.getElementById('taskType');
-    const toneEl = document.getElementById('tone');
-    const languageEl = document.getElementById('language');
-    const readingLevelEl = document.getElementById('readingLevel');
-    const audienceEl = document.getElementById('audience');
-    const detailsEl = document.getElementById('details');
+    const nameOverlay = document.getElementById("nameOverlay");
+    const nameInput = document.getElementById("nameInput");
+    const saveNameBtn = document.getElementById("saveNameBtn");
 
-    const generateBtn = document.getElementById('generateBtn');
-    const exampleBtn = document.getElementById('exampleBtn');
-    const statusText = document.getElementById('statusText');
-    const resultContainer = document.getElementById('resultContainer');
-    const unlockBtn = document.getElementById('unlockBtn');
-    const copyBtn = document.getElementById('copyBtn');
-    const payNote = document.getElementById('payNote');
+    const headerTitle = document.getElementById("headerTitle");
+    const headerSub = document.getElementById("headerSub");
+    const greetingTitle = document.getElementById("greetingTitle");
+    const greetingSub = document.getElementById("greetingSub");
+    const planPill = document.getElementById("planPill");
+    const usagePill = document.getElementById("usagePill");
+    const planDesc = document.getElementById("planDesc");
+    const countdownText = document.getElementById("countdownText");
 
-    // 当前完整稿件
-    let currentFullDraft = "";
+    const taskTypeEl = document.getElementById("taskType");
+    const toneEl = document.getElementById("tone");
+    const languageEl = document.getElementById("language");
+    const audienceEl = document.getElementById("audience");
+    const detailsEl = document.getElementById("details");
 
-    // 示例任务
-    exampleBtn.addEventListener('click', () => {
-      clientNameEl.value = "Mike";
-      taskTypeEl.value = "business";
-      toneEl.value = "professional";
-      languageEl.value = "english";
-      readingLevelEl.value = "middle";
-      audienceEl.value = "my trucking client";
-      detailsEl.value = "Client has delayed payment for 8 months. I want a clear but respectful message that sets a deadline and explains that I need to protect my own business as well. I do not want to sound angry, but I need them to understand this is serious.";
+    const generateBtn = document.getElementById("generateBtn");
+    const copyBtn = document.getElementById("copyBtn");
+    const statusText = document.getElementById("statusText");
+    const resultBox = document.getElementById("resultBox");
+
+    let currentDraft = "";
+    let countdownTimer = null;
+
+    // --- Plan mapping ---
+    function setupPlanFromUrl() {
+      const params = new URLSearchParams(window.location.search);
+      const plan = (params.get("plan") || "starter").toLowerCase();
+
+      if (plan === "starter") {
+        headerTitle.textContent = "Starter Desk — Personal Writing Space";
+        headerSub.textContent =
+          "This Starter Desk is for occasional but important writing: letters, replies, and short messages that benefit from a calm, respectful tone.";
+        planPill.textContent = "Starter Desk · $140 / month";
+        usagePill.textContent = "Designed for ~5 tasks per month";
+        planDesc.textContent =
+          "Use this Desk when you need help saying something important without drama: apologies, clarifications, simple notices, and calm replies.";
+      } else if (plan === "pro") {
+        headerTitle.textContent = "Professional Desk — Ongoing Writing Partner";
+        headerSub.textContent =
+          "This Desk supports professionals, veterans, and business owners with steady, structured help across messages, posts, and longer pieces.";
+        planPill.textContent = "Professional Desk · $280 / month";
+        usagePill.textContent = "Designed for ~12 tasks + 1 long piece";
+        planDesc.textContent =
+          "Use this Desk to handle regular communication with clients, partners, and family, plus at least one longer article or statement each month.";
+      } else if (plan === "private") {
+        headerTitle.textContent = "Private Desk — Quiet Personal Office";
+        headerSub.textContent =
+          "This Private Desk functions like a small personal writing office: frequent short tasks, several long pieces, and help with sensitive topics.";
+        planPill.textContent = "Private Desk · $580 / month";
+        usagePill.textContent = "Unlimited short tasks · up to 3 long pieces";
+        planDesc.textContent =
+          "Use this Desk as often as needed for letters, replies, posts, and more complex writing around family, health, business, or legal-style topics.";
+      } else {
+        planPill.textContent = "Desk Plan";
+        usagePill.textContent = "Usage guidance";
+      }
+    }
+
+    // --- Name handling (localStorage) ---
+    function initName() {
+      const stored = localStorage.getItem("aurum_desk_name") || "";
+      if (stored) {
+        applyName(stored);
+        nameOverlay.style.display = "none";
+      } else {
+        nameOverlay.style.display = "flex";
+      }
+    }
+
+    function applyName(name) {
+      const clean = name.trim();
+      if (!clean) return;
+      greetingTitle.textContent = `Welcome back, ${clean}.`;
+      greetingSub.textContent =
+        "Your Desk is active. Describe what you want to say, and the Desk will shape it into a clear, respectful draft.";
+    }
+
+    saveNameBtn.addEventListener("click", () => {
+      const name = nameInput.value.trim();
+      if (!name) {
+        alert("Please enter a first name.");
+        return;
+      }
+      localStorage.setItem("aurum_desk_name", name);
+      applyName(name);
+      nameOverlay.style.display = "none";
     });
 
-    // 生成草稿（预览）
-    generateBtn.addEventListener('click', async () => {
-      const name = clientNameEl.value.trim();
+    // --- Subscription countdown (front-end only, approximate) ---
+    function initExpiryCountdown() {
+      const storageKey = "aurum_desk_expires_at";
+      let expiresAt = null;
+      const stored = localStorage.getItem(storageKey);
+
+      if (stored) {
+        const parsed = parseInt(stored, 10);
+        if (!isNaN(parsed)) {
+          expiresAt = parsed;
+        }
+      }
+
+      // 第一次访问，设置一个从现在起 BILLING_DAYS 天的到期时间
+      if (!expiresAt) {
+        const now = Date.now();
+        expiresAt = now + BILLING_DAYS * 24 * 60 * 60 * 1000;
+        localStorage.setItem(storageKey, String(expiresAt));
+      }
+
+      function updateCountdown() {
+        const now = Date.now();
+        const diff = expiresAt - now;
+
+        if (diff <= 0) {
+          countdownText.textContent = "Time left in this billing period: 0 days (expired).";
+          statusText.textContent = "Your current billing period has ended. Redirecting you to the public Pricing page...";
+          if (countdownTimer) clearInterval(countdownTimer);
+          // 5 秒后跳回 Pricing 页面
+          setTimeout(() => {
+            window.location.href = "pricing.html";
+          }, 5000);
+          return;
+        }
+
+        const totalSeconds = Math.floor(diff / 1000);
+        const days = Math.floor(totalSeconds / (24 * 3600));
+        const hours = Math.floor((totalSeconds % (24 * 3600)) / 3600);
+
+        countdownText.textContent =
+          `Time left in this billing period: ${days} day(s) ${hours} hour(s) (approximate).`;
+      }
+
+      updateCountdown(); // 先更新一次
+      countdownTimer = setInterval(updateCountdown, 60 * 1000); // 每分钟更新一次
+    }
+
+    // --- Generate draft ---
+    generateBtn.addEventListener("click", async () => {
       const taskType = taskTypeEl.value;
       const tone = toneEl.value;
       const language = languageEl.value;
-      const reading = readingLevelEl.value;
       const audience = audienceEl.value.trim();
       const details = detailsEl.value.trim();
+      const name = localStorage.getItem("aurum_desk_name") || "";
 
       if (!details) {
-        alert("请先详细描述任务内容，方便 AI 帮你生成草稿。");
+        alert("Please describe the situation or what you want to say.");
         return;
       }
 
       generateBtn.disabled = true;
-      generateBtn.textContent = "生成中…";
-      statusText.textContent = "正在向 Aurum AI 请求草稿，请稍候…";
-      resultContainer.innerHTML = "";
-
-      // 每次新任务都先锁定支付/复制按钮
-      currentFullDraft = "";
-      unlockBtn.disabled = true;
-      copyBtn.disabled = true;
-      payNote.innerHTML = '预览只展示全文的一部分。支付后会自动返回本页并解锁本次任务的 <strong>完整内容 + 复制按钮</strong>。';
+      generateBtn.textContent = "Generating...";
+      statusText.textContent = "Your Desk is drafting a calm, clear message...";
+      resultBox.innerHTML = "";
 
       try {
-        let prompt = "You are Aurum Task Desk AI. You help older US and EU men (50+), including " +
-          "veterans, truck drivers, engineers and business owners, to write calm, clear and respectful texts.\n\n";
+        let prompt =
+          "You are Aurum Task Desk AI. You support older US and EU men (50+), " +
+          "including veterans, truck drivers, engineers and business owners, with calm, clear, respectful writing.\n\n";
 
-        if (name) prompt += "Client name: " + name + ".\n";
+        if (name) prompt += "Client first name: " + name + ".\n";
         prompt += "Task type: " + taskType + ".\n";
         prompt += "Tone: " + tone + ".\n";
-        prompt += "Preferred language: " + language + ".\n";
-        prompt += "Reading level: " + reading + " (3-6 basic, 7-9 middle, 10-12 higher).\n";
+        prompt +=
+          "Language: " +
+          language +
+          " (if bilingual, answer in English first then Chinese).\n";
         if (audience) prompt += "Audience: " + audience + ".\n";
         prompt += "Details: " + details + ".\n\n";
-        prompt += "Write a complete draft that this client can directly copy and send. " +
-          "Avoid overly fancy words. Sound mature and sincere. If language = Chinese, reply in Chinese. " +
-          "If bilingual, give English first, then Chinese.\n";
+
+        prompt +=
+          "Write a complete draft that the client can copy and send directly. " +
+          "Avoid overly fancy language. Sound mature, respectful, and steady. " +
+          "If language = Chinese, reply in Chinese. If bilingual, provide English first, then Chinese.\n";
 
         const res = await fetch(WORKER_API_URL, {
           method: "POST",
@@ -455,120 +613,52 @@
         const data = await res.json();
 
         if (!res.ok || !data.ok) {
-          const msg = (data && data.error) ? data.error : ("HTTP " + res.status);
+          const msg = data && data.error ? data.error : "HTTP " + res.status;
           throw new Error(msg);
         }
 
-        const full = data.text || "No content returned from Aurum AI.";
-        currentFullDraft = full;
+        const full = data.text || "No content returned from Aurum Desk AI.";
+        currentDraft = full;
 
-        const preview = makePreview(full);
-        renderResult(preview, true);
+        resultBox.innerHTML = "";
+        const content = document.createElement("div");
+        content.textContent = full;
+        resultBox.appendChild(content);
 
-        unlockBtn.disabled = false;   // 可以去解锁
-        statusText.textContent = "预览已生成。如方向合适，可以解锁完整稿件。";
+        statusText.textContent = "Draft generated. You can copy and adjust if needed.";
+        copyBtn.disabled = false;
       } catch (err) {
         console.error(err);
-        resultContainer.innerHTML =
-          '<div class="result-empty">生成草稿时出现错误：' +
+        resultBox.innerHTML =
+          '<div class="result-empty">Something went wrong while generating your draft: ' +
           (err.message || String(err)) +
           "</div>";
         statusText.textContent = "";
+        copyBtn.disabled = true;
       } finally {
         generateBtn.disabled = false;
-        generateBtn.textContent = "使用 Aurum AI 生成（预览）";
+        generateBtn.textContent = "Generate draft";
       }
     });
 
-    // 生成预览文本（约前 30%）
-    function makePreview(text) {
-      if (!text) return "";
-      const maxChars = 900; // 可根据情况调整
-      if (text.length <= maxChars) return text;
-
-      let cut = maxChars;
-      const nextBreak = text.indexOf("\n", maxChars);
-      if (nextBreak > 0 && nextBreak - maxChars < 120) {
-        cut = nextBreak;
-      }
-      return text.slice(0, cut) + "\n\n[……以下内容为预览截断，完整稿件解锁后可见……]";
-    }
-
-    // 渲染结果
-    function renderResult(text, isPreview) {
-      resultContainer.innerHTML = "";
-      const contentDiv = document.createElement("div");
-      contentDiv.textContent = text;
-      resultContainer.appendChild(contentDiv);
-
-      if (isPreview) {
-        const mask = document.createElement("div");
-        mask.className = "preview-mask";
-        resultContainer.appendChild(mask);
-
-        const tag = document.createElement("div");
-        tag.className = "preview-tag";
-        tag.textContent = "预览片段 · 完整稿件需解锁";
-        resultContainer.appendChild(tag);
-
-        copyBtn.disabled = true;
-      } else {
-        copyBtn.disabled = false;
-      }
-    }
-
-    // 解锁完整稿件（Stripe 支付）
-    unlockBtn.addEventListener('click', () => {
-      if (!currentFullDraft) {
-        alert("请先生成一份草稿。");
-        return;
-      }
-      if (!STRIPE_TASK_PAYMENT_URL || STRIPE_TASK_PAYMENT_URL.includes("YOUR_STRIPE_TASKS_PAYMENT_LINK_HERE")) {
-        alert("还没有配置 Stripe 支付链接，请先在代码中设置 STRIPE_TASK_PAYMENT_URL。");
-        return;
-      }
-
-      // 把当前任务稿件缓存到 localStorage
-      localStorage.setItem("aurum_tasks_latest_draft", currentFullDraft);
-
-      // 跳转到 Stripe 付款页
-      window.location.href = STRIPE_TASK_PAYMENT_URL;
-    });
-
-    // 复制完整稿件
-    copyBtn.addEventListener('click', async () => {
-      if (!currentFullDraft) {
-        alert("暂无可复制的稿件。");
+    // --- Copy draft ---
+    copyBtn.addEventListener("click", async () => {
+      if (!currentDraft) {
+        alert("There is no draft to copy yet.");
         return;
       }
       try {
-        await navigator.clipboard.writeText(currentFullDraft);
-        statusText.textContent = "完整稿件已复制到剪贴板。";
+        await navigator.clipboard.writeText(currentDraft);
+        statusText.textContent = "Draft copied to your clipboard.";
       } catch (e) {
-        alert("复制失败，请手动选择文本复制。");
+        alert("Copy failed. Please select the text manually and copy.");
       }
     });
 
-    // 页面加载时，检查是否是从支付成功返回
-    (function initFromPaymentReturn() {
-      const params = new URLSearchParams(window.location.search);
-      const paid = params.get("paid");
-
-      if (paid === "1") {
-        const savedDraft = localStorage.getItem("aurum_tasks_latest_draft");
-        if (savedDraft) {
-          currentFullDraft = savedDraft;
-          renderResult(currentFullDraft, false);
-          unlockBtn.disabled = true;
-          copyBtn.disabled = false;
-          payNote.innerHTML = "<strong>本次任务的完整稿件已解锁。</strong><br>你可以复制、保存或发送给客户使用。";
-          statusText.textContent = "付款成功，完整稿件已解锁。";
-        } else {
-          resultContainer.innerHTML =
-            '<div class="result-empty">已从支付页面返回，但没有找到本次任务的缓存。请重新生成一份草稿。</div>';
-        }
-      }
-    })();
+    // --- Init ---
+    setupPlanFromUrl();
+    initName();
+    initExpiryCountdown();
   </script>
 </body>
 </html>
