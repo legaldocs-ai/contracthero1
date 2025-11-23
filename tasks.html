@@ -518,9 +518,19 @@
       nameOverlay.style.display = "none";
     });
 
-    // --- Subscription countdown (front-end only, approximate) ---
+    // --- Subscription countdown: for starter / pro / private, 30 days each (front-end only) ---
     function initExpiryCountdown() {
-      const storageKey = "aurum_desk_expires_at";
+      const params = new URLSearchParams(window.location.search);
+      const plan = (params.get("plan") || "starter").toLowerCase();
+      const validPlans = ["starter", "pro", "private"];
+
+      // 只对三个订阅页面启用倒计时
+      if (!validPlans.includes(plan)) {
+        countdownText.textContent = "";
+        return;
+      }
+
+      const storageKey = "aurum_desk_expires_at_" + plan;
       let expiresAt = null;
       const stored = localStorage.getItem(storageKey);
 
@@ -531,7 +541,7 @@
         }
       }
 
-      // 第一次访问，设置一个从现在起 BILLING_DAYS 天的到期时间
+      // 第一次访问该 plan：从现在起记 30 天
       if (!expiresAt) {
         const now = Date.now();
         expiresAt = now + BILLING_DAYS * 24 * 60 * 60 * 1000;
@@ -544,7 +554,7 @@
 
         if (diff <= 0) {
           countdownText.textContent = "Time left in this billing period: 0 days (expired).";
-          statusText.textContent = "Your current billing period has ended. Redirecting you to the public Pricing page...";
+          statusText.textContent = "Your current 30-day subscription period has ended. Redirecting you to the public Pricing page...";
           if (countdownTimer) clearInterval(countdownTimer);
           // 5 秒后跳回 Pricing 页面
           setTimeout(() => {
@@ -662,70 +672,3 @@
   </script>
 </body>
 </html>
-<script>
-(function () {
-  // 获取 URL 参数（查看是哪种订阅）
-  const urlParams = new URLSearchParams(window.location.search);
-  const plan = urlParams.get("plan"); // starter / pro / private
-
-  // 只对订阅用户显示倒计时
-  if (!["starter", "pro", "private"].includes(plan)) return;
-
-  const timerBox = document.getElementById("plan-timer");
-  const countdownEl = document.getElementById("plan-countdown");
-
-  // 每个订阅独立储存倒计时
-  const key = "aurum_subscription_" + plan;
-
-  // 现在时间
-  const now = new Date().getTime();
-
-  // 查本地是否已有倒计时记录
-  let expireTime = localStorage.getItem(key);
-
-  // 第一次订阅（没有记录）
-  if (!expireTime) {
-    expireTime = now + 30 * 24 * 60 * 60 * 1000; // 30 天
-    localStorage.setItem(key, expireTime);
-  }
-
-  // 显示倒计时区域
-  timerBox.style.display = "block";
-
-  function updateTimer() {
-    const nowTime = new Date().getTime();
-    const distance = expireTime - nowTime;
-
-    // 已过期
-    if (distance <= 0) {
-      countdownEl.textContent = "Expired";
-      disableDesk();
-      setTimeout(() => {
-        window.location.href = "pricing.html";
-      }, 4000);
-      return;
-    }
-
-    // 计算天/时/分/秒
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const mins = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const secs = Math.floor((distance % (1000 * 60)) / 1000);
-
-    countdownEl.textContent = `${days}d ${hours}h ${mins}m ${secs}s`;
-  }
-
-  // 订阅到期 → 禁用按钮 + 显示提示
-  function disableDesk() {
-    const generateBtn = document.getElementById("generate-btn");
-    if (generateBtn) {
-      generateBtn.disabled = true;
-      generateBtn.style.opacity = "0.45";
-      generateBtn.textContent = "Subscription expired";
-    }
-  }
-
-  updateTimer();
-  setInterval(updateTimer, 1000);
-})();
-</script>
