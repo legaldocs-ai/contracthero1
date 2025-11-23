@@ -289,7 +289,7 @@
     </nav>
   </header>
 
-  <!-- NAME OVERLAY (first-time capture) -->
+  <!-- NAME OVERLAY（现在不再使用，会被 JS 直接隐藏） -->
   <div class="name-overlay" id="nameOverlay" style="display:none;">
     <div class="name-card">
       <h2>Your Personal Desk</h2>
@@ -329,7 +329,7 @@
           <span class="pill-soft" id="usagePill">Usage guidance</span>
         </div>
 
-        <!-- 倒计时显示 -->
+        <!-- 这里原来是倒计时文字，现在只作为提示，会被 JS 清空 -->
         <p class="hint" id="countdownText">
           Time left in this billing period: calculating…
         </p>
@@ -340,9 +340,8 @@
         </p>
 
         <p class="hint">
-          This countdown is approximate and based on your first visit to this Desk page.
-          When this period ends and the subscription is not renewed, your Desk will
-          redirect you back to the public Pricing page.
+          You don’t need to watch the clock or count every word. Just keep your usage
+          within a reasonable monthly rhythm, based on the plan you selected.
         </p>
       </aside>
 
@@ -351,7 +350,7 @@
         <h2 class="card-title">Submit a task to your Desk</h2>
         <p class="card-sub">
           Describe the situation in your own words. The Desk will draft a clear message
-          you can copy, adjust, and send.
+          you can review as a preview before unlocking the full version.
         </p>
 
         <form id="deskForm">
@@ -400,7 +399,7 @@
           </div>
 
           <div style="margin-top:12px;">
-            <button type="button" class="btn-primary" id="generateBtn">Generate draft</button>
+            <button type="button" class="btn-primary" id="generateBtn">Generate draft preview</button>
             <button type="button" class="btn-secondary" id="copyBtn" disabled>Copy current draft</button>
             <div class="status-text" id="statusText"></div>
           </div>
@@ -408,7 +407,7 @@
 
         <div id="resultBox" class="result-box" style="margin-top:14px;">
           <div class="result-empty">
-            No draft yet. Submit a task on this page and your Desk will generate a complete draft for you.
+            No draft yet. Submit a task on this page and your Desk will generate a 30% preview of the full draft.
           </div>
         </div>
       </section>
@@ -420,11 +419,8 @@
   </main>
 
   <script>
-    // Cloudflare Worker backend (你的 Worker URL)
+    // Cloudflare Worker backend
     const WORKER_API_URL = "https://aurum-task-worker.sophieinbg.workers.dev/api/generate";
-
-    // 计费周期（天数），可以改，比如 30 天
-    const BILLING_DAYS = 30;
 
     const nameOverlay = document.getElementById("nameOverlay");
     const nameInput = document.getElementById("nameInput");
@@ -451,60 +447,41 @@
     const resultBox = document.getElementById("resultBox");
 
     let currentDraft = "";
-    let countdownTimer = null;
 
-    // --- Plan mapping ---
-    function setupPlanFromUrl() {
-      const params = new URLSearchParams(window.location.search);
-      const plan = (params.get("plan") || "starter").toLowerCase();
+    // --- 固定 Desk 文案（不再根据 URL ?plan=xxx 变化） ---
+    function setupDeskUI() {
+      planPill.textContent = "Aurum Desk";
+      usagePill.textContent = "Free 30% preview · $19.9 unlock";
 
-      if (plan === "starter") {
-        headerTitle.textContent = "Starter Desk — Personal Writing Space";
-        headerSub.textContent =
-          "This Starter Desk is for occasional but important writing: letters, replies, and short messages that benefit from a calm, respectful tone.";
-        planPill.textContent = "Starter Desk · $140 / month";
-        usagePill.textContent = "Designed for ~5 tasks per month";
-        planDesc.textContent =
-          "Use this Desk when you need help saying something important without drama: apologies, clarifications, simple notices, and calm replies.";
-      } else if (plan === "pro") {
-        headerTitle.textContent = "Professional Desk — Ongoing Writing Partner";
-        headerSub.textContent =
-          "This Desk supports professionals, veterans, and business owners with steady, structured help across messages, posts, and longer pieces.";
-        planPill.textContent = "Professional Desk · $280 / month";
-        usagePill.textContent = "Designed for ~12 tasks + 1 long piece";
-        planDesc.textContent =
-          "Use this Desk to handle regular communication with clients, partners, and family, plus at least one longer article or statement each month.";
-      } else if (plan === "private") {
-        headerTitle.textContent = "Private Desk — Quiet Personal Office";
-        headerSub.textContent =
-          "This Private Desk functions like a small personal writing office: frequent short tasks, several long pieces, and help with sensitive topics.";
-        planPill.textContent = "Private Desk · $580 / month";
-        usagePill.textContent = "Unlimited short tasks · up to 3 long pieces";
-        planDesc.textContent =
-          "Use this Desk as often as needed for letters, replies, posts, and more complex writing around family, health, business, or legal-style topics.";
-      } else {
-        planPill.textContent = "Desk Plan";
-        usagePill.textContent = "Usage guidance";
+      planDesc.textContent =
+        "Each draft is written in a calm, low-drama style for letters, replies and short posts. " +
+        "You see a free 30% preview. The full draft can be unlocked for $19.9.";
+
+      if (countdownText) {
+        countdownText.textContent = "";
       }
     }
 
-    // --- Name handling (localStorage) ---
+    // --- 名字逻辑现在只保存，不再显示 “Welcome back, Mike” ---
+    function applyName(name) {
+      const clean = name.trim();
+      if (!clean) return;
+      // 这里不再把名字显示出来，只保持一个统一欢迎语
+      greetingTitle.textContent = "Welcome back.";
+      greetingSub.textContent =
+        "Your Desk is active. Describe what you want to say, and the Desk will shape it into a clear, respectful draft.";
+    }
+
     function initName() {
       const stored = localStorage.getItem("aurum_desk_name") || "";
       if (stored) {
         applyName(stored);
+        // 现在默认不弹出 Overlay
         nameOverlay.style.display = "none";
       } else {
-        nameOverlay.style.display = "flex";
+        // 如果你将来想再次启用名字采集，把下面这一行改回 'flex'
+        nameOverlay.style.display = "none";
       }
-    }
-
-    function applyName(name) {
-      const clean = name.trim();
-      if (!clean) return;
-      greetingTitle.textContent = `Welcome back, ${clean}.`;
-      greetingSub.textContent =
-        "Your Desk is active. Describe what you want to say, and the Desk will shape it into a clear, respectful draft.";
     }
 
     saveNameBtn.addEventListener("click", () => {
@@ -518,64 +495,7 @@
       nameOverlay.style.display = "none";
     });
 
-    // --- Subscription countdown: for starter / pro / private, 30 days each (front-end only) ---
-    function initExpiryCountdown() {
-      const params = new URLSearchParams(window.location.search);
-      const plan = (params.get("plan") || "starter").toLowerCase();
-      const validPlans = ["starter", "pro", "private"];
-
-      // 只对三个订阅页面启用倒计时
-      if (!validPlans.includes(plan)) {
-        countdownText.textContent = "";
-        return;
-      }
-
-      const storageKey = "aurum_desk_expires_at_" + plan;
-      let expiresAt = null;
-      const stored = localStorage.getItem(storageKey);
-
-      if (stored) {
-        const parsed = parseInt(stored, 10);
-        if (!isNaN(parsed)) {
-          expiresAt = parsed;
-        }
-      }
-
-      // 第一次访问该 plan：从现在起记 30 天
-      if (!expiresAt) {
-        const now = Date.now();
-        expiresAt = now + BILLING_DAYS * 24 * 60 * 60 * 1000;
-        localStorage.setItem(storageKey, String(expiresAt));
-      }
-
-      function updateCountdown() {
-        const now = Date.now();
-        const diff = expiresAt - now;
-
-        if (diff <= 0) {
-          countdownText.textContent = "Time left in this billing period: 0 days (expired).";
-          statusText.textContent = "Your current 30-day subscription period has ended. Redirecting you to the public Pricing page...";
-          if (countdownTimer) clearInterval(countdownTimer);
-          // 5 秒后跳回 Pricing 页面
-          setTimeout(() => {
-            window.location.href = "pricing.html";
-          }, 5000);
-          return;
-        }
-
-        const totalSeconds = Math.floor(diff / 1000);
-        const days = Math.floor(totalSeconds / (24 * 3600));
-        const hours = Math.floor((totalSeconds % (24 * 3600)) / 3600);
-
-        countdownText.textContent =
-          `Time left in this billing period: ${days} day(s) ${hours} hour(s) (approximate).`;
-      }
-
-      updateCountdown(); // 先更新一次
-      countdownTimer = setInterval(updateCountdown, 60 * 1000); // 每分钟更新一次
-    }
-
-    // --- Generate draft ---
+    // --- 生成草稿：只展示 30% 预览，剩余 70% 付费解锁 ---
     generateBtn.addEventListener("click", async () => {
       const taskType = taskTypeEl.value;
       const tone = toneEl.value;
@@ -630,13 +550,37 @@
         const full = data.text || "No content returned from Aurum Desk AI.";
         currentDraft = full;
 
-        resultBox.innerHTML = "";
-        const content = document.createElement("div");
-        content.textContent = full;
-        resultBox.appendChild(content);
+        // ---- 只显示 30% 预览 ----
+        const previewRatio = 0.3;
+        const previewLength = Math.max(40, Math.floor(full.length * previewRatio));
+        const previewText = full.slice(0, previewLength);
 
-        statusText.textContent = "Draft generated. You can copy and adjust if needed.";
-        copyBtn.disabled = false;
+        resultBox.innerHTML = "";
+
+        const previewDiv = document.createElement("div");
+        previewDiv.textContent = previewText;
+        resultBox.appendChild(previewDiv);
+
+        // 付费提示
+        const payNotice = document.createElement("div");
+        payNotice.style.marginTop = "18px";
+        payNotice.style.padding = "12px";
+        payNotice.style.border = "1px solid rgba(240,211,122,0.4)";
+        payNotice.style.borderRadius = "10px";
+        payNotice.style.background = "rgba(20,14,4,0.5)";
+        payNotice.style.color = "#f0d37a";
+        payNotice.style.fontSize = "13px";
+        payNotice.style.whiteSpace = "pre-wrap";
+        payNotice.innerHTML =
+          "✨ You are viewing a free 30% preview of this draft.<br><br>" +
+          "Unlock the full draft (100% content) for <b>$19.9</b>.<br><br>" +
+          "After payment, the full text will be prepared and delivered to you by the Desk team.";
+
+        resultBox.appendChild(payNotice);
+
+        statusText.textContent =
+          "Preview generated — full content is available after payment ($19.9).";
+        copyBtn.disabled = true; // 不允许复制完整内容
       } catch (err) {
         console.error(err);
         resultBox.innerHTML =
@@ -647,11 +591,11 @@
         copyBtn.disabled = true;
       } finally {
         generateBtn.disabled = false;
-        generateBtn.textContent = "Generate draft";
+        generateBtn.textContent = "Generate draft preview";
       }
     });
 
-    // --- Copy draft ---
+    // --- Copy draft（保留，但当前按钮是禁用的） ---
     copyBtn.addEventListener("click", async () => {
       if (!currentDraft) {
         alert("There is no draft to copy yet.");
@@ -666,9 +610,8 @@
     });
 
     // --- Init ---
-    setupPlanFromUrl();
+    setupDeskUI();
     initName();
-    initExpiryCountdown();
   </script>
 </body>
 </html>
