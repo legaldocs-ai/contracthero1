@@ -1,753 +1,1505 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
+
   <meta charset="UTF-8" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>Aurum Task Desk — Private AI Writing & Automation Desk</title>
+
   <link rel="icon" href="favicon.png" />
+
   <link rel="icon" type="image/png" href="favicon.png">
+
   <style>
+
     /* ===== 基础样式（全站统一） ===== */
+
     body {
+
       margin: 0;
+
       font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+
         sans-serif;
+
       background: #050816;
+
       color: #f7f5f0;
+
       line-height: 1.6;
+
     }
+
+
 
     a {
+
       text-decoration: none;
+
       color: inherit;
+
     }
+
+
 
     .container {
+
       max-width: 1180px;
+
       margin: 0 auto;
+
       padding: 20px;
+
     }
+
+
 
     .navbar {
+
       position: sticky;
+
       top: 0;
+
       z-index: 20;
+
       backdrop-filter: blur(14px);
+
       background: rgba(5, 8, 22, 0.9);
+
       border-bottom: 1px solid rgba(204, 188, 119, 0.12);
+
       display: flex;
+
       justify-content: space-between;
+
       align-items: center;
+
       padding: 14px 20px;
+
     }
+
+
 
     .nav-left {
+
       font-size: 22px;
+
       font-weight: 700;
+
       letter-spacing: 0.06em;
+
       text-transform: uppercase;
+
       color: #f5f2e6;
+
     }
+
+
 
     .nav-right a {
+
       margin-left: 22px;
+
       font-size: 14px;
+
       opacity: 0.86;
+
     }
+
+
 
     .nav-right a:hover {
+
       opacity: 1;
+
       color: #f0d37a;
+
     }
+
+
 
     .footer {
+
       margin-top: 80px;
+
       border-top: 1px solid rgba(204, 188, 119, 0.25);
+
       padding: 30px 20px 40px;
+
       text-align: center;
+
       font-size: 13px;
+
       opacity: 0.8;
+
       color: #c3c0ba;
+
     }
+
+
 
     /* ===== HERO 区：华尔街深色 + 金边卡片 ===== */
+
     .hero {
+
       padding: 70px 20px 40px;
+
     }
+
+
 
     .hero-grid {
+
       display: grid;
+
       grid-template-columns: minmax(0, 3fr) minmax(0, 2.4fr);
+
       gap: 32px;
+
       align-items: stretch;
+
     }
+
+
 
     .hero-left-title {
+
       font-size: 40px;
+
       font-weight: 800;
+
       color: #f7f5ef;
+
       line-height: 1.18;
+
     }
+
+
 
     .hero-left-title span {
+
       color: #f0d37a;
+
     }
+
+
 
     .hero-left-sub {
+
       margin-top: 18px;
+
       font-size: 16px;
+
       max-width: 620px;
+
       color: #cbc7be;
+
     }
+
+
 
     .hero-tags {
+
       display: flex;
+
       flex-wrap: wrap;
+
       gap: 10px;
+
       margin-top: 18px;
+
     }
+
+
 
     .tag-pill {
+
       font-size: 12px;
+
       padding: 6px 11px;
+
       border-radius: 999px;
+
       border: 1px solid rgba(240, 211, 122, 0.4);
+
       background: radial-gradient(circle at top left, #2c2a23, #111218);
+
       color: #f5f2e8;
+
       opacity: 0.9;
+
     }
+
+
 
     .hero-cta-row {
+
       margin-top: 26px;
+
       display: flex;
+
       flex-wrap: wrap;
+
       gap: 14px;
+
     }
+
+
 
     .btn-gold {
+
       padding: 11px 22px;
+
       border-radius: 999px;
+
       border: 1px solid #f0d37a;
+
       background: linear-gradient(135deg, #f0d37a, #cba84f);
+
       color: #18120a;
+
       font-weight: 600;
+
       font-size: 14px;
+
       cursor: pointer;
+
       box-shadow: 0 8px 18px rgba(0, 0, 0, 0.45);
+
     }
+
+
 
     .btn-gold:hover {
+
       filter: brightness(1.05);
+
     }
+
+
 
     .btn-outline {
+
       padding: 11px 22px;
+
       border-radius: 999px;
+
       border: 1px solid rgba(240, 211, 122, 0.6);
+
       background: transparent;
+
       color: #f0d37a;
+
       font-weight: 500;
+
       font-size: 14px;
+
       cursor: pointer;
+
     }
+
+
 
     .btn-outline:hover {
+
       background: rgba(240, 211, 122, 0.08);
+
     }
+
+
 
     .hero-note {
+
       margin-top: 10px;
+
       font-size: 12px;
+
       color: #9a968c;
+
     }
+
+
 
     .hero-right-card {
+
       height: 100%;
+
       border-radius: 18px;
+
       padding: 22px 22px 20px;
+
       border: 1px solid rgba(240, 211, 122, 0.5);
+
       background: radial-gradient(circle at 0% 0%, #3b3b3b 0, #151722 42%, #050816 82%);
+
       box-shadow: 0 24px 50px rgba(0, 0, 0, 0.7);
+
     }
+
+
 
     .card-heading {
+
       display: flex;
+
       justify-content: space-between;
+
       align-items: center;
+
       margin-bottom: 14px;
+
     }
+
+
 
     .card-title {
+
       font-size: 14px;
+
       text-transform: uppercase;
+
       letter-spacing: 0.13em;
+
       color: #c3c0ba;
+
     }
+
+
 
     .card-pill {
+
       padding: 4px 9px;
+
       border-radius: 999px;
+
       border: 1px solid rgba(170, 255, 170, 0.4);
+
       font-size: 11px;
+
       color: #adffb3;
+
       background: rgba(10, 54, 25, 0.6);
+
     }
+
+
 
     .card-table {
+
       width: 100%;
+
       border-collapse: collapse;
+
       margin-top: 8px;
+
       font-size: 13px;
+
     }
+
+
 
     .card-table th,
+
     .card-table td {
+
       padding: 7px 6px;
+
       text-align: left;
+
     }
+
+
 
     .card-table th {
+
       border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+
       font-size: 11px;
+
       text-transform: uppercase;
+
       letter-spacing: 0.1em;
+
       color: #8b8880;
+
     }
+
+
 
     .card-table td {
+
       border-bottom: 1px dashed rgba(255, 255, 255, 0.06);
+
       color: #f5f2ea;
+
     }
+
+
 
     .col-right {
+
       text-align: right;
+
       color: #f0d37a;
+
       white-space: nowrap;
+
     }
+
+
 
     .card-footer {
+
       margin-top: 14px;
+
       font-size: 11px;
+
       color: #a8a49c;
+
       display: flex;
+
       justify-content: space-between;
+
       flex-wrap: wrap;
+
       gap: 4px 10px;
+
     }
+
+
 
     /* ===== 信任条 / 统计数字 ===== */
+
     .trust-strip {
+
       border-top: 1px solid rgba(204, 188, 119, 0.18);
+
       border-bottom: 1px solid rgba(204, 188, 119, 0.18);
+
       background: linear-gradient(
+
         90deg,
+
         rgba(240, 211, 122, 0.06),
+
         rgba(16, 20, 33, 0.9),
+
         rgba(240, 211, 122, 0.06)
+
       );
+
       padding: 18px 20px;
+
     }
+
+
 
     .trust-grid {
+
       max-width: 1180px;
+
       margin: 0 auto;
+
       display: flex;
+
       flex-wrap: wrap;
+
       gap: 24px;
+
       justify-content: space-between;
+
       align-items: center;
+
       font-size: 13px;
+
       color: #d9d5cf;
+
     }
+
+
 
     .trust-main {
+
       font-weight: 500;
+
     }
+
+
 
     .trust-badges {
+
       display: flex;
+
       flex-wrap: wrap;
+
       gap: 12px;
+
       font-size: 12px;
+
     }
+
+
 
     .trust-pill {
+
       padding: 4px 9px;
+
       border-radius: 999px;
+
       border: 1px solid rgba(134, 189, 255, 0.4);
+
       background: rgba(12, 30, 60, 0.7);
+
       color: #e2ecff;
+
     }
+
+
 
     /* ===== 三大板块：How / Built for / Use cases ===== */
+
     .section {
+
       padding: 36px 20px 0;
+
     }
+
+
 
     .section-inner {
+
       max-width: 1180px;
+
       margin: 0 auto;
+
     }
+
+
 
     .section-title {
+
       font-size: 22px;
+
       font-weight: 700;
+
       color: #f5f2e6;
+
       margin-bottom: 6px;
+
     }
+
+
 
     .section-sub {
+
       font-size: 14px;
+
       color: #a9a59b;
+
       max-width: 620px;
+
       margin-bottom: 20px;
+
     }
+
+
 
     .three-col {
+
       display: grid;
+
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+
       gap: 20px;
+
     }
+
+
 
     .card {
+
       border-radius: 12px;
+
       padding: 18px 18px 16px;
+
       background: radial-gradient(circle at top left, #26252a, #14151c);
+
       border: 1px solid rgba(255, 255, 255, 0.06);
+
       font-size: 14px;
+
     }
+
+
 
     .card h3 {
+
       font-size: 15px;
+
       margin: 0 0 6px;
+
       color: #f5f2ea;
+
     }
+
+
 
     .card p {
+
       margin: 0;
+
       color: #c5c1b8;
+
     }
+
+
 
     .pill-label {
+
       display: inline-block;
+
       font-size: 11px;
+
       text-transform: uppercase;
+
       letter-spacing: 0.1em;
+
       color: #f0d37a;
+
       margin-bottom: 4px;
+
     }
+
+
 
     /* ===== Use Cases 列表 ===== */
+
     .usecase-list {
+
       display: grid;
+
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+
       gap: 18px;
+
       font-size: 14px;
+
     }
+
+
 
     .usecase-item {
+
       border-radius: 10px;
+
       padding: 14px 15px;
+
       background: rgba(15, 20, 35, 0.9);
+
       border: 1px solid rgba(255, 255, 255, 0.06);
+
       color: #dcd8cf;
+
     }
+
+
 
     .usecase-item strong {
+
       display: block;
+
       margin-bottom: 4px;
+
       color: #f5f2ea;
+
     }
+
+
 
     /* ===== “Why not a marketplace” 区块 ===== */
+
     .contrast-block {
+
       border-radius: 16px;
+
       padding: 22px 20px 20px;
+
       background: linear-gradient(
+
         135deg,
+
         rgba(240, 211, 122, 0.12),
+
         rgba(9, 12, 26, 0.98)
+
       );
+
       border: 1px solid rgba(240, 211, 122, 0.6);
+
       margin-top: 24px;
+
       font-size: 14px;
+
       color: #f9f6ee;
+
     }
+
+
 
     .contrast-grid {
+
       display: grid;
+
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+
       gap: 18px;
+
       margin-top: 12px;
+
     }
+
+
 
     .contrast-col h3 {
+
       font-size: 14px;
+
       text-transform: uppercase;
+
       letter-spacing: 0.12em;
+
       margin: 0 0 6px;
+
     }
+
+
 
     .contrast-col ul {
+
       margin: 0;
+
       padding-left: 18px;
+
       color: #f2efe6;
+
       font-size: 13px;
+
     }
+
+
 
     /* ===== FAQ & CTA ===== */
+
     .faq-grid {
+
       display: grid;
+
       grid-template-columns: minmax(0, 2fr) minmax(0, 1.4fr);
+
       gap: 26px;
+
       align-items: flex-start;
+
       margin-top: 16px;
+
       font-size: 14px;
+
     }
+
+
 
     .faq-item {
+
       margin-bottom: 10px;
+
     }
+
+
 
     .faq-item strong {
+
       display: block;
+
       margin-bottom: 3px;
+
       color: #f5f2ea;
+
     }
+
+
 
     .cta-panel {
+
       border-radius: 14px;
+
       padding: 18px 18px 16px;
+
       background: radial-gradient(circle at top left, #2a2515, #120f0a);
+
       border: 1px solid rgba(240, 211, 122, 0.6);
+
     }
+
+
 
     .cta-panel p {
+
       margin: 8px 0;
+
       color: #e3ddcf;
+
       font-size: 13px;
+
     }
+
+
 
     @media (max-width: 900px) {
+
       .hero-grid {
+
         grid-template-columns: 1fr;
+
       }
+
+
 
       .hero {
+
         padding-top: 60px;
+
       }
+
+
 
       .nav-right a {
+
         margin-left: 14px;
+
       }
+
     }
+
+
 
     @media (max-width: 640px) {
+
       .navbar {
+
         flex-direction: column;
+
         align-items: flex-start;
+
         gap: 6px;
+
       }
+
+
 
       .hero-left-title {
+
         font-size: 30px;
+
       }
+
+
 
       .hero-right-card {
+
         margin-top: 4px;
+
       }
+
     }
+
   </style>
+
 </head>
+
 <body>
+
   <!-- 顶部导航 -->
+
   <header class="navbar">
+
     <div class="nav-left">Aurum Task Desk</div>
+
     <div class="nav-right">
+
       <a href="index.html">Home</a>
+
       <a href="tasks.html">Task Marketplace</a>
+
       <a href="about.html">About</a>
+
       <a href="pricing.html">Pricing</a>
+
       <a href="contact.html">Contact</a>
+
     </div>
+
   </header>
 
+
+
   <!-- HERO：华尔街式“交易面板 + 私人办公桌” -->
+
   <main class="hero">
+
     <div class="container hero-grid">
+
       <div class="hero-left">
+
         <h1 class="hero-left-title">
+
           A quiet <span>AI task desk</span><br />
+
           for older US & EU professionals
+
         </h1>
+
         <p class="hero-left-sub">
+
           Aurum Task Desk is a private coordination desk. Clients send tasks,
+
           trusted freelancers execute with AI, and the Desk quietly manages
+
           scope, words, and settlement — like a small Wall Street back office,
+
           built only for people you choose.
+
         </p>
 
+
+
         <div class="hero-tags">
+
           <span class="tag-pill">US / EU clients · 50+ core age</span>
+
           <span class="tag-pill">AI writing · scripts · light automation</span>
+
           <span class="tag-pill">Desk fee on each completed task</span>
+
         </div>
+
+
 
         <div class="hero-cta-row">
+
           <a href="tasks.html" class="btn-gold">View current demo tasks</a>
+
           <a href="about.html" class="btn-outline">How Aurum Task Desk works</a>
+
         </div>
+
+
 
         <div class="hero-note">
+
           No open marketplace. You control who sees the desk, who posts tasks,
+
           and who gets invited to work.
+
         </div>
+
       </div>
 
+
+
       <aside class="hero-right-card">
+
         <div class="card-heading">
+
           <div class="card-title">Current Desk Snapshot</div>
+
           <div class="card-pill">No funds held on-site</div>
+
         </div>
+
         <table class="card-table">
+
           <thead>
+
             <tr>
+
               <th>Task</th>
+
               <th class="col-right">Budget</th>
+
             </tr>
+
           </thead>
+
           <tbody>
+
+
 
             <!-- ↓↓↓↓↓ 这里是唯一修改价格的部分 ↓↓↓↓↓ -->
 
+
+
             <tr>
+
               <td>Long-form article for retired US investor</td>
+
               <td class="col-right">$180</td>
+
             </tr>
+
             <tr>
+
               <td>10-piece LinkedIn pack (executive tone)</td>
+
               <td class="col-right">$120</td>
+
             </tr>
+
             <tr>
+
               <td>WhatsApp automation script for older male audience</td>
+
               <td class="col-right">$160</td>
+
             </tr>
+
+
 
             <!-- ↑↑↑↑↑ 只有这三行被改动，其它全部保持原样 ↑↑↑↑↑ -->
 
+
+
           </tbody>
+
         </table>
+
         <div class="card-footer">
+
           <span>Example volumes only · Desk fee built into each number</span>
+
           <span>Stripe settlement · no custody of client funds</span>
+
         </div>
+
       </aside>
+
     </div>
+
   </main>
 
+
+
   <!-- 信任条 -->
+
   <section class="trust-strip">
+
     <div class="trust-grid">
+
       <div class="trust-main">
+
         Designed for calm, low-drama work with older professionals — not for
+
         hype or noisy mass markets.
+
       </div>
+
       <div class="trust-badges">
+
         <span class="trust-pill">US &amp; EU retirees · executives · small business owners</span>
+
         <span class="trust-pill">Writing · messaging · follow-up flows</span>
+
         <span class="trust-pill">Stripe-based settlement</span>
+
       </div>
+
     </div>
+
   </section>
+
+
 
   <!-- How the Desk works -->
+
   <section class="section">
+
     <div class="section-inner">
+
       <h2 class="section-title">How Aurum Task Desk Runs</h2>
+
       <p class="section-sub">
+
         Think of it as a small private office between clients and freelancers.
+
         You coordinate the relationship; AI and humans handle the work.
+
       </p>
+
       <div class="three-col">
+
         <div class="card">
+
           <span class="pill-label">Step 01</span>
+
           <h3>Clients send tasks in plain language</h3>
+
           <p>
+
             A US client writes: “I need a letter to my daughter,” or
+
             “I need 10 posts explaining my business calmly.” The Desk turns
+
             this into a clear scope and budget.
+
           </p>
+
         </div>
+
         <div class="card">
+
           <span class="pill-label">Step 02</span>
+
           <h3>Freelancers execute with AI + structure</h3>
+
           <p>
+
             Contributors use AI tools to draft, but the Desk enforces tone,
+
             clarity, and structure so clients feel understood — not spammed.
+
           </p>
+
         </div>
+
         <div class="card">
+
           <span class="pill-label">Step 03</span>
+
           <h3>Stripe settlement & desk fee</h3>
+
           <p>
+
             Clients pay one Stripe amount. Freelancers receive a net payout.
+
             The desk fee is the spread — just like a quiet coordination office.
+
           </p>
+
         </div>
+
       </div>
+
     </div>
+
   </section>
+
+
 
   <!-- Built for / Use cases -->
+
   <section class="section">
+
     <div class="section-inner">
+
       <h2 class="section-title">Who this Desk is Built For</h2>
+
       <p class="section-sub">
+
         Aurum Task Desk is intentionally narrow. It’s not for everyone — it is
+
         for people who prefer low-noise, private help.
+
       </p>
+
       <div class="three-col">
+
         <div class="card">
+
           <h3>Older US & EU men (50+)</h3>
+
           <p>
+
             Retirees, veterans, business owners, or professionals who want
+
             help with words, stories, and careful communication.
+
           </p>
+
         </div>
+
         <div class="card">
+
           <h3>Small business & advisory work</h3>
+
           <p>
+
             Independent advisors, family businesses, logistics owners, or
+
             consultants who want content and scripts without a marketing circus.
+
           </p>
+
         </div>
+
         <div class="card">
+
           <h3>Quiet, long-term relationships</h3>
+
           <p>
+
             People who like to work with the same desk over months or years,
+
             not random one-off strangers each time.
+
           </p>
+
         </div>
+
       </div>
+
+
 
       <h2 class="section-title" style="margin-top: 34px">
+
         Typical Use Cases
+
       </h2>
+
       <div class="usecase-list">
+
         <div class="usecase-item">
+
           <strong>Letters & personal notes</strong>
+
           To family, partners, or clients — written in calm, respectful tone.
+
         </div>
+
         <div class="usecase-item">
+
           <strong>Content packs</strong>
+
           LinkedIn posts, website updates, FAQ answers, and email sequences
+
           written clearly for older audiences.
+
         </div>
+
         <div class="usecase-item">
+
           <strong>WhatsApp & SMS scripts</strong>
+
           Simple templates for daily follow-ups, check-ins, and polite
+
           reminders that still sound human.
+
         </div>
+
         <div class="usecase-item">
+
           <strong>Light automations</strong>
+
           Basic flows to reuse messages and content without feeling like a
+
           robot is talking.
+
         </div>
+
       </div>
+
     </div>
+
   </section>
+
+
 
   <!-- 为什么不是公开市场 -->
+
   <section class="section">
+
     <div class="section-inner">
+
       <div class="contrast-block">
+
         <h2 class="section-title" style="margin-bottom: 4px">
+
           Why a Private Desk — not a Big Marketplace
+
         </h2>
+
         <p class="section-sub" style="margin-bottom: 12px">
+
           Public platforms are full of noise, bids, and mixed quality. Aurum
+
           Task Desk is intentionally small and private.
+
         </p>
+
         <div class="contrast-grid">
+
           <div class="contrast-col">
+
             <h3>Typical marketplace</h3>
+
             <ul>
+
               <li>Hundreds of strangers competing for each task</li>
+
               <li>Clients must filter, manage, and correct everything</li>
+
               <li>Inconsistent tone, especially with older clients</li>
+
               <li>Fees and structure feel “platform first”</li>
+
             </ul>
+
           </div>
+
           <div class="contrast-col">
+
             <h3>Aurum Task Desk</h3>
+
             <ul>
+
               <li>You decide who sees the desk and who can post</li>
+
               <li>One calm office in the middle of every task</li>
+
               <li>AI used with care, not for spam or mass output</li>
+
               <li>Desk fee is clear: client price minus net payout</li>
+
             </ul>
+
           </div>
+
         </div>
+
       </div>
+
     </div>
+
   </section>
+
+
 
   <!-- FAQ + 最终 CTA -->
+
   <section class="section">
+
     <div class="section-inner">
+
       <h2 class="section-title">Common Questions</h2>
+
       <div class="faq-grid">
+
         <div>
+
           <div class="faq-item">
+
             <strong>Is this a company or just a tool?</strong>
+
             <span
+
               >It is structured like a small private office. You decide if you
+
               present it as a firm, a personal desk, or part of your existing
+
               business.</span
+
             >
+
           </div>
+
           <div class="faq-item">
+
             <strong>Do clients need to know about AI?</strong>
+
             <span
+
               >No. Many clients just see that their letters, posts, or scripts
+
               are done clearly and on time. The Desk quietly uses AI where it
+
               helps.</span
+
             >
+
           </div>
+
           <div class="faq-item">
+
             <strong>How does the Desk earn money?</strong>
+
             <span
+
               >Clients pay one amount (for example, USD 480). Freelancers or
+
               contributors receive a net amount. The difference is the Desk fee,
+
               which compensates you for scoping, coordination, and quality
+
               control.</span
+
             >
+
           </div>
+
         </div>
+
         <aside class="cta-panel">
+
           <span class="pill-label">Next step</span>
+
           <h3 style="margin: 0; font-size: 16px; color: #f5f2ea">
+
             Ready to shape your own Aurum Task Desk?
+
           </h3>
+
           <p>
+
             Use the Task Marketplace to draft example tasks, the Pricing page to
+
             frame your desk fee model, and the Contact page to invite the first
+
             clients privately.
+
           </p>
+
           <a href="tasks.html" class="btn-gold" style="display: inline-block; margin-top: 8px;"
+
             >Open the Task Marketplace</a
+
           >
+
           <p style="margin-top: 10px; font-size: 12px;">
+
             You can adjust the numbers, wording, and audience over time. The
+
             Desk is designed to grow with the relationships you build.
+
           </p>
+
         </aside>
+
       </div>
+
     </div>
+
   </section>
 
+
+
   <footer class="footer">
+
     © 2025 Aurum Task Desk — Private AI Task Coordination Desk
+
   </footer>
+
 </body>
+
 </html>
