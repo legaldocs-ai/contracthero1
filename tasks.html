@@ -1,856 +1,1711 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
+
   <meta charset="UTF-8" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>Aurum Task Desk — Enterprise Writing Desk</title>
+
   <link rel="icon" type="image/png" href="favicon.png" />
+
   <style>
+
     * { box-sizing: border-box; }
 
+
+
     body {
+
       margin: 0;
+
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+
       background: radial-gradient(circle at top left, #fdf8ee 0%, #f4f5ff 40%, #edf3ff 100%);
+
       color: #151823;
+
       line-height: 1.6;
+
     }
+
+
 
     a {
+
       text-decoration: none;
+
       color: inherit;
+
     }
+
+
 
     .container {
+
       max-width: 1220px;
+
       margin: 0 auto;
+
       padding: 20px;
+
     }
+
+
 
     /* Navbar */
+
     .navbar {
+
       position: sticky;
+
       top: 0;
+
       z-index: 20;
+
       backdrop-filter: blur(14px);
+
       background: rgba(255, 255, 255, 0.95);
+
       border-bottom: 1px solid rgba(210, 197, 140, 0.4);
+
       padding: 10px 20px;
+
       display: flex;
+
       justify-content: space-between;
+
       align-items: center;
+
     }
+
+
 
     .nav-left {
+
       display: flex;
+
       align-items: center;
+
       gap: 8px;
+
     }
+
+
 
     .logo-mark {
+
       width: 26px;
+
       height: 26px;
+
       border-radius: 9px;
+
       background: conic-gradient(from 210deg, #f4b738, #d48c1a, #f4b738);
+
       display: flex;
+
       align-items: center;
+
       justify-content: center;
+
       color: #15100a;
+
       font-size: 13px;
+
       font-weight: 800;
+
       box-shadow: 0 0 0 2px #fff, 0 0 20px rgba(212,140,26,0.45);
+
     }
+
+
 
     .logo-text {
+
       font-size: 18px;
+
       font-weight: 800;
+
       letter-spacing: 0.18em;
+
       text-transform: uppercase;
+
       color: #262836;
+
     }
+
+
 
     .nav-right {
+
       display: flex;
+
       align-items: center;
+
     }
+
+
 
     .nav-right a {
+
       margin-left: 22px;
+
       font-size: 13px;
+
       opacity: 0.85;
+
     }
+
+
 
     .nav-right a:hover {
+
       opacity: 1;
+
       color: #d49b1f;
+
     }
+
+
 
     .nav-badge {
+
       font-size: 11px;
+
       padding: 4px 9px;
+
       border-radius: 999px;
+
       background: #0f172a;
+
       color: #f9fafb;
+
       margin-left: 14px;
+
     }
+
+
 
     /* Header */
+
     .page-header {
+
       margin-top: 22px;
+
       margin-bottom: 6px;
+
     }
+
+
 
     .desk-label {
+
       font-size: 11px;
+
       text-transform: uppercase;
+
       letter-spacing: 0.18em;
+
       color: #c08b20;
+
       margin-bottom: 6px;
+
     }
+
+
 
     .header-row {
+
       display: flex;
+
       align-items: baseline;
+
       justify-content: space-between;
+
       gap: 10px;
+
       flex-wrap: wrap;
+
     }
+
+
 
     .header-title {
+
       font-size: 30px;
+
       font-weight: 800;
+
       color: #22252f;
+
       margin-bottom: 2px;
+
     }
+
+
 
     .header-sub {
+
       font-size: 13px;
+
       color: #5b6273;
+
       max-width: 620px;
+
     }
+
+
 
     .header-tags {
+
       display: flex;
+
       gap: 8px;
+
       flex-wrap: wrap;
+
     }
+
+
 
     .header-chip {
+
       padding: 4px 8px;
+
       border-radius: 999px;
+
       font-size: 11px;
+
       border: 1px solid rgba(148, 163, 184, 0.6);
+
       background: rgba(255,255,255,0.7);
+
       color: #374151;
+
     }
+
+
 
     /* Layout */
+
     .layout {
+
       display: grid;
+
       grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.15fr);
+
       gap: 22px;
+
       margin-top: 20px;
+
       align-items: flex-start;
+
     }
+
+
 
     @media (max-width: 900px) {
+
       .layout {
+
         grid-template-columns: 1fr;
+
       }
+
     }
+
+
 
     .card {
+
       background: #ffffff;
+
       border-radius: 18px;
+
       border: 1px solid rgba(213, 208, 192, 0.9);
+
       padding: 18px 18px 20px;
+
       box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+
     }
+
+
 
     .card-title {
+
       font-size: 17px;
+
       font-weight: 700;
+
       margin-bottom: 4px;
+
       color: #22252f;
+
     }
+
+
 
     .card-sub {
+
       font-size: 13px;
+
       color: #616575;
+
       margin-bottom: 14px;
+
     }
+
+
 
     /* LEFT COLUMN: account + usage */
+
     .meta-row {
+
       display: flex;
+
       align-items: center;
+
       justify-content: space-between;
+
       gap: 12px;
+
       flex-wrap: wrap;
+
       margin-bottom: 10px;
+
     }
+
+
 
     .desk-meta {
+
       display: flex;
+
       flex-wrap: wrap;
+
       gap: 8px;
+
       font-size: 12px;
+
     }
+
+
 
     .pill {
+
       padding: 4px 10px;
+
       border-radius: 999px;
+
       border: 1px solid rgba(210, 165, 60, 0.85);
+
       background: linear-gradient(135deg, #fff7e2, #fbe4b5);
+
       color: #7f5a0f;
+
       font-weight: 500;
+
     }
+
+
 
     .pill-soft {
+
       padding: 4px 10px;
+
       border-radius: 999px;
+
       border: 1px solid rgba(120, 158, 240, 0.7);
+
       background: linear-gradient(135deg, #eef4ff, #dfebff);
+
       color: #2d4a95;
+
       font-weight: 500;
+
     }
+
+
 
     .pill-mode {
+
       padding: 3px 9px;
+
       border-radius: 999px;
+
       border: 1px dashed rgba(148,163,184,0.7);
+
       color: #4b5563;
+
       font-size: 11px;
+
       background: rgba(248,250,252,0.9);
+
     }
+
+
 
     /* Usage block */
+
     .usage-block {
+
       margin-top: 10px;
+
       border-radius: 12px;
+
       padding: 10px 10px 12px;
+
       background: linear-gradient(135deg, #fdf7e6, #f6f3ff);
+
       border: 1px solid rgba(229, 231, 235, 0.9);
+
     }
+
+
 
     .usage-header {
+
       display: flex;
+
       justify-content: space-between;
+
       align-items: center;
+
       font-size: 12px;
+
       color: #4b5563;
+
       margin-bottom: 6px;
+
     }
+
+
 
     .usage-count {
+
       font-weight: 600;
+
       color: #7c5010;
+
     }
+
+
 
     .usage-bar-outer {
+
       width: 100%;
+
       height: 8px;
+
       border-radius: 999px;
+
       background: rgba(229, 231, 235, 0.9);
+
       overflow: hidden;
+
     }
+
+
 
     .usage-bar-inner {
+
       height: 100%;
+
       border-radius: 999px;
+
       background: linear-gradient(90deg, #f4b738, #d48c1a);
+
       width: 0%;
+
       transition: width 0.4s ease;
+
     }
+
+
 
     .usage-footnote {
+
       font-size: 11px;
+
       color: #6b7280;
+
       margin-top: 4px;
+
     }
+
+
 
     .stat-grid {
+
       display: grid;
+
       grid-template-columns: repeat(3, minmax(0, 1fr));
+
       gap: 10px;
+
       margin-top: 12px;
+
     }
+
+
 
     @media (max-width: 600px) {
+
       .stat-grid {
+
         grid-template-columns: repeat(2, minmax(0, 1fr));
+
       }
+
     }
+
+
 
     .stat-card {
+
       padding: 10px 10px 9px;
+
       border-radius: 10px;
+
       border: 1px solid rgba(229, 231, 235, 0.9);
+
       background: #f9fafb;
+
       font-size: 11px;
+
       color: #4b5563;
+
     }
+
+
 
     .stat-label {
+
       font-size: 11px;
+
       color: #6b7280;
+
     }
+
+
 
     .stat-value {
+
       font-size: 13px;
+
       font-weight: 600;
+
       color: #111827;
+
       margin-top: 1px;
+
     }
+
+
 
     .hint {
+
       font-size: 12px;
+
       color: #7a7f8b;
+
       margin-top: 10px;
+
     }
+
+
 
     .hint strong {
+
       color: #374151;
+
       font-weight: 600;
+
     }
+
+
 
     /* RIGHT COLUMN: form + result */
+
     label {
+
       display: block;
+
       font-size: 13px;
+
       margin-bottom: 4px;
+
       color: #2a2f3b;
+
     }
+
+
 
     input[type="text"],
+
     select,
-    textarea {
-      width: 100%;
-      padding: 9px 10px;
-      border-radius: 9px;
-      border: 1px solid rgba(157, 165, 189, 0.9);
-      background: #fbfbff;
-      color: #202430;
-      font-size: 13px;
-      font-family: inherit;
-    }
 
     textarea {
-      min-height: 140px;
-      resize: vertical;
+
+      width: 100%;
+
+      padding: 9px 10px;
+
+      border-radius: 9px;
+
+      border: 1px solid rgba(157, 165, 189, 0.9);
+
+      background: #fbfbff;
+
+      color: #202430;
+
+      font-size: 13px;
+
+      font-family: inherit;
+
     }
+
+
+
+    textarea {
+
+      min-height: 140px;
+
+      resize: vertical;
+
+    }
+
+
 
     input:focus,
+
     select:focus,
+
     textarea:focus {
+
       outline: none;
+
       border-color: #d19a26;
+
       box-shadow: 0 0 0 1px rgba(209, 154, 38, 0.35);
+
       background: #ffffff;
+
     }
+
+
 
     .inline {
+
       display: flex;
+
       gap: 10px;
+
       margin-top: 8px;
+
     }
+
+
 
     .inline .field {
+
       flex: 1;
+
     }
+
+
 
     .btn-primary {
+
       padding: 9px 18px;
+
       border-radius: 999px;
+
       border: none;
+
       background: linear-gradient(135deg, #f4b738, #d48c1a);
+
       color: #15100a;
+
       font-size: 14px;
+
       font-weight: 600;
+
       cursor: pointer;
+
       margin-right: 8px;
+
       box-shadow: 0 10px 20px rgba(204, 140, 18, 0.3);
+
     }
+
+
 
     .btn-primary:disabled {
+
       opacity: 0.6;
+
       cursor: default;
+
       box-shadow: none;
+
     }
+
+
 
     .btn-secondary {
+
       padding: 8px 14px;
+
       border-radius: 999px;
+
       border: 1px solid rgba(148, 163, 184, 0.9);
+
       background: #f9fafb;
+
       color: #4b5563;
+
       font-size: 12px;
+
       cursor: pointer;
+
       margin-top: 4px;
+
     }
+
+
 
     .btn-secondary:hover {
+
       background: #e5e7eb;
+
     }
+
+
 
     .status-text {
+
       font-size: 12px;
+
       color: #6a7282;
+
       margin-top: 6px;
+
       min-height: 16px;
+
     }
+
+
 
     .result-box {
+
       margin-top: 10px;
+
       padding: 12px;
+
       border-radius: 12px;
+
       background: linear-gradient(145deg, #fdfbff, #f4f5ff);
+
       border: 1px solid rgba(188, 193, 214, 0.9);
+
       font-size: 13px;
+
       white-space: pre-wrap;
+
       max-height: 420px;
+
       overflow-y: auto;
+
       color: #252a3a;
+
     }
+
+
 
     .result-empty {
+
       font-size: 13px;
+
       color: #8a8fa0;
+
     }
+
+
 
     .footer {
+
       margin-top: 40px;
+
       border-top: 1px solid rgba(214, 205, 173, 0.7);
+
       padding: 18px 0 26px;
+
       text-align: center;
+
       font-size: 12px;
+
       color: #7c7f8a;
+
     }
+
   </style>
+
 </head>
+
 <body>
+
   <!-- NAVBAR -->
+
   <header class="navbar">
+
     <div class="nav-left">
+
       <div class="logo-mark">A</div>
+
       <div class="logo-text">AURUM DESK</div>
+
       <span class="nav-badge">Enterprise Pilot</span>
+
     </div>
+
     <nav class="nav-right">
+
       <a href="index.html">Home</a>
+
       <a href="tasks.html">Task Marketplace</a>
+
       <a href="pricing.html">Pricing</a>
+
       <a href="contact.html">Contact</a>
+
     </nav>
+
   </header>
 
+
+
   <!-- (名字 overlay 保留，如以后想用，可改 JS 显示) -->
+
   <div class="name-overlay" id="nameOverlay" style="display:none;">
+
     <div class="name-card">
+
       <h2>Your Personal Desk</h2>
+
       <p>
+
         Before we start, how should the Desk address you?<br />
+
         (First name only is fine.)
+
       </p>
+
       <div class="name-input-row">
+
         <input type="text" id="nameInput" placeholder="Mike, John, David..." />
+
       </div>
+
       <button class="btn-small" id="saveNameBtn">Save and open my Desk</button>
+
     </div>
+
   </div>
 
+
+
   <main class="container">
+
     <!-- Header -->
+
     <section class="page-header">
+
       <div class="desk-label">PERSONAL DESK</div>
+
       <div class="header-row">
+
         <div>
+
           <h1 class="header-title" id="headerTitle">Your Aurum Desk</h1>
+
           <p class="header-sub" id="headerSub">
+
             Describe what you want to say in plain language. The Desk turns it into a clear, steady,
+
             low-drama draft that older US/EU readers can understand and trust.
+
           </p>
+
         </div>
+
         <div class="header-tags">
+
           <div class="header-chip">Drafts stay private</div>
+
           <div class="header-chip">Optimized for 50+ readers</div>
+
           <div class="header-chip">English / Chinese supported</div>
+
         </div>
+
       </div>
+
     </section>
+
+
 
     <!-- Main layout -->
+
     <section class="layout">
+
       <!-- LEFT: Plan + usage -->
+
       <aside class="card">
+
         <h2 class="card-title">Desk overview</h2>
+
         <p class="card-sub">
+
           This Desk is for letters, clarifications, family communication, and short posts —
+
           especially when the topic is emotional, complex, or easy to misunderstand.
+
         </p>
+
+
 
         <div class="meta-row">
+
           <div class="desk-meta">
+
             <span class="pill" id="planPill">Aurum Desk · Preview mode</span>
+
             <span class="pill-soft" id="usagePill">Free 30% preview · $19.9 unlock</span>
+
           </div>
+
           <div class="pill-mode">Mode: Preview only</div>
+
         </div>
+
+
 
         <div class="usage-block">
+
           <div class="usage-header">
+
             <span>Monthly previews (this browser)</span>
+
             <span class="usage-count" id="usageCountText">0 / 5 used</span>
+
           </div>
+
           <div class="usage-bar-outer">
+
             <div class="usage-bar-inner" id="usageBar"></div>
+
           </div>
+
           <div class="usage-footnote">
+
             This counter is local to your device and resets when you clear your browser storage.
+
           </div>
+
         </div>
+
+
 
         <div class="stat-grid">
+
           <div class="stat-card">
+
             <div class="stat-label">Typical tone</div>
+
             <div class="stat-value">Calm & respectful</div>
+
           </div>
+
           <div class="stat-card">
+
             <div class="stat-label">Best use cases</div>
+
             <div class="stat-value">Family, apologies, clarifications</div>
+
           </div>
+
           <div class="stat-card">
+
             <div class="stat-label">Audience focus</div>
+
             <div class="stat-value">Men 50+ (US/EU)</div>
+
           </div>
+
         </div>
+
+
 
         <p class="hint">
+
           <strong>How it works:</strong> Each task produces a full draft. You see the first 30% clearly.
+
           The remaining text stays softly blurred so you can confirm it “feels right” without copying it.
+
           Once you’re comfortable, you can unlock the full draft for <strong>$19.9</strong>.
+
         </p>
+
       </aside>
 
+
+
       <!-- RIGHT: Form + result -->
+
       <section class="card">
+
         <h2 class="card-title">Submit a task to your Desk</h2>
+
         <p class="card-sub">
+
           The more details you provide, the more precise the draft. Focus on what happened,
+
           what you want to say now, and any boundaries or red lines.
+
         </p>
 
+
+
         <form id="deskForm">
+
           <div class="field">
+
             <label for="taskType">Task type</label>
+
             <select id="taskType">
+
               <option value="email">Email / Letter</option>
+
               <option value="family">Family communication</option>
+
               <option value="business">Business text / policy / notice</option>
+
               <option value="reply">Reply to an existing message</option>
+
               <option value="linkedin">LinkedIn post or update</option>
+
               <option value="speech">Short speech / talking points</option>
+
               <option value="other">Other (describe below)</option>
+
             </select>
+
           </div>
+
+
 
           <div class="inline">
+
             <div class="field">
+
               <label for="tone">Tone</label>
+
               <select id="tone">
+
                 <option value="calm">Calm and respectful</option>
+
                 <option value="professional">Professional and clear</option>
+
                 <option value="warm">Warm and supportive</option>
+
                 <option value="firm">Firm but polite</option>
+
                 <option value="simple">Very simple English</option>
+
               </select>
+
             </div>
+
             <div class="field">
+
               <label for="language">Language</label>
+
               <select id="language">
+
                 <option value="english">English</option>
+
                 <option value="bilingual">English + Chinese</option>
+
                 <option value="chinese">Chinese only</option>
+
               </select>
+
             </div>
+
           </div>
 
+
+
           <div class="field" style="margin-top:10px;">
+
             <label for="audience">Who is this for?</label>
+
             <input
+
               type="text"
+
               id="audience"
+
               placeholder="My daughter, my ex-wife, my boss, a trucking client, LinkedIn readers..."
+
             />
+
           </div>
 
+
+
           <div class="field" style="margin-top:10px;">
+
             <label for="details">What do you want to say? (details)</label>
+
             <textarea
+
               id="details"
+
               placeholder="Explain what happened, what you want to say now, any limits or boundaries, and any key dates or facts. The Desk will turn this into a clear draft."
+
             ></textarea>
+
           </div>
+
+
 
           <div style="margin-top:12px;">
+
             <button type="button" class="btn-primary" id="generateBtn">Generate 30% preview</button>
+
             <button type="button" class="btn-secondary" id="copyBtn" disabled>Copy current draft</button>
+
             <div class="status-text" id="statusText"></div>
+
           </div>
+
         </form>
 
+
+
         <div id="resultBox" class="result-box" style="margin-top:14px;">
+
           <div class="result-empty">
+
             No draft yet. Submit a task on this page and your Desk will generate a full draft —
+
             showing you a clear 30% preview first.
+
           </div>
+
         </div>
+
       </section>
+
     </section>
 
+
+
     <footer class="footer">
+
       © 2025 Aurum Task Desk — Enterprise Personal Desk. Internal pilot use only.
+
     </footer>
+
   </main>
 
+
+
   <script>
+
     // Cloudflare Worker backend
+
     const WORKER_API_URL = "https://aurum-task-worker.sophieinbg.workers.dev/api/generate";
 
+
+
     // 简单“本月预览次数”计数（本地浏览器记，假装企业用量统计）
+
     const USAGE_LIMIT = 5;
+
     const USAGE_KEY = "aurum_desk_preview_count";
 
+
+
     const nameOverlay = document.getElementById("nameOverlay");
+
     const nameInput = document.getElementById("nameInput");
+
     const saveNameBtn = document.getElementById("saveNameBtn");
 
+
+
     const planPill = document.getElementById("planPill");
+
     const usagePill = document.getElementById("usagePill");
 
+
+
     const usageCountText = document.getElementById("usageCountText");
+
     const usageBar = document.getElementById("usageBar");
 
+
+
     const taskTypeEl = document.getElementById("taskType");
+
     const toneEl = document.getElementById("tone");
+
     const languageEl = document.getElementById("language");
+
     const audienceEl = document.getElementById("audience");
+
     const detailsEl = document.getElementById("details");
 
+
+
     const generateBtn = document.getElementById("generateBtn");
+
     const copyBtn = document.getElementById("copyBtn");
+
     const statusText = document.getElementById("statusText");
+
     const resultBox = document.getElementById("resultBox");
+
+
 
     let currentDraft = "";
 
+
+
     function getUsageCount() {
+
       const raw = localStorage.getItem(USAGE_KEY);
+
       const n = parseInt(raw, 10);
+
       if (isNaN(n) || n < 0) return 0;
+
       return n;
+
     }
+
+
 
     function setUsageCount(n) {
+
       localStorage.setItem(USAGE_KEY, String(n));
+
     }
+
+
 
     function renderUsage() {
+
       const count = getUsageCount();
+
       const clamped = Math.min(count, USAGE_LIMIT);
+
       usageCountText.textContent = clamped + " / " + USAGE_LIMIT + " used";
+
       const percent = Math.min(100, (clamped / USAGE_LIMIT) * 100);
+
       usageBar.style.width = percent + "%";
+
     }
+
+
 
     function setupDeskUI() {
+
       planPill.textContent = "Aurum Desk · Preview mode";
+
       usagePill.textContent = "Free 30% preview · $19.9 unlock";
+
       renderUsage();
+
     }
+
+
 
     // 名字逻辑现在默认关闭 Overlay
+
     function initName() {
+
       const stored = localStorage.getItem("aurum_desk_name") || "";
+
       if (stored) {
+
         nameOverlay.style.display = "none";
+
       } else {
+
         nameOverlay.style.display = "none"; // 如需启用改成 "flex"
+
       }
+
     }
+
+
 
     if (saveNameBtn) {
+
       saveNameBtn.addEventListener("click", () => {
+
         const name = nameInput.value.trim();
+
         if (!name) {
+
           alert("Please enter a first name.");
+
           return;
+
         }
+
         localStorage.setItem("aurum_desk_name", name);
+
         nameOverlay.style.display = "none";
+
       });
+
     }
 
+
+
     // 生成草稿（30% 清晰 + 70% 半透明模糊遮罩）
+
     generateBtn.addEventListener("click", async () => {
+
       const taskType = taskTypeEl.value;
+
       const tone = toneEl.value;
+
       const language = languageEl.value;
+
       const audience = audienceEl.value.trim();
+
       const details = detailsEl.value.trim();
+
       const name = localStorage.getItem("aurum_desk_name") || "";
 
+
+
       if (!details) {
+
         alert("Please describe the situation or what you want to say.");
+
         return;
+
       }
 
+
+
       generateBtn.disabled = true;
+
       generateBtn.textContent = "Generating...";
+
       statusText.textContent = "Your Desk is drafting a calm, clear message...";
+
       resultBox.innerHTML = "";
 
+
+
       try {
+
         let prompt =
+
           "You are Aurum Task Desk AI. You support older US and EU men (50+), " +
+
           "including veterans, truck drivers, engineers and business owners, with calm, clear, respectful writing.\n\n";
 
+
+
         if (name) prompt += "Client first name: " + name + ".\n";
+
         prompt += "Task type: " + taskType + ".\n";
+
         prompt += "Tone: " + tone + ".\n";
+
         prompt += "Language: " + language + " (if bilingual, answer in English first then Chinese).\n";
+
         if (audience) prompt += "Audience: " + audience + ".\n";
+
         prompt += "Details: " + details + ".\n\n";
 
+
+
         prompt +=
+
           "Write a complete draft that the client can copy and send directly. " +
+
           "Avoid overly fancy language. Sound mature, respectful, and steady. " +
+
           "If language = Chinese, reply in Chinese. If bilingual, provide English first, then Chinese.\n";
 
+
+
         const res = await fetch(WORKER_API_URL, {
+
           method: "POST",
+
           headers: { "Content-Type": "application/json" },
+
           body: JSON.stringify({ prompt })
+
         });
+
+
 
         const data = await res.json();
 
+
+
         if (!res.ok || !data.ok) {
+
           const msg = data && data.error ? data.error : "HTTP " + res.status;
+
           throw new Error(msg);
+
         }
 
+
+
         const full = data.text || "No content returned from Aurum Desk AI.";
+
         currentDraft = full;
 
+
+
         // usage 计数 + UI
+
         const current = getUsageCount();
+
         setUsageCount(current + 1);
+
         renderUsage();
 
+
+
         // ---- 30% 清晰预览 + 70% 半透明模糊遮罩 ----
+
         const previewRatio = 0.3;
+
         const previewLength = Math.max(40, Math.floor(full.length * previewRatio));
+
         const previewText = full.slice(0, previewLength);
+
         const hiddenText = full.slice(previewLength);
+
+
 
         resultBox.innerHTML = "";
 
+
+
         const previewDiv = document.createElement("div");
+
         previewDiv.textContent = previewText;
+
         previewDiv.style.marginBottom = "12px";
+
         resultBox.appendChild(previewDiv);
 
+
+
         const blurContainer = document.createElement("div");
+
         blurContainer.style.position = "relative";
+
         blurContainer.style.marginTop = "10px";
+
         blurContainer.style.padding = "12px";
+
         blurContainer.style.borderRadius = "10px";
+
         blurContainer.style.background = "rgba(240, 242, 255, 0.9)";
+
         blurContainer.style.color = "rgba(40, 44, 60, 0.3)";
+
         blurContainer.style.whiteSpace = "pre-wrap";
+
         blurContainer.style.userSelect = "none";
+
         blurContainer.style.overflow = "hidden";
+
+
 
         blurContainer.textContent = hiddenText;
 
+
+
         const overlay = document.createElement("div");
+
         overlay.style.position = "absolute";
+
         overlay.style.inset = "0";
+
         overlay.style.background =
+
           "linear-gradient(to bottom, rgba(248, 244, 230, 0.7), rgba(232, 231, 245, 0.9))";
+
         overlay.style.backdropFilter = "blur(6px)";
+
         overlay.style.borderRadius = "10px";
+
         overlay.style.display = "flex";
+
         overlay.style.flexDirection = "column";
+
         overlay.style.alignItems = "center";
+
         overlay.style.justifyContent = "center";
+
         overlay.style.color = "#815712";
+
         overlay.style.fontSize = "14px";
+
         overlay.style.textAlign = "center";
+
         overlay.style.padding = "20px";
 
+
+
         const unlockBtn = document.createElement("button");
+
         unlockBtn.textContent = "Unlock full draft — $19.9";
+
         unlockBtn.style.padding = "10px 20px";
+
         unlockBtn.style.border = "none";
+
         unlockBtn.style.borderRadius = "999px";
+
         unlockBtn.style.cursor = "pointer";
+
         unlockBtn.style.fontSize = "15px";
+
         unlockBtn.style.fontWeight = "600";
+
         unlockBtn.style.background = "linear-gradient(135deg,#f4b738,#d48c1a)";
+
         unlockBtn.style.color = "#15100a";
+
         unlockBtn.style.boxShadow = "0 10px 20px rgba(210,140,26,0.35)";
+
         unlockBtn.style.marginBottom = "6px";
 
+
+
         unlockBtn.addEventListener("click", () => {
+
           window.location.href = "pricing.html#unlock";
+
         });
 
+
+
         const tip = document.createElement("div");
+
         tip.innerHTML =
+
           "Full content is softly locked.<br>Pay <b>$19.9</b> to access 100% of this draft.";
+
         tip.style.opacity = "0.95";
 
+
+
         overlay.appendChild(unlockBtn);
+
         overlay.appendChild(tip);
 
+
+
         blurContainer.appendChild(overlay);
+
         resultBox.appendChild(blurContainer);
 
+
+
         statusText.textContent =
+
           "30% preview displayed — remaining content is blurred until you unlock it.";
+
         copyBtn.disabled = true;
+
       } catch (err) {
+
         console.error(err);
+
         resultBox.innerHTML =
+
           '<div class="result-empty">Something went wrong while generating your draft: ' +
+
           (err.message || String(err)) +
+
           "</div>";
+
         statusText.textContent = "";
+
         copyBtn.disabled = true;
+
       } finally {
+
         generateBtn.disabled = false;
+
         generateBtn.textContent = "Generate 30% preview";
+
       }
+
     });
+
+
 
     // Copy 逻辑保留，未来可以给“已付费/订阅用户”开放
+
     copyBtn.addEventListener("click", async () => {
+
       if (!currentDraft) {
+
         alert("There is no draft to copy yet.");
+
         return;
+
       }
+
       try {
+
         await navigator.clipboard.writeText(currentDraft);
+
         statusText.textContent = "Draft copied to your clipboard.";
+
       } catch (e) {
+
         alert("Copy failed. Please select the text manually and copy.");
+
       }
+
     });
 
+
+
     setupDeskUI();
+
     initName();
+
   </script>
+
 </body>
+
 </html>
