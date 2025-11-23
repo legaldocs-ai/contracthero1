@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aurum Account — Sign in</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      background: radial-gradient(circle at top, #101322, #050816 52%, #02030a 100%);
+      color: #f6f4ed;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(16px);
+      background: rgba(5, 8, 22, 0.94);
+      border-bottom: 1px solid rgba(204,188,119,0.18);
+      padding: 14px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .nav-left {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #f5f2e6;
+    }
+    .nav-right a {
+      margin-left: 22px;
+      font-size: 14px;
+      opacity: 0.85;
+    }
+    .nav-right a:hover {
+      opacity: 1;
+      color: #f0d37a;
+    }
+
+    .outer {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 30px 16px 40px;
+    }
+    .shell {
+      width: 100%;
+      max-width: 880px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: 24px;
+    }
+    @media (max-width: 900px) {
+      .shell { grid-template-columns: 1fr; }
+    }
+
+    .panel {
+      background: radial-gradient(circle at top left, #1c1b27, #050816);
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 22px 22px 20px;
+    }
+
+    .hero {
+      padding: 24px 22px;
+      background: linear-gradient(145deg, rgba(240,211,122,0.12), rgba(68,104,177,0.1));
+      border-radius: 18px;
+      border: 1px solid rgba(240,211,122,0.35);
+    }
+
+    .hero-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: #c8b177;
+      margin-bottom: 6px;
+    }
+    .hero-title {
+      font-size: 26px;
+      font-weight: 800;
+      color: #f7f5ef;
+      margin-bottom: 8px;
+    }
+    .hero-sub {
+      font-size: 14px;
+      color: #d0c9b9;
+      margin-bottom: 16px;
+    }
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 11px;
+      color: #f5f2e6;
+    }
+    .hero-badges span {
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(240,211,122,0.6);
+      background: rgba(22,18,8,0.8);
+    }
+
+    .panel-tabs {
+      display: flex;
+      border-radius: 999px;
+      background: rgba(10,12,26,0.9);
+      padding: 3px;
+      margin-bottom: 14px;
+    }
+    .panel-tab {
+      flex: 1;
+      text-align: center;
+      font-size: 13px;
+      padding: 7px 2px;
+      border-radius: 999px;
+      cursor: pointer;
+      color: #bcb7aa;
+    }
+    .panel-tab.active {
+      background: linear-gradient(135deg, #f0d37a, #cba84f);
+      color: #15100a;
+      font-weight: 600;
+    }
+
+    .panel-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .panel-sub {
+      font-size: 13px;
+      color: #b1aca0;
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      margin-bottom: 4px;
+      color: #f5f2ea;
+    }
+    input, select {
+      width: 100%;
+      padding: 9px 10px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(9,11,26,0.96);
+      color: #f6f4ed;
+      font-size: 13px;
+      font-family: inherit;
+    }
+
+    .field {
+      margin-bottom: 10px;
+    }
+
+    .btn-primary {
+      width: 100%;
+      padding: 9px 16px;
+      border-radius: 999px;
+      border: 1px solid #f0d37a;
+      background: linear-gradient(135deg, #f0d37a, #cba84f);
+      color: #15100a;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 4px;
+    }
+    .btn-primary:disabled {
+      opacity: 0.6;
+      cursor: default;
+    }
+
+    .muted {
+      font-size: 12px;
+      color: #8f8a7f;
+      margin-top: 8px;
+    }
+    .muted a {
+      color: #f0d37a;
+      text-decoration: underline;
+    }
+
+    .status {
+      font-size: 12px;
+      margin-top: 8px;
+      min-height: 16px;
+    }
+    .status-ok { color: #9dd79d; }
+    .status-err { color: #ff9a9a; }
+
+    .footer {
+      text-align: center;
+      font-size: 12px;
+      color: #a8a295;
+      padding: 10px 0 18px;
+    }
+  </style>
+</head>
+<body>
+<header class="navbar">
+  <div class="nav-left">AURUM TASK DESK</div>
+  <nav class="nav-right">
+    <a href="index.html">Home</a>
+    <a href="tasks.html">Task Marketplace</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="auth.html">Sign in</a>
+  </nav>
+</header>
+
+<div class="outer">
+  <div class="shell">
+    <!-- LEFT: Brand copy -->
+    <section class="hero">
+      <div class="hero-label">AURUM ACCOUNT</div>
+      <h1 class="hero-title">Secure access to your Desk.</h1>
+      <p class="hero-sub">
+        Sign in to your private writing desk. Subscribers get full drafts and
+        priority access. Free accounts receive 30% previews of each draft.
+      </p>
+      <div class="hero-badges">
+        <span>Single sign-on ready</span>
+        <span>Role-based access</span>
+        <span>Audit-friendly logs</span>
+      </div>
+      <p class="muted" style="margin-top:16px;">
+        Need enterprise onboarding or to connect your own identity provider?
+        Contact us at <a href="mailto:sophieinbg@gmail.com">sophieinbg@gmail.com</a>.
+      </p>
+    </section>
+
+    <!-- RIGHT: Auth panel -->
+    <section class="panel">
+      <div class="panel-tabs">
+        <div class="panel-tab active" id="tabSignIn">Sign in</div>
+        <div class="panel-tab" id="tabSignUp">Create account</div>
+      </div>
+
+      <!-- Sign-in form -->
+      <div id="signInForm">
+        <div class="panel-title">Welcome back</div>
+        <div class="panel-sub">Use your email and password to access your Desk.</div>
+        <div class="field">
+          <label for="loginEmail">Work email</label>
+          <input type="email" id="loginEmail" placeholder="you@example.com" />
+        </div>
+        <div class="field">
+          <label for="loginPassword">Password</label>
+          <input type="password" id="loginPassword" placeholder="Enter your password" />
+        </div>
+        <button class="btn-primary" id="btnLogin">Sign in</button>
+        <div class="status" id="loginStatus"></div>
+        <p class="muted">
+          New here? <a href="#" id="goToSignUpLink">Create an Aurum account</a>.
+        </p>
+      </div>
+
+      <!-- Sign-up form -->
+      <div id="signUpForm" style="display:none;">
+        <div class="panel-title">Create your Aurum account</div>
+        <div class="panel-sub">
+          Free accounts receive 30% previews. Subscribers see full drafts with copy enabled.
+        </div>
+        <div class="field">
+          <label for="signupName">Your name</label>
+          <input type="text" id="signupName" placeholder="First name or full name" />
+        </div>
+        <div class="field">
+          <label for="signupEmail">Work email</label>
+          <input type="email" id="signupEmail" placeholder="you@example.com" />
+        </div>
+        <div class="field">
+          <label for="signupPassword">Password</label>
+          <input type="password" id="signupPassword" placeholder="At least 8 characters" />
+        </div>
+        <div class="field">
+          <label for="signupPlan">Plan</label>
+          <select id="signupPlan">
+            <option value="free">Free · 30% preview per draft</option>
+            <option value="subscriber">Subscriber · Full drafts unlocked</option>
+          </select>
+        </div>
+        <button class="btn-primary" id="btnSignup">Create account</button>
+        <div class="status" id="signupStatus"></div>
+        <p class="muted">
+          By continuing you agree to our standard terms. You can upgrade or
+          downgrade your plan later from your account.
+        </p>
+      </div>
+    </section>
+  </div>
+</div>
+
+<footer class="footer">
+  © 2025 Aurum Task Desk — Account & Access Portal
+</footer>
+
+<script>
+  const API_BASE = "https://aurum-task-worker.sophieinbg.workers.dev";
+
+  const tabSignIn = document.getElementById("tabSignIn");
+  const tabSignUp = document.getElementById("tabSignUp");
+  const signInForm = document.getElementById("signInForm");
+  const signUpForm = document.getElementById("signUpForm");
+  const goToSignUpLink = document.getElementById("goToSignUpLink");
+
+  function activateTab(tab) {
+    if (tab === "signin") {
+      tabSignIn.classList.add("active");
+      tabSignUp.classList.remove("active");
+      signInForm.style.display = "block";
+      signUpForm.style.display = "none";
+    } else {
+      tabSignIn.classList.remove("active");
+      tabSignUp.classList.add("active");
+      signInForm.style.display = "none";
+      signUpForm.style.display = "block";
+    }
+  }
+
+  tabSignIn.addEventListener("click", () => activateTab("signin"));
+  tabSignUp.addEventListener("click", () => activateTab("signup"));
+  goToSignUpLink.addEventListener("click", (e) => {
+    e.preventDefault();
+    activateTab("signup");
+  });
+
+  // --- Sign in ---
+  const loginEmail = document.getElementById("loginEmail");
+  const loginPassword = document.getElementById("loginPassword");
+  const btnLogin = document.getElementById("btnLogin");
+  const loginStatus = document.getElementById("loginStatus");
+
+  btnLogin.addEventListener("click", async () => {
+    const email = loginEmail.value.trim();
+    const password = loginPassword.value.trim();
+    if (!email || !password) {
+      loginStatus.textContent = "Please enter email and password.";
+      loginStatus.className = "status status-err";
+      return;
+    }
+    btnLogin.disabled = true;
+    loginStatus.textContent = "Signing in...";
+    loginStatus.className = "status";
+
+    try {
+      const res = await fetch(API_BASE + "/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ email, password })
+      });
+      const data = await res.json();
+      if (!res.ok || !data.ok) {
+        throw new Error(data.error || ("HTTP " + res.status));
+      }
+      // 保存简要用户信息到 localStorage（前端用来显示名字和 plan）
+      localStorage.setItem("aurum_user", JSON.stringify({
+        name: data.user.name,
+        email: data.user.email,
+        plan: data.user.plan
+      }));
+      loginStatus.textContent = "Signed in. Redirecting to your Desk...";
+      loginStatus.className = "status status-ok";
+      setTimeout(() => {
+        window.location.href = "desk.html";
+      }, 600);
+    } catch (err) {
+      loginStatus.textContent = "Sign-in failed: " + err.message;
+      loginStatus.className = "status status-err";
+    } finally {
+      btnLogin.disabled = false;
+    }
+  });
+
+  // --- Sign up ---
+  const signupName = document.getElementById("signupName");
+  const signupEmail = document.getElementById("signupEmail");
+  const signupPassword = document.getElementById("signupPassword");
+  const signupPlan = document.getElementById("signupPlan");
+  const btnSignup = document.getElementById("btnSignup");
+  const signupStatus = document.getElementById("signupStatus");
+
+  btnSignup.addEventListener("click", async () => {
+    const name = signupName.value.trim();
+    const email = signupEmail.value.trim();
+    const password = signupPassword.value.trim();
+    const plan = signupPlan.value;
+
+    if (!name || !email || !password) {
+      signupStatus.textContent = "Please fill in all fields.";
+      signupStatus.className = "status status-err";
+      return;
+    }
+    if (password.length < 8) {
+      signupStatus.textContent = "Password should be at least 8 characters.";
+      signupStatus.className = "status status-err";
+      return;
+    }
+
+    btnSignup.disabled = true;
+    signupStatus.textContent = "Creating your account...";
+    signupStatus.className = "status";
+
+    try {
+      const res = await fetch(API_BASE + "/api/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ name, email, password, plan })
+      });
+      const data = await res.json();
+      if (!res.ok || !data.ok) {
+        throw new Error(data.error || ("HTTP " + res.status));
+      }
+      localStorage.setItem("aurum_user", JSON.stringify({
+        name: data.user.name,
+        email: data.user.email,
+        plan: data.user.plan
+      }));
+      signupStatus.textContent = "Account created. Redirecting to your Desk...";
+      signupStatus.className = "status status-ok";
+      setTimeout(() => {
+        window.location.href = "desk.html";
+      }, 700);
+    } catch (err) {
+      signupStatus.textContent = "Sign-up failed: " + err.message;
+      signupStatus.className = "status status-err";
+    } finally {
+      btnSignup.disabled = false;
+    }
+  });
+</script>
+</body>
+</html>
