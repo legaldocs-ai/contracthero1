@@ -7,14 +7,19 @@
   <link rel="icon" type="image/png" href="favicon.png" />
   <style>
     * { box-sizing: border-box; }
+
     body {
       margin: 0;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-      background: #050816;
-      color: #f6f4ed;
+      background: radial-gradient(circle at top, #fdf7eb 0%, #f5f1ff 40%, #eef3ff 100%);
+      color: #1f2430;
       line-height: 1.6;
     }
-    a { text-decoration: none; color: inherit; }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
 
     .container {
       max-width: 1180px;
@@ -28,28 +33,31 @@
       top: 0;
       z-index: 20;
       backdrop-filter: blur(14px);
-      background: rgba(5, 8, 22, 0.94);
-      border-bottom: 1px solid rgba(204, 188, 119, 0.18);
-      padding: 14px 20px;
+      background: rgba(255, 255, 255, 0.9);
+      border-bottom: 1px solid rgba(210, 197, 140, 0.4);
+      padding: 12px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
+
     .nav-left {
       font-size: 20px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
+      font-weight: 800;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: #f5f2e6;
+      color: #343536;
     }
+
     .nav-right a {
       margin-left: 22px;
       font-size: 14px;
       opacity: 0.85;
     }
+
     .nav-right a:hover {
       opacity: 1;
-      color: #f0d37a;
+      color: #d49b1f;
     }
 
     /* Header */
@@ -57,33 +65,37 @@
       margin-top: 26px;
       margin-bottom: 10px;
     }
+
     .desk-label {
       font-size: 11px;
       text-transform: uppercase;
-      letter-spacing: 0.16em;
-      color: #c8b177;
-      margin-bottom: 4px;
+      letter-spacing: 0.18em;
+      color: #c08b20;
+      margin-bottom: 6px;
     }
+
     .header-title {
-      font-size: 28px;
+      font-size: 30px;
       font-weight: 800;
-      color: #f7f5ef;
-      margin-bottom: 4px;
+      color: #23262f;
+      margin-bottom: 6px;
     }
+
     .header-sub {
       font-size: 14px;
-      color: #b7b2a6;
+      color: #5b6273;
       max-width: 660px;
     }
 
     /* Layout */
     .layout {
       display: grid;
-      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.1fr);
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.1fr);
       gap: 22px;
       margin-top: 24px;
       align-items: flex-start;
     }
+
     @media (max-width: 900px) {
       .layout {
         grid-template-columns: 1fr;
@@ -91,49 +103,55 @@
     }
 
     .card {
-      background: radial-gradient(circle at top left, #1c1b27, #050816);
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,0.06);
+      background: #ffffff;
+      border-radius: 18px;
+      border: 1px solid rgba(213, 208, 192, 0.8);
       padding: 18px 18px 20px;
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
     }
 
     .card-title {
       font-size: 17px;
       font-weight: 700;
       margin-bottom: 6px;
-      color: #f7f5ef;
+      color: #22252f;
     }
+
     .card-sub {
       font-size: 13px;
-      color: #b1aca0;
+      color: #616575;
       margin-bottom: 14px;
     }
 
     .desk-meta {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 8px;
       margin: 8px 0 10px;
       font-size: 12px;
     }
+
     .pill {
-      padding: 4px 9px;
+      padding: 4px 10px;
       border-radius: 999px;
-      border: 1px solid rgba(240, 211, 122, 0.6);
-      background: rgba(22, 18, 8, 0.7);
-      color: #f0d37a;
+      border: 1px solid rgba(210, 165, 60, 0.8);
+      background: linear-gradient(135deg, #fff7e2, #fbe4b5);
+      color: #7f5a0f;
+      font-weight: 500;
     }
+
     .pill-soft {
-      padding: 4px 9px;
+      padding: 4px 10px;
       border-radius: 999px;
-      border: 1px solid rgba(140, 199, 255, 0.4);
-      background: rgba(12, 30, 60, 0.7);
-      color: #cfe6ff;
+      border: 1px solid rgba(120, 158, 240, 0.6);
+      background: linear-gradient(135deg, #eef4ff, #dfebff);
+      color: #2d4a95;
+      font-weight: 500;
     }
 
     .hint {
       font-size: 12px;
-      color: #8f8a7f;
+      color: #7a7f8b;
       margin-top: 4px;
     }
 
@@ -141,23 +159,34 @@
       display: block;
       font-size: 13px;
       margin-bottom: 4px;
-      color: #f5f2ea;
+      color: #2a2f3b;
     }
+
     input[type="text"],
     select,
     textarea {
       width: 100%;
       padding: 9px 10px;
-      border-radius: 8px;
-      border: 1px solid rgba(255,255,255,0.14);
-      background: rgba(9, 11, 26, 0.96);
-      color: #f6f4ed;
+      border-radius: 9px;
+      border: 1px solid rgba(157, 165, 189, 0.8);
+      background: #fbfbff;
+      color: #202430;
       font-size: 13px;
       font-family: inherit;
     }
+
     textarea {
       min-height: 140px;
       resize: vertical;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: #d19a26;
+      box-shadow: 0 0 0 1px rgba(209, 154, 38, 0.35);
+      background: #ffffff;
     }
 
     .inline {
@@ -165,6 +194,7 @@
       gap: 10px;
       margin-top: 8px;
     }
+
     .inline .field {
       flex: 1;
     }
@@ -172,108 +202,128 @@
     .btn-primary {
       padding: 9px 18px;
       border-radius: 999px;
-      border: 1px solid #f0d37a;
-      background: linear-gradient(135deg, #f0d37a, #cba84f);
+      border: none;
+      background: linear-gradient(135deg, #f4b738, #d48c1a);
       color: #15100a;
       font-size: 14px;
       font-weight: 600;
       cursor: pointer;
       margin-right: 8px;
+      box-shadow: 0 10px 20px rgba(204, 140, 18, 0.3);
     }
+
     .btn-primary:disabled {
       opacity: 0.6;
       cursor: default;
+      box-shadow: none;
     }
+
     .btn-secondary {
       padding: 8px 14px;
       border-radius: 999px;
-      border: 1px solid rgba(240,211,122,0.5);
-      background: transparent;
-      color: #f0d37a;
+      border: 1px solid rgba(210, 165, 60, 0.6);
+      background: #fff7e2;
+      color: #8a6215;
       font-size: 12px;
       cursor: pointer;
       margin-top: 4px;
     }
+
     .btn-secondary:hover {
-      background: rgba(240,211,122,0.08);
+      background: #fbe8bd;
     }
 
     .status-text {
       font-size: 12px;
-      color: #a6a195;
+      color: #6a7282;
       margin-top: 6px;
+      min-height: 16px;
     }
 
     .result-box {
       margin-top: 10px;
       padding: 12px;
-      border-radius: 10px;
-      background: radial-gradient(circle at top, #191a2a, #050816);
-      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      background: linear-gradient(145deg, #fdfbff, #f4f5ff);
+      border: 1px solid rgba(188, 193, 214, 0.9);
       font-size: 13px;
       white-space: pre-wrap;
       max-height: 420px;
       overflow-y: auto;
+      color: #252a3a;
     }
+
     .result-empty {
       font-size: 13px;
-      color: #9a9488;
+      color: #8a8fa0;
     }
 
     .footer {
-      margin-top: 50px;
-      border-top: 1px solid rgba(204,188,119,0.22);
-      padding: 24px 0 32px;
+      margin-top: 40px;
+      border-top: 1px solid rgba(214, 205, 173, 0.6);
+      padding: 18px 0 26px;
       text-align: center;
-      font-size: 13px;
-      color: #a8a295;
+      font-size: 12px;
+      color: #7c7f8a;
     }
 
-    /* Name overlay */
+    /* (名字 overlay 如果以后要用，这里保留样式；现在默认不弹出) */
     .name-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(2,4,12,0.82);
+      background: rgba(10, 11, 20, 0.32);
       display: flex;
       align-items: center;
       justify-content: center;
       z-index: 30;
     }
+
     .name-card {
-      background: #10121e;
+      background: #ffffff;
       border-radius: 14px;
-      border: 1px solid rgba(240,211,122,0.6);
+      border: 1px solid rgba(210, 165, 60, 0.7);
       padding: 18px 18px 16px;
       max-width: 360px;
       width: 90%;
-      color: #f6f4ed;
+      color: #1f2430;
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.18);
     }
+
     .name-card h2 {
       font-size: 18px;
       margin: 0 0 6px;
     }
+
     .name-card p {
       font-size: 13px;
-      color: #c0bbaf;
+      color: #5e6475;
       margin: 0 0 10px;
     }
+
     .name-input-row {
       margin-top: 8px;
     }
+
     .name-input-row input {
       width: 100%;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid rgba(157, 165, 189, 0.9);
+      background: #fbfbff;
     }
+
     .btn-small {
       margin-top: 10px;
       padding: 7px 14px;
       border-radius: 999px;
-      border: 1px solid #f0d37a;
-      background: #f0d37a;
+      border: none;
+      background: linear-gradient(135deg, #f2b63a, #d18b1b);
       color: #15100a;
       font-size: 13px;
       font-weight: 600;
       cursor: pointer;
       width: 100%;
+      box-shadow: 0 10px 18px rgba(210, 138, 27, 0.32);
     }
   </style>
 </head>
@@ -289,7 +339,7 @@
     </nav>
   </header>
 
-  <!-- NAME OVERLAY（现在不再使用，会被 JS 直接隐藏） -->
+  <!-- NAME OVERLAY（现在默认隐藏，如需启用可改 JS） -->
   <div class="name-overlay" id="nameOverlay" style="display:none;">
     <div class="name-card">
       <h2>Your Personal Desk</h2>
@@ -310,38 +360,34 @@
       <div class="desk-label">PERSONAL DESK</div>
       <h1 class="header-title" id="headerTitle">Your Aurum Desk</h1>
       <p class="header-sub" id="headerSub">
-        This is your private writing desk. You can describe what you want to say in
-        plain language, and the Desk will shape it into a clear, respectful draft.
+        This is your private writing desk. Describe what you want to say in plain language, and the Desk
+        will shape it into a calm, respectful draft for older US/EU readers.
       </p>
     </section>
 
     <!-- Main layout -->
     <section class="layout">
-      <!-- LEFT: Plan info + greeting -->
+      <!-- LEFT: Info + guidance -->
       <aside class="card">
         <h2 class="card-title" id="greetingTitle">Welcome back.</h2>
         <p class="card-sub" id="greetingSub">
-          Your Desk is active. Use it whenever you need quiet, careful writing support.
+          Use this Desk whenever you need quiet, careful writing support — especially for sensitive or
+          emotionally loaded situations.
         </p>
 
         <div class="desk-meta">
-          <span class="pill" id="planPill">Desk Plan</span>
-          <span class="pill-soft" id="usagePill">Usage guidance</span>
+          <span class="pill" id="planPill">Aurum Desk</span>
+          <span class="pill-soft" id="usagePill">Free 30% preview · $19.9 unlock</span>
         </div>
 
-        <!-- 这里原来是倒计时文字，现在只作为提示，会被 JS 清空 -->
-        <p class="hint" id="countdownText">
-          Time left in this billing period: calculating…
-        </p>
-
         <p class="card-sub" id="planDesc">
-          This desk is designed for calm, low-drama communication: letters, emails,
-          replies, and short posts for older US/EU audiences.
+          Each draft is written in a calm, low-drama style. You see a free 30% preview of the full draft.
+          The remaining content is softly blurred until you choose to unlock it.
         </p>
 
         <p class="hint">
-          You don’t need to watch the clock or count every word. Just keep your usage
-          within a reasonable monthly rhythm, based on the plan you selected.
+          Ideal for apologies, clarifications, family messages, replies, and short posts for veterans,
+          truck drivers, engineers, and other older professionals.
         </p>
       </aside>
 
@@ -349,8 +395,8 @@
       <section class="card">
         <h2 class="card-title">Submit a task to your Desk</h2>
         <p class="card-sub">
-          Describe the situation in your own words. The Desk will draft a clear message
-          you can review as a preview before unlocking the full version.
+          Describe the situation in your own words. The Desk will generate a draft, showing you a
+          clear 30% preview. The rest is visible but blurred until payment.
         </p>
 
         <form id="deskForm">
@@ -426,14 +472,11 @@
     const nameInput = document.getElementById("nameInput");
     const saveNameBtn = document.getElementById("saveNameBtn");
 
-    const headerTitle = document.getElementById("headerTitle");
-    const headerSub = document.getElementById("headerSub");
     const greetingTitle = document.getElementById("greetingTitle");
     const greetingSub = document.getElementById("greetingSub");
     const planPill = document.getElementById("planPill");
     const usagePill = document.getElementById("usagePill");
     const planDesc = document.getElementById("planDesc");
-    const countdownText = document.getElementById("countdownText");
 
     const taskTypeEl = document.getElementById("taskType");
     const toneEl = document.getElementById("tone");
@@ -448,54 +491,44 @@
 
     let currentDraft = "";
 
-    // --- 固定 Desk 文案（不再根据 URL ?plan=xxx 变化） ---
     function setupDeskUI() {
       planPill.textContent = "Aurum Desk";
       usagePill.textContent = "Free 30% preview · $19.9 unlock";
-
       planDesc.textContent =
-        "Each draft is written in a calm, low-drama style for letters, replies and short posts. " +
-        "You see a free 30% preview. The full draft can be unlocked for $19.9.";
-
-      if (countdownText) {
-        countdownText.textContent = "";
-      }
-    }
-
-    // --- 名字逻辑现在只保存，不再显示 “Welcome back, Mike” ---
-    function applyName(name) {
-      const clean = name.trim();
-      if (!clean) return;
-      // 这里不再把名字显示出来，只保持一个统一欢迎语
+        "Each draft is written in a calm, low-drama style. You see a free 30% preview, " +
+        "and the rest of the text stays softly blurred until you choose to unlock it.";
       greetingTitle.textContent = "Welcome back.";
       greetingSub.textContent =
-        "Your Desk is active. Describe what you want to say, and the Desk will shape it into a clear, respectful draft.";
+        "Describe what you want to say, and the Desk will shape it into a clear, respectful draft for you.";
     }
 
     function initName() {
       const stored = localStorage.getItem("aurum_desk_name") || "";
       if (stored) {
-        applyName(stored);
-        // 现在默认不弹出 Overlay
+        // 不再展示具体名字，只保留通用欢迎语
+        greetingTitle.textContent = "Welcome back.";
+        greetingSub.textContent =
+          "Your Desk is active. Describe what you want to say, and the Desk will shape it into a clear, respectful draft.";
         nameOverlay.style.display = "none";
       } else {
-        // 如果你将来想再次启用名字采集，把下面这一行改回 'flex'
+        // 如果想重新启用采名字，把这一行改成 'flex'
         nameOverlay.style.display = "none";
       }
     }
 
-    saveNameBtn.addEventListener("click", () => {
-      const name = nameInput.value.trim();
-      if (!name) {
-        alert("Please enter a first name.");
-        return;
-      }
-      localStorage.setItem("aurum_desk_name", name);
-      applyName(name);
-      nameOverlay.style.display = "none";
-    });
+    if (saveNameBtn) {
+      saveNameBtn.addEventListener("click", () => {
+        const name = nameInput.value.trim();
+        if (!name) {
+          alert("Please enter a first name.");
+          return;
+        }
+        localStorage.setItem("aurum_desk_name", name);
+        nameOverlay.style.display = "none";
+      });
+    }
 
-    // --- 生成草稿：只展示 30% 预览，剩余 70% 付费解锁 ---
+    // 生成草稿（30% 清晰 + 70% 半透明模糊遮罩）
     generateBtn.addEventListener("click", async () => {
       const taskType = taskTypeEl.value;
       const tone = toneEl.value;
@@ -522,10 +555,7 @@
         if (name) prompt += "Client first name: " + name + ".\n";
         prompt += "Task type: " + taskType + ".\n";
         prompt += "Tone: " + tone + ".\n";
-        prompt +=
-          "Language: " +
-          language +
-          " (if bilingual, answer in English first then Chinese).\n";
+        prompt += "Language: " + language + " (if bilingual, answer in English first then Chinese).\n";
         if (audience) prompt += "Audience: " + audience + ".\n";
         prompt += "Details: " + details + ".\n\n";
 
@@ -550,37 +580,82 @@
         const full = data.text || "No content returned from Aurum Desk AI.";
         currentDraft = full;
 
-        // ---- 只显示 30% 预览 ----
+        // ---- 30% 清晰预览 + 70% 半透明模糊遮罩 ----
         const previewRatio = 0.3;
         const previewLength = Math.max(40, Math.floor(full.length * previewRatio));
         const previewText = full.slice(0, previewLength);
+        const hiddenText = full.slice(previewLength);
 
         resultBox.innerHTML = "";
 
         const previewDiv = document.createElement("div");
         previewDiv.textContent = previewText;
+        previewDiv.style.marginBottom = "12px";
         resultBox.appendChild(previewDiv);
 
-        // 付费提示
-        const payNotice = document.createElement("div");
-        payNotice.style.marginTop = "18px";
-        payNotice.style.padding = "12px";
-        payNotice.style.border = "1px solid rgba(240,211,122,0.4)";
-        payNotice.style.borderRadius = "10px";
-        payNotice.style.background = "rgba(20,14,4,0.5)";
-        payNotice.style.color = "#f0d37a";
-        payNotice.style.fontSize = "13px";
-        payNotice.style.whiteSpace = "pre-wrap";
-        payNotice.innerHTML =
-          "✨ You are viewing a free 30% preview of this draft.<br><br>" +
-          "Unlock the full draft (100% content) for <b>$19.9</b>.<br><br>" +
-          "After payment, the full text will be prepared and delivered to you by the Desk team.";
+        // 剩余 70%：半透明 + 模糊遮罩
+        const blurContainer = document.createElement("div");
+        blurContainer.style.position = "relative";
+        blurContainer.style.marginTop = "10px";
+        blurContainer.style.padding = "12px";
+        blurContainer.style.borderRadius = "10px";
+        blurContainer.style.background = "rgba(240, 242, 255, 0.9)";
+        blurContainer.style.color = "rgba(40, 44, 60, 0.3)";
+        blurContainer.style.whiteSpace = "pre-wrap";
+        blurContainer.style.userSelect = "none";
+        blurContainer.style.overflow = "hidden";
 
-        resultBox.appendChild(payNotice);
+        // 底层仍放完整剩余文本，但变浅
+        blurContainer.textContent = hiddenText;
+
+        // 覆盖层：模糊 + 按钮
+        const overlay = document.createElement("div");
+        overlay.style.position = "absolute";
+        overlay.style.inset = "0";
+        overlay.style.background =
+          "linear-gradient(to bottom, rgba(248, 244, 230, 0.7), rgba(232, 231, 245, 0.9))";
+        overlay.style.backdropFilter = "blur(6px)";
+        overlay.style.borderRadius = "10px";
+        overlay.style.display = "flex";
+        overlay.style.flexDirection = "column";
+        overlay.style.alignItems = "center";
+        overlay.style.justifyContent = "center";
+        overlay.style.color = "#815712";
+        overlay.style.fontSize = "14px";
+        overlay.style.textAlign = "center";
+        overlay.style.padding = "20px";
+
+        const unlockBtn = document.createElement("button");
+        unlockBtn.textContent = "Unlock full draft — $19.9";
+        unlockBtn.style.padding = "10px 20px";
+        unlockBtn.style.border = "none";
+        unlockBtn.style.borderRadius = "999px";
+        unlockBtn.style.cursor = "pointer";
+        unlockBtn.style.fontSize = "15px";
+        unlockBtn.style.fontWeight = "600";
+        unlockBtn.style.background = "linear-gradient(135deg,#f4b738,#d48c1a)";
+        unlockBtn.style.color = "#15100a";
+        unlockBtn.style.boxShadow = "0 10px 20px rgba(210,140,26,0.35)";
+        unlockBtn.style.marginBottom = "6px";
+
+        unlockBtn.addEventListener("click", () => {
+          window.location.href = "pricing.html#unlock";
+        });
+
+        const tip = document.createElement("div");
+        tip.innerHTML =
+          "Full content is softly locked.<br>Pay <b>$19.9</b> to access 100% of this draft.";
+        tip.style.opacity = "0.95";
+
+        overlay.appendChild(unlockBtn);
+        overlay.appendChild(tip);
+
+        blurContainer.appendChild(overlay);
+        resultBox.appendChild(blurContainer);
 
         statusText.textContent =
-          "Preview generated — full content is available after payment ($19.9).";
-        copyBtn.disabled = true; // 不允许复制完整内容
+          "30% preview displayed — remaining content is blurred until you unlock it.";
+        copyBtn.disabled = true;
       } catch (err) {
         console.error(err);
         resultBox.innerHTML =
@@ -595,7 +670,7 @@
       }
     });
 
-    // --- Copy draft（保留，但当前按钮是禁用的） ---
+    // Copy 按钮目前禁用（保留逻辑，方便以后对订阅用户开放）
     copyBtn.addEventListener("click", async () => {
       if (!currentDraft) {
         alert("There is no draft to copy yet.");
@@ -609,7 +684,6 @@
       }
     });
 
-    // --- Init ---
     setupDeskUI();
     initName();
   </script>
