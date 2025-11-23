@@ -1,777 +1,484 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
   <meta charset="UTF-8" />
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   <title>Aurum Task Desk — Pricing</title>
-
   <link rel="icon" type="image/png" href="favicon.png" />
-
   <style>
+    :root {
+      --bg: #071326;
+      --bg-elevated: #0d1c33;
+      --bg-soft: #101f3a;
+      --border-subtle: rgba(255, 255, 255, 0.06);
+      --accent: #f0c97a;
+      --accent-soft: rgba(240, 201, 122, 0.16);
+      --accent-strong: #f7d58c;
+      --text-primary: #f7f4ee;
+      --text-muted: #9ca8c6;
+      --nav-height: 64px;
+      --radius-lg: 18px;
+      --radius-xl: 24px;
+      --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.55);
+    }
 
     * { box-sizing: border-box; }
 
     body {
-
       margin: 0;
-
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-
-      background: #f5f3ef;
-
-      color: #1d2734;
-
+      background:
+        radial-gradient(circle at top left, #14294a 0%, #060b18 52%, #020610 100%);
+      color: var(--text-primary);
       line-height: 1.6;
-
+      -webkit-font-smoothing: antialiased;
     }
 
     a { text-decoration: none; color: inherit; }
 
-
-
     .container {
-
       max-width: 1180px;
-
       margin: 0 auto;
-
-      padding: 20px;
-
+      padding: 0 20px;
     }
-
-
-
-    /* Navbar */
 
     .navbar {
-
-      display: flex;
-
-      justify-content: space-between;
-
-      align-items: center;
-
-      padding: 18px 0;
-
-      border-bottom: 1px solid #d5d3ce;
-
-      background: rgba(245,243,239,0.92);
-
-      backdrop-filter: blur(10px);
-
       position: sticky;
-
       top: 0;
-
-      z-index: 10;
-
+      z-index: 40;
+      backdrop-filter: blur(18px);
+      background: linear-gradient(
+        to bottom,
+        rgba(3, 10, 24, 0.96),
+        rgba(3, 10, 24, 0.88)
+      );
+      border-bottom: 1px solid rgba(240, 201, 122, 0.18);
     }
 
-    .nav-left {
-
-      font-size: 20px;
-
-      font-weight: 700;
-
-      letter-spacing: 0.12em;
-
-      text-transform: uppercase;
-
-      color: #111927;
-
-    }
-
-    .nav-right a {
-
-      margin-left: 22px;
-
-      font-size: 14px;
-
-      opacity: 0.85;
-
-    }
-
-    .nav-right a:hover {
-
-      opacity: 1;
-
-      color: #7a642f;
-
-    }
-
-
-
-    /* Header */
-
-    .page-header {
-
-      margin-top: 32px;
-
-      margin-bottom: 16px;
-
-    }
-
-    .header-title {
-
-      font-size: 30px;
-
-      font-weight: 800;
-
-      color: #132033;
-
-      margin-bottom: 6px;
-
-    }
-
-    .header-sub {
-
-      font-size: 14px;
-
-      max-width: 640px;
-
-      color: #55514a;
-
-    }
-
-
-
-    /* Pricing layout */
-
-    .pricing-layout {
-
-      display: grid;
-
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.3fr);
-
+    .nav-inner {
+      height: var(--nav-height);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       gap: 24px;
-
-      margin-top: 26px;
-
-      align-items: flex-start;
-
     }
 
-    @media (max-width: 900px) {
-
-      .pricing-layout {
-
-        grid-template-columns: 1fr;
-
-      }
-
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
-
-
-    .card {
-
-      background: rgba(255,255,255,0.96);
-
-      border-radius: 16px;
-
-      border: 1px solid #dcd9d3;
-
-      padding: 20px 20px 22px;
-
+    .logo-mark {
+      width: 30px;
+      height: 30px;
+      border-radius: 12px;
+      background: conic-gradient(from 215deg, #f7d58c, #c79235, #f7d58c);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 16px;
+      color: #1a1205;
+      box-shadow:
+        0 0 0 2px #02050c,
+        0 0 25px rgba(247, 213, 140, 0.55);
     }
 
-    .card-title {
-
+    .logo-text-wrap { display: flex; flex-direction: column; }
+    .logo-title {
       font-size: 18px;
-
-      font-weight: 700;
-
-      margin-bottom: 6px;
-
-      color: #132033;
-
-    }
-
-    .card-sub {
-
-      font-size: 13px;
-
-      color: #6c6558;
-
-      margin-bottom: 16px;
-
-    }
-
-
-
-    /* One-time card */
-
-    .one-time-price {
-
-      font-size: 26px;
-
-      font-weight: 800;
-
-      margin-bottom: 4px;
-
-      color: #132033;
-
-    }
-
-    .muted {
-
-      font-size: 12px;
-
-      color: #7c7567;
-
-    }
-
-
-
-    .btn-primary {
-
-      display: inline-block;
-
-      padding: 9px 18px;
-
-      border-radius: 999px;
-
-      border: 1px solid #24364c;
-
-      background: #24364c;
-
-      color: #fff;
-
-      font-size: 14px;
-
-      font-weight: 600;
-
-      cursor: pointer;
-
-      margin-top: 10px;
-
-    }
-
-    .btn-primary:hover {
-
-      filter: brightness(1.03);
-
-    }
-
-
-
-    /* Plans */
-
-    .plans-grid {
-
-      display: grid;
-
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-
-      gap: 18px;
-
-      margin-top: 8px;
-
-    }
-
-    .plan-card {
-
-      background: #fefcf7;
-
-      border-radius: 14px;
-
-      border: 1px solid #ded3c1;
-
-      padding: 16px 16px 18px;
-
-      position: relative;
-
-      overflow: hidden;
-
-    }
-
-    .plan-badge {
-
-      font-size: 11px;
-
-      text-transform: uppercase;
-
       letter-spacing: 0.12em;
-
-      color: #8d7140;
-
-      margin-bottom: 4px;
-
-    }
-
-    .plan-name {
-
-      font-size: 17px;
-
+      text-transform: uppercase;
       font-weight: 700;
-
-      color: #1b2836;
-
-      margin-bottom: 4px;
-
+    }
+    .logo-sub {
+      font-size: 11px;
+      opacity: 0.78;
+      color: var(--text-muted);
     }
 
-    .plan-price {
-
-      font-size: 24px;
-
-      font-weight: 800;
-
-      color: #1b2836;
-
-      margin-bottom: 4px;
-
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 14px;
     }
 
-    .plan-price span {
+    .nav-link {
+      opacity: 0.8;
+      padding-bottom: 3px;
+      border-bottom: 2px solid transparent;
+      transition: all 0.18s ease-out;
+    }
 
+    .nav-link:hover {
+      opacity: 1;
+      border-bottom-color: rgba(240, 201, 122, 0.55);
+    }
+
+    .nav-link.is-active {
+      opacity: 1;
+      border-bottom-color: var(--accent);
+      color: var(--accent-strong);
+    }
+
+    .btn-outline,
+    .btn-primary,
+    .btn-ghost {
       font-size: 13px;
-
-      font-weight: 500;
-
-      color: #7b7569;
-
+      padding: 7px 16px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: transparent;
+      color: var(--text-primary);
+      transition: all 0.18s ease-out;
     }
-
-    .plan-desc {
-
-      font-size: 13px;
-
-      color: #615a4d;
-
-      margin-bottom: 10px;
-
-    }
-
-    .plan-list {
-
-      font-size: 13px;
-
-      color: #4e473a;
-
-      padding-left: 18px;
-
-      margin: 0 0 10px;
-
-    }
-
-    .plan-list li {
-
-      margin-bottom: 4px;
-
-    }
-
-
 
     .btn-outline {
-
-      display: inline-block;
-
-      padding: 8px 16px;
-
-      border-radius: 999px;
-
-      border: 1px solid #b89452;
-
-      background: #f9f2e4;
-
-      font-size: 13px;
-
-      font-weight: 600;
-
-      color: #6e5321;
-
-      cursor: pointer;
-
-      margin-top: 4px;
-
+      border-color: rgba(240, 201, 122, 0.55);
+      background: rgba(9, 18, 36, 0.7);
     }
 
     .btn-outline:hover {
-
-      background: #f0e3cc;
-
+      background: rgba(240, 201, 122, 0.08);
+      transform: translateY(-1px);
     }
 
+    .btn-primary {
+      background: linear-gradient(135deg, #f7d58c, #c79235);
+      color: #1a1205;
+      font-weight: 600;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55);
+    }
 
+    .btn-primary:hover {
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7);
+      transform: translateY(-1px);
+    }
 
-    .plan-tagline {
-
+    .btn-ghost {
+      border-color: transparent;
+      background: transparent;
+      color: var(--text-muted);
       font-size: 12px;
-
-      color: #7a7369;
-
-      margin-top: 6px;
-
+      padding-inline: 8px;
     }
 
-
-
-    .highlight {
-
-      border-color: #c39a4f;
-
-      box-shadow: 0 12px 30px rgba(0,0,0,0.06);
-
+    .btn-ghost:hover {
+      color: #ffb3b3;
     }
 
-
-
-    /* FAQish block */
-
-    .note-block {
-
-      margin-top: 26px;
-
-      padding: 16px 16px 18px;
-
-      border-radius: 14px;
-
-      border: 1px solid #d2c9b7;
-
-      background: #fbf7ee;
-
-      font-size: 13px;
-
-      color: #5a5347;
-
+    .nav-user {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
     }
 
-    .note-block strong {
-
-      color: #3b3121;
-
+    .nav-user-pill {
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(8, 25, 60, 0.9);
+      border: 1px solid rgba(240, 201, 122, 0.5);
+      font-size: 12px;
     }
 
+    .page-header {
+      padding: 56px 0 30px;
+      text-align: center;
+    }
 
+    .pill {
+      font-size: 11px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(240, 201, 122, 0.4);
+      background: rgba(3, 13, 32, 0.9);
+      color: var(--accent-strong);
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+
+    .page-title {
+      font-size: 30px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .page-sub {
+      font-size: 14px;
+      color: var(--text-muted);
+      max-width: 540px;
+      margin: 0 auto;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+      padding-bottom: 32px;
+    }
+
+    .plan {
+      background: rgba(5, 12, 30, 0.96);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-subtle);
+      padding: 18px 18px 20px;
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      flex-direction: column;
+      min-height: 260px;
+    }
+
+    .plan--highlight {
+      border-color: rgba(240, 201, 122, 0.9);
+      box-shadow:
+        0 18px 45px rgba(0, 0, 0, 0.75),
+        0 0 0 1px rgba(240, 201, 122, 0.4);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .plan--highlight::before {
+      content: "Most used";
+      position: absolute;
+      top: 14px;
+      right: -40px;
+      transform: rotate(45deg);
+      background: linear-gradient(135deg, #f7d58c, #c79235);
+      color: #1a1205;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 40px;
+    }
+
+    .plan-name {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .plan-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .plan-price {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .plan-price span {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--text-muted);
+    }
+
+    .plan-line {
+      height: 1px;
+      background: linear-gradient(
+        to right,
+        rgba(240, 201, 122, 0),
+        rgba(240, 201, 122, 0.6),
+        rgba(240, 201, 122, 0)
+      );
+      margin: 10px 0;
+      opacity: 0.9;
+    }
+
+    .plan-features {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 14px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .plan-features li {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(240, 201, 122, 0.8);
+      flex-shrink: 0;
+    }
+
+    .plan-footer {
+      margin-top: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .plan-note {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
 
     .footer {
-
-      margin-top: 50px;
-
-      border-top: 1px solid #d2cfca;
-
-      padding: 26px 0 36px;
-
+      margin-top: 10px;
+      border-top: 1px solid rgba(240, 201, 122, 0.25);
+      padding: 18px 0 26px;
+      font-size: 12px;
+      color: var(--text-muted);
       text-align: center;
-
-      font-size: 13px;
-
-      color: #746e64;
-
     }
 
+    @media (max-width: 900px) {
+      .pricing-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .nav-link {
+        display: none;
+      }
+      .btn-outline {
+        display: none;
+      }
+    }
   </style>
-
 </head>
-
 <body>
-
-  <!-- NAVBAR -->
-
-  <nav class="navbar container">
-
-    <div class="nav-left">Aurum Task Desk</div>
-
-    <div class="nav-right">
-
-      <a href="index.html">Home</a>
-
-      <a href="tasks.html">Task Marketplace</a>
-
-      <a href="about.html">About</a>
-
-      <a href="pricing.html">Pricing</a>
-
-      <a href="contact.html">Contact</a>
-
+  <header class="navbar">
+    <div class="nav-inner container">
+      <div class="logo">
+        <div class="logo-mark">A</div>
+        <div class="logo-text-wrap">
+          <div class="logo-title">Aurum Desk</div>
+          <div class="logo-sub">Private AI Workspace</div>
+        </div>
+      </div>
+      <nav class="nav-right">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="tasks.html" class="nav-link">Tasks</a>
+        <a href="pricing.html" class="nav-link is-active">Pricing</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+        <a href="auth.html" class="btn-outline nav-auth" data-auth-slot>Sign in</a>
+      </nav>
     </div>
-
-  </nav>
-
-
-
-  <!-- HEADER -->
-
-  <header class="container page-header">
-
-    <h1 class="header-title">Pricing & Desk Models</h1>
-
-    <p class="header-sub">
-
-      Aurum Task Desk offers a simple structure: you can start with a one-time task,
-
-      or move into a private Desk subscription when you want calmer, long-term support.
-
-    </p>
-
   </header>
 
-
-
-  <main class="container pricing-layout">
-
-    <!-- LEFT: One-time -->
-
-    <section class="card">
-
-      <h2 class="card-title">One-Time Task</h2>
-
-      <p class="card-sub">
-
-        Best for first-time clients or one-off needs. A single draft you can copy,
-
-        adjust, and send.
-
+  <main class="container">
+    <section class="page-header">
+      <span class="pill">Pricing</span>
+      <h1 class="page-title">Simple plans for serious work.</h1>
+      <p class="page-sub">
+        Start with a private AI desk. Layer on automation and multi-user access as your volume grows.
       </p>
-
-      <div class="one-time-price">$19.90</div>
-
-      <div class="muted">per task · pay as you go</div>
-
-
-
-      <ul class="plan-list" style="margin-top:10px;">
-
-        <li>One complete draft (email, letter, short post, or message)</li>
-
-        <li>Calm, respectful tone for older US/EU audiences</li>
-
-        <li>Suitable for family, business, or simple legal-style language</li>
-
-        <li>No subscription, no login — just pay and receive the text</li>
-
-      </ul>
-
-
-
-      <a href="tasks.html" class="btn-primary">Start with a one-time task</a>
-
-      <p class="muted" style="margin-top:8px;">
-
-        Ideal for testing the Desk before moving into a monthly relationship.
-
-      </p>
-
     </section>
 
+    <section class="pricing-grid">
+      <article class="plan">
+        <h2 class="plan-name">Starter desk</h2>
+        <p class="plan-desc">For individuals testing a private AI workspace.</p>
+        <div class="plan-price">$49 <span>/ month</span></div>
+        <div class="plan-line"></div>
+        <ul class="plan-features">
+          <li><span class="dot"></span> 1 private desk & workspace</li>
+          <li><span class="dot"></span> Up to 100 tasks / month</li>
+          <li><span class="dot"></span> Standard AI models</li>
+          <li><span class="dot"></span> Email support</li>
+        </ul>
+        <div class="plan-footer">
+          <a href="auth.html" class="btn-outline">Start with Starter</a>
+          <div class="plan-note">Upgrade anytime. No setup fee.</div>
+        </div>
+      </article>
 
-
-    <!-- RIGHT: Desk plans -->
-
-    <section class="card">
-
-      <h2 class="card-title">Monthly Desk Plans</h2>
-
-      <p class="card-sub">
-
-        Monthly Desks are for people who prefer a quiet, ongoing writing partner:
-
-        tone is remembered, context is saved, and tasks are handled calmly over time.
-
-      </p>
-
-
-
-      <div class="plans-grid">
-
-        <!-- Starter -->
-
-        <article class="plan-card">
-
-          <div class="plan-badge">Entry Desk</div>
-
-          <div class="plan-name">Starter Desk</div>
-
-          <div class="plan-price">$140 <span>/ month</span></div>
-
-          <p class="plan-desc">
-
-            For clients who occasionally need a calm, reliable writing desk.
-
-          </p>
-
-          <ul class="plan-list">
-
-            <li>Up to 5 tasks per month</li>
-
-            <li>Tone & preferences remembered</li>
-
-            <li>Priority delivery (within 48 hours)</li>
-
-            <li>Personal Desk page (after subscription)</li>
-
-            <li>Email-based communication only</li>
-
-          </ul>
-
-          <!-- TODO: replace href with your Stripe subscription link for Starter plan -->
-
-          <a href="https://YOUR_STARTER_DESK_STRIPE_LINK" class="btn-outline">
-
-            Start Starter Desk
-
-          </a>
-
-          <div class="plan-tagline">
-
-            Good for letters, replies, and occasional business writing.
-
+      <article class="plan plan--highlight">
+        <h2 class="plan-name">Operator desk</h2>
+        <p class="plan-desc">For founders, operators, and small leadership teams.</p>
+        <div class="plan-price">$149 <span>/ month</span></div>
+        <div class="plan-line"></div>
+        <ul class="plan-features">
+          <li><span class="dot"></span> 1 private desk · 5 seats</li>
+          <li><span class="dot"></span> 500 tasks / month</li>
+          <li><span class="dot"></span> Priority routing & faster SLAs</li>
+          <li><span class="dot"></span> Custom prompts tuned to your tone</li>
+          <li><span class="dot"></span> Priority support</li>
+        </ul>
+        <div class="plan-footer">
+          <a href="auth.html" class="btn-primary">Sign in & upgrade</a>
+          <div class="plan-note">
+            Recommended starting point for serious use. Connect your real payment flow later.
           </div>
+        </div>
+      </article>
 
-        </article>
-
-
-
-        <!-- Professional -->
-
-        <article class="plan-card highlight">
-
-          <div class="plan-badge">Most Popular</div>
-
-          <div class="plan-name">Professional Desk</div>
-
-          <div class="plan-price">$280 <span>/ month</span></div>
-
-          <p class="plan-desc">
-
-            For US/EU professionals, veterans, and business owners who need steady, structured help.
-
-          </p>
-
-          <ul class="plan-list">
-
-            <li>Up to 12 tasks per month</li>
-
-            <li>One long-form piece included (1000–1500 words)</li>
-
-            <li>Ongoing tone & story continuity</li>
-
-            <li>Light content planning each month</li>
-
-            <li>Priority delivery (24–48 hours)</li>
-
-            <li>Personal Desk page for tasks</li>
-
-          </ul>
-
-          <!-- TODO: replace href with your Stripe subscription link for Professional plan -->
-
-          <a href="https://YOUR_PRO_DESK_STRIPE_LINK" class="btn-outline">
-
-            Start Professional Desk
-
-          </a>
-
-          <div class="plan-tagline">
-
-            Designed for people who want a quiet, long-term writing partner.
-
+      <article class="plan">
+        <h2 class="plan-name">Private office</h2>
+        <p class="plan-desc">For teams needing custom SLAs & data posture.</p>
+        <div class="plan-price">Let’s talk <span>/ custom</span></div>
+        <div class="plan-line"></div>
+        <ul class="plan-features">
+          <li><span class="dot"></span> Dedicated environment</li>
+          <li><span class="dot"></span> Custom limits & workflows</li>
+          <li><span class="dot"></span> Integration with your tools</li>
+          <li><span class="dot"></span> Legal & security review support</li>
+        </ul>
+        <div class="plan-footer">
+          <a href="contact.html" class="btn-outline">Talk to us</a>
+          <div class="plan-note">
+            Ideal for family offices, funds and regulated industries.
           </div>
-
-        </article>
-
-
-
-        <!-- Private -->
-
-        <article class="plan-card">
-
-          <div class="plan-badge">Private Office</div>
-
-          <div class="plan-name">Private Desk</div>
-
-          <div class="plan-price">$580 <span>/ month</span></div>
-
-          <p class="plan-desc">
-
-            Reserved for clients who want a private writing office, not a platform.
-
-          </p>
-
-          <ul class="plan-list">
-
-            <li>Unlimited short tasks (fair use)</li>
-
-            <li>Up to 3 long-form pieces per month</li>
-
-            <li>Full tone & background memory</li>
-
-            <li>Support for sensitive family or work communication</li>
-
-            <li>Highest priority in the Desk queue</li>
-
-            <li>Premium Personal Desk page</li>
-
-          </ul>
-
-          <!-- TODO: replace href with your Stripe subscription link for Private plan -->
-
-          <a href="https://YOUR_PRIVATE_DESK_STRIPE_LINK" class="btn-outline">
-
-            Start Private Desk
-
-          </a>
-
-          <div class="plan-tagline">
-
-            For clients who prefer a quiet, ongoing relationship instead of one-off tasks.
-
-          </div>
-
-        </article>
-
-      </div>
-
-
-
-      <div class="note-block">
-
-  <strong>What happens after you subscribe?</strong><br />
-
-  After your payment is confirmed, you will be redirected to your Personal Desk page.
-
-  That page is your private workspace for this plan. You can submit tasks there at
-
-  any time during your current billing period.<br /><br />
-
-
-
-  Please bookmark your Desk page in your browser. If a billing period ends and your
-
-  subscription is not renewed, your Desk page will stop accepting new tasks and
-
-  will gently redirect you back to the public Pricing page.<br /><br />
-
-
-
-  <strong>How Desk fees work (simple version):</strong><br />
-
-  You see one clear price (for example, $280). Contributors and tools are paid from
-
-  that amount. The Desk fee is the spread, which covers scoping, tone management,
-
-  and quality control.
-
-</div>
-
+        </div>
+      </article>
     </section>
-
   </main>
 
-
-
   <footer class="footer">
-
-    © 2025 Aurum Task Desk — Private AI Task Coordination Desk
-
+    Aurum Task Desk · Pricing overview.
   </footer>
 
-</body>
+  <script>
+    (function () {
+      var raw = localStorage.getItem("aurumUser");
+      var user = null;
+      try {
+        user = raw && JSON.parse(raw);
+      } catch (e) {
+        user = null;
+      }
+      var authSlot = document.querySelector("[data-auth-slot]");
+      if (!authSlot) return;
 
+      if (user && user.name) {
+        var parent = authSlot.parentElement;
+        var wrapper = document.createElement("div");
+        wrapper.className = "nav-user";
+        wrapper.setAttribute("data-auth-slot", "true");
+        wrapper.innerHTML =
+          '<span class="nav-user-pill">Hi, ' +
+          user.name +
+          '</span><button type="button" class="btn-ghost" id="aurum-logout-btn">Logout</button>';
+        parent.replaceChild(wrapper, authSlot);
+
+        document
+          .getElementById("aurum-logout-btn")
+          .addEventListener("click", function () {
+            localStorage.removeItem("aurumUser");
+            window.location.href = "auth.html";
+          });
+      } else {
+        authSlot.setAttribute("href", "auth.html");
+        authSlot.textContent = "Sign in";
+      }
+    })();
+  </script>
+</body>
 </html>
