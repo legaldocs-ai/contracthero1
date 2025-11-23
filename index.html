@@ -554,6 +554,39 @@
     </div>
   </section>
 
+  <!-- AI Drafting Desk 区域 -->
+  <section class="section" id="ai-desk">
+    <div class="section-inner" style="border-radius: 16px; border: 1px solid rgba(240,211,122,0.45); padding: 22px 20px; background: radial-gradient(circle at top left,#26252a,#10121c);">
+      <h2 class="section-title" style="margin-bottom:4px;">AI Drafting Desk (private)</h2>
+      <p class="section-sub" style="margin-bottom:12px;">
+        Paste the client’s notes or a rough idea. The Desk AI will turn it into a clear, professional draft
+        written for older US / EU professionals. You can edit or translate before sending.
+      </p>
+
+      <label for="aiPrompt" style="display:block;font-size:13px;margin-bottom:4px;color:#d9d5cf;">
+        Client task / notes
+      </label>
+      <textarea id="aiPrompt" rows="6"
+        style="width:100%;padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.14);background:#050816;color:#f7f5f0;font-size:14px;resize:vertical;"></textarea>
+
+      <div style="margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+        <button id="aiGenerateBtn" class="btn-gold" type="button">
+          Generate draft
+        </button>
+        <span id="aiStatus" style="font-size:13px;color:#a9a59b;"></span>
+      </div>
+
+      <div id="aiResultBox"
+        style="margin-top:16px;padding:12px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.16);background:#050816;display:none;">
+        <div style="font-size:13px;font-weight:600;margin-bottom:6px;color:#f5f2ea;">
+          Draft from the Desk AI
+        </div>
+        <pre id="aiResult"
+          style="margin:0;white-space:pre-wrap;font-size:14px;line-height:1.55;color:#e4e0d6;"></pre>
+      </div>
+    </div>
+  </section>
+
   <!-- How the Desk works -->
   <section class="section">
     <div class="section-inner">
@@ -743,5 +776,64 @@
   <footer class="footer">
     © 2025 Aurum Task Desk — Private AI Task Coordination Desk
   </footer>
+
+  <!-- AI 调用脚本 -->
+  <script>
+    const WORKER_AI_URL = "https://aurum-task-worker.sophieinbg.workers.dev/api/generate";
+
+    async function callDeskAI(prompt) {
+      const res = await fetch(WORKER_AI_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ prompt })
+      });
+
+      const data = await res.json();
+      if (!data.ok) {
+        throw new Error(data.error || "AI error");
+      }
+      return data.text;
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const promptInput = document.getElementById("aiPrompt");
+      const btn = document.getElementById("aiGenerateBtn");
+      const status = document.getElementById("aiStatus");
+      const resultBox = document.getElementById("aiResultBox");
+      const result = document.getElementById("aiResult");
+
+      if (!promptInput || !btn) return;
+
+      btn.addEventListener("click", async () => {
+        const prompt = (promptInput.value || "").trim();
+        if (!prompt) {
+          alert("Please paste the client task or notes first.");
+          return;
+        }
+
+        btn.disabled = true;
+        btn.textContent = "Working...";
+        status.textContent = "Drafting with the Desk AI...";
+        resultBox.style.display = "none";
+        result.textContent = "";
+
+        try {
+          const aiText = await callDeskAI(prompt);
+          result.textContent = aiText;
+          resultBox.style.display = "block";
+          status.textContent = "Done.";
+        } catch (err) {
+          console.error(err);
+          status.textContent = "Error. Please try again.";
+          alert("AI error: " + (err.message || err));
+        } finally {
+          btn.disabled = false;
+          btn.textContent = "Generate draft";
+        }
+      });
+    });
+  </script>
 </body>
 </html>
