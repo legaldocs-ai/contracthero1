@@ -143,4 +143,302 @@
       background: #24364c;
       color: #fff;
       font-size: 14px;
-      f
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .btn-primary:disabled {
+      opacity: 0.55;
+      cursor: default;
+    }
+
+    .btn-outline {
+      padding: 8px 14px;
+      border-radius: 20px;
+      border: 1px solid #bfa76f;
+      background: #f5f2eb;
+      color: #7a642f;
+      font-size: 12px;
+      cursor: pointer;
+      margin-top: 6px;
+    }
+    .btn-outline:hover {
+      background: #ebe3d1;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      border: 1px solid #d3c7ab;
+      background: #f5f0e2;
+      color: #7a622e;
+      margin-right: 6px;
+      margin-bottom: 4px;
+    }
+
+    .result-title {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: #132033;
+    }
+    .result-box {
+      margin-top: 10px;
+      padding: 12px;
+      border-radius: 8px;
+      background: #fcfbf7;
+      border: 1px solid #e0dcd4;
+      font-size: 13px;
+      white-space: pre-wrap;
+    }
+    .result-empty {
+      font-size: 13px;
+      opacity: 0.7;
+    }
+    .status-text {
+      font-size: 12px;
+      opacity: 0.8;
+      margin-top: 6px;
+    }
+
+    .footer {
+      margin-top: 50px;
+      border-top: 1px solid #d2cfca;
+      padding: 30px 0 40px;
+      text-align: center;
+      font-size: 13px;
+      opacity: 0.75;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar container">
+    <div class="nav-left">Aurum Task Desk</div>
+    <div class="nav-right">
+      <a href="index.html">Home</a>
+      <a href="tasks.html">Task Marketplace</a>
+      <a href="about.html">About</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </nav>
+
+  <!-- HEADER -->
+  <header class="container page-header">
+    <h1 class="header-title">Task Generator (Client-facing)</h1>
+    <p class="header-sub">
+      Clients can describe their task here. Aurum AI will immediately generate a first draft
+      based on their instructions. You can later review, edit, or copy the result.
+    </p>
+  </header>
+
+  <main class="container layout">
+    <!-- LEFT: FORM -->
+    <section class="card">
+      <div class="card-title">Submit a Task</div>
+      <div class="card-sub">
+        For older US/EU professionals, veterans, truck drivers, engineers, and business owners.
+        Simple language, calm tone, clear structure.
+      </div>
+
+      <form id="task-form">
+        <div class="form-row">
+          <label for="clientName">Your first name (optional)</label>
+          <input type="text" id="clientName" placeholder="Mike, John, David...">
+          <div class="hint">This can help the AI personalize tone, but it’s optional.</div>
+        </div>
+
+        <div class="inline">
+          <div class="form-row">
+            <label for="taskType">Task type</label>
+            <select id="taskType">
+              <option value="email">Email / Letter</option>
+              <option value="whatsapp">WhatsApp / SMS reply</option>
+              <option value="linkedin">LinkedIn post</option>
+              <option value="article">Long-form article</option>
+              <option value="speech">Speech / talking points</option>
+              <option value="family">Family communication</option>
+              <option value="business">Business text / contract-style language</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label for="tone">Tone</label>
+            <select id="tone">
+              <option value="calm">Calm and respectful</option>
+              <option value="professional">Professional and clear</option>
+              <option value="warm">Warm and supportive</option>
+              <option value="firm">Firm but polite</option>
+              <option value="simple">Very simple English</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="inline">
+          <div class="form-row">
+            <label for="language">Language</label>
+            <select id="language">
+              <option value="english">English</option>
+              <option value="chinese">Chinese</option>
+              <option value="bilingual">English + Chinese</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label for="length">Length</label>
+            <select id="length">
+              <option value="short">Short (1–2 paragraphs)</option>
+              <option value="medium">Medium (3–6 paragraphs)</option>
+              <option value="long">Long (article style)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label for="audience">Who is this for?</label>
+          <input type="text" id="audience" placeholder="My daughter, my ex-wife, my boss, LinkedIn followers...">
+        </div>
+
+        <div class="form-row">
+          <label for="details">What do you want to say? (details)</label>
+          <textarea id="details" placeholder="Explain what happened, what you want to say or solve, any key facts or phrases. The AI will shape it into a clear message."></textarea>
+        </div>
+
+        <div class="form-row">
+          <button type="button" class="btn-primary" id="generateBtn">Generate with Aurum AI</button>
+          <button type="button" class="btn-outline" id="exampleBtn">Load example task</button>
+          <div class="status-text" id="statusText"></div>
+        </div>
+      </form>
+    </section>
+
+    <!-- RIGHT: RESULT -->
+    <section class="card">
+      <div class="card-title">AI Draft</div>
+      <div class="card-sub">
+        The draft below is generated instantly. You can copy, edit, and send it to your client
+        or let them see it directly on the page.
+      </div>
+
+      <div id="resultContainer">
+        <div class="result-empty">
+          No draft yet. Submit a task on the left and click “Generate with Aurum AI”.
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    © 2025 Aurum Task Desk — Private AI Task Coordination Desk
+  </footer>
+
+  <script>
+    // ✅ 这里使用 Cloudflare Worker 作为后端，不在前端暴露任何 API Key
+    const WORKER_API_URL = "https://aurum-task-worker.sophieinbg.workers.dev/api/generate";
+
+    const generateBtn = document.getElementById('generateBtn');
+    const exampleBtn = document.getElementById('exampleBtn');
+    const statusText = document.getElementById('statusText');
+    const resultContainer = document.getElementById('resultContainer');
+
+    const clientNameEl = document.getElementById('clientName');
+    const taskTypeEl = document.getElementById('taskType');
+    const toneEl = document.getElementById('tone');
+    const languageEl = document.getElementById('language');
+    const lengthEl = document.getElementById('length');
+    const audienceEl = document.getElementById('audience');
+    const detailsEl = document.getElementById('details');
+
+    // 示例任务
+    exampleBtn.addEventListener('click', () => {
+      clientNameEl.value = "Mike";
+      taskTypeEl.value = "email";
+      toneEl.value = "warm";
+      languageEl.value = "english";
+      lengthEl.value = "medium";
+      audienceEl.value = "my adult daughter";
+      detailsEl.value =
+        "I want to tell her I am sorry for being absent when she was younger, " +
+        "explain that I was working and struggling, but I always loved her. " +
+        "I don’t want to blame anyone. I want to open the door for more conversation.";
+    });
+
+    // 生成按钮
+    generateBtn.addEventListener('click', async () => {
+      const clientName = clientNameEl.value.trim();
+      const taskType = taskTypeEl.value;
+      const tone = toneEl.value;
+      const language = languageEl.value;
+      const length = lengthEl.value;
+      const audience = audienceEl.value.trim();
+      const details = detailsEl.value.trim();
+
+      if (!details) {
+        alert("Please describe the task details so Aurum AI knows what to generate.");
+        return;
+      }
+
+      // 构造给后端的 prompt
+      let prompt = "You are Aurum Task Desk AI. You help older US and EU men (55+), veterans, truck drivers, engineers and business owners write clear, calm, respectful messages, letters, LinkedIn posts and scripts.\n\n";
+      if (clientName) {
+        prompt += "Client name: " + clientName + ".\n";
+      }
+      prompt += "Task type: " + taskType + ".\n";
+      prompt += "Tone: " + tone + ".\n";
+      prompt += "Preferred language: " + language + ".\n";
+      prompt += "Length: " + length + ".\n";
+      if (audience) {
+        prompt += "Audience: " + audience + ".\n";
+      }
+      prompt += "Details: " + details + ".\n\n";
+      prompt += "Write a complete draft that this client can directly copy and send. Avoid overly fancy words. Sound mature and sincere. If language = Chinese, reply in Chinese. If bilingual, give English first, then Chinese.\n";
+
+      // UI 状态
+      statusText.textContent = "Generating with Aurum AI...";
+      generateBtn.disabled = true;
+      generateBtn.textContent = "Generating...";
+      resultContainer.innerHTML = "";
+
+      try {
+        const res = await fetch(WORKER_API_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ prompt })
+        });
+
+        const data = await res.json();
+
+        if (!res.ok || !data.ok) {
+          const msg = (data && data.error) ? data.error : ("HTTP " + res.status);
+          throw new Error(msg);
+        }
+
+        const reply = data.text || "No content returned from Aurum AI.";
+
+        const box = document.createElement('div');
+        box.className = 'result-box';
+        box.textContent = reply;
+        resultContainer.innerHTML = "";
+        resultContainer.appendChild(box);
+
+        statusText.textContent = "Draft generated. You can copy and adjust if needed.";
+      } catch (err) {
+        console.error(err);
+        resultContainer.innerHTML =
+          '<div class="result-box">Something went wrong while talking to Aurum AI: ' +
+          (err.message || err) +
+          '</div>';
+        statusText.textContent = "";
+      } finally {
+        generateBtn.disabled = false;
+        generateBtn.textContent = "Generate with Aurum AI";
+      }
+    });
+  </script>
+</body>
+</html>
