@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Aurum Account — Email Sign in</title>
+  <title>Aurum Account — Sign in</title>
   <link rel="icon" type="image/png" href="favicon.png" />
   <style>
     * { box-sizing: border-box; }
+
     body {
       margin: 0;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
@@ -18,6 +19,13 @@
     }
     a { color: inherit; text-decoration: none; }
 
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Navbar */
     .navbar {
       position: sticky;
       top: 0;
@@ -25,10 +33,12 @@
       backdrop-filter: blur(16px);
       background: rgba(5, 8, 22, 0.94);
       border-bottom: 1px solid rgba(204,188,119,0.18);
-      padding: 14px 20px;
+    }
+    .navbar-inner {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      padding: 14px 0;
     }
     .nav-left {
       font-size: 20px;
@@ -37,14 +47,44 @@
       text-transform: uppercase;
       color: #f5f2e6;
     }
-    .nav-right a, .nav-right span {
-      margin-left: 22px;
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 22px;
       font-size: 14px;
-      opacity: 0.85;
+    }
+    .nav-right a {
+      opacity: 0.88;
     }
     .nav-right a:hover {
       opacity: 1;
       color: #f0d37a;
+    }
+
+    .lang-switch {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(240,211,122,0.5);
+      font-size: 11px;
+      background: rgba(10,12,26,0.9);
+    }
+    .lang-pill {
+      border: none;
+      background: transparent;
+      color: #e0dacb;
+      padding: 2px 5px;
+      font-size: 11px;
+      cursor: pointer;
+      opacity: 0.6;
+    }
+    .lang-pill.active {
+      opacity: 1;
+      font-weight: 600;
+      color: #f0d37a;
+      text-decoration: underline;
     }
 
     .outer {
@@ -56,9 +96,9 @@
     }
     .shell {
       width: 100%;
-      max-width: 880px;
+      max-width: 960px;
       display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
       gap: 24px;
     }
     @media (max-width: 900px) {
@@ -207,6 +247,20 @@
       margin-bottom: 0;
     }
 
+    .actions-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-top: 4px;
+      font-size: 12px;
+    }
+    .actions-row a {
+      color: #f0d37a;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
     .status {
       font-size: 12px;
       margin-top: 8px;
@@ -235,31 +289,43 @@
 </head>
 <body>
 <header class="navbar">
-  <div class="nav-left">AURUM TASK DESK</div>
-  <nav class="nav-right" id="navRight">
-    <a href="index.html">Home</a>
-    <a href="tasks.html">Task Marketplace</a>
-    <a href="pricing.html">Pricing</a>
-    <a href="auth.html" id="navSignInLink">Sign in</a>
-  </nav>
+  <div class="container navbar-inner">
+    <div class="nav-left">AURUM TASK DESK</div>
+    <nav class="nav-right">
+      <a href="index.html" data-i18n="nav-home">Home</a>
+      <a href="tasks.html" data-i18n="nav-tasks">Task Marketplace</a>
+      <a href="pricing.html" data-i18n="nav-pricing">Pricing</a>
+      <a href="auth.html" data-i18n="nav-signin">Sign in</a>
+
+      <div class="lang-switch">
+        <span data-i18n="nav-lang">Language</span>
+        <button class="lang-pill" data-lang="en">EN</button>
+        <button class="lang-pill" data-lang="zh">中文</button>
+        <button class="lang-pill" data-lang="ar">عربى</button>
+        <button class="lang-pill" data-lang="fr">FR</button>
+        <button class="lang-pill" data-lang="de">DE</button>
+      </div>
+    </nav>
+  </div>
 </header>
 
 <div class="outer">
   <div class="shell">
     <!-- LEFT: Brand copy -->
     <section class="hero">
-      <div class="hero-label">AURUM ACCOUNT</div>
-      <h1 class="hero-title">Email-based secure access.</h1>
-      <p class="hero-sub">
-        No phone needed. Use your work email to receive a one-time code
-        and access your private writing desk.
+      <div class="hero-label" data-i18n="hero-label">AURUM ACCOUNT</div>
+      <h1 class="hero-title" data-i18n="hero-title">
+        Secure access to your private desk.
+      </h1>
+      <p class="hero-sub" data-i18n="hero-sub">
+        Sign in with your email and password. New users verify their email once, then you can log in with a password anytime.
       </p>
       <div class="hero-badges">
-        <span>Email-only login</span>
-        <span>No SMS costs</span>
-        <span>Global access</span>
+        <span data-i18n="hero-badge-1">Password sign-in</span>
+        <span data-i18n="hero-badge-2">One-time email verification</span>
+        <span data-i18n="hero-badge-3">Reset password via email</span>
       </div>
-      <p class="muted" style="margin-top:16px;">
+      <p class="muted" style="margin-top:16px;" data-i18n="hero-help">
         Having trouble receiving codes? Reach us at
         <a href="mailto:sophieinbg@gmail.com">sophieinbg@gmail.com</a>.
       </p>
@@ -268,81 +334,123 @@
     <!-- RIGHT: Auth panel -->
     <section class="panel">
       <div class="panel-tabs">
-        <div class="panel-tab active" id="tabSignIn">Sign in</div>
-        <div class="panel-tab" id="tabSignUp">Create account</div>
+        <div class="panel-tab active" id="tabSignIn" data-i18n="tab-signin">Sign in</div>
+        <div class="panel-tab" id="tabSignUp" data-i18n="tab-signup">Create account</div>
+        <div class="panel-tab" id="tabReset" data-i18n="tab-reset">Reset password</div>
       </div>
 
-      <!-- Sign-in form -->
+      <!-- Sign-in form (密码登录) -->
       <div id="signInForm">
-        <div class="panel-title">Sign in with email code</div>
-        <div class="panel-sub">
-          Enter your email, we’ll send you a 6-digit code to sign in.
+        <div class="panel-title" data-i18n="signin-title">Sign in with password</div>
+        <div class="panel-sub" data-i18n="signin-sub">
+          Enter your registered email and password to access your desk.
         </div>
 
         <div class="field">
-          <label for="loginEmail">Work email</label>
-          <input type="email" id="loginEmail" placeholder="you@example.com" />
+          <label for="loginEmail" data-i18n="label-email">Work email</label>
+          <input type="email" id="loginEmail" data-i18n-placeholder="placeholder-email" placeholder="you@example.com" />
+        </div>
+
+        <div class="field">
+          <label for="loginPassword" data-i18n="label-password">Password</label>
+          <input type="password" id="loginPassword" data-i18n-placeholder="placeholder-password" placeholder="Enter your password" />
+        </div>
+
+        <button class="btn-primary" id="btnLogin" data-i18n="btn-signin">Sign in</button>
+
+        <div class="actions-row">
+          <span class="muted" data-i18n="signin-no-account">
+            No account yet?
+            <a id="goToSignUpLink">Create one</a>
+          </span>
+          <a id="goToResetLink" data-i18n="signin-forgot">Forgot password?</a>
+        </div>
+
+        <div class="status" id="loginStatus"></div>
+      </div>
+
+      <!-- Sign-up form (注册：接码 + 密码) -->
+      <div id="signUpForm" style="display:none;">
+        <div class="panel-title" data-i18n="signup-title">Create your Aurum account</div>
+        <div class="panel-sub" data-i18n="signup-sub">
+          Register with your name, work email and a password. We will verify your email once with a one-time code.
+        </div>
+
+        <div class="field">
+          <label for="signupName" data-i18n="label-name">Your name</label>
+          <input type="text" id="signupName" data-i18n-placeholder="placeholder-name" placeholder="First name or full name" />
+        </div>
+
+        <div class="field">
+          <label for="signupEmail" data-i18n="label-email">Work email</label>
+          <input type="email" id="signupEmail" data-i18n-placeholder="placeholder-email" placeholder="you@example.com" />
         </div>
 
         <div class="inline-row" style="margin-bottom:10px;">
           <div class="field-inline">
-            <label for="loginCode">Verification code</label>
-            <input type="text" id="loginCode" placeholder="6-digit code" maxlength="6" />
+            <label for="signupCode" data-i18n="label-code">Verification code</label>
+            <input type="text" id="signupCode" placeholder="6-digit code" maxlength="6" />
           </div>
-          <button type="button" class="btn-outline" id="btnLoginSendCode">
+          <button type="button" class="btn-outline" id="btnSignupSendCode" data-i18n="btn-send-code">
             Send code
           </button>
         </div>
 
-        <button class="btn-primary" id="btnLogin">Sign in</button>
-        <div class="status" id="loginStatus"></div>
+        <div class="field">
+          <label for="signupPassword" data-i18n="label-password">Password</label>
+          <input type="password" id="signupPassword" data-i18n-placeholder="placeholder-password" placeholder="Set your password" />
+        </div>
 
-        <p class="muted">
-          New here? <a href="#" id="goToSignUpLink">Create an Aurum account</a>.
+        <div class="field">
+          <label for="signupPassword2" data-i18n="label-password2">Confirm password</label>
+          <input type="password" id="signupPassword2" data-i18n-placeholder="placeholder-password2" placeholder="Re-enter password" />
+        </div>
+
+        <button class="btn-primary" id="btnSignup" data-i18n="btn-create-account">Create account</button>
+        <div class="status" id="signupStatus"></div>
+
+        <p class="muted" data-i18n="signup-terms">
+          By continuing you agree to our standard terms. You can upgrade or downgrade your plan later from your account.
         </p>
       </div>
 
-      <!-- Sign-up form -->
-      <div id="signUpForm" style="display:none;">
-        <div class="panel-title">Create your Aurum account</div>
-        <div class="panel-sub">
-          Register with your name and work email. We will verify your email with a one-time code.
+      <!-- Reset password form (找回密码：接码 + 重设密码) -->
+      <div id="resetForm" style="display:none;">
+        <div class="panel-title" data-i18n="reset-title">Reset your password</div>
+        <div class="panel-sub" data-i18n="reset-sub">
+          Enter your registered email. We’ll send a one-time code so you can set a new password.
         </div>
 
         <div class="field">
-          <label for="signupName">Your name</label>
-          <input type="text" id="signupName" placeholder="First name or full name" />
-        </div>
-
-        <div class="field">
-          <label for="signupEmail">Work email</label>
-          <input type="email" id="signupEmail" placeholder="you@example.com" />
+          <label for="resetEmail" data-i18n="label-email">Work email</label>
+          <input type="email" id="resetEmail" data-i18n-placeholder="placeholder-email" placeholder="you@example.com" />
         </div>
 
         <div class="inline-row" style="margin-bottom:10px;">
           <div class="field-inline">
-            <label for="signupCode">Verification code</label>
-            <input type="text" id="signupCode" placeholder="6-digit code" maxlength="6" />
+            <label for="resetCode" data-i18n="label-code">Verification code</label>
+            <input type="text" id="resetCode" placeholder="6-digit code" maxlength="6" />
           </div>
-          <button type="button" class="btn-outline" id="btnSignupSendCode">
+          <button type="button" class="btn-outline" id="btnResetSendCode" data-i18n="btn-send-code">
             Send code
           </button>
         </div>
 
         <div class="field">
-          <label for="signupPlan">Plan</label>
-          <select id="signupPlan">
-            <option value="free">Free · 30% preview per draft</option>
-            <option value="subscriber">Subscriber · Full drafts unlocked</option>
-          </select>
+          <label for="resetPassword" data-i18n="label-password-new">New password</label>
+          <input type="password" id="resetPassword" data-i18n-placeholder="placeholder-password-new" placeholder="New password" />
         </div>
 
-        <button class="btn-primary" id="btnSignup">Create account</button>
-        <div class="status" id="signupStatus"></div>
+        <div class="field">
+          <label for="resetPassword2" data-i18n="label-password2">Confirm password</label>
+          <input type="password" id="resetPassword2" data-i18n-placeholder="placeholder-password2" placeholder="Re-enter password" />
+        </div>
+
+        <button class="btn-primary" id="btnReset" data-i18n="btn-reset">Reset password</button>
+        <div class="status" id="resetStatus"></div>
 
         <p class="muted">
-          By continuing you agree to our standard terms. You can upgrade or
-          downgrade your plan later from your account.
+          <a id="goBackToSignIn" data-i18n="reset-back">Back to sign in</a>
         </p>
       </div>
     </section>
@@ -354,157 +462,402 @@
 </footer>
 
 <script>
+  // ========== 配置 ==========
   const API_BASE = "https://aurum-task-worker.sophieinbg.workers.dev";
+  const SUPPORTED_LANGS = ["en", "zh", "ar", "fr", "de"];
 
+  // ========= 多语言字典（只管登录页面的文案） =========
+  const I18N = {
+    en: {
+      "nav-home": "Home",
+      "nav-tasks": "Task Marketplace",
+      "nav-pricing": "Pricing",
+      "nav-signin": "Sign in",
+      "nav-lang": "Language",
+      "hero-label": "AURUM ACCOUNT",
+      "hero-title": "Secure access to your private desk.",
+      "hero-sub": "Sign in with your email and password. New users verify their email once, then you can log in with a password anytime.",
+      "hero-badge-1": "Password sign-in",
+      "hero-badge-2": "One-time email verification",
+      "hero-badge-3": "Reset password via email",
+      "hero-help": "Having trouble receiving codes? Reach us at sophieinbg@gmail.com.",
+      "tab-signin": "Sign in",
+      "tab-signup": "Create account",
+      "tab-reset": "Reset password",
+      "signin-title": "Sign in with password",
+      "signin-sub": "Enter your registered email and password to access your desk.",
+      "signup-title": "Create your Aurum account",
+      "signup-sub": "Register with your name, work email and a password. We will verify your email once with a one-time code.",
+      "reset-title": "Reset your password",
+      "reset-sub": "Enter your registered email. We’ll send a one-time code so you can set a new password.",
+      "label-email": "Work email",
+      "label-password": "Password",
+      "label-password-new": "New password",
+      "label-password2": "Confirm password",
+      "label-name": "Your name",
+      "label-code": "Verification code",
+      "placeholder-email": "you@example.com",
+      "placeholder-password": "Enter your password",
+      "placeholder-password2": "Re-enter password",
+      "placeholder-password-new": "New password",
+      "placeholder-name": "First name or full name",
+      "btn-signin": "Sign in",
+      "btn-create-account": "Create account",
+      "btn-send-code": "Send code",
+      "btn-reset": "Reset password",
+      "signin-no-account": "No account yet? ",
+      "signin-forgot": "Forgot password?",
+      "signup-terms": "By continuing you agree to our standard terms. You can upgrade or downgrade your plan later from your account.",
+      "reset-back": "Back to sign in"
+    },
+    zh: {
+      "nav-home": "首页",
+      "nav-tasks": "任务大厅",
+      "nav-pricing": "价格",
+      "nav-signin": "登录",
+      "nav-lang": "语言",
+      "hero-label": "AURUM 账户",
+      "hero-title": "安全登录你的专属工作台。",
+      "hero-sub": "已注册用户使用邮箱 + 密码直接登录。新用户先用邮箱验证码激活，再用密码长期登录。",
+      "hero-badge-1": "密码登录",
+      "hero-badge-2": "一次邮箱验证",
+      "hero-badge-3": "邮箱找回密码",
+      "hero-help": "收不到验证码？可以发邮件到：sophieinbg@gmail.com。",
+      "tab-signin": "登录",
+      "tab-signup": "注册账户",
+      "tab-reset": "找回密码",
+      "signin-title": "使用密码登录",
+      "signin-sub": "请输入你注册时使用的邮箱和密码，进入你的写作工作台。",
+      "signup-title": "创建你的 Aurum 账户",
+      "signup-sub": "填写姓名、工作邮箱和密码。我们会给你的邮箱发送一次验证码完成激活。",
+      "reset-title": "重置登录密码",
+      "reset-sub": "输入你注册时使用的邮箱，我们会发送验证码给你，用来设置新密码。",
+      "label-email": "工作邮箱",
+      "label-password": "登录密码",
+      "label-password-new": "新密码",
+      "label-password2": "确认密码",
+      "label-name": "你的姓名",
+      "label-code": "邮箱验证码",
+      "placeholder-email": "you@example.com",
+      "placeholder-password": "请输入密码",
+      "placeholder-password2": "请再次输入密码",
+      "placeholder-password-new": "请输入新密码",
+      "placeholder-name": "名字或全名",
+      "btn-signin": "登录",
+      "btn-create-account": "注册",
+      "btn-send-code": "发送验证码",
+      "btn-reset": "重置密码",
+      "signin-no-account": "还没有账户？",
+      "signin-forgot": "忘记密码？",
+      "signup-terms": "继续即代表你同意我们的服务条款。之后可以在账户中随时升级或降级套餐。",
+      "reset-back": "返回登录"
+    },
+    ar: {
+      "nav-home": "الصفحة الرئيسية",
+      "nav-tasks": "سوق المهام",
+      "nav-pricing": "الأسعار",
+      "nav-signin": "تسجيل الدخول",
+      "nav-lang": "اللغة",
+      "hero-label": "حساب AURUM",
+      "hero-title": "وصول آمن إلى مكتبك الخاص.",
+      "hero-sub": "سجّل الدخول بالبريد الإلكتروني وكلمة المرور. المستخدمون الجدد يتحققون من البريد مرة واحدة ثم يستخدمون كلمة المرور في أي وقت.",
+      "hero-badge-1": "تسجيل الدخول بكلمة المرور",
+      "hero-badge-2": "تحقق مرة واحدة بالبريد",
+      "hero-badge-3": "إعادة تعيين كلمة المرور بالبريد",
+      "hero-help": "هل تواجه مشكلة في استلام الرموز؟ راسلنا على: sophieinbg@gmail.com.",
+      "tab-signin": "تسجيل الدخول",
+      "tab-signup": "إنشاء حساب",
+      "tab-reset": "إعادة تعيين كلمة المرور",
+      "signin-title": "تسجيل الدخول بكلمة المرور",
+      "signin-sub": "أدخل البريد وكلمة المرور التي استخدمتها عند التسجيل للوصول إلى مكتبك.",
+      "signup-title": "إنشاء حساب Aurum",
+      "signup-sub": "سجّل باسمك وبريدك المهني وكلمة مرور. سنرسل رمز تحقق لمرة واحدة إلى بريدك.",
+      "reset-title": "إعادة تعيين كلمة المرور",
+      "reset-sub": "أدخل البريد المسجل. سنرسل رمزاً لمرة واحدة لتعيين كلمة مرور جديدة.",
+      "label-email": "البريد المهني",
+      "label-password": "كلمة المرور",
+      "label-password-new": "كلمة المرور الجديدة",
+      "label-password2": "تأكيد كلمة المرور",
+      "label-name": "الاسم",
+      "label-code": "رمز التحقق",
+      "placeholder-email": "you@example.com",
+      "placeholder-password": "أدخل كلمة المرور",
+      "placeholder-password2": "أعد إدخال كلمة المرور",
+      "placeholder-password-new": "أدخل كلمة المرور الجديدة",
+      "placeholder-name": "الاسم الأول أو الاسم الكامل",
+      "btn-signin": "تسجيل الدخول",
+      "btn-create-account": "إنشاء حساب",
+      "btn-send-code": "إرسال الرمز",
+      "btn-reset": "إعادة التعيين",
+      "signin-no-account": "ليس لديك حساب؟",
+      "signin-forgot": "نسيت كلمة المرور؟",
+      "signup-terms": "بمتابعتك فإنك توافق على الشروط. يمكن تغيير الخطة لاحقاً من حسابك.",
+      "reset-back": "الرجوع إلى تسجيل الدخول"
+    },
+    fr: {
+      "nav-home": "Accueil",
+      "nav-tasks": "Hall des tâches",
+      "nav-pricing": "Tarifs",
+      "nav-signin": "Connexion",
+      "nav-lang": "Langue",
+      "hero-label": "COMPTE AURUM",
+      "hero-title": "Accès sécurisé à votre bureau privé.",
+      "hero-sub": "Connectez-vous avec votre e-mail et mot de passe. Les nouveaux utilisateurs vérifient une fois leur e-mail, puis utilisent le mot de passe.",
+      "hero-badge-1": "Connexion par mot de passe",
+      "hero-badge-2": "Vérification e-mail unique",
+      "hero-badge-3": "Réinitialisation par e-mail",
+      "hero-help": "Vous ne recevez pas les codes ? Écrivez-nous : sophieinbg@gmail.com.",
+      "tab-signin": "Connexion",
+      "tab-signup": "Créer un compte",
+      "tab-reset": "Réinitialiser le mot de passe",
+      "signin-title": "Connexion avec mot de passe",
+      "signin-sub": "Entrez l’e-mail et le mot de passe utilisés lors de la création du compte.",
+      "signup-title": "Créez votre compte Aurum",
+      "signup-sub": "Inscrivez-vous avec votre nom, e-mail professionnel et un mot de passe. Nous enverrons un code de vérification unique.",
+      "reset-title": "Réinitialisez votre mot de passe",
+      "reset-sub": "Saisissez votre e-mail enregistré. Nous enverrons un code pour définir un nouveau mot de passe.",
+      "label-email": "E-mail professionnel",
+      "label-password": "Mot de passe",
+      "label-password-new": "Nouveau mot de passe",
+      "label-password2": "Confirmer le mot de passe",
+      "label-name": "Votre nom",
+      "label-code": "Code de vérification",
+      "placeholder-email": "you@example.com",
+      "placeholder-password": "Entrez votre mot de passe",
+      "placeholder-password2": "Entrez de nouveau le mot de passe",
+      "placeholder-password-new": "Entrez un nouveau mot de passe",
+      "placeholder-name": "Prénom ou nom complet",
+      "btn-signin": "Connexion",
+      "btn-create-account": "Créer le compte",
+      "btn-send-code": "Envoyer le code",
+      "btn-reset": "Réinitialiser",
+      "signin-no-account": "Pas encore de compte ?",
+      "signin-forgot": "Mot de passe oublié ?",
+      "signup-terms": "En continuant, vous acceptez nos conditions. Vous pouvez changer de formule plus tard depuis votre compte.",
+      "reset-back": "Retour à la connexion"
+    },
+    de: {
+      "nav-home": "Startseite",
+      "nav-tasks": "Aufgabenmarkt",
+      "nav-pricing": "Preise",
+      "nav-signin": "Anmelden",
+      "nav-lang": "Sprache",
+      "hero-label": "AURUM-KONTO",
+      "hero-title": "Sicherer Zugriff auf Ihren privaten Schreibtisch.",
+      "hero-sub": "Melden Sie sich mit E-Mail und Passwort an. Neue Nutzer verifizieren einmal ihre E-Mail und nutzen dann das Passwort.",
+      "hero-badge-1": "Passwort-Login",
+      "hero-badge-2": "E-Mail-Verifizierung einmalig",
+      "hero-badge-3": "Passwort per E-Mail zurücksetzen",
+      "hero-help": "Probleme beim Erhalt von Codes? Schreiben Sie an: sophieinbg@gmail.com.",
+      "tab-signin": "Anmelden",
+      "tab-signup": "Konto erstellen",
+      "tab-reset": "Passwort zurücksetzen",
+      "signin-title": "Mit Passwort anmelden",
+      "signin-sub": "Geben Sie die E-Mail und das Passwort ein, die Sie bei der Registrierung verwendet haben.",
+      "signup-title": "Ihr Aurum-Konto erstellen",
+      "signup-sub": "Registrieren Sie sich mit Name, Geschäfts-E-Mail und Passwort. Wir senden einmalig einen Bestätigungscode.",
+      "reset-title": "Passwort zurücksetzen",
+      "reset-sub": "Geben Sie Ihre registrierte E-Mail ein. Wir senden einen Code für ein neues Passwort.",
+      "label-email": "Geschäfts-E-Mail",
+      "label-password": "Passwort",
+      "label-password-new": "Neues Passwort",
+      "label-password2": "Passwort bestätigen",
+      "label-name": "Ihr Name",
+      "label-code": "Bestätigungscode",
+      "placeholder-email": "you@example.com",
+      "placeholder-password": "Passwort eingeben",
+      "placeholder-password2": "Passwort erneut eingeben",
+      "placeholder-password-new": "Neues Passwort eingeben",
+      "placeholder-name": "Vorname oder vollständiger Name",
+      "btn-signin": "Anmelden",
+      "btn-create-account": "Konto erstellen",
+      "btn-send-code": "Code senden",
+      "btn-reset": "Passwort zurücksetzen",
+      "signin-no-account": "Noch kein Konto?",
+      "signin-forgot": "Passwort vergessen?",
+      "signup-terms": "Mit dem Fortfahren akzeptieren Sie unsere Bedingungen. Sie können Ihren Plan später im Konto ändern.",
+      "reset-back": "Zur Anmeldung zurück"
+    }
+  };
+
+  function getCurrentLang() {
+    let lang =
+      localStorage.getItem("aurum_lang") ||
+      localStorage.getItem("aurumLang") ||
+      localStorage.getItem("lang") ||
+      "en";
+    if (!SUPPORTED_LANGS.includes(lang)) lang = "en";
+    return lang;
+  }
+
+  function setCurrentLang(lang) {
+    localStorage.setItem("aurum_lang", lang);
+  }
+
+  function applyTranslations(lang) {
+    const dict = I18N[lang] || I18N.en;
+
+    document.querySelectorAll("[data-i18n]").forEach(el => {
+      const key = el.getAttribute("data-i18n");
+      if (dict[key]) el.textContent = dict[key];
+    });
+
+    document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+      const key = el.getAttribute("data-i18n-placeholder");
+      if (dict[key]) el.placeholder = dict[key];
+    });
+
+    document.querySelectorAll(".lang-pill").forEach(btn => {
+      btn.classList.toggle("active", btn.getAttribute("data-lang") === lang);
+    });
+  }
+
+  // ========== 多语言初始化 ==========
+  const currentLang = getCurrentLang();
+  applyTranslations(currentLang);
+
+  document.querySelectorAll(".lang-pill").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const lang = btn.getAttribute("data-lang");
+      setCurrentLang(lang);
+      applyTranslations(lang);
+    });
+  });
+
+  // ========== Tab 切换 ==========
   const tabSignIn = document.getElementById("tabSignIn");
   const tabSignUp = document.getElementById("tabSignUp");
+  const tabReset = document.getElementById("tabReset");
   const signInForm = document.getElementById("signInForm");
   const signUpForm = document.getElementById("signUpForm");
-  const goToSignUpLink = document.getElementById("goToSignUpLink");
+  const resetForm = document.getElementById("resetForm");
 
   function activateTab(tab) {
+    [tabSignIn, tabSignUp, tabReset].forEach(t => t.classList.remove("active"));
+    signInForm.style.display = "none";
+    signUpForm.style.display = "none";
+    resetForm.style.display = "none";
+
     if (tab === "signin") {
       tabSignIn.classList.add("active");
-      tabSignUp.classList.remove("active");
       signInForm.style.display = "block";
-      signUpForm.style.display = "none";
-    } else {
-      tabSignIn.classList.remove("active");
+    } else if (tab === "signup") {
       tabSignUp.classList.add("active");
-      signInForm.style.display = "none";
       signUpForm.style.display = "block";
+    } else {
+      tabReset.classList.add("active");
+      resetForm.style.display = "block";
     }
   }
 
   tabSignIn.addEventListener("click", () => activateTab("signin"));
   tabSignUp.addEventListener("click", () => activateTab("signup"));
-  goToSignUpLink.addEventListener("click", (e) => {
+  tabReset.addEventListener("click", () => activateTab("reset"));
+
+  document.getElementById("goToSignUpLink").addEventListener("click", (e) => {
     e.preventDefault();
     activateTab("signup");
   });
 
-  // === Sign in with email code ===
-  const loginEmail = document.getElementById("loginEmail");
-  const loginCode = document.getElementById("loginCode");
-  const btnLoginSendCode = document.getElementById("btnLoginSendCode");
-  const btnLogin = document.getElementById("btnLogin");
-  const loginStatus = document.getElementById("loginStatus");
-  let loginToken = null;
-  let loginTimer = null;
-  let loginCountdown = 0;
+  document.getElementById("goToResetLink").addEventListener("click", (e) => {
+    e.preventDefault();
+    activateTab("reset");
+  });
 
-  function startLoginCountdown(seconds) {
-    loginCountdown = seconds;
-    btnLoginSendCode.disabled = true;
-    btnLoginSendCode.textContent = "Resend in " + loginCountdown + "s";
-    if (loginTimer) clearInterval(loginTimer);
-    loginTimer = setInterval(() => {
-      loginCountdown -= 1;
-      if (loginCountdown <= 0) {
-        clearInterval(loginTimer);
-        loginTimer = null;
-        btnLoginSendCode.disabled = false;
-        btnLoginSendCode.textContent = "Send code";
-      } else {
-        btnLoginSendCode.textContent = "Resend in " + loginCountdown + "s";
-      }
-    }, 1000);
+  document.getElementById("goBackToSignIn").addEventListener("click", (e) => {
+    e.preventDefault();
+    activateTab("signin");
+  });
+
+  // ========== 简单本地“用户数据库”（仅当前浏览器生效 Demo） ==========
+  function loadUsers() {
+    try {
+      return JSON.parse(localStorage.getItem("aurum_users_v1") || "{}");
+    } catch {
+      return {};
+    }
   }
 
-  btnLoginSendCode.addEventListener("click", async () => {
-    const email = loginEmail.value.trim();
-    if (!email) {
-      loginStatus.textContent = "Please enter your email first.";
+  function saveUsers(users) {
+    localStorage.setItem("aurum_users_v1", JSON.stringify(users));
+  }
+
+  function setCurrentUser(user) {
+    localStorage.setItem("aurum_user", JSON.stringify(user));
+  }
+
+  function getRedirectTarget() {
+    const url = new URL(window.location.href);
+    const next = url.searchParams.get("next");
+    if (next) return next;
+
+    // 回到上一级页面（如果是本站）
+    const ref = document.referrer || "";
+    if (ref && ref.indexOf(window.location.origin) === 0 && !ref.includes("auth.html")) {
+      return ref;
+    }
+    return "desk.html";
+  }
+
+  // ========== 登录（密码） ==========
+  const loginEmail = document.getElementById("loginEmail");
+  const loginPassword = document.getElementById("loginPassword");
+  const loginStatus = document.getElementById("loginStatus");
+  const btnLogin = document.getElementById("btnLogin");
+
+  btnLogin.addEventListener("click", () => {
+    const email = loginEmail.value.trim().toLowerCase();
+    const pwd = loginPassword.value.trim();
+
+    if (!email || !pwd) {
+      loginStatus.textContent = currentLang === "zh"
+        ? "请输入邮箱和密码。"
+        : "Please enter email and password.";
       loginStatus.className = "status status-err";
       return;
     }
-    loginStatus.textContent = "Sending code to your email...";
-    loginStatus.className = "status";
-    btnLoginSendCode.disabled = true;
 
-    try {
-      const res = await fetch(API_BASE + "/auth/send-code", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email })
-      });
-      const data = await res.json();
-      if (!res.ok || !data.ok) {
-        throw new Error(data.error || ("HTTP " + res.status));
-      }
-      loginToken = data.token;
-      // NEW: 保存到 localStorage，防止刷新后丢失
-      localStorage.setItem("aurum_login_email", email);
-      localStorage.setItem("aurum_login_token", loginToken);
-      loginStatus.textContent = "Code sent. Please check your inbox.";
-      loginStatus.className = "status status-ok";
-      startLoginCountdown(60);
-    } catch (err) {
-      loginStatus.textContent = "Send failed: " + err.message;
+    const users = loadUsers();
+    const user = users[email];
+
+    if (!user) {
+      loginStatus.textContent = currentLang === "zh"
+        ? "该邮箱未注册。请先注册账户。"
+        : "This email is not registered. Please create an account first.";
       loginStatus.className = "status status-err";
-      btnLoginSendCode.disabled = false;
-      btnLoginSendCode.textContent = "Send code";
+      return;
     }
+
+    if (user.password !== pwd) {
+      loginStatus.textContent = currentLang === "zh"
+        ? "密码不正确。"
+        : "Incorrect password.";
+      loginStatus.className = "status status-err";
+      return;
+    }
+
+    setCurrentUser({
+      email,
+      name: user.name || email.split("@")[0],
+      plan: user.plan || "free",
+    });
+
+    loginStatus.textContent = currentLang === "zh"
+      ? "登录成功，正在跳转..."
+      : "Signed in. Redirecting...";
+    loginStatus.className = "status status-ok";
+
+    setTimeout(() => {
+      window.location.href = getRedirectTarget();
+    }, 800);
   });
 
-  btnLogin.addEventListener("click", async () => {
-    const email = loginEmail.value.trim();
-    const code = loginCode.value.trim();
-    if (!email || !code) {
-      loginStatus.textContent = "Please enter email and code.";
-      loginStatus.className = "status status-err";
-      return;
-    }
-    // NEW: 如果内存里的 token 没了，用 localStorage 里的
-    if (!loginToken) {
-      loginToken = localStorage.getItem("aurum_login_token");
-    }
-    if (!loginToken) {
-      loginStatus.textContent = "Please request a code first.";
-      loginStatus.className = "status status-err";
-      return;
-    }
-
-    btnLogin.disabled = true;
-    loginStatus.textContent = "Verifying code...";
-    loginStatus.className = "status";
-
-    try {
-      const res = await fetch(API_BASE + "/auth/verify-code", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, code, token: loginToken })
-      });
-      const data = await res.json();
-      if (!res.ok || !data.ok) {
-        throw new Error(data.error || ("HTTP " + res.status));
-      }
-
-      const user = data.user || { email };
-      localStorage.setItem("aurum_user", JSON.stringify({
-        name: user.name || user.email.split("@")[0],
-        email: user.email,
-        plan: user.plan || "free"
-      }));
-
-      loginStatus.textContent = "Signed in. Redirecting to your Desk...";
-      loginStatus.className = "status status-ok";
-      setTimeout(() => {
-        window.location.href = "desk.html";
-      }, 700);
-    } catch (err) {
-      loginStatus.textContent = "Verification failed: " + err.message;
-      loginStatus.className = "status status-err";
-    } finally {
-      btnLogin.disabled = false;
-    }
-  });
-
-  // === Sign up with email code ===
+  // ========== 注册：发送验证码 + 创建账户（接码 + 密码） ==========
   const signupName = document.getElementById("signupName");
   const signupEmail = document.getElementById("signupEmail");
   const signupCode = document.getElementById("signupCode");
-  const signupPlan = document.getElementById("signupPlan");
+  const signupPassword = document.getElementById("signupPassword");
+  const signupPassword2 = document.getElementById("signupPassword2");
   const btnSignupSendCode = document.getElementById("btnSignupSendCode");
   const btnSignup = document.getElementById("btnSignup");
   const signupStatus = document.getElementById("signupStatus");
@@ -516,7 +869,7 @@
   function startSignupCountdown(seconds) {
     signupCountdown = seconds;
     btnSignupSendCode.disabled = true;
-    btnSignupSendCode.textContent = "Resend in " + signupCountdown + "s";
+    btnSignupSendCode.textContent = (currentLang === "zh" ? "重新发送 " : "Resend in ") + signupCountdown + "s";
     if (signupTimer) clearInterval(signupTimer);
     signupTimer = setInterval(() => {
       signupCountdown -= 1;
@@ -524,22 +877,28 @@
         clearInterval(signupTimer);
         signupTimer = null;
         btnSignupSendCode.disabled = false;
-        btnSignupSendCode.textContent = "Send code";
+        btnSignupSendCode.textContent = I18N[currentLang]?.["btn-send-code"] || "Send code";
       } else {
-        btnSignupSendCode.textContent = "Resend in " + signupCountdown + "s";
+        btnSignupSendCode.textContent = (currentLang === "zh" ? "重新发送 " : "Resend in ") + signupCountdown + "s";
       }
     }, 1000);
   }
 
   btnSignupSendCode.addEventListener("click", async () => {
-    const email = signupEmail.value.trim();
+    const email = signupEmail.value.trim().toLowerCase();
     if (!email) {
-      signupStatus.textContent = "Please enter your email first.";
+      signupStatus.textContent = currentLang === "zh"
+        ? "请先输入邮箱。"
+        : "Please enter your email first.";
       signupStatus.className = "status status-err";
       return;
     }
-    signupStatus.textContent = "Sending code to your email...";
+
+    signupStatus.textContent = currentLang === "zh"
+      ? "正在发送验证码..."
+      : "Sending code to your email...";
     signupStatus.className = "status";
+
     btnSignupSendCode.disabled = true;
 
     try {
@@ -549,46 +908,55 @@
         body: JSON.stringify({ email })
       });
       const data = await res.json();
-      if (!res.ok || !data.ok) {
-        throw new Error(data.error || ("HTTP " + res.status));
-      }
+      if (!res.ok || !data.ok) throw new Error(data.error || ("HTTP " + res.status));
+
       signupToken = data.token;
-      // NEW: 也保存一下，方便刷新后还能用
-      localStorage.setItem("aurum_signup_email", email);
-      localStorage.setItem("aurum_signup_token", signupToken);
-      signupStatus.textContent = "Code sent. Please check your inbox.";
+      signupStatus.textContent = currentLang === "zh"
+        ? "验证码已发送，请检查邮箱。"
+        : "Code sent. Please check your inbox.";
       signupStatus.className = "status status-ok";
       startSignupCountdown(60);
     } catch (err) {
-      signupStatus.textContent = "Send failed: " + err.message;
+      signupStatus.textContent = (currentLang === "zh" ? "发送失败：" : "Send failed: ") + err.message;
       signupStatus.className = "status status-err";
       btnSignupSendCode.disabled = false;
-      btnSignupSendCode.textContent = "Send code";
+      btnSignupSendCode.textContent = I18N[currentLang]?.["btn-send-code"] || "Send code";
     }
   });
 
   btnSignup.addEventListener("click", async () => {
     const name = signupName.value.trim();
-    const email = signupEmail.value.trim();
+    const email = signupEmail.value.trim().toLowerCase();
     const code = signupCode.value.trim();
-    const plan = signupPlan.value;
+    const pwd = signupPassword.value.trim();
+    const pwd2 = signupPassword2.value.trim();
 
-    if (!name || !email || !code) {
-      signupStatus.textContent = "Please fill in name, email and code.";
+    if (!name || !email || !code || !pwd || !pwd2) {
+      signupStatus.textContent = currentLang === "zh"
+        ? "请完整填写所有信息。"
+        : "Please fill in all fields.";
+      signupStatus.className = "status status-err";
+      return;
+    }
+    if (pwd !== pwd2) {
+      signupStatus.textContent = currentLang === "zh"
+        ? "两次输入的密码不一致。"
+        : "Passwords do not match.";
       signupStatus.className = "status status-err";
       return;
     }
     if (!signupToken) {
-      signupToken = localStorage.getItem("aurum_signup_token");
-    }
-    if (!signupToken) {
-      signupStatus.textContent = "Please request a code first.";
+      signupStatus.textContent = currentLang === "zh"
+        ? "请先获取邮箱验证码。"
+        : "Please request a code first.";
       signupStatus.className = "status status-err";
       return;
     }
 
     btnSignup.disabled = true;
-    signupStatus.textContent = "Verifying code...";
+    signupStatus.textContent = currentLang === "zh"
+      ? "正在验证验证码..."
+      : "Verifying code...";
     signupStatus.className = "status";
 
     try {
@@ -602,70 +970,194 @@
         throw new Error(data.error || ("HTTP " + res.status));
       }
 
-      localStorage.setItem("aurum_user", JSON.stringify({
+      const users = loadUsers();
+      users[email] = {
         name,
         email,
-        plan
-      }));
+        password: pwd,
+        plan: "free",
+      };
+      saveUsers(users);
 
-      signupStatus.textContent = "Account created. Redirecting to your Desk...";
+      setCurrentUser({
+        name,
+        email,
+        plan: "free",
+      });
+
+      signupStatus.textContent = currentLang === "zh"
+        ? "账户已创建，正在跳转..."
+        : "Account created. Redirecting...";
       signupStatus.className = "status status-ok";
+
       setTimeout(() => {
-        window.location.href = "desk.html";
-      }, 700);
+        window.location.href = getRedirectTarget();
+      }, 800);
     } catch (err) {
-      signupStatus.textContent = "Verification failed: " + err.message;
+      signupStatus.textContent = (currentLang === "zh" ? "验证失败：" : "Verification failed: ") + err.message;
       signupStatus.className = "status status-err";
     } finally {
       btnSignup.disabled = false;
     }
   });
 
-  // NEW: 页面加载时，用本地已登录信息预填邮箱/名字 + 更新导航栏显示 Hi, xxx
-  (function initFromStoredUser() {
-    try {
-      const raw = localStorage.getItem("aurum_user");
-      if (!raw) return;
-      const user = JSON.parse(raw);
-      const displayName = user.name || (user.email ? user.email.split("@")[0] : "there");
+  // ========== 找回密码：发送验证码 + 修改本地密码 ==========
+  const resetEmail = document.getElementById("resetEmail");
+  const resetCode = document.getElementById("resetCode");
+  const resetPassword = document.getElementById("resetPassword");
+  const resetPassword2 = document.getElementById("resetPassword2");
+  const btnResetSendCode = document.getElementById("btnResetSendCode");
+  const btnReset = document.getElementById("btnReset");
+  const resetStatus = document.getElementById("resetStatus");
 
-      // 预填表单
-      if (user.email) {
-        if (loginEmail) loginEmail.value = user.email;
-        if (signupEmail) signupEmail.value = user.email;
+  let resetToken = null;
+  let resetTimer = null;
+  let resetCountdown = 0;
+
+  function startResetCountdown(seconds) {
+    resetCountdown = seconds;
+    btnResetSendCode.disabled = true;
+    btnResetSendCode.textContent = (currentLang === "zh" ? "重新发送 " : "Resend in ") + resetCountdown + "s";
+    if (resetTimer) clearInterval(resetTimer);
+    resetTimer = setInterval(() => {
+      resetCountdown -= 1;
+      if (resetCountdown <= 0) {
+        clearInterval(resetTimer);
+        resetTimer = null;
+        btnResetSendCode.disabled = false;
+        btnResetSendCode.textContent = I18N[currentLang]?.["btn-send-code"] || "Send code";
+      } else {
+        btnResetSendCode.textContent = (currentLang === "zh" ? "重新发送 " : "Resend in ") + resetCountdown + "s";
       }
-      if (user.name && signupName) {
-        signupName.value = user.name;
-      }
+    }, 1000);
+  }
 
-      // 更新导航栏：去掉 Sign in，变成 Hi, xxx + Logout
-      const navRight = document.getElementById("navRight");
-      const signInLink = document.getElementById("navSignInLink");
-      if (navRight) {
-        if (signInLink) navRight.removeChild(signInLink);
-
-        const hiSpan = document.createElement("span");
-        hiSpan.textContent = "Hi, " + displayName;
-        navRight.appendChild(hiSpan);
-
-        const logoutLink = document.createElement("a");
-        logoutLink.href = "#";
-        logoutLink.textContent = "Logout";
-        logoutLink.addEventListener("click", (e) => {
-          e.preventDefault();
-          localStorage.removeItem("aurum_user");
-          localStorage.removeItem("aurum_login_token");
-          localStorage.removeItem("aurum_signup_token");
-          localStorage.removeItem("aurum_login_email");
-          localStorage.removeItem("aurum_signup_email");
-          window.location.reload();
-        });
-        navRight.appendChild(logoutLink);
-      }
-    } catch (e) {
-      console.warn("initFromStoredUser error", e);
+  btnResetSendCode.addEventListener("click", async () => {
+    const email = resetEmail.value.trim().toLowerCase();
+    if (!email) {
+      resetStatus.textContent = currentLang === "zh"
+        ? "请先输入邮箱。"
+        : "Please enter your email first.";
+      resetStatus.className = "status status-err";
+      return;
     }
-  })();
+
+    const users = loadUsers();
+    if (!users[email]) {
+      resetStatus.textContent = currentLang === "zh"
+        ? "该邮箱未注册。"
+        : "This email is not registered.";
+      resetStatus.className = "status status-err";
+      return;
+    }
+
+    resetStatus.textContent = currentLang === "zh"
+      ? "正在发送验证码..."
+      : "Sending code to your email...";
+    resetStatus.className = "status";
+
+    btnResetSendCode.disabled = true;
+
+    try {
+      const res = await fetch(API_BASE + "/auth/send-code", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email })
+      });
+      const data = await res.json();
+      if (!res.ok || !data.ok) throw new Error(data.error || ("HTTP " + res.status));
+
+      resetToken = data.token;
+      resetStatus.textContent = currentLang === "zh"
+        ? "验证码已发送，请检查邮箱。"
+        : "Code sent. Please check your inbox.";
+      resetStatus.className = "status status-ok";
+      startResetCountdown(60);
+    } catch (err) {
+      resetStatus.textContent = (currentLang === "zh" ? "发送失败：" : "Send failed: ") + err.message;
+      resetStatus.className = "status status-err";
+      btnResetSendCode.disabled = false;
+      btnResetSendCode.textContent = I18N[currentLang]?.["btn-send-code"] || "Send code";
+    }
+  });
+
+  btnReset.addEventListener("click", async () => {
+    const email = resetEmail.value.trim().toLowerCase();
+    const code = resetCode.value.trim();
+    const pwd = resetPassword.value.trim();
+    const pwd2 = resetPassword2.value.trim();
+
+    if (!email || !code || !pwd || !pwd2) {
+      resetStatus.textContent = currentLang === "zh"
+        ? "请完整填写所有信息。"
+        : "Please fill in all fields.";
+      resetStatus.className = "status status-err";
+      return;
+    }
+
+    if (pwd !== pwd2) {
+      resetStatus.textContent = currentLang === "zh"
+        ? "两次输入的密码不一致。"
+        : "Passwords do not match.";
+      resetStatus.className = "status status-err";
+      return;
+    }
+
+    if (!resetToken) {
+      resetStatus.textContent = currentLang === "zh"
+        ? "请先获取邮箱验证码。"
+        : "Please request a code first.";
+      resetStatus.className = "status status-err";
+      return;
+    }
+
+    btnReset.disabled = true;
+    resetStatus.textContent = currentLang === "zh"
+      ? "正在验证验证码..."
+      : "Verifying code...";
+    resetStatus.className = "status";
+
+    try {
+      const res = await fetch(API_BASE + "/auth/verify-code", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, code, token: resetToken })
+      });
+      const data = await res.json();
+      if (!res.ok || !data.ok) {
+        throw new Error(data.error || ("HTTP " + res.status));
+      }
+
+      const users = loadUsers();
+      if (!users[email]) {
+        resetStatus.textContent = currentLang === "zh"
+          ? "该邮箱未注册。"
+          : "This email is not registered.";
+        resetStatus.className = "status status-err";
+        return;
+      }
+
+      users[email].password = pwd;
+      saveUsers(users);
+
+      resetStatus.textContent = currentLang === "zh"
+        ? "密码已重置，现在可以使用新密码登录。"
+        : "Password has been reset. You can now sign in with your new password.";
+      resetStatus.className = "status status-ok";
+
+      setTimeout(() => {
+        activateTab("signin");
+      }, 1000);
+    } catch (err) {
+      resetStatus.textContent = (currentLang === "zh" ? "验证失败：" : "Verification failed: ") + err.message;
+      resetStatus.className = "status status-err";
+    } finally {
+      btnReset.disabled = false;
+    }
+  });
+
+  // 默认打开登录 tab
+  activateTab("signin");
 </script>
 </body>
 </html>
