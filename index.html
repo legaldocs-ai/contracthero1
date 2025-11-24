@@ -60,13 +60,25 @@
       color: #f5f2e6;
     }
 
-    .nav-right a {
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav-links a {
       margin-left: 22px;
       font-size: 14px;
       opacity: 0.86;
     }
 
-    .nav-right a:hover {
+    .nav-links a:first-child {
+      margin-left: 0;
+    }
+
+    .nav-links a:hover {
       opacity: 1;
       color: #f0d37a;
     }
@@ -75,7 +87,7 @@
     .nav-user-area {
       display: inline-flex;
       align-items: center;
-      margin-left: 20px;
+      margin-left: 8px;
       gap: 10px;
     }
 
@@ -101,6 +113,44 @@
     .nav-user-area .nav-signin-link {
       font-size: 14px;
       padding: 5px 0;
+    }
+
+    /* ===== 多语言切换 ===== */
+    .nav-lang {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-left: 8px;
+    }
+
+    .lang-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #a7a39a;
+    }
+
+    .lang-btn {
+      border-radius: 999px;
+      border: 1px solid rgba(240, 211, 122, 0.4);
+      background: transparent;
+      color: #f5f2e6;
+      font-size: 11px;
+      padding: 3px 8px;
+      cursor: pointer;
+      opacity: 0.75;
+    }
+
+    .lang-btn:hover {
+      opacity: 1;
+      background: rgba(240, 211, 122, 0.08);
+    }
+
+    .lang-btn.active {
+      opacity: 1;
+      background: linear-gradient(135deg, #f0d37a, #cba84f);
+      color: #1b1409;
+      border-color: #f0d37a;
     }
 
     .footer {
@@ -146,7 +196,7 @@
       line-height: 1.18;
     }
 
-    .hero-left-title span {
+    .hero-left-title .highlight {
       color: #f0d37a;
     }
 
@@ -424,6 +474,44 @@
     }
 
     /* ===== Testimonials & Work Samples ===== */
+    .avatar-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .avatar-title {
+      font-size: 13px;
+      color: #b5afa4;
+      min-width: 180px;
+    }
+
+    .avatar-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .avatar-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 11px;
+      color: #d0c8b8;
+    }
+
+    .avatar-card img {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(240, 211, 122, 0.7);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+      margin-bottom: 6px;
+    }
+
     .testimonials-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -661,8 +749,12 @@
         padding-top: 60px;
       }
 
-      .nav-right a {
-        margin-left: 14px;
+      .nav-right {
+        justify-content: flex-start;
+      }
+
+      .nav-links a {
+        margin-left: 0;
       }
 
       .about-grid {
@@ -688,6 +780,11 @@
       .hero-right-card {
         margin-top: 4px;
       }
+
+      .avatar-strip {
+        flex-direction: column;
+        align-items: flex-start;
+      }
     }
   </style>
 </head>
@@ -696,11 +793,24 @@
   <header class="navbar">
     <div class="nav-left">Aurum Task Desk</div>
     <div class="nav-right">
-      <a href="index.html">Home</a>
-      <a href="tasks.html">Task Marketplace</a>
-      <a href="about.html">About</a>
-      <a href="pricing.html">Pricing</a>
-      <a href="contact.html">Contact</a>
+      <div class="nav-links">
+        <a href="index.html" data-i18n="nav.home">Home</a>
+        <a href="tasks.html" data-i18n="nav.tasks">Task Marketplace</a>
+        <a href="about.html" data-i18n="nav.about">About</a>
+        <a href="pricing.html" data-i18n="nav.pricing">Pricing</a>
+        <a href="contact.html" data-i18n="nav.contact">Contact</a>
+      </div>
+
+      <!-- 多语言切换 -->
+      <div class="nav-lang">
+        <span class="lang-label">LANG</span>
+        <button class="lang-btn" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="zh">中文</button>
+        <button class="lang-btn" data-lang="ar">عربي</button>
+        <button class="lang-btn" data-lang="fr">FR</button>
+        <button class="lang-btn" data-lang="de">DE</button>
+      </div>
+
       <!-- 登录状态显示区域 -->
       <span id="navUserArea" class="nav-user-area"></span>
     </div>
@@ -711,10 +821,11 @@
     <div class="container hero-grid">
       <div class="hero-left">
         <h1 class="hero-left-title">
-          A quiet <span>AI task desk</span><br />
-          for older US & EU professionals
+          <span data-i18n="hero.title.part1">A quiet </span>
+          <span class="highlight" data-i18n="hero.title.part2">AI task desk</span><br />
+          <span data-i18n="hero.title.part3">for older US & EU professionals</span>
         </h1>
-        <p class="hero-left-sub">
+        <p class="hero-left-sub" data-i18n="hero.subtitle">
           Aurum Task Desk is a private coordination desk. Clients send tasks,
           trusted freelancers execute with AI, and the Desk quietly manages
           scope, words, and settlement — like a small Wall Street back office,
@@ -722,33 +833,35 @@
         </p>
 
         <div class="hero-tags">
-          <span class="tag-pill">US / EU clients · 50+ core age</span>
-          <span class="tag-pill">AI writing · scripts · light automation</span>
-          <span class="tag-pill">Desk fee on each completed task</span>
+          <span class="tag-pill" data-i18n="hero.tag1">US / EU clients · 50+ core age</span>
+          <span class="tag-pill" data-i18n="hero.tag2">AI writing · scripts · light automation</span>
+          <span class="tag-pill" data-i18n="hero.tag3">Desk fee on each completed task</span>
         </div>
 
         <div class="hero-cta-row">
-          <a href="tasks.html" class="btn-gold">Send your first task</a>
-          <a href="contact.html" class="btn-outline">Describe your task — get a quiet quote</a>
+          <a href="tasks.html" class="btn-gold" data-i18n="hero.cta.primary">Send your first task</a>
+          <a href="contact.html" class="btn-outline" data-i18n="hero.cta.secondary">Describe your task — get a quiet quote</a>
         </div>
 
         <div class="hero-note">
-          Prefer to talk first?
-          <a href="contact.html">Start with a calm 10-minute call</a>.
-          No pressure, no spam — just a quiet desk listening.
+          <span data-i18n="hero.note.text">
+            Prefer to talk first?
+          </span>
+          <a href="contact.html" data-i18n="hero.note.link">Start with a calm 10-minute call</a>.
+          <span data-i18n="hero.note.tail"> No pressure, no spam — just a quiet desk listening.</span>
         </div>
       </div>
 
       <aside class="hero-right-card">
         <div class="card-heading">
-          <div class="card-title">Current Desk Snapshot</div>
-          <div class="card-pill">No funds held on-site</div>
+          <div class="card-title" data-i18n="hero.snapshot.title">Current Desk Snapshot</div>
+          <div class="card-pill" data-i18n="hero.snapshot.badge">No funds held on-site</div>
         </div>
         <table class="card-table">
           <thead>
             <tr>
-              <th>Task</th>
-              <th class="col-right">Budget</th>
+              <th data-i18n="hero.snapshot.col.task">Task</th>
+              <th class="col-right" data-i18n="hero.snapshot.col.budget">Budget</th>
             </tr>
           </thead>
           <tbody>
@@ -777,14 +890,14 @@
   <!-- 信任条 -->
   <section class="trust-strip">
     <div class="trust-grid">
-      <div class="trust-main">
+      <div class="trust-main" data-i18n="trust.main">
         Designed for calm, low-drama work with older professionals — not for
         hype or noisy mass markets.
       </div>
       <div class="trust-badges">
-        <span class="trust-pill">US &amp; EU retirees · executives · small business owners</span>
-        <span class="trust-pill">Writing · messaging · follow-up flows</span>
-        <span class="trust-pill">Stripe-based settlement</span>
+        <span class="trust-pill" data-i18n="trust.badge1">US &amp; EU retirees · executives · small business owners</span>
+        <span class="trust-pill" data-i18n="trust.badge2">Writing · messaging · follow-up flows</span>
+        <span class="trust-pill" data-i18n="trust.badge3">Stripe-based settlement</span>
       </div>
     </div>
   </section>
@@ -792,8 +905,8 @@
   <!-- How the Desk works -->
   <section class="section">
     <div class="section-inner">
-      <h2 class="section-title">How Aurum Task Desk Runs</h2>
-      <p class="section-sub">
+      <h2 class="section-title" data-i18n="how.title">How Aurum Task Desk Runs</h2>
+      <p class="section-sub" data-i18n="how.sub">
         Think of it as a small private office between clients and freelancers.
         You coordinate the relationship; AI and humans handle the work.
       </p>
@@ -826,8 +939,11 @@
       </div>
 
       <div class="inline-cta">
-        Ready to see how tasks look on your desk?
-        <a href="tasks.html">Open the Task Marketplace</a> and sketch your first example.
+        <span data-i18n="how.inline">
+          Ready to see how tasks look on your desk?
+        </span>
+        <a href="tasks.html" data-i18n="how.inline.link">Open the Task Marketplace</a>
+        <span data-i18n="how.inline.tail"> and sketch your first example.</span>
       </div>
     </div>
   </section>
@@ -835,8 +951,8 @@
   <!-- Built for / Use cases -->
   <section class="section">
     <div class="section-inner">
-      <h2 class="section-title">Who this Desk is Built For</h2>
-      <p class="section-sub">
+      <h2 class="section-title" data-i18n="who.title">Who this Desk is Built For</h2>
+      <p class="section-sub" data-i18n="who.sub">
         Aurum Task Desk is intentionally narrow. It’s not for everyone — it is
         for people who prefer low-noise, private help.
       </p>
@@ -864,7 +980,7 @@
         </div>
       </div>
 
-      <h2 class="section-title" style="margin-top: 34px">
+      <h2 class="section-title" style="margin-top: 34px" data-i18n="usecases.title">
         Typical Use Cases
       </h2>
       <div class="usecase-list">
@@ -891,14 +1007,39 @@
     </div>
   </section>
 
-  <!-- 客户案例 + 成果样本 -->
+  <!-- 客户头像 + 案例 + 成果样本 -->
   <section class="section">
     <div class="section-inner">
-      <h2 class="section-title">Client stories & quiet results</h2>
-      <p class="section-sub">
+      <h2 class="section-title" data-i18n="clients.title">Client stories & quiet results</h2>
+      <p class="section-sub" data-i18n="clients.sub">
         Names and details are lightly anonymised, but the patterns are real:
         older professionals, calm communication, and long-term trust.
       </p>
+
+      <!-- 头像 strip：你后面可以把图片换成自己的 -->
+      <div class="avatar-strip">
+        <div class="avatar-title" data-i18n="clients.avatars.title">
+          A desk built around real older professionals:
+        </div>
+        <div class="avatar-row">
+          <div class="avatar-card">
+            <img src="https://images.pexels.com/photos/819530/pexels-photo-819530.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Retired US veteran portrait">
+            <span>Retired US veteran</span>
+          </div>
+          <div class="avatar-card">
+            <img src="https://images.pexels.com/photos/3831185/pexels-photo-3831185.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Logistics business owner portrait">
+            <span>Logistics owner</span>
+          </div>
+          <div class="avatar-card">
+            <img src="https://images.pexels.com/photos/1704488/pexels-photo-1704488.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Advisor portrait">
+            <span>Advisor / consultant</span>
+          </div>
+          <div class="avatar-card">
+            <img src="https://images.pexels.com/photos/936008/pexels-photo-936008.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Small business owner portrait">
+            <span>Small business owner</span>
+          </div>
+        </div>
+      </div>
 
       <div class="testimonials-grid">
         <div class="testimonial-card">
@@ -931,10 +1072,10 @@
         </div>
       </div>
 
-      <h2 class="section-title" style="margin-top: 30px;">
+      <h2 class="section-title" style="margin-top: 30px;" data-i18n="samples.title">
         Sample work snapshots
       </h2>
-      <p class="section-sub">
+      <p class="section-sub" data-i18n="samples.sub">
         These are typical transformations — you control the final tone, but the
         Desk makes sure everything is structured, clear, and ready to send.
       </p>
@@ -968,8 +1109,8 @@
   <!-- 关于桌子 & 团队简介 -->
   <section class="section">
     <div class="section-inner">
-      <h2 class="section-title">About the Desk & the Desk Lead</h2>
-      <p class="section-sub">
+      <h2 class="section-title" data-i18n="about.title">About the Desk & the Desk Lead</h2>
+      <p class="section-sub" data-i18n="about.sub">
         Aurum Task Desk is not a mass platform. It is a small, curated desk
         focused on older professionals who prefer calm, private work.
       </p>
@@ -995,7 +1136,7 @@
           </p>
         </div>
         <aside class="about-lead-card">
-          <span class="pill-label">Desk lead</span>
+          <span class="pill-label" data-i18n="about.lead.label">Desk lead</span>
           <div class="about-lead-name">Sophie · Aurum Desk Coordinator</div>
           <div class="about-lead-role">
             Runs the desk, scopes tasks, and checks final tone.
@@ -1018,32 +1159,32 @@
   <!-- 隐私 & 安全说明 -->
   <section class="section">
     <div class="section-inner">
-      <h2 class="section-title">Privacy, safety & calm boundaries</h2>
-      <p class="section-sub">
+      <h2 class="section-title" data-i18n="privacy.title">Privacy, safety & calm boundaries</h2>
+      <p class="section-sub" data-i18n="privacy.sub">
         Older clients often share personal stories and sensitive details. The
         Desk is designed to keep those details safe and handled with respect.
       </p>
 
       <div class="privacy-grid">
         <div class="privacy-card">
-          <h3>Data & confidentiality</h3>
-          <p>
+          <h3 data-i18n="privacy.card1.title">Data & confidentiality</h3>
+          <p data-i18n="privacy.card1.text">
             Client messages are treated as confidential working material. Drafts
             can be deleted on request once a task is completed. For sensitive
             tasks, you can work under a non-disclosure agreement (NDA).
           </p>
         </div>
         <div class="privacy-card">
-          <h3>AI usage policy</h3>
-          <p>
+          <h3 data-i18n="privacy.card2.title">AI usage policy</h3>
+          <p data-i18n="privacy.card2.text">
             AI is used to support drafting and structure, not to blast mass
             messages. No raw AI output is sent directly to older clients without
             human review for tone and clarity.
           </p>
         </div>
         <div class="privacy-card">
-          <h3>Payments & Stripe</h3>
-          <p>
+          <h3 data-i18n="privacy.card3.title">Payments & Stripe</h3>
+          <p data-i18n="privacy.card3.text">
             All payments are processed via Stripe. The Desk does not hold
             deposits or client funds on-site. You see a clear client price and
             a clear net payout, with the Desk fee as the difference.
@@ -1052,9 +1193,14 @@
       </div>
 
       <div class="inline-cta" style="margin-top: 16px;">
-        Full details will live in the
-        <a href="privacy.html">Privacy Policy</a> and
-        <a href="terms.html">Terms of Service</a> pages as your desk grows.
+        <span data-i18n="privacy.inline">
+          Full details will live in the
+        </span>
+        <a href="privacy.html" data-i18n="privacy.inline.link1">Privacy Policy</a>
+        <span>&nbsp;</span>
+        <span data-i18n="privacy.inline.middle">and</span>
+        <a href="terms.html" data-i18n="privacy.inline.link2">Terms of Service</a>
+        <span data-i18n="privacy.inline.tail"> pages as your desk grows.</span>
       </div>
     </div>
   </section>
@@ -1062,15 +1208,15 @@
   <!-- Pricing Overview -->
   <section class="section">
     <div class="section-inner">
-      <h2 class="section-title">Pricing overview & desk fee model</h2>
-      <p class="section-sub">
+      <h2 class="section-title" data-i18n="pricing.title.page">Pricing overview & desk fee model</h2>
+      <p class="section-sub" data-i18n="pricing.sub.page">
         The Desk is built to be transparent. Clients see one clear amount.
         Contributors see their net payout. Your desk fee is the quiet spread
         in between.
       </p>
 
       <div class="pricing-overview">
-        <p>
+        <p data-i18n="pricing.overview.text">
           Typical starting points (you can adjust these on the Pricing page):
         </p>
         <ul class="pricing-list">
@@ -1079,12 +1225,12 @@
           <li>WhatsApp / SMS scripts: from USD 80–160 per sequence</li>
           <li>Light automations &amp; flows: scoped individually</li>
         </ul>
-        <p style="margin-top: 10px;">
+        <p style="margin-top: 10px;" data-i18n="pricing.detail">
           The exact numbers depend on your clients, your contributors, and how
           hands-on you want the Desk to be. You can keep the Desk premium and
           calm, not cheap and loud.
         </p>
-        <a href="pricing.html" class="btn-outline" style="margin-top: 10px; display: inline-block;">
+        <a href="pricing.html" class="btn-outline" style="margin-top: 10px; display: inline-block;" data-i18n="pricing.button">
           View detailed pricing examples
         </a>
       </div>
@@ -1095,16 +1241,16 @@
   <section class="section">
     <div class="section-inner">
       <div class="contrast-block">
-        <h2 class="section-title" style="margin-bottom: 4px;">
+        <h2 class="section-title" style="margin-bottom: 4px;" data-i18n="why.title">
           Why a Private Desk — not a Big Marketplace
         </h2>
-        <p class="section-sub" style="margin-bottom: 12px;">
+        <p class="section-sub" style="margin-bottom: 12px;" data-i18n="why.sub">
           Public platforms are full of noise, bids, and mixed quality. Aurum
           Task Desk is intentionally small and private.
         </p>
         <div class="contrast-grid">
           <div class="contrast-col">
-            <h3>Typical marketplace</h3>
+            <h3 data-i18n="why.col1.title">Typical marketplace</h3>
             <ul>
               <li>Hundreds of strangers competing for each task</li>
               <li>Clients must filter, manage, and correct everything</li>
@@ -1113,7 +1259,7 @@
             </ul>
           </div>
           <div class="contrast-col">
-            <h3>Aurum Task Desk</h3>
+            <h3 data-i18n="why.col2.title">Aurum Task Desk</h3>
             <ul>
               <li>You decide who sees the desk and who can post</li>
               <li>One calm office in the middle of every task</li>
@@ -1129,28 +1275,28 @@
   <!-- FAQ + 最终 CTA -->
   <section class="section">
     <div class="section-inner">
-      <h2 class="section-title">Common Questions</h2>
+      <h2 class="section-title" data-i18n="faq.title">Common Questions</h2>
       <div class="faq-grid">
         <div>
           <div class="faq-item">
-            <strong>Is this a company or just a tool?</strong>
-            <span>
+            <strong data-i18n="faq.q1.title">Is this a company or just a tool?</strong>
+            <span data-i18n="faq.q1.text">
               It is structured like a small private office. You decide if you
               present it as a firm, a personal desk, or part of your existing
               business.
             </span>
           </div>
           <div class="faq-item">
-            <strong>Do clients need to know about AI?</strong>
-            <span>
+            <strong data-i18n="faq.q2.title">Do clients need to know about AI?</strong>
+            <span data-i18n="faq.q2.text">
               No. Many clients just see that their letters, posts, or scripts
               are done clearly and on time. The Desk quietly uses AI where it
               helps, but you stay in control of the tone.
             </span>
           </div>
           <div class="faq-item">
-            <strong>How does the Desk earn money?</strong>
-            <span>
+            <strong data-i18n="faq.q3.title">How does the Desk earn money?</strong>
+            <span data-i18n="faq.q3.text">
               Clients pay one amount (for example, USD 480). Freelancers or
               contributors receive a net amount. The difference is the Desk fee,
               which compensates you for scoping, coordination, and quality
@@ -1158,24 +1304,24 @@
             </span>
           </div>
           <div class="faq-item">
-            <strong>How long does a typical task take?</strong>
-            <span>
+            <strong data-i18n="faq.q4.title">How long does a typical task take?</strong>
+            <span data-i18n="faq.q4.text">
               Simple letters and small content pieces are often turned around
               within a few days. Larger packs and automations are scoped with
               clear timelines so older clients are never left wondering.
             </span>
           </div>
           <div class="faq-item">
-            <strong>What if a client wants changes?</strong>
-            <span>
+            <strong data-i18n="faq.q5.title">What if a client wants changes?</strong>
+            <span data-i18n="faq.q5.text">
               Most tasks assume one round of small revisions as part of the
               scope. For bigger changes or new ideas, you can treat them as a
               follow-up task with a new budget.
             </span>
           </div>
           <div class="faq-item">
-            <strong>Can we use NDAs or delete data?</strong>
-            <span>
+            <strong data-i18n="faq.q6.title">Can we use NDAs or delete data?</strong>
+            <span data-i18n="faq.q6.text">
               Yes. For sensitive stories or business details, you can work under
               an NDA and request that drafts be deleted from active systems
               after completion, except where law or accounting requires records.
@@ -1183,19 +1329,19 @@
           </div>
         </div>
         <aside class="cta-panel">
-          <span class="pill-label">Next step</span>
-          <h3 style="margin: 0; font-size: 16px; color: #f5f2ea;">
+          <span class="pill-label" data-i18n="faq.cta.label">Next step</span>
+          <h3 style="margin: 0; font-size: 16px; color: #f5f2ea;" data-i18n="faq.cta.title">
             Ready to shape your own Aurum Task Desk?
           </h3>
-          <p>
+          <p data-i18n="faq.cta.text">
             Use the Task Marketplace to draft example tasks, the Pricing page to
             frame your desk fee model, and the Contact page to invite the first
             clients privately.
           </p>
-          <a href="tasks.html" class="btn-gold" style="margin-top: 8px;">
+          <a href="tasks.html" class="btn-gold" style="margin-top: 8px;" data-i18n="faq.cta.button">
             Open the Task Marketplace
           </a>
-          <p style="margin-top: 10px; font-size: 12px;">
+          <p style="margin-top: 10px; font-size: 12px;" data-i18n="faq.cta.tail">
             You can adjust the numbers, wording, and audience over time. The
             Desk is designed to grow with the relationships you build.
           </p>
@@ -1206,18 +1352,535 @@
 
   <footer class="footer">
     <div class="footer-links">
-      <a href="privacy.html">Privacy Policy</a>
-      <a href="terms.html">Terms of Service</a>
-      <a href="contact.html">Contact</a>
+      <a href="privacy.html" data-i18n="footer.privacy">Privacy Policy</a>
+      <a href="terms.html" data-i18n="footer.terms">Terms of Service</a>
+      <a href="contact.html" data-i18n="footer.contact">Contact</a>
     </div>
-    <div>
+    <div data-i18n="footer.copy">
       © 2025 Aurum Task Desk — Private AI Task Coordination Desk
     </div>
   </footer>
 
-  <!-- 登录状态脚本：读取 localStorage.aurum_user -->
+  <!-- 多语言 + 登录状态脚本 -->
   <script>
-    // 读取当前用户（auth.html 登录时写入 localStorage.aurum_user）
+    // 简单多语言字典（可以在其它页面复用同一结构）
+    const I18N = {
+      en: {
+        "nav.home": "Home",
+        "nav.tasks": "Task Marketplace",
+        "nav.about": "About",
+        "nav.pricing": "Pricing",
+        "nav.contact": "Contact",
+
+        "hero.title.part1": "A quiet ",
+        "hero.title.part2": "AI task desk",
+        "hero.title.part3": "for older US & EU professionals",
+        "hero.subtitle":
+          "Aurum Task Desk is a private coordination desk. Clients send tasks, trusted freelancers execute with AI, and the Desk quietly manages scope, words, and settlement — like a small Wall Street back office, built only for people you choose.",
+        "hero.tag1": "US / EU clients · 50+ core age",
+        "hero.tag2": "AI writing · scripts · light automation",
+        "hero.tag3": "Desk fee on each completed task",
+        "hero.cta.primary": "Send your first task",
+        "hero.cta.secondary": "Describe your task — get a quiet quote",
+        "hero.note.text": "Prefer to talk first?",
+        "hero.note.link": "Start with a calm 10-minute call",
+        "hero.note.tail": " No pressure, no spam — just a quiet desk listening.",
+        "hero.snapshot.title": "Current Desk Snapshot",
+        "hero.snapshot.badge": "No funds held on-site",
+        "hero.snapshot.col.task": "Task",
+        "hero.snapshot.col.budget": "Budget",
+
+        "trust.main":
+          "Designed for calm, low-drama work with older professionals — not for hype or noisy mass markets.",
+        "trust.badge1": "US & EU retirees · executives · small business owners",
+        "trust.badge2": "Writing · messaging · follow-up flows",
+        "trust.badge3": "Stripe-based settlement",
+
+        "how.title": "How Aurum Task Desk Runs",
+        "how.sub":
+          "Think of it as a small private office between clients and freelancers. You coordinate the relationship; AI and humans handle the work.",
+        "how.inline": "Ready to see how tasks look on your desk?",
+        "how.inline.link": "Open the Task Marketplace",
+        "how.inline.tail": " and sketch your first example.",
+
+        "who.title": "Who this Desk is Built For",
+        "who.sub":
+          "Aurum Task Desk is intentionally narrow. It’s not for everyone — it is for people who prefer low-noise, private help.",
+
+        "usecases.title": "Typical Use Cases",
+
+        "clients.title": "Client stories & quiet results",
+        "clients.sub":
+          "Names and details are lightly anonymised, but the patterns are real: older professionals, calm communication, and long-term trust.",
+        "clients.avatars.title": "A desk built around real older professionals:",
+
+        "samples.title": "Sample work snapshots",
+        "samples.sub":
+          "These are typical transformations — you control the final tone, but the Desk makes sure everything is structured, clear, and ready to send.",
+
+        "about.title": "About the Desk & the Desk Lead",
+        "about.sub":
+          "Aurum Task Desk is not a mass platform. It is a small, curated desk focused on older professionals who prefer calm, private work.",
+        "about.lead.label": "Desk lead",
+
+        "privacy.title": "Privacy, safety & calm boundaries",
+        "privacy.sub":
+          "Older clients often share personal stories and sensitive details. The Desk is designed to keep those details safe and handled with respect.",
+        "privacy.card1.title": "Data & confidentiality",
+        "privacy.card1.text":
+          "Client messages are treated as confidential working material. Drafts can be deleted on request once a task is completed. For sensitive tasks, you can work under a non-disclosure agreement (NDA).",
+        "privacy.card2.title": "AI usage policy",
+        "privacy.card2.text":
+          "AI is used to support drafting and structure, not to blast mass messages. No raw AI output is sent directly to older clients without human review for tone and clarity.",
+        "privacy.card3.title": "Payments & Stripe",
+        "privacy.card3.text":
+          "All payments are processed via Stripe. The Desk does not hold deposits or client funds on-site. You see a clear client price and a clear net payout, with the Desk fee as the difference.",
+        "privacy.inline":
+          "Full details will live in the",
+        "privacy.inline.middle": "and",
+        "privacy.inline.tail": " pages as your desk grows.",
+        "privacy.inline.link1": "Privacy Policy",
+        "privacy.inline.link2": "Terms of Service",
+
+        "pricing.title.page": "Pricing overview & desk fee model",
+        "pricing.sub.page":
+          "The Desk is built to be transparent. Clients see one clear amount. Contributors see their net payout. Your desk fee is the quiet spread in between.",
+        "pricing.overview.text":
+          "Typical starting points (you can adjust these on the Pricing page):",
+        "pricing.detail":
+          "The exact numbers depend on your clients, your contributors, and how hands-on you want the Desk to be. You can keep the Desk premium and calm, not cheap and loud.",
+        "pricing.button": "View detailed pricing examples",
+
+        "why.title": "Why a Private Desk — not a Big Marketplace",
+        "why.sub":
+          "Public platforms are full of noise, bids, and mixed quality. Aurum Task Desk is intentionally small and private.",
+        "why.col1.title": "Typical marketplace",
+        "why.col2.title": "Aurum Task Desk",
+
+        "faq.title": "Common Questions",
+        "faq.q1.title": "Is this a company or just a tool?",
+        "faq.q1.text":
+          "It is structured like a small private office. You decide if you present it as a firm, a personal desk, or part of your existing business.",
+        "faq.q2.title": "Do clients need to know about AI?",
+        "faq.q2.text":
+          "No. Many clients just see that their letters, posts, or scripts are done clearly and on time. The Desk quietly uses AI where it helps, but you stay in control of the tone.",
+        "faq.q3.title": "How does the Desk earn money?",
+        "faq.q3.text":
+          "Clients pay one amount (for example, USD 480). Freelancers or contributors receive a net amount. The difference is the Desk fee, which compensates you for scoping, coordination, and quality control.",
+        "faq.q4.title": "How long does a typical task take?",
+        "faq.q4.text":
+          "Simple letters and small content pieces are often turned around within a few days. Larger packs and automations are scoped with clear timelines so older clients are never left wondering.",
+        "faq.q5.title": "What if a client wants changes?",
+        "faq.q5.text":
+          "Most tasks assume one round of small revisions as part of the scope. For bigger changes or new ideas, you can treat them as a follow-up task with a new budget.",
+        "faq.q6.title": "Can we use NDAs or delete data?",
+        "faq.q6.text":
+          "Yes. For sensitive stories or business details, you can work under an NDA and request that drafts be deleted from active systems after completion, except where law or accounting requires records.",
+        "faq.cta.label": "Next step",
+        "faq.cta.title": "Ready to shape your own Aurum Task Desk?",
+        "faq.cta.text":
+          "Use the Task Marketplace to draft example tasks, the Pricing page to frame your desk fee model, and the Contact page to invite the first clients privately.",
+        "faq.cta.button": "Open the Task Marketplace",
+        "faq.cta.tail":
+          "You can adjust the numbers, wording, and audience over time. The Desk is designed to grow with the relationships you build.",
+
+        "footer.privacy": "Privacy Policy",
+        "footer.terms": "Terms of Service",
+        "footer.contact": "Contact",
+        "footer.copy":
+          "© 2025 Aurum Task Desk — Private AI Task Coordination Desk"
+      },
+
+      // 简体中文
+      zh: {
+        "nav.home": "首页",
+        "nav.tasks": "任务大厅",
+        "nav.about": "关于",
+        "nav.pricing": "定价",
+        "nav.contact": "联系",
+
+        "hero.title.part1": "安静的 ",
+        "hero.title.part2": "AI 任务桌",
+        "hero.title.part3": "为欧美 50+ 专业人士服务",
+        "hero.subtitle":
+          "Aurum 任务桌是一张私密协调桌。客户发来需求，受信任的自由职业者结合 AI 执行，你在中间安静地管理任务范围、文案和结算，就像一间只为你的人脉服务的小型后台办公室。",
+        "hero.tag1": "欧美客户 · 核心年龄 50+",
+        "hero.tag2": "AI 写作 · 文案脚本 · 轻自动化",
+        "hero.tag3": "每个完成任务中包含 Desk 费",
+        "hero.cta.primary": "发送你的第一个任务",
+        "hero.cta.secondary": "描述你的任务 · 获得安静的报价",
+        "hero.note.text": "更习惯先聊一聊？",
+        "hero.note.link": "预约一次安静的 10 分钟通话",
+        "hero.note.tail": " 不推销、不打扰，只是认真听你说。",
+        "hero.snapshot.title": "当前任务桌一览",
+        "hero.snapshot.badge": "不在平台内代为托管资金",
+        "hero.snapshot.col.task": "任务",
+        "hero.snapshot.col.budget": "预算",
+
+        "trust.main":
+          "专为中老年专业人士设计，工作节奏平静、低噪音，而不是面向喧闹的大众市场。",
+        "trust.badge1": "欧美退休人群 · 管理层 · 小企业主",
+        "trust.badge2": "文字内容 · 沟通信息 · 跟进话术",
+        "trust.badge3": "Stripe 结算 · 不托管客户资金",
+
+        "how.title": "Aurum 任务桌如何运转",
+        "how.sub":
+          "可以把它理解为：在客户和执行者之间，有一间安静的小办公室。你负责协调关系，AI 和人工负责完成具体工作。",
+        "how.inline": "想看看你的第一批任务会长什么样？",
+        "how.inline.link": "打开任务大厅",
+        "how.inline.tail": "，先写几个示例任务草稿。",
+
+        "who.title": "这张桌子为谁而建？",
+        "who.sub":
+          "Aurum 任务桌刻意做窄，不服务所有人，而是只服务那些喜欢私密、安静协助的客户。",
+
+        "usecases.title": "典型使用场景",
+
+        "clients.title": "客户故事与安静的结果",
+        "clients.sub":
+          "下面的名字和细节略做匿名化，但模式都是真实的：中老年客户、平静的沟通、长期的信任。",
+        "clients.avatars.title": "围绕真实 50+ 客户打造的一张桌：",
+
+        "samples.title": "部分工作成果示例",
+        "samples.sub":
+          "这些是常见的转化方式——你控制最终语气，任务桌负责结构清晰、可以直接发送。",
+
+        "about.title": "关于这张桌子，以及桌子背后的协调者",
+        "about.sub":
+          "Aurum 任务桌不是大众平台，而是一张为中老年专业人士精细打造的小而精的任务桌。",
+        "about.lead.label": "桌子协调人",
+
+        "privacy.title": "隐私、安全与边界",
+        "privacy.sub":
+          "很多客户会分享非常私人的故事与细节。这张桌子从一开始就按“尊重隐私”来设计。",
+        "privacy.card1.title": "数据与保密",
+        "privacy.card1.text":
+          "客户的信息视为保密工作内容。任务完成后，如你需要，可以请求删除草稿。对于敏感任务，可以在 NDA 之下合作。",
+        "privacy.card2.title": "AI 使用规则",
+        "privacy.card2.text":
+          "AI 用来协助起草和搭框架，而不是群发垃圾信息。不会在未经人工审阅的情况下，把原始 AI 结果直接发给中老年客户。",
+        "privacy.card3.title": "支付与 Stripe",
+        "privacy.card3.text":
+          "所有支付通过 Stripe 处理。任务桌不在平台内代为托管客户资金。你能看到清晰的客户价格和净到手金额，中间差额就是 Desk 费。",
+        "privacy.inline": "更详细的规则会写在",
+        "privacy.inline.middle": "和",
+        "privacy.inline.tail": " 中，随着你的桌子逐步成长。",
+        "privacy.inline.link1": "隐私政策",
+        "privacy.inline.link2": "使用条款",
+
+        "pricing.title.page": "定价总览与 Desk 费模式",
+        "pricing.sub.page":
+          "这张桌子强调透明：客户只看到一个金额，执行者看到净到手金额，你的 Desk 费就是中间那一段差价。",
+        "pricing.overview.text": "以下是常见起步区间（具体数字可在定价页调整）：",
+        "pricing.detail":
+          "具体数字取决于你的客户、协作者，以及你希望 Desk 参与的深度。你可以保持“高质、安静”的定位，而不是“低价、吵闹”。",
+        "pricing.button": "查看更详细的定价示例",
+
+        "why.title": "为什么选择私密任务桌，而不是大平台？",
+        "why.sub":
+          "公开平台充满噪音、竞价和参差不齐的质量。Aurum 任务桌刻意保持小而私密。",
+        "why.col1.title": "典型大平台",
+        "why.col2.title": "Aurum 任务桌",
+
+        "faq.title": "常见问题",
+        "faq.q1.title": "这是公司，还是一个工具？",
+        "faq.q1.text":
+          "它更像一间小型私人办公室。你可以选择把它包装成一个“事务所 / 公司”、个人 Desk，或者挂在你现有的业务品牌下。",
+        "faq.q2.title": "客户需要懂 AI 吗？",
+        "faq.q2.text":
+          "不需要。多数客户只会感受到：信件、文案、脚本被按时、清晰地完成。任务桌在后台安静地使用 AI，你始终掌控语气。",
+        "faq.q3.title": "任务桌如何赚钱？",
+        "faq.q3.text":
+          "例如，客户支付 480 美金，执行端拿到一个净额，中间差额就是 Desk 费，用来覆盖你在任务范围、协调和质量把关上的工作。",
+        "faq.q4.title": "一般任务需要多久？",
+        "faq.q4.text":
+          "简单信件和小内容通常几天内完成。更大的内容包和自动化，会提前确定清晰时间表，让中老年客户不会“等不到消息”。",
+        "faq.q5.title": "客户想修改怎么办？",
+        "faq.q5.text":
+          "大部分任务默认包含一次小范围修改。若是新的想法或较大改动，可以作为后续新任务，重新定一个预算。",
+        "faq.q6.title": "可以签 NDA 或要求删除数据吗？",
+        "faq.q6.text":
+          "可以。涉及敏感故事或商业信息时，可签署 NDA，并在任务结束后请求删除草稿（法律或财务要求保留的除外）。",
+        "faq.cta.label": "下一步",
+        "faq.cta.title": "准备好搭建你自己的 Aurum 任务桌了吗？",
+        "faq.cta.text":
+          "你可以先在任务大厅写几个示例任务，用定价页设计你的 Desk 费模型，再用联系页面邀请第一批私密客户。",
+        "faq.cta.button": "打开任务大厅",
+        "faq.cta.tail":
+          "具体文案、数字和人群都可以慢慢调整，这张桌子是陪你一起成长的。",
+
+        "footer.privacy": "隐私政策",
+        "footer.terms": "使用条款",
+        "footer.contact": "联系",
+        "footer.copy":
+          "© 2025 Aurum Task Desk — 私密 AI 任务协调桌"
+      },
+
+      // 下面是阿拉伯语、法语、德语，先做简化版（只翻译主要导航和首屏）
+      ar: {
+        "nav.home": "الرئيسية",
+        "nav.tasks": "سوق المهام",
+        "nav.about": "حول",
+        "nav.pricing": "الأسعار",
+        "nav.contact": "تواصل",
+
+        "hero.title.part1": "مكتب مهام هادئ ",
+        "hero.title.part2": "مدعوم بالذكاء الاصطناعي",
+        "hero.title.part3": "لمحترفين أكبر سنًا في أمريكا وأوروبا",
+        "hero.subtitle":
+          "Aurum هو مكتب تنسيق خاص. يرسل العملاء المهام، ويقوم المستقلون الموثوقون بالتنفيذ باستخدام الذكاء الاصطناعي، بينما يدير المكتب النطاق والصياغة والتسوية بهدوء.",
+        "hero.tag1": "عملاء من أمريكا وأوروبا · الفئة الأساسية 50+",
+        "hero.tag2": "كتابة · نصوص · أتمتة خفيفة",
+        "hero.tag3": "رسوم المكتب مدمجة في كل مهمة مكتملة",
+        "hero.cta.primary": "أرسل مهمتك الأولى",
+        "hero.cta.secondary": "صف مهمتك — واحصل على عرض هادئ",
+        "hero.note.text": "تفضّل أن تتحدث أولاً؟",
+        "hero.note.link": "ابدأ بمكالمة هادئة لمدة 10 دقائق",
+        "hero.note.tail": " بدون ضغط أو إزعاج — مكتب هادئ يستمع لك.",
+        "hero.snapshot.title": "لمحة عن المهام الحالية",
+        "hero.snapshot.badge": "لا يتم الاحتفاظ بالأموال على الموقع",
+        "hero.snapshot.col.task": "المهمة",
+        "hero.snapshot.col.budget": "الميزانية",
+
+        "trust.main":
+          "مصمم لعمل هادئ ومنخفض الضوضاء مع عملاء أكبر سنًا، وليس للأسواق الجماهيرية الصاخبة.",
+        "trust.badge1": "متقاعدون ومدراء وأصحاب أعمال",
+        "trust.badge2": "كتابة · رسائل · متابعات",
+        "trust.badge3": "تسوية عبر Stripe",
+
+        "how.title": "كيف يعمل مكتب Aurum",
+        "how.sub":
+          "تخيّله كمكتب صغير بين العميل والمستقل. أنت تنسق العلاقة، والذكاء الاصطناعي والبشر ينفذون العمل.",
+        "how.inline": "هل تريد رؤية شكل مهامك في هذا المكتب؟",
+        "how.inline.link": "افتح سوق المهام",
+        "how.inline.tail": " واكتب أول مثال لمهمة.",
+
+        "who.title": "لمن صُمم هذا المكتب؟",
+        "who.sub":
+          "المكتب مقصود أن يكون ضيقًا وخاصًا، مخصص لمن يفضلون المساعدة الهادئة والبعيدة عن الضجيج.",
+
+        "usecases.title": "حالات استخدام نموذجية",
+
+        "clients.title": "قصص عملاء ونتائج هادئة",
+        "clients.sub":
+          "تم إخفاء الأسماء والتفاصيل قليلاً، لكن الأنماط حقيقية: محترفون أكبر سنًا، تواصل هادئ، وثقة طويلة الأمد.",
+        "clients.avatars.title": "مكتب مبني حول عملاء حقيقيين أكبر سنًا:",
+
+        "samples.title": "نماذج من الأعمال",
+        "samples.sub":
+          "هذه تحولات نموذجية — أنت تتحكم في النبرة النهائية، والمكتب يضمن وضوح الهيكل وجاهزية النص للإرسال.",
+
+        "about.title": "عن المكتب ومن يديره",
+        "about.sub":
+          "Aurum ليس منصة جماهيرية، بل مكتب صغير ومنتقى للمحترفين الأكبر سنًا الذين يفضّلون الخصوصية.",
+
+        "privacy.title": "الخصوصية والأمان والحدود الهادئة",
+        "privacy.sub":
+          "العملاء غالبًا يشاركون قصصًا شخصية وحساسة، والمكتب مصمم لحماية هذه التفاصيل.",
+
+        "pricing.title.page": "نظرة عامة على الأسعار ونموذج الرسوم",
+        "pricing.sub.page":
+          "يرى العميل مبلغًا واحدًا واضحًا، ويرى المنفذ صافي ما يستلمه، ورسوم المكتب هي الفرق الهادئ بينهما.",
+
+        "why.title": "لماذا مكتب خاص وليس منصة كبيرة؟",
+        "why.sub":
+          "المنصات العامة مليئة بالضوضاء والعطاءات والجودة المتفاوتة. Aurum مكتب صغير وخاص عن قصد.",
+
+        "faq.title": "أسئلة شائعة",
+
+        "footer.privacy": "سياسة الخصوصية",
+        "footer.terms": "شروط الخدمة",
+        "footer.contact": "تواصل",
+        "footer.copy":
+          "© 2025 Aurum Task Desk — مكتب تنسيق مهام خاص"
+      },
+
+      fr: {
+        "nav.home": "Accueil",
+        "nav.tasks": "Place de tâches",
+        "nav.about": "À propos",
+        "nav.pricing": "Tarifs",
+        "nav.contact": "Contact",
+
+        "hero.title.part1": "Un bureau de tâches ",
+        "hero.title.part2": "IA discret",
+        "hero.title.part3": "pour les professionnels seniors en Europe & aux États-Unis",
+        "hero.subtitle":
+          "Aurum est un bureau de coordination privé. Les clients envoient des tâches, des freelances de confiance exécutent avec l’IA, et le bureau gère calmement le cadrage, les mots et le règlement.",
+        "hero.tag1": "Clients US & UE · cœur de cible 50+",
+        "hero.tag2": "Rédaction IA · scripts · automatisations légères",
+        "hero.tag3": "Frais de bureau inclus dans chaque tâche",
+        "hero.cta.primary": "Envoyer votre première tâche",
+        "hero.cta.secondary": "Décrire votre besoin — recevoir un devis discret",
+        "hero.note.text": "Vous préférez parler d’abord ?",
+        "hero.note.link": "Commencez par un appel calme de 10 minutes",
+        "hero.note.tail": " Pas de pression, pas de spam — un bureau qui écoute.",
+        "hero.snapshot.title": "Instantané actuel du bureau",
+        "hero.snapshot.badge": "Aucun fonds conservé sur le site",
+        "hero.snapshot.col.task": "Tâche",
+        "hero.snapshot.col.budget": "Budget",
+
+        "trust.main":
+          "Conçu pour un travail calme, sans drame, avec des professionnels plus âgés — loin du bruit des plateformes de masse.",
+        "trust.badge1": "Retraités, dirigeants, propriétaires de PME",
+        "trust.badge2": "Messages, contenus, scripts de suivi",
+        "trust.badge3": "Règlement via Stripe",
+
+        "how.title": "Comment fonctionne le bureau Aurum",
+        "how.sub":
+          "Pensez-le comme un petit bureau entre vos clients et vos freelances. Vous coordonnez la relation, l’IA et les humains font le travail.",
+        "how.inline": "Vous voulez voir à quoi ressemblent vos tâches ?",
+        "how.inline.link": "Ouvrir la place de tâches",
+        "how.inline.tail": " et esquisser un premier exemple.",
+
+        "who.title": "Pour qui ce bureau est-il construit ?",
+        "who.sub":
+          "Aurum est volontairement étroit : pas pour tout le monde, mais pour ceux qui préfèrent une aide privée et sans bruit.",
+
+        "usecases.title": "Cas d’usage typiques",
+
+        "clients.title": "Histoires clients & résultats discrets",
+        "clients.sub":
+          "Les noms et détails sont légèrement anonymisés, mais les situations sont réelles : professionnels seniors, communication calme, confiance long terme.",
+        "clients.avatars.title": "Un bureau construit autour de vrais clients seniors :",
+
+        "samples.title": "Aperçus de travaux",
+        "samples.sub":
+          "Des transformations typiques — vous gardez la main sur le ton final, le bureau assure la structure et la clarté.",
+
+        "about.title": "À propos du bureau & de sa responsable",
+        "about.sub":
+          "Aurum n’est pas une plateforme de masse, mais un petit bureau sélectionné pour les professionnels plus âgés qui apprécient la discrétion.",
+
+        "privacy.title": "Confidentialité, sécurité & limites claires",
+        "privacy.sub":
+          "Les clients partagent souvent des histoires personnelles. Le bureau est conçu pour les protéger et les traiter avec respect.",
+
+        "pricing.title.page": "Vue d’ensemble des tarifs & modèle de frais",
+        "pricing.sub.page":
+          "Le client voit un montant clair, le contributeur voit son net. Vos frais de bureau sont l’écart discret entre les deux.",
+
+        "why.title": "Pourquoi un bureau privé plutôt qu’une grande plateforme ?",
+        "why.sub":
+          "Les plateformes publiques sont bruyantes et inégales. Aurum reste volontairement petit et privé.",
+
+        "faq.title": "Questions fréquentes",
+
+        "footer.privacy": "Politique de confidentialité",
+        "footer.terms": "Conditions d’utilisation",
+        "footer.contact": "Contact",
+        "footer.copy":
+          "© 2025 Aurum Task Desk — Bureau privé de coordination de tâches"
+      },
+
+      de: {
+        "nav.home": "Start",
+        "nav.tasks": "Aufgabenmarkt",
+        "nav.about": "Über uns",
+        "nav.pricing": "Preise",
+        "nav.contact": "Kontakt",
+
+        "hero.title.part1": "Ein ruhiger ",
+        "hero.title.part2": "KI-Aufgaben-Desk",
+        "hero.title.part3": "für ältere Fachleute in Europa & den USA",
+        "hero.subtitle":
+          "Aurum ist ein privater Koordinations-Desk. Kunden schicken Aufgaben, vertrauenswürdige Freiberufler erledigen sie mit KI, und der Desk steuert still den Umfang, die Formulierungen und die Abrechnung.",
+        "hero.tag1": "Kunden aus EU & USA · Kernziel 50+",
+        "hero.tag2": "KI-Texte · Skripte · leichte Automatisierung",
+        "hero.tag3": "Desk-Gebühr in jeder Aufgabe enthalten",
+        "hero.cta.primary": "Ihre erste Aufgabe senden",
+        "hero.cta.secondary": "Aufgabe beschreiben — ruhiges Angebot erhalten",
+        "hero.note.text": "Sie sprechen lieber zuerst?",
+        "hero.note.link": "Starten Sie mit einem ruhigen 10-Minuten-Gespräch",
+        "hero.note.tail": " Kein Druck, kein Spam — ein Desk, der zuhört.",
+        "hero.snapshot.title": "Aktueller Desk-Überblick",
+        "hero.snapshot.badge": "Keine Gelder auf der Seite gehalten",
+        "hero.snapshot.col.task": "Aufgabe",
+        "hero.snapshot.col.budget": "Budget",
+
+        "trust.main":
+          "Für ruhige, stressarme Zusammenarbeit mit älteren Fachleuten — nicht für laute Massenmärkte.",
+        "trust.badge1": "Rentner, Führungskräfte, Inhaber kleiner Unternehmen",
+        "trust.badge2": "Texte, Nachrichten, Follow-up-Flows",
+        "trust.badge3": "Abwicklung über Stripe",
+
+        "how.title": "So arbeitet der Aurum Task Desk",
+        "how.sub":
+          "Stellen Sie sich ein kleines Büro zwischen Kunden und Freiberuflern vor. Sie koordinieren die Beziehung, KI und Menschen liefern die Arbeit.",
+        "how.inline": "Möchten Sie sehen, wie Ihre Aufgaben aussehen würden?",
+        "how.inline.link": "Aufgabenmarkt öffnen",
+        "how.inline.tail": " und eine erste Beispielaufgabe entwerfen.",
+
+        "who.title": "Für wen ist dieser Desk gemacht?",
+        "who.sub":
+          "Der Aurum Desk ist bewusst schmal gehalten – nicht für alle, sondern für Menschen, die diskrete, ruhige Unterstützung bevorzugen.",
+
+        "usecases.title": "Typische Anwendungsfälle",
+
+        "clients.title": "Kundengeschichten & leise Ergebnisse",
+        "clients.sub":
+          "Namen und Details sind leicht anonymisiert, aber die Muster sind real: ältere Profis, ruhige Kommunikation, langfristiges Vertrauen.",
+        "clients.avatars.title": "Ein Desk rund um echte Kunden 50+:",
+
+        "samples.title": "Beispielausschnitte aus der Arbeit",
+        "samples.sub":
+          "Typische Transformationen — Sie bestimmen den finalen Ton, der Desk sorgt für Struktur und Klarheit.",
+
+        "about.title": "Über den Desk & die Desk-Leitung",
+        "about.sub":
+          "Aurum ist keine Massenplattform, sondern ein kleiner, kuratierter Desk für ältere Fachleute, die Diskretion schätzen.",
+
+        "privacy.title": "Datenschutz, Sicherheit & klare Grenzen",
+        "privacy.sub":
+          "Kunden teilen oft sehr persönliche Geschichten. Der Desk ist so aufgebaut, dass diese geschützt und respektvoll behandelt werden.",
+
+        "pricing.title.page": "Preisübersicht & Desk-Gebühr-Modell",
+        "pricing.sub.page":
+          "Der Kunde sieht einen klaren Betrag, der Beitragende seinen Nettobetrag. Ihre Desk-Gebühr ist die stille Spanne dazwischen.",
+
+        "why.title": "Warum ein privater Desk statt einer großen Plattform?",
+        "why.sub":
+          "Öffentliche Plattformen sind laut und ungleich. Aurum bleibt bewusst klein und privat.",
+
+        "faq.title": "Häufige Fragen",
+
+        "footer.privacy": "Datenschutzerklärung",
+        "footer.terms": "Nutzungsbedingungen",
+        "footer.contact": "Kontakt",
+        "footer.copy":
+          "© 2025 Aurum Task Desk — Privater KI-Aufgaben-Koordinations-Desk"
+      }
+    };
+
+    function applyLanguage(lang) {
+      const dict = I18N[lang] || I18N.en;
+      document.documentElement.setAttribute("lang", lang === "zh" ? "zh-CN" : lang);
+      document.querySelectorAll("[data-i18n]").forEach((el) => {
+        const key = el.getAttribute("data-i18n");
+        if (dict[key]) {
+          el.textContent = dict[key];
+        }
+      });
+
+      // 激活按钮状态
+      document.querySelectorAll(".lang-btn").forEach((btn) => {
+        btn.classList.toggle("active", btn.getAttribute("data-lang") === lang);
+      });
+    }
+
+    function initLanguage() {
+      const saved = localStorage.getItem("aurum_lang") || "en";
+      applyLanguage(saved);
+      document.querySelectorAll(".lang-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const lang = btn.getAttribute("data-lang");
+          localStorage.setItem("aurum_lang", lang);
+          applyLanguage(lang);
+        });
+      });
+    }
+
+    // 登录状态相关
     function getAurumUser() {
       try {
         const raw = localStorage.getItem("aurum_user");
@@ -1228,25 +1891,18 @@
       }
     }
 
-    // 登出：清掉 localStorage，然后刷新导航显示
     function aurumLogout() {
       localStorage.removeItem("aurum_user");
       renderNavUserArea();
-      // 如果需要登出后回首页，可打开下面一行：
-      // window.location.href = "index.html";
     }
 
-    // 根据登录状态渲染导航栏右侧区域
     function renderNavUserArea() {
       const area = document.getElementById("navUserArea");
       if (!area) return;
-
       const user = getAurumUser();
       if (!user) {
-        // 未登录：只显示 Sign in
         area.innerHTML = '<a href="auth.html" class="nav-signin-link">Sign in</a>';
       } else {
-        // 已登录：显示 Hi, xxx + Logout
         const displayName = user.name || user.email || user.phone || "Member";
         area.innerHTML = `
           <span class="nav-hi">Hi, ${displayName}</span>
@@ -1257,7 +1913,10 @@
       }
     }
 
-    document.addEventListener("DOMContentLoaded", renderNavUserArea);
+    document.addEventListener("DOMContentLoaded", () => {
+      initLanguage();
+      renderNavUserArea();
+    });
   </script>
 </body>
 </html>
