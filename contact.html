@@ -162,21 +162,21 @@ textarea {
 
 <!-- NAVIGATION -->
 <nav class="navbar container">
-  <div class="nav-left">Aurum Task Desk</div>
+  <div class="nav-left" id="navBrand">Aurum Task Desk</div>
   <div class="nav-right">
-    <a href="index.html">Home</a>
-    <a href="tasks.html">Task Marketplace</a>
-    <a href="about.html">About</a>
-    <a href="pricing.html">Pricing</a>
-    <a href="contact.html">Contact</a>
+    <a href="index.html" id="navHome">Home</a>
+    <a href="tasks.html" id="navTasks">Task Marketplace</a>
+    <a href="about.html" id="navAbout">About</a>
+    <a href="pricing.html" id="navPricing">Pricing</a>
+    <a href="contact.html" id="navContact">Contact</a>
     <!-- 登录状态显示区 -->
     <span id="navUserArea" class="nav-user-area"></span>
   </div>
 </nav>
 
 <section class="page-header container">
-  <h1 class="header-title">Contact the Desk</h1>
-  <p class="header-sub">
+  <h1 class="header-title" id="headerTitle">Contact the Desk</h1>
+  <p class="header-sub" id="headerSub">
     For private inquiries about tasks, Desk membership, or collaboration, you may use the confidential form below.
     Your message will be routed directly to the Desk’s inbox.
   </p>
@@ -187,23 +187,23 @@ textarea {
     <form action="mailto:sophieinbg@gmail.com" method="post" enctype="text/plain">
 
       <div class="form-row">
-        <label for="name">Full name</label>
+        <label for="name" id="labelName">Full name</label>
         <input type="text" id="name" name="Name" required />
       </div>
 
       <div class="form-row">
-        <label for="email">Email</label>
+        <label for="email" id="labelEmail">Email</label>
         <input type="email" id="email" name="Email" required />
       </div>
 
       <div class="form-row">
-        <label for="message">Message / Task Description</label>
+        <label for="message" id="labelMessage">Message / Task Description</label>
         <textarea id="message" name="Message" required></textarea>
       </div>
 
-      <button type="submit" class="btn-blue">Send Message</button>
+      <button type="submit" class="btn-blue" id="btnSend">Send Message</button>
 
-      <p class="hint">
+      <p class="hint" id="hintText">
         When you click “Send Message”, your email app may open with the details pre-filled.
         You can review and send it directly to Aurum Task Desk.
       </p>
@@ -212,46 +212,213 @@ textarea {
   </div>
 </section>
 
-<footer class="footer">
+<footer class="footer" id="footerText">
   © 2025 Aurum Task Desk — Private AI Task Coordination Desk
 </footer>
 
-<!-- 登录脚本：根据 localStorage 显示 Sign in / Hi 用户名 -->
+<!-- 多语言 & 登录脚本 -->
 <script>
-function getAurumUser() {
-  try {
-    const raw = localStorage.getItem("aurum_user");
-    if (!raw) return null;
-    return JSON.parse(raw);
-  } catch (e) {
-    return null;
+  // ====== 多语言字典（和首页 / tasks / pricing 同一个体系） ======
+  let AURUM_LANG = "en";
+
+  const LANG_STRINGS = {
+    // 英文
+    en: {
+      navBrand: "Aurum Task Desk",
+      navHome: "Home",
+      navTasks: "Task Marketplace",
+      navAbout: "About",
+      navPricing: "Pricing",
+      navContact: "Contact",
+
+      headerTitle: "Contact the Desk",
+      headerSub:
+        "For private inquiries about tasks, Desk membership, or collaboration, you may use the confidential form below. Your message will be routed directly to the Desk’s inbox.",
+
+      labelName: "Full name",
+      labelEmail: "Email",
+      labelMessage: "Message / Task Description",
+      messagePlaceholder: "Share your background, your question, or a short description of the task you have in mind.",
+
+      btnSend: "Send Message",
+      hintText:
+        "When you click “Send Message”, your email app may open with the details pre-filled. You can review and send it directly to Aurum Task Desk.",
+
+      footerText: "© 2025 Aurum Task Desk — Private AI Task Coordination Desk"
+    },
+
+    // 中文
+    zh: {
+      navBrand: "Aurum 任务桌",
+      navHome: "首页",
+      navTasks: "任务大厅",
+      navAbout: "关于",
+      navPricing: "定价",
+      navContact: "联系",
+
+      headerTitle: "联系任务桌",
+      headerSub:
+        "如果你想私下咨询任务、Desk 会员方案或合作事宜，可以通过下面的保密表单发送信息，消息会直接进入 Aurum 任务桌的邮箱。",
+
+      labelName: "姓名",
+      labelEmail: "邮箱",
+      labelMessage: "留言 / 任务简要说明",
+      messagePlaceholder: "简单介绍你的背景、目前的情况，或者你希望我们帮你完成的任务。",
+
+      btnSend: "发送消息",
+      hintText:
+        "点击“发送消息”后，你的邮箱应用可能会自动打开并填好内容，你可以再次确认后直接发给 Aurum 任务桌。",
+
+      footerText: "© 2025 Aurum Task Desk — 私人 AI 任务协调桌"
+    },
+
+    // Arabic
+    ar: {
+      navBrand: "Aurum Task Desk",
+      navHome: "الرئيسية",
+      navTasks: "سوق المهام",
+      navAbout: "من نحن",
+      navPricing: "الأسعار",
+      navContact: "تواصل",
+
+      headerTitle: "التواصل مع المكتب",
+      headerSub:
+        "للاستفسارات الخاصة حول المهام، أو الاشتراك في المكتب، أو فرص التعاون، يمكنك استخدام النموذج الآمن أدناه. سيتم إرسال رسالتك مباشرة إلى صندوق بريد المكتب.",
+
+      labelName: "الاسم الكامل",
+      labelEmail: "البريد الإلكتروني",
+      labelMessage: "الرسالة / وصف المهمة",
+      messagePlaceholder: "عرّف بنفسك باختصار، واذكر ما تريد من المكتب أو المهمة التي تود المساعدة فيها.",
+
+      btnSend: "إرسال الرسالة",
+      hintText:
+        "عند الضغط على \"إرسال الرسالة\" قد يفتح تطبيق البريد الإلكتروني لديك مع تعبئة التفاصيل مسبقًا، ويمكنك مراجعتها ثم إرسالها مباشرة إلى Aurum Task Desk.",
+
+      footerText: "© 2025 Aurum Task Desk — مكتب خاص لتنسيق المهام بالذكاء الاصطناعي"
+    },
+
+    // French
+    fr: {
+      navBrand: "Aurum Task Desk",
+      navHome: "Accueil",
+      navTasks: "Place de tâches",
+      navAbout: "À propos",
+      navPricing: "Tarifs",
+      navContact: "Contact",
+
+      headerTitle: "Contacter le bureau",
+      headerSub:
+        "Pour toute demande privée concernant une tâche, un abonnement au Desk ou une collaboration, vous pouvez utiliser le formulaire confidentiel ci-dessous. Votre message sera envoyé directement à la boîte mail du Desk.",
+
+      labelName: "Nom complet",
+      labelEmail: "E-mail",
+      labelMessage: "Message / Description de la tâche",
+      messagePlaceholder: "Présentez brièvement votre situation et la tâche pour laquelle vous souhaitez de l’aide.",
+
+      btnSend: "Envoyer le message",
+      hintText:
+        "Lorsque vous cliquez sur « Envoyer le message », votre application e-mail peut s’ouvrir avec les informations préremplies. Vous pouvez vérifier puis l’envoyer directement à Aurum Task Desk.",
+
+      footerText: "© 2025 Aurum Task Desk — Bureau privé de coordination de tâches IA"
+    },
+
+    // German
+    de: {
+      navBrand: "Aurum Task Desk",
+      navHome: "Startseite",
+      navTasks: "Aufgaben-Marktplatz",
+      navAbout: "Über uns",
+      navPricing: "Preise",
+      navContact: "Kontakt",
+
+      headerTitle: "Kontakt zum Desk",
+      headerSub:
+        "Für vertrauliche Anfragen zu Aufgaben, Desk-Mitgliedschaften oder Kooperationen kannst du das folgende Formular nutzen. Deine Nachricht geht direkt im Postfach des Desks ein.",
+
+      labelName: "Vollständiger Name",
+      labelEmail: "E-Mail",
+      labelMessage: "Nachricht / Aufgabenbeschreibung",
+      messagePlaceholder: "Stelle dich kurz vor und beschreibe, wobei der Desk dich unterstützen soll.",
+
+      btnSend: "Nachricht senden",
+      hintText:
+        "Wenn du auf „Nachricht senden“ klickst, öffnet sich eventuell dein E-Mail-Programm mit vorausgefüllten Angaben. Du kannst alles prüfen und dann direkt an Aurum Task Desk senden.",
+
+      footerText: "© 2025 Aurum Task Desk — Private KI-Aufgabenkoordination"
+    }
+  };
+
+  function applyGlobalLanguage() {
+    AURUM_LANG = localStorage.getItem("aurum_lang") || "en";
+    const dict = LANG_STRINGS[AURUM_LANG] || LANG_STRINGS.en;
+
+    function setText(id, key) {
+      const el = document.getElementById(id);
+      if (el && dict[key]) el.textContent = dict[key];
+    }
+
+    setText("navBrand", "navBrand");
+    setText("navHome", "navHome");
+    setText("navTasks", "navTasks");
+    setText("navAbout", "navAbout");
+    setText("navPricing", "navPricing");
+    setText("navContact", "navContact");
+
+    setText("headerTitle", "headerTitle");
+    setText("headerSub", "headerSub");
+
+    setText("labelName", "labelName");
+    setText("labelEmail", "labelEmail");
+    setText("labelMessage", "labelMessage");
+
+    const msgEl = document.getElementById("message");
+    if (msgEl && dict.messagePlaceholder) {
+      msgEl.placeholder = dict.messagePlaceholder;
+    }
+
+    setText("btnSend", "btnSend");
+    setText("hintText", "hintText");
+    setText("footerText", "footerText");
   }
-}
 
-function aurumLogout() {
-  localStorage.removeItem("aurum_user");
-  renderNavUserArea();
-}
-
-function renderNavUserArea() {
-  const area = document.getElementById("navUserArea");
-  if (!area) return;
-
-  const user = getAurumUser();
-  if (!user) {
-    area.innerHTML = '<a href="auth.html" class="nav-signin-link">Sign in</a>';
-  } else {
-    const displayName = user.name || user.email || user.phone || "Member";
-    area.innerHTML = `
-      <span class="nav-hi">Hi, ${displayName}</span>
-      <button type="button" class="nav-logout-btn" onclick="aurumLogout()">
-        Logout
-      </button>
-    `;
+  // ===== 登录状态脚本：读取 localStorage.aurum_user =====
+  function getAurumUser() {
+    try {
+      const raw = localStorage.getItem("aurum_user");
+      if (!raw) return null;
+      return JSON.parse(raw);
+    } catch (e) {
+      return null;
+    }
   }
-}
 
-document.addEventListener("DOMContentLoaded", renderNavUserArea);
+  function aurumLogout() {
+    localStorage.removeItem("aurum_user");
+    renderNavUserArea();
+  }
+
+  function renderNavUserArea() {
+    const area = document.getElementById("navUserArea");
+    if (!area) return;
+
+    const user = getAurumUser();
+    if (!user) {
+      area.innerHTML = '<a href="auth.html" class="nav-signin-link">Sign in</a>';
+    } else {
+      const displayName = user.name || user.email || user.phone || "Member";
+      area.innerHTML = `
+        <span class="nav-hi">Hi, ${displayName}</span>
+        <button type="button" class="nav-logout-btn" onclick="aurumLogout()">
+          Logout
+        </button>
+      `;
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    renderNavUserArea();
+    applyGlobalLanguage();   // 这里同步首页选择的语言
+  });
 </script>
 
 </body>
