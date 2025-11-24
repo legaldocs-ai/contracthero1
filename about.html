@@ -44,7 +44,7 @@ a { text-decoration: none; color: inherit; }
 
 .nav-right a:hover { opacity: 1; }
 
-/* 新增：登录状态区域样式 */
+/* 登录状态区域样式 */
 .nav-user-area {
   display: inline-flex;
   align-items: center;
@@ -139,19 +139,19 @@ a { text-decoration: none; color: inherit; }
 <nav class="navbar container">
   <div class="nav-left">Aurum Task Desk</div>
   <div class="nav-right">
-    <a href="index.html">Home</a>
-    <a href="tasks.html">Task Marketplace</a>
-    <a href="about.html">About</a>
-    <a href="pricing.html">Pricing</a>
-    <a href="contact.html">Contact</a>
-    <!-- 新增：登录状态显示区域 -->
+    <a href="index.html" id="navHome">Home</a>
+    <a href="tasks.html" id="navTasks">Task Marketplace</a>
+    <a href="about.html" id="navAbout">About</a>
+    <a href="pricing.html" id="navPricing">Pricing</a>
+    <a href="contact.html" id="navContact">Contact</a>
+    <!-- 登录状态显示区域 -->
     <span id="navUserArea" class="nav-user-area"></span>
   </div>
 </nav>
 
 <section class="page-header container">
-  <h1 class="header-title">About Aurum Task Desk</h1>
-  <p class="header-sub">
+  <h1 class="header-title" id="headerTitle">About Aurum Task Desk</h1>
+  <p class="header-sub" id="headerSub">
     Aurum Task Desk is a small, private coordination office for AI-assisted tasks.
     It is designed for older professionals, business owners, and high-intent clients who prefer
     calm, structured help instead of noisy public marketplaces.
@@ -159,8 +159,8 @@ a { text-decoration: none; color: inherit; }
 </section>
 
 <section class="section-block container">
-  <h2 class="section-title">What the Desk Is</h2>
-  <p class="section-text">
+  <h2 class="section-title" id="whatTitle">What the Desk Is</h2>
+  <p class="section-text" id="whatText">
     Instead of being another open platform, Aurum Task Desk acts like a discreet middle office.
     Clients submit tasks. Freelancers (and you, behind the scenes) execute with AI tools.
     The Desk coordinates expectations, timelines, and communication, and keeps a transparent fee for doing so.
@@ -168,52 +168,315 @@ a { text-decoration: none; color: inherit; }
 </section>
 
 <section class="section-block container">
-  <h2 class="section-title">How It Operates</h2>
+  <h2 class="section-title" id="howTitle">How It Operates</h2>
   <div class="value-grid">
     <div class="value-card">
-      <strong>1 — Tasks come in</strong>
-      <p>Clients describe what they need in simple language: letters, articles, scripts, content, or small automations.</p>
+      <strong id="howStep1Title">1 — Tasks come in</strong>
+      <p id="howStep1Text">Clients describe what they need in simple language: letters, articles, scripts, content, or small automations.</p>
     </div>
     <div class="value-card">
-      <strong>2 — Work is executed</strong>
-      <p>Freelancers use AI plus human judgement to deliver results following Desk guidelines for tone and clarity.</p>
+      <strong id="howStep2Title">2 — Work is executed</strong>
+      <p id="howStep2Text">Freelancers use AI plus human judgement to deliver results following Desk guidelines for tone and clarity.</p>
     </div>
     <div class="value-card">
-      <strong>3 — Settlement & desk fee</strong>
-      <p>Clients pay via Stripe or agreed channels. Contributors are paid a net amount. The difference is the desk fee.</p>
+      <strong id="howStep3Title">3 — Settlement & desk fee</strong>
+      <p id="howStep3Text">Clients pay via Stripe or agreed channels. Contributors are paid a net amount. The difference is the desk fee.</p>
     </div>
   </div>
 </section>
 
 <section class="section-block container">
-  <h2 class="section-title">Desk Values</h2>
+  <h2 class="section-title" id="valuesTitle">Desk Values</h2>
   <div class="value-grid">
     <div class="value-card">
-      <strong>Calm & private</strong>
-      <p>No hype. No spam. Just quiet, serious collaboration.</p>
+      <strong id="value1Title">Calm & private</strong>
+      <p id="value1Text">No hype. No spam. Just quiet, serious collaboration.</p>
     </div>
     <div class="value-card">
-      <strong>Clarity in words</strong>
-      <p>Scopes, updates, and outputs are written in plain language.</p>
+      <strong id="value2Title">Clarity in words</strong>
+      <p id="value2Text">Scopes, updates, and outputs are written in plain language.</p>
     </div>
     <div class="value-card">
-      <strong>Respect for time</strong>
-      <p>Built for people who balance work, health, family, and travel.</p>
+      <strong id="value3Title">Respect for time</strong>
+      <p id="value3Text">Built for people who balance work, health, family, and travel.</p>
     </div>
     <div class="value-card">
-      <strong>Transparent economics</strong>
-      <p>Clients pay one price, contributors know their net amount, and the desk fee is the spread.</p>
+      <strong id="value4Title">Transparent economics</strong>
+      <p id="value4Text">Clients pay one price, contributors know their net amount, and the desk fee is the spread.</p>
     </div>
   </div>
 </section>
 
-<footer class="footer">
+<footer class="footer" id="footerText">
   © 2025 Aurum Task Desk — Private AI Task Coordination Desk
 </footer>
 
-<!-- 登录状态脚本：读取 localStorage.aurum_user -->
+<!-- 多语言 + 登录状态脚本 -->
 <script>
-  // 读取当前用户（auth.html 登录时写入 localStorage.aurum_user）
+  // ========== 多语言：读取首页设置的 localStorage.aurum_lang ==========
+  let AURUM_LANG = localStorage.getItem("aurum_lang") || "en";
+
+  const LANG_STRINGS = {
+    // ===== English =====
+    en: {
+      navHome: "Home",
+      navTasks: "Task Marketplace",
+      navAbout: "About",
+      navPricing: "Pricing",
+      navContact: "Contact",
+
+      headerTitle: "About Aurum Task Desk",
+      headerSub:
+        "Aurum Task Desk is a small, private coordination office for AI-assisted tasks. It is designed for older professionals, business owners, and high-intent clients who prefer calm, structured help instead of noisy public marketplaces.",
+
+      whatTitle: "What the Desk Is",
+      whatText:
+        "Instead of being another open platform, Aurum Task Desk acts like a discreet middle office. Clients submit tasks. Freelancers (and you, behind the scenes) execute with AI tools. The Desk coordinates expectations, timelines, and communication, and keeps a transparent fee for doing so.",
+
+      howTitle: "How It Operates",
+      howStep1Title: "1 — Tasks come in",
+      howStep1Text:
+        "Clients describe what they need in simple language: letters, articles, scripts, content, or small automations.",
+      howStep2Title: "2 — Work is executed",
+      howStep2Text:
+        "Freelancers use AI plus human judgement to deliver results following Desk guidelines for tone and clarity.",
+      howStep3Title: "3 — Settlement & desk fee",
+      howStep3Text:
+        "Clients pay via Stripe or agreed channels. Contributors are paid a net amount. The difference is the desk fee.",
+
+      valuesTitle: "Desk Values",
+      value1Title: "Calm & private",
+      value1Text: "No hype. No spam. Just quiet, serious collaboration.",
+      value2Title: "Clarity in words",
+      value2Text: "Scopes, updates, and outputs are written in plain language.",
+      value3Title: "Respect for time",
+      value3Text:
+        "Built for people who balance work, health, family, and travel.",
+      value4Title: "Transparent economics",
+      value4Text:
+        "Clients pay one price, contributors know their net amount, and the desk fee is the spread.",
+
+      footerText: "© 2025 Aurum Task Desk — Private AI Task Coordination Desk"
+    },
+
+    // ===== 简体中文 =====
+    zh: {
+      navHome: "首页",
+      navTasks: "任务大厅",
+      navAbout: "关于",
+      navPricing: "定价",
+      navContact: "联系",
+
+      headerTitle: "关于 Aurum Task Desk",
+      headerSub:
+        "Aurum Task Desk 是一个小型、私密的 AI 协同“中台办公室”。它面向中老年专业人士、企业主，以及那些真正有需求、希望得到安静而有结构化支持的客户，而不是在嘈杂的公开平台上抢单。",
+
+      whatTitle: "这个任务桌是什么",
+      whatText:
+        "Aurum Task Desk 不是一个开放的大众平台，而更像是一个低调的中台办公室。客户提交任务，自由职业者（包括你在幕后）结合 AI 工具完成执行。任务桌负责对齐预期、时间和沟通，并以透明的方式收取服务费。",
+
+      howTitle: "它是如何运作的",
+      howStep1Title: "1 — 任务进入",
+      howStep1Text:
+        "客户用日常语言描述自己需要什么：信件、文章、脚本、内容，或者小型自动化任务等。",
+      howStep2Title: "2 — 执行与交付",
+      howStep2Text:
+        "自由职业者在任务桌的语气与风格规范下，用 AI + 人类判断完成工作并交付结果。",
+      howStep3Title: "3 — 结算与桌面费用",
+      howStep3Text:
+        "客户通过 Stripe 或约定渠道付款。贡献方拿到明确的净收入，中间的差额就是任务桌的服务费。",
+
+      valuesTitle: "任务桌的价值观",
+      value1Title: "安静与私密",
+      value1Text: "不追热点，不搞噪音，只做安静、认真、可持续的协作。",
+      value2Title: "文字清晰",
+      value2Text: "需求说明、过程更新、最终结果都尽量用简单、直白的语言写清楚。",
+      value3Title: "尊重时间",
+      value3Text:
+        "为需要平衡工作、健康、家庭和旅行的人设计，不浪费双方时间。",
+      value4Title: "经济透明",
+      value4Text:
+        "客户看到的是一个清晰价格；合作者知道自己拿到的净金额；中间差额就是任务桌的服务费。",
+
+      footerText: "© 2025 Aurum Task Desk — 私人 AI 任务协调桌"
+    },
+
+    // ===== Arabic =====
+    ar: {
+      navHome: "الرئيسية",
+      navTasks: "سوق المهام",
+      navAbout: "حول",
+      navPricing: "الأسعار",
+      navContact: "تواصل",
+
+      headerTitle: "حول Aurum Task Desk",
+      headerSub:
+        "يعد Aurum Task Desk مكتب تنسيق صغيرًا وخاصًا للمهام المدعومة بالذكاء الاصطناعي. صُمّم لكبار المهنيين وأصحاب الأعمال والعملاء الجادّين الذين يفضّلون المساعدة الهادئة والمنظّمة بدلًا من الأسواق العامة الصاخبة.",
+
+      whatTitle: "ما هو هذا المكتب",
+      whatText:
+        "بدلًا من أن يكون منصة مفتوحة أخرى، يعمل Aurum Task Desk كمكتب وسطي متحفظ. يرسل العملاء المهام، ويقوم المستقلون (وأنت في الخلفية) بتنفيذها باستخدام أدوات الذكاء الاصطناعي. يتولّى المكتب تنسيق التوقعات والجداول الزمنية والتواصل، ويحافظ على أجر مكتبي شفاف لقاء ذلك.",
+
+      howTitle: "كيف يعمل",
+      howStep1Title: "1 — استقبال المهام",
+      howStep1Text:
+        "يصف العملاء ما يحتاجون إليه بلغة بسيطة: رسائل، مقالات، نصوص، محتوى أو مهام أتمتة صغيرة.",
+      howStep2Title: "2 — تنفيذ العمل",
+      howStep2Text:
+        "يستخدم المستقلون الذكاء الاصطناعي مع الحكم البشري لتقديم نتائج تتوافق مع إرشادات المكتب من حيث النبرة والوضوح.",
+      howStep3Title: "3 — التسوية ورسوم المكتب",
+      howStep3Text:
+        "يدفع العملاء عبر Stripe أو قنوات متفق عليها. يتلقّى المساهمون مبلغهم الصافي، والفارق بين السعر المدفوع وصافي المبالغ هو رسم المكتب.",
+
+      valuesTitle: "قيم المكتب",
+      value1Title: "الهدوء والخصوصية",
+      value1Text: "لا مبالغة، لا رسائل مزعجة، فقط تعاون هادئ وجاد.",
+      value2Title: "الوضوح في الكلمات",
+      value2Text:
+        "يتم كتابة نطاق العمل والتحديثات والنتائج النهائية بلغة واضحة ومباشرة.",
+      value3Title: "احترام الوقت",
+      value3Text:
+        "مصمم لمن يوازن بين العمل والصحة والعائلة والسفر.",
+      value4Title: "اقتصاد شفاف",
+      value4Text:
+        "يدفع العميل سعرًا واحدًا واضحًا، ويعرف المساهمون دخلهم الصافي، ورسوم المكتب هي الفارق بينهما.",
+
+      footerText: "© 2025 Aurum Task Desk — مكتب تنسيق مهام بالذكاء الاصطناعي"
+    },
+
+    // ===== French =====
+    fr: {
+      navHome: "Accueil",
+      navTasks: "Place de tâches",
+      navAbout: "À propos",
+      navPricing: "Tarifs",
+      navContact: "Contact",
+
+      headerTitle: "À propos d’Aurum Task Desk",
+      headerSub:
+        "Aurum Task Desk est un petit bureau privé de coordination pour des tâches assistées par l’IA. Il est destiné aux professionnels plus âgés, aux chefs d’entreprise et aux clients à forte intention qui préfèrent une aide calme et structurée plutôt que des places de marché publiques bruyantes.",
+
+      whatTitle: "Ce qu’est le bureau",
+      whatText:
+        "Au lieu d’être une plateforme ouverte de plus, Aurum Task Desk fonctionne comme un bureau intermédiaire discret. Les clients envoient leurs missions. Les freelances (et vous, en coulisses) utilisent l’IA pour les exécuter. Le bureau coordonne les attentes, les délais et la communication, et conserve des honoraires transparents pour ce travail.",
+
+      howTitle: "Comment il fonctionne",
+      howStep1Title: "1 — Arrivée des missions",
+      howStep1Text:
+        "Les clients décrivent leurs besoins en langage simple : lettres, articles, scripts, contenu ou petites automatisations.",
+      howStep2Title: "2 — Exécution du travail",
+      howStep2Text:
+        "Les freelances combinent IA et jugement humain pour livrer des résultats conformes aux lignes directrices du bureau en matière de ton et de clarté.",
+      howStep3Title: "3 — Règlement et frais de bureau",
+      howStep3Text:
+        "Les clients paient via Stripe ou d’autres canaux convenus. Les contributeurs reçoivent un montant net, et la différence constitue les frais de bureau.",
+
+      valuesTitle: "Les valeurs du bureau",
+      value1Title: "Calme et privé",
+      value1Text: "Pas de hype, pas de spam. Juste une collaboration sérieuse et tranquille.",
+      value2Title: "Clarté des mots",
+      value2Text:
+        "Les cahiers des charges, mises à jour et livrables sont rédigés en langage clair.",
+      value3Title: "Respect du temps",
+      value3Text:
+        "Conçu pour des personnes qui jonglent entre travail, santé, famille et voyages.",
+      value4Title: "Économie transparente",
+      value4Text:
+        "Le client paie un prix clair ; les contributeurs connaissent leur montant net et les frais de bureau sont l’écart entre les deux.",
+
+      footerText:
+        "© 2025 Aurum Task Desk — Bureau privé de coordination de tâches IA"
+    },
+
+    // ===== German =====
+    de: {
+      navHome: "Startseite",
+      navTasks: "Aufgaben-Marktplatz",
+      navAbout: "Über uns",
+      navPricing: "Preise",
+      navContact: "Kontakt",
+
+      headerTitle: "Über Aurum Task Desk",
+      headerSub:
+        "Aurum Task Desk ist ein kleines, privates Koordinationsbüro für KI-unterstützte Aufgaben. Es richtet sich an ältere Fachleute, Unternehmer und ernsthafte Kunden, die eine ruhige, strukturierte Unterstützung statt lauter öffentlicher Marktplätze bevorzugen.",
+
+      whatTitle: "Was dieser Desk ist",
+      whatText:
+        "Anstatt eine weitere offene Plattform zu sein, fungiert Aurum Task Desk als diskretes Middle-Office. Kunden reichen Aufgaben ein. Freiberufler (und du im Hintergrund) erledigen sie mithilfe von KI-Tools. Der Desk koordiniert Erwartungen, Zeitpläne und Kommunikation und erhebt dafür eine transparente Gebühr.",
+
+      howTitle: "Wie er arbeitet",
+      howStep1Title: "1 — Aufgaben kommen herein",
+      howStep1Text:
+        "Kunden beschreiben in einfachen Worten, was sie brauchen: Briefe, Artikel, Skripte, Inhalte oder kleine Automatisierungen.",
+      howStep2Title: "2 — Arbeit wird ausgeführt",
+      howStep2Text:
+        "Freelancer nutzen KI plus menschliches Urteilsvermögen, um Ergebnisse gemäß den Desk-Richtlinien zu Ton und Klarheit zu liefern.",
+      howStep3Title: "3 — Abrechnung & Desk-Gebühr",
+      howStep3Text:
+        "Kunden zahlen über Stripe oder vereinbarte Kanäle. Mitarbeitende erhalten ihren Nettobetrag, und die Differenz ist die Desk-Gebühr.",
+
+      valuesTitle: "Werte des Desks",
+      value1Title: "Ruhig & privat",
+      value1Text:
+        "Kein Hype, kein Spam. Nur ruhige, seriöse Zusammenarbeit.",
+      value2Title: "Klarheit in Worten",
+      value2Text:
+        "Leistungsbeschreibungen, Updates und Ergebnisse werden in klarer Sprache formuliert.",
+      value3Title: "Respekt vor Zeit",
+      value3Text:
+        "Ausgelegt für Menschen, die Arbeit, Gesundheit, Familie und Reisen unter einen Hut bringen.",
+      value4Title: "Transparente Ökonomie",
+      value4Text:
+        "Kunden zahlen einen klaren Preis; Mitwirkende kennen ihren Nettobetrag, und die Desk-Gebühr ist die Spanne dazwischen.",
+
+      footerText:
+        "© 2025 Aurum Task Desk — Privater KI-Aufgaben-Desk"
+    }
+  };
+
+  function applyGlobalLanguage() {
+    AURUM_LANG = localStorage.getItem("aurum_lang") || "en";
+    const dict = LANG_STRINGS[AURUM_LANG] || LANG_STRINGS.en;
+
+    function setText(id, key) {
+      const el = document.getElementById(id);
+      if (el && dict[key]) el.textContent = dict[key];
+    }
+
+    setText("navHome", "navHome");
+    setText("navTasks", "navTasks");
+    setText("navAbout", "navAbout");
+    setText("navPricing", "navPricing");
+    setText("navContact", "navContact");
+
+    setText("headerTitle", "headerTitle");
+    setText("headerSub", "headerSub");
+
+    setText("whatTitle", "whatTitle");
+    setText("whatText", "whatText");
+
+    setText("howTitle", "howTitle");
+    setText("howStep1Title", "howStep1Title");
+    setText("howStep1Text", "howStep1Text");
+    setText("howStep2Title", "howStep2Title");
+    setText("howStep2Text", "howStep2Text");
+    setText("howStep3Title", "howStep3Title");
+    setText("howStep3Text", "howStep3Text");
+
+    setText("valuesTitle", "valuesTitle");
+    setText("value1Title", "value1Title");
+    setText("value1Text", "value1Text");
+    setText("value2Title", "value2Title");
+    setText("value2Text", "value2Text");
+    setText("value3Title", "value3Title");
+    setText("value3Text", "value3Text");
+    setText("value4Title", "value4Title");
+    setText("value4Text", "value4Text");
+
+    setText("footerText", "footerText");
+  }
+
+  // ===== 登录状态脚本：读取 localStorage.aurum_user =====
   function getAurumUser() {
     try {
       const raw = localStorage.getItem("aurum_user");
@@ -224,7 +487,6 @@ a { text-decoration: none; color: inherit; }
     }
   }
 
-  // 登出：清掉 localStorage，然后刷新导航显示
   function aurumLogout() {
     localStorage.removeItem("aurum_user");
     renderNavUserArea();
@@ -232,17 +494,14 @@ a { text-decoration: none; color: inherit; }
     // window.location.href = "index.html";
   }
 
-  // 根据登录状态渲染导航栏右侧区域
   function renderNavUserArea() {
     const area = document.getElementById("navUserArea");
     if (!area) return;
 
     const user = getAurumUser();
     if (!user) {
-      // 未登录：只显示 Sign in
       area.innerHTML = '<a href="auth.html" class="nav-signin-link">Sign in</a>';
     } else {
-      // 已登录：显示 Hi, xxx + Logout
       const displayName = user.name || user.email || user.phone || "Member";
       area.innerHTML = `
         <span class="nav-hi">Hi, ${displayName}</span>
@@ -253,7 +512,10 @@ a { text-decoration: none; color: inherit; }
     }
   }
 
-  document.addEventListener("DOMContentLoaded", renderNavUserArea);
+  document.addEventListener("DOMContentLoaded", () => {
+    renderNavUserArea();
+    applyGlobalLanguage(); // 跟首页保持同一语言
+  });
 </script>
 </body>
 </html>
