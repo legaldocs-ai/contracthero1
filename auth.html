@@ -457,6 +457,7 @@
 </footer>
 
 <script>
+  // 你的 Worker 域名
   const API_BASE = "https://aurum-task-worker.sophieinbg.workers.dev";
 
   /* ===================== 多语言 ===================== */
@@ -749,30 +750,14 @@
     showTab("register");
   });
 
-  /* ===================== 工具函数：本地用户（无后端版本） ===================== */
+  /* ===================== 登录后状态 & 跳转 ===================== */
 
-  function loadUsers() {
-    try {
-      return JSON.parse(localStorage.getItem("aurum_users") || "[]");
-    } catch {
-      return [];
-    }
-  }
-  function saveUsers(users) {
-    localStorage.setItem("aurum_users", JSON.stringify(users));
-  }
-  function findUser(email) {
-    const list = loadUsers();
-    return list.find(u => u.email.toLowerCase() === email.toLowerCase());
-  }
-  function upsertUser(user) {
-    const list = loadUsers().filter(u => u.email.toLowerCase() !== user.email.toLowerCase());
-    list.push(user);
-    saveUsers(list);
-  }
   function setCurrentUser(user) {
-    localStorage.setItem("aurum_user", JSON.stringify(user));
+    try {
+      localStorage.setItem("aurum_user", JSON.stringify(user || {}));
+    } catch (_) {}
   }
+
   function redirectAfterAuth() {
     const params = new URLSearchParams(location.search);
     const redirectParam = params.get("redirect");
@@ -839,14 +824,14 @@
     }, 1000);
   }
 
-  /* ===================== 登录：密码登录 ===================== */
+  /* ===================== 登录：密码登录（后端 /auth/login） ===================== */
 
   const loginEmail = document.getElementById("loginEmail");
   const loginPassword = document.getElementById("loginPassword");
   const btnPasswordLogin = document.getElementById("btnPasswordLogin");
   const loginStatus = document.getElementById("loginStatus");
 
-  btnPasswordLogin.addEventListener("click", () => {
+  btnPasswordLogin.addEventListener("click", async () => {
     const email = loginEmail.value.trim();
     const pwd = loginPassword.value.trim();
     if (!email || !pwd) {
@@ -856,23 +841,41 @@
       loginStatus.className = "status status-err";
       return;
     }
-    const user = findUser(email);
-    if (!user || user.password !== pwd) {
-      loginStatus.textContent = currentLang === "zh"
-        ? "邮箱或密码错误。"
-        : "Incorrect email or password.";
-      loginStatus.className = "status status-err";
-      return;
-    }
-    setCurrentUser(user);
+
+    btnPasswordLogin.disabled = true;
     loginStatus.textContent = currentLang === "zh"
-      ? "登录成功，正在返回上一页..."
-      : "Signed in. Redirecting...";
-    loginStatus.className = "status status-ok";
-    setTimeout(redirectAfterAuth, 600);
+      ? "正在登录..."
+      : "Signing in...";
+    loginStatus.className = "status";
+
+    try {
+      const res = await fetch(API_BASE + "/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password: pwd })
+      });
+      const data = await res.json();
+      if (!res.ok || !data.ok) {
+        throw new Error(data.error || ("HTTP " + res.status));
+      }
+
+      const user = data.user || { email, name: email.split("@")[0], plan: "free" };
+      setCurrentUser(user);
+
+      loginStatus.textContent = currentLang === "zh"
+        ? "登录成功，正在跳转..."
+        : "Signed in. Redirecting...";
+      loginStatus.className = "status status-ok";
+      setTimeout(redirectAfterAuth, 600);
+    } catch (err) {
+      loginStatus.textContent = (currentLang === "zh" ? "登录失败: " : "Sign-in failed: ") + err.message;
+      loginStatus.className = "status status-err";
+    } finally {
+      btnPasswordLogin.disabled = false;
+    }
   });
 
-  /* ===================== 注册：验证码 + 密码 ===================== */
+  /* ===================== 注册：验证码 + 密码（后端 /auth/register） ===================== */
 
   const signupName = document.getElementById("signupName");
   const signupEmail = document.getElementById("signupEmail");
@@ -925,28 +928,28 @@
 
     btnSignup.disabled = true;
     signupStatus.textContent = currentLang === "zh"
-      ? "正在验证邮箱验证码..."
-      : "Verifying email code...";
+      ? "正在注册账户..."
+      : "Creating your account...";
     signupStatus.className = "status";
 
     try {
-      const res = await fetch(API_BASE + "/auth/verify-code", {
+      const res = await fetch(API_BASE + "/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, code, token: signupToken })
+        body: JSON.stringify({
+          name,
+          email,
+          password: pwd1,
+          code,
+          token: signupToken
+        })
       });
       const data = await res.json();
       if (!res.ok || !data.ok) {
         throw new Error(data.error || ("HTTP " + res.status));
       }
 
-      const user = {
-        name,
-        email,
-        password: pwd1,
-        plan: "free",
-      };
-      upsertUser(user);
+      const user = data.user || { name, email, plan: "free" };
       setCurrentUser(user);
 
       signupStatus.textContent = currentLang === "zh"
@@ -955,14 +958,14 @@
       signupStatus.className = "status status-ok";
       setTimeout(redirectAfterAuth, 700);
     } catch (err) {
-      signupStatus.textContent = (currentLang === "zh" ? "验证失败: " : "Verification failed: ") + err.message;
+      signupStatus.textContent = (currentLang === "zh" ? "注册失败: " : "Sign-up failed: ") + err.message;
       signupStatus.className = "status status-err";
     } finally {
       btnSignup.disabled = false;
     }
   });
 
-  /* ===================== 找回密码：验证码 + 新密码 ===================== */
+  /* ===================== 找回密码：验证码 + 新密码（后端 /auth/reset-password） ===================== */
 
   const resetEmail = document.getElementById("resetEmail");
   const resetCode = document.getElementById("resetCode");
@@ -1013,46 +1016,45 @@
 
     btnReset.disabled = true;
     resetStatus.textContent = currentLang === "zh"
-      ? "正在验证验证码..."
-      : "Verifying code...";
+      ? "正在重置密码..."
+      : "Resetting your password...";
     resetStatus.className = "status";
 
     try {
-      const res = await fetch(API_BASE + "/auth/verify-code", {
+      const res = await fetch(API_BASE + "/auth/reset-password", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, code, token: resetToken })
+        body: JSON.stringify({
+          email,
+          newPassword: pwd1,
+          code,
+          token: resetToken
+        })
       });
       const data = await res.json();
       if (!res.ok || !data.ok) {
         throw new Error(data.error || ("HTTP " + res.status));
       }
 
-      const user = findUser(email);
-      if (!user) {
-        resetStatus.textContent = currentLang === "zh"
-          ? "本浏览器中没有找到此邮箱的账户，请先注册。"
-          : "No account found in this browser for that email. Please register first.";
-        resetStatus.className = "status status-err";
-      } else {
-        user.password = pwd1;
-        upsertUser(user);
-        setCurrentUser(user);
-        resetStatus.textContent = currentLang === "zh"
-          ? "密码已重置，正在返回上一页..."
-          : "Password reset. Redirecting...";
-        resetStatus.className = "status status-ok";
-        setTimeout(redirectAfterAuth, 700);
-      }
+      resetStatus.textContent = currentLang === "zh"
+        ? "密码已重置，请使用新密码登录。"
+        : "Password reset. Please sign in with your new password.";
+      resetStatus.className = "status status-ok";
+
+      // 自动切回登录 Tab，并帮你填好邮箱
+      setTimeout(() => {
+        showTab("login");
+        loginEmail.value = email;
+      }, 800);
     } catch (err) {
-      resetStatus.textContent = (currentLang === "zh" ? "验证失败: " : "Verification failed: ") + err.message;
+      resetStatus.textContent = (currentLang === "zh" ? "重置失败: " : "Reset failed: ") + err.message;
       resetStatus.className = "status status-err";
     } finally {
       btnReset.disabled = false;
     }
   });
 
-  // 默认打开：如果 URL 上带 ?tab=register / ?tab=reset 就打开对应 tab
+  // 根据 URL ?tab=register / reset 打开对应 tab
   (function initTabFromUrl () {
     const params = new URLSearchParams(location.search);
     const t = params.get("tab");
