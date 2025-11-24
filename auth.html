@@ -1,1 +1,1071 @@
-<html><body>auth placeholder</body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aurum Account — Sign in</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      background: radial-gradient(circle at top, #101322, #050816 52%, #02030a 100%);
+      color: #f6f4ed;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* ===== Navbar ===== */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(16px);
+      background: rgba(5, 8, 22, 0.94);
+      border-bottom: 1px solid rgba(204,188,119,0.18);
+      padding: 14px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .nav-left {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #f5f2e6;
+    }
+    .nav-links a {
+      margin-left: 22px;
+      font-size: 14px;
+      opacity: 0.86;
+    }
+    .nav-links a:hover { opacity: 1; color: #f0d37a; }
+
+    .lang-switch {
+      display: inline-flex;
+      border-radius: 999px;
+      border: 1px solid rgba(240,211,122,0.4);
+      padding: 2px;
+      margin-left: 18px;
+      background: rgba(6, 10, 26, 0.9);
+    }
+    .lang-btn {
+      border: none;
+      background: transparent;
+      color: #d6d0c4;
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      cursor: pointer;
+      opacity: 0.85;
+    }
+    .lang-btn.active {
+      background: linear-gradient(135deg, #f0d37a, #cba84f);
+      color: #15100a;
+      opacity: 1;
+      font-weight: 600;
+    }
+
+    /* ===== Layout ===== */
+    .outer {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 30px 16px 40px;
+    }
+    .shell {
+      width: 100%;
+      max-width: 1100px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+      gap: 32px;
+    }
+    @media (max-width: 900px) {
+      .shell {
+        grid-template-columns: 1fr;
+        max-width: 640px;
+      }
+    }
+
+    .hero {
+      background: radial-gradient(circle at top left, #1c1b27, #050816);
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.06);
+      padding: 26px 26px 22px;
+    }
+    .hero-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: #c8b177;
+      margin-bottom: 10px;
+    }
+    .hero-title {
+      font-size: 26px;
+      font-weight: 800;
+      color: #f7f5ef;
+      margin-bottom: 6px;
+    }
+    .hero-sub {
+      font-size: 14px;
+      color: #d0c9b9;
+      margin-bottom: 14px;
+    }
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .hero-badges span {
+      font-size: 11px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(240,211,122,0.7);
+      background: rgba(22,18,8,0.9);
+      color: #f6f2e8;
+    }
+    .hero-footer {
+      margin-top: 12px;
+      font-size: 12px;
+      color: #a9a399;
+    }
+    .hero-footer a {
+      color: #f0d37a;
+      text-decoration: underline;
+    }
+
+    .panel {
+      background: radial-gradient(circle at top, #151627, #050816);
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 20px 22px 20px;
+    }
+    .panel-tabs {
+      display: flex;
+      border-radius: 999px;
+      background: rgba(10,12,26,0.92);
+      padding: 3px;
+      margin-bottom: 18px;
+    }
+    .panel-tab {
+      flex: 1;
+      text-align: center;
+      font-size: 13px;
+      padding: 7px 4px;
+      border-radius: 999px;
+      cursor: pointer;
+      color: #bcb7aa;
+      user-select: none;
+    }
+    .panel-tab.active {
+      background: linear-gradient(135deg, #f0d37a, #cba84f);
+      color: #15100a;
+      font-weight: 600;
+    }
+
+    .panel-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .panel-sub {
+      font-size: 13px;
+      color: #b1aca0;
+      margin-bottom: 14px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      margin-bottom: 4px;
+      color: #f5f2ea;
+    }
+    input {
+      width: 100%;
+      padding: 9px 10px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(9,11,26,0.96);
+      color: #f6f4ed;
+      font-size: 13px;
+      font-family: inherit;
+    }
+    input::placeholder { color: #858182; }
+
+    .field { margin-bottom: 10px; }
+
+    .inline-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .inline-row .field-inline {
+      flex: 1;
+      margin-bottom: 0;
+    }
+
+    .btn-primary {
+      width: 100%;
+      padding: 9px 16px;
+      border-radius: 999px;
+      border: 1px solid #f0d37a;
+      background: linear-gradient(135deg, #f0d37a, #cba84f);
+      color: #15100a;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 4px;
+    }
+    .btn-primary:disabled {
+      opacity: 0.6;
+      cursor: default;
+    }
+
+    .btn-outline {
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(240,211,122,0.85);
+      background: transparent;
+      color: #f0d37a;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .btn-outline:disabled {
+      opacity: 0.6;
+      cursor: default;
+    }
+
+    .status {
+      font-size: 12px;
+      margin-top: 8px;
+      min-height: 16px;
+    }
+    .status-ok { color: #9dd79d; }
+    .status-err { color: #ff9a9a; }
+
+    .muted {
+      font-size: 12px;
+      color: #8f8a7f;
+      margin-top: 8px;
+    }
+    .muted a {
+      color: #f0d37a;
+      text-decoration: underline;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 12px;
+      color: #a8a295;
+      padding: 10px 0 18px;
+    }
+  </style>
+</head>
+<body>
+<header class="navbar">
+  <div class="nav-left">AURUM TASK DESK</div>
+  <div class="nav-links">
+    <a href="index.html" data-i18n="nav_home">Home</a>
+    <a href="tasks.html" data-i18n="nav_tasks">Task Marketplace</a>
+    <a href="pricing.html" data-i18n="nav_pricing">Pricing</a>
+    <a href="auth.html" data-i18n="nav_signin">Sign in</a>
+
+    <span class="lang-switch">
+      <button class="lang-btn" data-lang="en">EN</button>
+      <button class="lang-btn" data-lang="zh">中文</button>
+      <button class="lang-btn" data-lang="ar">AR</button>
+      <button class="lang-btn" data-lang="fr">FR</button>
+      <button class="lang-btn" data-lang="de">DE</button>
+    </span>
+  </div>
+</header>
+
+<div class="outer">
+  <div class="shell">
+    <!-- LEFT: Copy -->
+    <section class="hero">
+      <div class="hero-label" data-i18n="hero_label">AURUM ACCOUNT</div>
+      <h1 class="hero-title" data-i18n="hero_title">
+        Secure login to your private desk.
+      </h1>
+      <p class="hero-sub" data-i18n="hero_sub">
+        Existing users sign in with email + password. New users verify their
+        work email once, then use a long-term password afterward.
+      </p>
+
+      <div class="hero-badges">
+        <span data-i18n="badge_password">Password sign-in</span>
+        <span data-i18n="badge_otp">One-time email verification</span>
+        <span data-i18n="badge_reset">Email-based password reset</span>
+      </div>
+
+      <p class="hero-footer" data-i18n="hero_footer">
+        Having trouble with verification codes? Reach us at
+        <a href="mailto:sophieinbg@gmail.com">sophieinbg@gmail.com</a>.
+      </p>
+    </section>
+
+    <!-- RIGHT: Auth panel -->
+    <section class="panel">
+      <div class="panel-tabs">
+        <div class="panel-tab active" id="tabLogin"  data-i18n="tab_login">Sign in</div>
+        <div class="panel-tab" id="tabRegister" data-i18n="tab_register">Create account</div>
+        <div class="panel-tab" id="tabReset" data-i18n="tab_reset">Forgot password</div>
+      </div>
+
+      <!-- ===== 登录：密码登录 ===== -->
+      <div id="loginPanel">
+        <div class="panel-title" data-i18n="login_title">Sign in with password</div>
+        <div class="panel-sub" data-i18n="login_sub">
+          Use the email and password you used when registering your Aurum account.
+        </div>
+
+        <div class="field">
+          <label for="loginEmail" data-i18n="label_email">Work email</label>
+          <input type="email" id="loginEmail" data-i18n-placeholder="ph_email"
+                 placeholder="you@example.com" />
+        </div>
+
+        <div class="field">
+          <label for="loginPassword" data-i18n="label_password">Password</label>
+          <input type="password" id="loginPassword" data-i18n-placeholder="ph_password"
+                 placeholder="Enter your password" />
+        </div>
+
+        <button class="btn-primary" id="btnPasswordLogin" data-i18n="btn_login">
+          Sign in
+        </button>
+        <div class="status" id="loginStatus"></div>
+
+        <p class="muted">
+          <span data-i18n="login_to_register">New here?</span>
+          <a href="#" id="linkGoRegister" data-i18n="link_register">
+            Create an Aurum account
+          </a>
+        </p>
+      </div>
+
+      <!-- ===== 注册：验证码 + 密码 ===== -->
+      <div id="registerPanel" style="display:none;">
+        <div class="panel-title" data-i18n="register_title">Create your Aurum account</div>
+        <div class="panel-sub" data-i18n="register_sub">
+          Tell us your name, work email and a password. We’ll email you a one-time code to activate.
+        </div>
+
+        <div class="field">
+          <label for="signupName" data-i18n="label_name">Your name</label>
+          <input id="signupName" type="text" data-i18n-placeholder="ph_name"
+                 placeholder="First name or full name" />
+        </div>
+
+        <div class="field">
+          <label for="signupEmail" data-i18n="label_email">Work email</label>
+          <input id="signupEmail" type="email" data-i18n-placeholder="ph_email"
+                 placeholder="you@example.com" />
+        </div>
+
+        <div class="inline-row" style="margin-bottom:10px;">
+          <div class="field-inline">
+            <label for="signupCode" data-i18n="label_email_code">Email verification code</label>
+            <input id="signupCode" maxlength="6"
+                   data-i18n-placeholder="ph_code"
+                   placeholder="6-digit code" />
+          </div>
+          <button type="button" class="btn-outline" id="btnSignupSendCode"
+                  data-i18n="btn_send_code">
+            Send code
+          </button>
+        </div>
+
+        <div class="field">
+          <label for="signupPassword" data-i18n="label_password">Password</label>
+          <input id="signupPassword" type="password"
+                 data-i18n-placeholder="ph_password"
+                 placeholder="Set a strong password" />
+        </div>
+        <div class="field">
+          <label for="signupPassword2" data-i18n="label_password_confirm">Confirm password</label>
+          <input id="signupPassword2" type="password"
+                 data-i18n-placeholder="ph_password_confirm"
+                 placeholder="Repeat your password" />
+        </div>
+
+        <button class="btn-primary" id="btnSignup" data-i18n="btn_register">
+          Register
+        </button>
+        <div class="status" id="signupStatus"></div>
+      </div>
+
+      <!-- ===== 找回密码：验证码 + 新密码 ===== -->
+      <div id="resetPanel" style="display:none;">
+        <div class="panel-title" data-i18n="reset_title">Reset your password</div>
+        <div class="panel-sub" data-i18n="reset_sub">
+          Enter your email, we’ll send a one-time code. After verification you can set a new password.
+        </div>
+
+        <div class="field">
+          <label for="resetEmail" data-i18n="label_email">Work email</label>
+          <input id="resetEmail" type="email" data-i18n-placeholder="ph_email"
+                 placeholder="you@example.com" />
+        </div>
+
+        <div class="inline-row" style="margin-bottom:10px;">
+          <div class="field-inline">
+            <label for="resetCode" data-i18n="label_email_code">Email verification code</label>
+            <input id="resetCode" maxlength="6"
+                   data-i18n-placeholder="ph_code"
+                   placeholder="6-digit code" />
+          </div>
+          <button type="button" class="btn-outline" id="btnResetSendCode"
+                  data-i18n="btn_send_code">
+            Send code
+          </button>
+        </div>
+
+        <div class="field">
+          <label for="resetPassword" data-i18n="label_new_password">New password</label>
+          <input id="resetPassword" type="password"
+                 data-i18n-placeholder="ph_new_password"
+                 placeholder="Set a new password" />
+        </div>
+        <div class="field">
+          <label for="resetPassword2" data-i18n="label_password_confirm">Confirm password</label>
+          <input id="resetPassword2" type="password"
+                 data-i18n-placeholder="ph_password_confirm"
+                 placeholder="Repeat your new password" />
+        </div>
+
+        <button class="btn-primary" id="btnReset" data-i18n="btn_reset">
+          Reset password
+        </button>
+        <div class="status" id="resetStatus"></div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<footer class="footer">
+  © 2025 Aurum Task Desk — Account & Access Portal
+</footer>
+
+<script>
+  // 你的 Worker 域名
+  const API_BASE = "https://aurum-task-worker.sophieinbg.workers.dev";
+
+  /* ===================== 多语言 ===================== */
+
+  const translations = {
+    en: {
+      nav_home: "Home",
+      nav_tasks: "Task Marketplace",
+      nav_pricing: "Pricing",
+      nav_signin: "Sign in",
+
+      hero_label: "AURUM ACCOUNT",
+      hero_title: "Secure login to your private desk.",
+      hero_sub: "Existing users sign in with email + password. New users verify their work email once, then use a long-term password.",
+      badge_password: "Password sign-in",
+      badge_otp: "One-time email verification",
+      badge_reset: "Email-based password reset",
+      hero_footer: "Having trouble with verification codes? Reach us at sophieinbg@gmail.com.",
+
+      tab_login: "Sign in",
+      tab_register: "Create account",
+      tab_reset: "Forgot password",
+
+      login_title: "Sign in with password",
+      login_sub: "Use the email and password you used when registering your Aurum account.",
+      login_to_register: "New here?",
+      link_register: "Create an Aurum account",
+
+      register_title: "Create your Aurum account",
+      register_sub: "Tell us your name, work email and a password. We’ll email you a one-time code to activate.",
+
+      reset_title: "Reset your password",
+      reset_sub: "Enter your email, we’ll send a one-time code. After verification you can set a new password.",
+
+      label_email: "Work email",
+      label_password: "Password",
+      label_password_confirm: "Confirm password",
+      label_new_password: "New password",
+      label_email_code: "Email verification code",
+      label_name: "Your name",
+
+      ph_email: "you@example.com",
+      ph_password: "Enter your password",
+      ph_password_confirm: "Repeat your password",
+      ph_new_password: "Set a new password",
+      ph_name: "First name or full name",
+      ph_code: "6-digit code",
+
+      btn_login: "Sign in",
+      btn_register: "Register",
+      btn_reset: "Reset password",
+      btn_send_code: "Send code",
+    },
+    zh: {
+      nav_home: "首页",
+      nav_tasks: "任务大厅",
+      nav_pricing: "价格",
+      nav_signin: "登录",
+
+      hero_label: "AURUM 账户",
+      hero_title: "安全登录你的专属工作台。",
+      hero_sub: "老用户直接使用邮箱 + 密码登录。新用户先用邮箱验证码完成激活，以后长期用密码登录。",
+      badge_password: "密码登录",
+      badge_otp: "一次邮箱验证码",
+      badge_reset: "邮箱重置密码",
+      hero_footer: "收不到验证码？可以发邮件到：sophieinbg@gmail.com。",
+
+      tab_login: "登录",
+      tab_register: "注册账户",
+      tab_reset: "找回密码",
+
+      login_title: "使用密码登录",
+      login_sub: "请输入注册 Aurum 账户时使用的邮箱和密码。",
+      login_to_register: "还没有账户？",
+      link_register: "创建一个 Aurum 账户",
+
+      register_title: "创建你的 Aurum 账户",
+      register_sub: "填写姓名、工作邮箱和登录密码，我们会发送一次性验证码到你的邮箱完成激活。",
+
+      reset_title: "重置登录密码",
+      reset_sub: "输入你的邮箱并获取一次性验证码，验证通过后即可设置新的登录密码。",
+
+      label_email: "工作邮箱",
+      label_password: "登录密码",
+      label_password_confirm: "确认密码",
+      label_new_password: "新密码",
+      label_email_code: "邮箱验证码",
+      label_name: "你的姓名",
+
+      ph_email: "you@example.com",
+      ph_password: "请输入登录密码",
+      ph_password_confirm: "请再次输入密码",
+      ph_new_password: "设置一个新的登录密码",
+      ph_name: "名字或全名",
+      ph_code: "6 位数字验证码",
+
+      btn_login: "登录",
+      btn_register: "注册",
+      btn_reset: "重置密码",
+      btn_send_code: "发送验证码",
+    },
+    ar: {
+      nav_home: "الرئيسية",
+      nav_tasks: "سوق المهام",
+      nav_pricing: "الأسعار",
+      nav_signin: "تسجيل الدخول",
+      hero_label: "حساب AURUM",
+      hero_title: "تسجيل دخول آمن إلى مكتبك الخاص.",
+      hero_sub: "المستخدمون الحاليون يسجلون الدخول بالبريد وكلمة المرور. الجدد يفعّلون البريد برمز لمرة واحدة ثم يستخدمون كلمة مرور دائمة.",
+      badge_password: "تسجيل بكلمة المرور",
+      badge_otp: "رمز بالبريد لمرة واحدة",
+      badge_reset: "إعادة تعيين عبر البريد",
+      hero_footer: "إذا واجهت مشكلة في الرموز، تواصل معنا على sophieinbg@gmail.com.",
+      tab_login: "تسجيل الدخول",
+      tab_register: "إنشاء حساب",
+      tab_reset: "نسيت كلمة المرور",
+      login_title: "تسجيل الدخول بكلمة المرور",
+      login_sub: "استخدم البريد وكلمة المرور التي سجلت بها حسابك.",
+      login_to_register: "مستخدم جديد؟",
+      link_register: "أنشئ حساب Aurum",
+      register_title: "أنشئ حساب Aurum الخاص بك",
+      register_sub: "أدخل اسمك، بريدك العملي وكلمة مرور، وسنرسل رمز تحقق بالبريد.",
+      reset_title: "إعادة تعيين كلمة المرور",
+      reset_sub: "أدخل بريدك وسنرسل رمز تحقق لتعيين كلمة مرور جديدة.",
+      label_email: "البريد العملي",
+      label_password: "كلمة المرور",
+      label_password_confirm: "تأكيد كلمة المرور",
+      label_new_password: "كلمة مرور جديدة",
+      label_email_code: "رمز التحقق بالبريد",
+      label_name: "اسمك",
+      ph_email: "you@example.com",
+      ph_password: "أدخل كلمة المرور",
+      ph_password_confirm: "أعد إدخال كلمة المرور",
+      ph_new_password: "عيّن كلمة مرور جديدة",
+      ph_name: "الاسم",
+      ph_code: "رمز مكوّن من 6 أرقام",
+      btn_login: "تسجيل الدخول",
+      btn_register: "تسجيل",
+      btn_reset: "إعادة التعيين",
+      btn_send_code: "إرسال الرمز",
+    },
+    fr: {
+      nav_home: "Accueil",
+      nav_tasks: "Hall des tâches",
+      nav_pricing: "Tarifs",
+      nav_signin: "Connexion",
+      hero_label: "COMPTE AURUM",
+      hero_title: "Connexion sécurisée à votre bureau privé.",
+      hero_sub: "Les clients existants se connectent avec email + mot de passe. Les nouveaux vérifient une fois leur email professionnel.",
+      badge_password: "Connexion par mot de passe",
+      badge_otp: "Code email à usage unique",
+      badge_reset: "Réinitialisation par email",
+      hero_footer: "Problème de code ? Écrivez-nous : sophieinbg@gmail.com.",
+      tab_login: "Connexion",
+      tab_register: "Créer un compte",
+      tab_reset: "Mot de passe oublié",
+      login_title: "Se connecter avec un mot de passe",
+      login_sub: "Utilisez l’email et le mot de passe de votre compte Aurum.",
+      login_to_register: "Nouveau ici ?",
+      link_register: "Créer un compte Aurum",
+      register_title: "Créez votre compte Aurum",
+      register_sub: "Indiquez votre nom, email pro et un mot de passe. Nous vous enverrons un code de vérification.",
+      reset_title: "Réinitialiser votre mot de passe",
+      reset_sub: "Saisissez votre email, recevez un code et choisissez un nouveau mot de passe.",
+      label_email: "Email professionnel",
+      label_password: "Mot de passe",
+      label_password_confirm: "Confirmez le mot de passe",
+      label_new_password: "Nouveau mot de passe",
+      label_email_code: "Code de vérification email",
+      label_name: "Votre nom",
+      ph_email: "you@example.com",
+      ph_password: "Entrez votre mot de passe",
+      ph_password_confirm: "Répétez le mot de passe",
+      ph_new_password: "Choisissez un nouveau mot de passe",
+      ph_name: "Prénom ou nom complet",
+      ph_code: "Code à 6 chiffres",
+      btn_login: "Connexion",
+      btn_register: "Créer le compte",
+      btn_reset: "Réinitialiser",
+      btn_send_code: "Envoyer le code",
+    },
+    de: {
+      nav_home: "Startseite",
+      nav_tasks: "Task-Marktplatz",
+      nav_pricing: "Preise",
+      nav_signin: "Login",
+      hero_label: "AURUM KONTO",
+      hero_title: "Sicherer Login in Ihr persönliches Desk.",
+      hero_sub: "Bestehende Nutzer loggen sich mit E-Mail + Passwort ein. Neue Nutzer bestätigen einmal ihre Geschäfts-E-Mail.",
+      badge_password: "Passwort-Login",
+      badge_otp: "Einmal-Code per E-Mail",
+      badge_reset: "Passwort per E-Mail zurücksetzen",
+      hero_footer: "Probleme mit Codes? Schreiben Sie an sophieinbg@gmail.com.",
+      tab_login: "Login",
+      tab_register: "Konto erstellen",
+      tab_reset: "Passwort vergessen",
+      login_title: "Mit Passwort anmelden",
+      login_sub: "Nutzen Sie E-Mail und Passwort Ihres Aurum-Kontos.",
+      login_to_register: "Neu hier?",
+      link_register: "Aurum Konto erstellen",
+      register_title: "Ihr Aurum Konto anlegen",
+      register_sub: "Name, Geschäfts-E-Mail und Passwort eingeben. Wir senden einen Bestätigungscode.",
+      reset_title: "Passwort zurücksetzen",
+      reset_sub: "E-Mail eingeben, Code erhalten und neues Passwort festlegen.",
+      label_email: "Geschäfts-E-Mail",
+      label_password: "Passwort",
+      label_password_confirm: "Passwort bestätigen",
+      label_new_password: "Neues Passwort",
+      label_email_code: "E-Mail-Bestätigungscode",
+      label_name: "Ihr Name",
+      ph_email: "you@example.com",
+      ph_password: "Passwort eingeben",
+      ph_password_confirm: "Passwort wiederholen",
+      ph_new_password: "Neues Passwort setzen",
+      ph_name: "Vor- oder Nachname",
+      ph_code: "6-stelliger Code",
+      btn_login: "Login",
+      btn_register: "Registrieren",
+      btn_reset: "Passwort zurücksetzen",
+      btn_send_code: "Code senden",
+    },
+  };
+
+  const langButtons = document.querySelectorAll(".lang-btn");
+  const i18nTextNodes = document.querySelectorAll("[data-i18n]");
+  const i18nPlaceholderNodes = document.querySelectorAll("[data-i18n-placeholder]");
+
+  let currentLang = localStorage.getItem("aurum_lang") || "en";
+  if (!translations[currentLang]) currentLang = "en";
+
+  function applyLanguage(lang) {
+    currentLang = lang;
+    localStorage.setItem("aurum_lang", lang);
+
+    langButtons.forEach(btn => {
+      btn.classList.toggle("active", btn.dataset.lang === lang);
+    });
+
+    const dict = translations[lang] || translations.en;
+
+    i18nTextNodes.forEach(el => {
+      const key = el.dataset.i18n;
+      if (!key) return;
+      const txt = dict[key] || translations.en[key] || "";
+      el.textContent = txt;
+    });
+
+    i18nPlaceholderNodes.forEach(el => {
+      const key = el.dataset.i18nPlaceholder;
+      if (!key) return;
+      const txt = dict[key] || translations.en[key] || "";
+      if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
+        el.placeholder = txt;
+      }
+    });
+  }
+
+  langButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      applyLanguage(btn.dataset.lang);
+    });
+  });
+  applyLanguage(currentLang);
+
+  /* ===================== Tab 切换 ===================== */
+
+  const tabLogin = document.getElementById("tabLogin");
+  const tabRegister = document.getElementById("tabRegister");
+  const tabReset = document.getElementById("tabReset");
+
+  const loginPanel   = document.getElementById("loginPanel");
+  const registerPanel= document.getElementById("registerPanel");
+  const resetPanel   = document.getElementById("resetPanel");
+
+  function showTab(tab) {
+    tabLogin.classList.toggle("active", tab === "login");
+    tabRegister.classList.toggle("active", tab === "register");
+    tabReset.classList.toggle("active", tab === "reset");
+
+    loginPanel.style.display    = tab === "login"    ? "block" : "none";
+    registerPanel.style.display = tab === "register" ? "block" : "none";
+    resetPanel.style.display    = tab === "reset"    ? "block" : "none";
+  }
+
+  tabLogin.addEventListener("click", () => showTab("login"));
+  tabRegister.addEventListener("click", () => showTab("register"));
+  tabReset.addEventListener("click", () => showTab("reset"));
+  document.getElementById("linkGoRegister").addEventListener("click", (e) => {
+    e.preventDefault();
+    showTab("register");
+  });
+
+  /* ===================== 登录后状态 & 跳转 ===================== */
+
+  function setCurrentUser(user) {
+    try {
+      localStorage.setItem("aurum_user", JSON.stringify(user || {}));
+    } catch (_) {}
+  }
+
+  // 注册 / 登录成功后：优先返回上一页，没有就去 desk.html
+  function redirectAfterAuth() {
+    // 1）如果有同域名的上一页，直接回去
+    if (document.referrer && document.referrer.startsWith(location.origin)) {
+      window.location.href = document.referrer;
+      return;
+    }
+
+    // 2）如果浏览器有历史记录，也尝试后退
+    if (history.length > 1) {
+      history.back();
+      return;
+    }
+
+    // 3）兜底：实在没有上一页，就去工作台
+    window.location.href = "desk.html";
+  }
+
+  /* ===================== 公共：发送验证码 ===================== */
+
+  async function sendCodeCommon(email, statusEl, buttonEl, setTokenFn) {
+    if (!email) {
+      statusEl.textContent = currentLang === "zh"
+        ? "请输入邮箱。"
+        : "Please enter your email.";
+      statusEl.className = "status status-err";
+      return;
+    }
+    statusEl.textContent = currentLang === "zh"
+      ? "正在发送验证码到你的邮箱..."
+      : "Sending code to your email...";
+    statusEl.className = "status";
+    buttonEl.disabled = true;
+
+    try {
+      const res = await fetch(API_BASE + "/auth/send-code", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email })
+      });
+      const data = await res.json();
+      if (!res.ok || !data.ok) {
+        throw new Error(data.error || ("HTTP " + res.status));
+      }
+      setTokenFn(data.token);
+      statusEl.textContent = currentLang === "zh"
+        ? "验证码已发送，请检查你的邮箱。"
+        : "Code sent. Please check your inbox.";
+      statusEl.className = "status status-ok";
+    } catch (err) {
+      statusEl.textContent = (currentLang === "zh" ? "发送失败: " : "Send failed: ") + err.message;
+      statusEl.className = "status status-err";
+      buttonEl.disabled = false;
+      return;
+    }
+
+    let count = 60;
+    buttonEl.textContent = (currentLang === "zh" ? "重新发送 " : "Resend in ") + count + "s";
+    const timer = setInterval(() => {
+      count--;
+      if (count <= 0) {
+        clearInterval(timer);
+        buttonEl.disabled = false;
+        buttonEl.textContent = currentLang === "zh" ? "发送验证码" : "Send code";
+      } else {
+        buttonEl.textContent = (currentLang === "zh" ? "重新发送 " : "Resend in ") + count + "s";
+      }
+    }, 1000);
+  }
+
+  /* ===================== 登录：密码登录（后端 /auth/login） ===================== */
+
+  const loginEmail = document.getElementById("loginEmail");
+  const loginPassword = document.getElementById("loginPassword");
+  const btnPasswordLogin = document.getElementById("btnPasswordLogin");
+  const loginStatus = document.getElementById("loginStatus");
+
+  btnPasswordLogin.addEventListener("click", async () => {
+    const email = loginEmail.value.trim();
+    const pwd = loginPassword.value.trim();
+    if (!email || !pwd) {
+      loginStatus.textContent = currentLang === "zh"
+        ? "请输入邮箱和密码。"
+        : "Please enter email and password.";
+      loginStatus.className = "status status-err";
+      return;
+    }
+
+    btnPasswordLogin.disabled = true;
+    loginStatus.textContent = currentLang === "zh"
+      ? "正在登录..."
+      : "Signing in...";
+    loginStatus.className = "status";
+
+    try {
+      const res = await fetch(API_BASE + "/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password: pwd })
+      });
+      const data = await res.json();
+      if (!res.ok || !data.ok) {
+        throw new Error(data.error || ("HTTP " + res.status));
+      }
+
+      const user = data.user || { email, name: email.split("@")[0], plan: "free" };
+      setCurrentUser(user);
+
+      loginStatus.textContent = currentLang === "zh"
+        ? "登录成功，正在跳转..."
+        : "Signed in. Redirecting...";
+      loginStatus.className = "status status-ok";
+      setTimeout(redirectAfterAuth, 600);
+    } catch (err) {
+      loginStatus.textContent = (currentLang === "zh" ? "登录失败: " : "Sign-in failed: ") + err.message;
+      loginStatus.className = "status status-err";
+    } finally {
+      btnPasswordLogin.disabled = false;
+    }
+  });
+
+  /* ===================== 注册：验证码 + 密码（后端 /auth/register） ===================== */
+
+  const signupName = document.getElementById("signupName");
+  const signupEmail = document.getElementById("signupEmail");
+  const signupCode = document.getElementById("signupCode");
+  const signupPassword = document.getElementById("signupPassword");
+  const signupPassword2 = document.getElementById("signupPassword2");
+  const btnSignupSendCode = document.getElementById("btnSignupSendCode");
+  const btnSignup = document.getElementById("btnSignup");
+  const signupStatus = document.getElementById("signupStatus");
+
+  let signupToken = null;
+
+  btnSignupSendCode.addEventListener("click", async () => {
+    await sendCodeCommon(
+      signupEmail.value.trim(),
+      signupStatus,
+      btnSignupSendCode,
+      token => { signupToken = token; }
+    );
+  });
+
+  btnSignup.addEventListener("click", async () => {
+    const name = signupName.value.trim();
+    const email = signupEmail.value.trim();
+    const code = signupCode.value.trim();
+    const pwd1 = signupPassword.value.trim();
+    const pwd2 = signupPassword2.value.trim();
+
+    if (!name || !email || !code || !pwd1 || !pwd2) {
+      signupStatus.textContent = currentLang === "zh"
+        ? "请完整填写所有字段。"
+        : "Please fill in all fields.";
+      signupStatus.className = "status status-err";
+      return;
+    }
+    if (pwd1 !== pwd2) {
+      signupStatus.textContent = currentLang === "zh"
+        ? "两次输入的密码不一致。"
+        : "Passwords do not match.";
+      signupStatus.className = "status status-err";
+      return;
+    }
+    if (!signupToken) {
+      signupStatus.textContent = currentLang === "zh"
+        ? "请先获取邮箱验证码。"
+        : "Please request a verification code first.";
+      signupStatus.className = "status status-err";
+      return;
+    }
+
+    btnSignup.disabled = true;
+    signupStatus.textContent = currentLang === "zh"
+      ? "正在注册账户..."
+      : "Creating your account...";
+    signupStatus.className = "status";
+
+    try {
+      const res = await fetch(API_BASE + "/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          email,
+          password: pwd1,
+          code,
+          token: signupToken
+        })
+      });
+      const data = await res.json();
+      if (!res.ok || !data.ok) {
+        throw new Error(data.error || ("HTTP " + res.status));
+      }
+
+      const user = data.user || { name, email, plan: "free" };
+      setCurrentUser(user);
+
+      signupStatus.textContent = currentLang === "zh"
+        ? "注册成功，正在返回..."
+        : "Account created. Redirecting...";
+      signupStatus.className = "status status-ok";
+      setTimeout(redirectAfterAuth, 700);
+    } catch (err) {
+      signupStatus.textContent = (currentLang === "zh" ? "注册失败: " : "Sign-up failed: ") + err.message;
+      signupStatus.className = "status status-err";
+    } finally {
+      btnSignup.disabled = false;
+    }
+  });
+
+  /* ===================== 找回密码：验证码 + 新密码（后端 /auth/reset-password） ===================== */
+
+  const resetEmail = document.getElementById("resetEmail");
+  const resetCode = document.getElementById("resetCode");
+  const resetPassword = document.getElementById("resetPassword");
+  const resetPassword2 = document.getElementById("resetPassword2");
+  const btnResetSendCode = document.getElementById("btnResetSendCode");
+  const btnReset = document.getElementById("btnReset");
+  const resetStatus = document.getElementById("resetStatus");
+
+  let resetToken = null;
+
+  btnResetSendCode.addEventListener("click", async () => {
+    await sendCodeCommon(
+      resetEmail.value.trim(),
+      resetStatus,
+      btnResetSendCode,
+      token => { resetToken = token; }
+    );
+  });
+
+  btnReset.addEventListener("click", async () => {
+    const email = resetEmail.value.trim();
+    const code = resetCode.value.trim();
+    const pwd1 = resetPassword.value.trim();
+    const pwd2 = resetPassword2.value.trim();
+
+    if (!email || !code || !pwd1 || !pwd2) {
+      resetStatus.textContent = currentLang === "zh"
+        ? "请完整填写所有字段。"
+        : "Please fill in all fields.";
+      resetStatus.className = "status status-err";
+      return;
+    }
+    if (pwd1 !== pwd2) {
+      resetStatus.textContent = currentLang === "zh"
+        ? "两次输入的密码不一致。"
+        : "Passwords do not match.";
+      resetStatus.className = "status status-err";
+      return;
+    }
+    if (!resetToken) {
+      resetStatus.textContent = currentLang === "zh"
+        ? "请先获取邮箱验证码。"
+        : "Please request a verification code first.";
+      resetStatus.className = "status status-err";
+      return;
+    }
+
+    btnReset.disabled = true;
+    resetStatus.textContent = currentLang === "zh"
+      ? "正在重置密码..."
+      : "Resetting your password...";
+    resetStatus.className = "status";
+
+    try {
+      const res = await fetch(API_BASE + "/auth/reset-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          newPassword: pwd1,
+          code,
+          token: resetToken
+        })
+      });
+      const data = await res.json();
+      if (!res.ok || !data.ok) {
+        throw new Error(data.error || ("HTTP " + res.status));
+      }
+
+      resetStatus.textContent = currentLang === "zh"
+        ? "密码已重置，请使用新密码登录。"
+        : "Password reset. Please sign in with your new password.";
+      resetStatus.className = "status status-ok";
+
+      // 自动切回登录 Tab，并帮你填好邮箱
+      setTimeout(() => {
+        showTab("login");
+        loginEmail.value = email;
+      }, 800);
+    } catch (err) {
+      resetStatus.textContent = (currentLang === "zh" ? "重置失败: " : "Reset failed: ") + err.message;
+      resetStatus.className = "status status-err";
+    } finally {
+      btnReset.disabled = false;
+    }
+  });
+
+  // 根据 URL ?tab=register / reset 打开对应 tab
+  (function initTabFromUrl () {
+    const params = new URLSearchParams(location.search);
+    const t = params.get("tab");
+    if (t === "register") showTab("register");
+    else if (t === "reset") showTab("reset");
+    else showTab("login");
+  })();
+</script>
+</body>
+</html>
