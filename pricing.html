@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Aurum Task Desk — Pricing</title>
   <link rel="icon" type="image/png" href="favicon.png" />
+
+  <!-- Stripe.js，用于跳转到 Stripe Checkout -->
+  <script src="https://js.stripe.com/v3/"></script>
+
   <style>
     * { box-sizing: border-box; }
 
@@ -331,7 +335,10 @@
         <li id="oneTimeLi4">No subscription, no login — just pay and receive the text</li>
       </ul>
 
-      <a href="tasks.html" class="btn-primary" id="oneTimeCta">Start with a one-time task</a>
+      <!-- 一次性付款按钮：现在会走 Stripe + Worker -->
+      <a href="#" class="btn-primary" id="oneTimeCta">Start with a one-time task</a>
+      <div id="oneTimeError" class="muted" style="margin-top:6px;color:#b32626;"></div>
+
       <p class="muted" style="margin-top:8px;" id="oneTimeTip">
         Ideal for testing the Desk before moving into a monthly relationship.
       </p>
@@ -364,7 +371,7 @@
             <li id="starterLi4">Personal Desk page (after subscription)</li>
             <li id="starterLi5">Email-based communication only</li>
           </ul>
-          <!-- TODO: replace href with your Stripe subscription link for Starter plan -->
+          <!-- TODO: 换成你在 Stripe 里建好的 Starter Desk 订阅链接 -->
           <a href="https://YOUR_STARTER_DESK_STRIPE_LINK" class="btn-outline" id="starterCta">
             Start Starter Desk
           </a>
@@ -392,7 +399,7 @@
             <li id="proLi5">Priority delivery (24–48 hours)</li>
             <li id="proLi6">Personal Desk page for tasks</li>
           </ul>
-          <!-- TODO: replace href with your Stripe subscription link for Professional plan -->
+          <!-- TODO: 换成 Professional Desk 的 Stripe 订阅链接 -->
           <a href="https://YOUR_PRO_DESK_STRIPE_LINK" class="btn-outline" id="proCta">
             Start Professional Desk
           </a>
@@ -420,7 +427,7 @@
             <li id="privateLi5">Highest priority in the Desk queue</li>
             <li id="privateLi6">Premium Personal Desk page</li>
           </ul>
-          <!-- TODO: replace href with your Stripe subscription link for Private plan -->
+          <!-- TODO: 换成 Private Desk 的 Stripe 订阅链接 -->
           <a href="https://YOUR_PRIVATE_DESK_STRIPE_LINK" class="btn-outline" id="privateCta">
             Start Private Desk
           </a>
@@ -457,6 +464,85 @@
   </footer>
 
   <script>
+    // ========= 这里填你的 Cloudflare Worker 域名 =========
+    // 例如：https://aurum-task-desk.yourname.workers.dev
+    const WORKER_BASE = "https://YOUR_WORKER_DOMAIN";
+
+    // 一次性任务：Stripe Checkout 逻辑
+    async function startOneTimeCheckout(btn) {
+      const errorBox = document.getElementById("oneTimeError");
+      if (errorBox) errorBox.textContent = "";
+
+      // 防止忘记改域名
+      if (!WORKER_BASE || WORKER_BASE.includes("YOUR_WORKER_DOMAIN")) {
+        if (errorBox) {
+          errorBox.textContent = "Payment backend is not configured yet.";
+        }
+        return;
+      }
+
+      const originalText = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = (window.AURUM_LANG === "zh" ? "处理中..." : "Processing...");
+
+      try {
+        // 1) 获取 Stripe publishable key
+        const cfgRes = await fetch(`${WORKER_BASE}/stripe/config`);
+        const cfgData = await cfgRes.json();
+
+        if (!cfgData.ok || !cfgData.publishableKey) {
+          throw new Error("Stripe config error");
+        }
+
+        const stripe = Stripe(cfgData.publishableKey);
+
+        // 2) 创建 Checkout Session
+        const sessionRes = await fetch(`${WORKER_BASE}/stripe/create-checkout-session`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          // 这里 body 可以为空，让后端用默认 PRICE
+          body: JSON.stringify({
+            type: "one_time_task"
+          })
+        });
+
+        const sessionData = await sessionRes.json();
+        if (!sessionData.ok || !sessionData.id) {
+          console.error("Session error:", sessionData);
+          throw new Error(sessionData.error || "Unable to create checkout session");
+        }
+
+        // 3) 跳转到 Stripe Checkout
+        const { error } = await stripe.redirectToCheckout({
+          sessionId: sessionData.id
+        });
+
+        if (error) {
+          throw error;
+        }
+      } catch (err) {
+        console.error(err);
+        if (errorBox) {
+          errorBox.textContent =
+            (window.AURUM_LANG === "zh"
+              ? "支付失败，请稍后重试，或联系支持。"
+              : "Payment failed, please try again or contact support.");
+        }
+      } finally {
+        btn.disabled = false;
+        btn.textContent = originalText;
+      }
+    }
+
+    function attachOneTimePayHandler() {
+      const btn = document.getElementById("oneTimeCta");
+      if (!btn) return;
+      btn.addEventListener("click", async (event) => {
+        event.preventDefault();
+        await startOneTimeCheckout(btn);
+      });
+    }
+
     // ========== 多语言：跟随首页 localStorage.aurum_lang ==========
     let AURUM_LANG = localStorage.getItem("aurum_lang") || "en";
 
@@ -907,6 +993,8 @@
 
     function applyGlobalLanguage() {
       AURUM_LANG = localStorage.getItem("aurum_lang") || "en";
+      window.AURUM_LANG = AURUM_LANG; // 让 Stripe 提示里也能用到
+
       const dict = LANG_STRINGS[AURUM_LANG] || LANG_STRINGS.en;
 
       function setText(id, key) {
@@ -1026,6 +1114,7 @@
     document.addEventListener("DOMContentLoaded", () => {
       renderNavUserArea();
       applyGlobalLanguage(); // 同步首页语言
+      attachOneTimePayHandler(); // 绑定一次性支付按钮
     });
   </script>
 </body>
