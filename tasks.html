@@ -648,559 +648,857 @@
   </main>
 
   <script>
-    // ========== 多语言：读取首页设置的 localStorage.aurum_lang ==========
-    let AURUM_LANG = "en";
+   <script>
+  // ========== 多语言：读取首页设置的 localStorage.aurum_lang ==========
+  let AURUM_LANG = "en";
 
-    const LANG_STRINGS = {
-      en: {
-        navHome: "Home",
-        navTasks: "Task Marketplace",
-        navPricing: "Pricing",
-        navContact: "Contact",
-        navBadge: "Enterprise Pilot",
+  const LANG_STRINGS = {
+    // ===== English =====
+    en: {
+      navHome: "Home",
+      navTasks: "Task Marketplace",
+      navPricing: "Pricing",
+      navContact: "Contact",
+      navBadge: "Enterprise Pilot",
 
-        deskLabel: "PERSONAL DESK",
-        headerTitle: "Your Aurum Desk",
-        headerSub:
-          "Describe what you want to say in plain language. The Desk turns it into a clear, steady, low-drama draft that older US/EU readers can understand and trust.",
-        chipPrivate: "Drafts stay private",
-        chip50plus: "Optimized for 50+ readers",
-        chipLang: "English / Chinese supported",
+      deskLabel: "PERSONAL DESK",
+      headerTitle: "Your Aurum Desk",
+      headerSub:
+        "Describe what you want to say in plain language. The Desk turns it into a clear, steady, low-drama draft that older US/EU readers can understand and trust.",
+      chipPrivate: "Drafts stay private",
+      chip50plus: "Optimized for 50+ readers",
+      chipLang: "English / Chinese supported",
 
-        overviewTitle: "Desk overview",
-        overviewSub:
-          "This Desk is for letters, clarifications, family communication, and short posts — especially when the topic is emotional, complex, or easy to misunderstand.",
-        planPill: "Aurum Desk · Preview mode",
-        usagePill: "Free 30% preview · $19.9 unlock",
-        modePill: "Mode: Preview only",
-        usageTitle: "Monthly previews (this browser)",
-        usageFootnote:
-          "This counter is local to your device and resets when you clear your browser storage.",
-        statToneLabel: "Typical tone",
-        statToneValue: "Calm & respectful",
-        statBestLabel: "Best use cases",
-        statBestValue: "Family, apologies, clarifications",
-        statAudienceLabel: "Audience focus",
-        statAudienceValue: "Men 50+ (US/EU)",
-        hintText:
-          "How it works: Each task produces a full draft. You see the first 30% clearly. The remaining text stays softly blurred so you can confirm it “feels right” without copying it. Once you’re comfortable, you can unlock the full draft for $19.9.",
+      overviewTitle: "Desk overview",
+      overviewSub:
+        "This Desk is for letters, clarifications, family communication, and short posts — especially when the topic is emotional, complex, or easy to misunderstand.",
+      planPill: "Aurum Desk · Preview mode",
+      usagePill: "Free 30% preview · $19.9 unlock",
+      modePill: "Mode: Preview only",
+      usageTitle: "Monthly previews (this browser)",
+      usageFootnote:
+        "This counter is local to your device and resets when you clear your browser storage.",
+      statToneLabel: "Typical tone",
+      statToneValue: "Calm & respectful",
+      statBestLabel: "Best use cases",
+      statBestValue: "Family, apologies, clarifications",
+      statAudienceLabel: "Audience focus",
+      statAudienceValue: "Men 50+ (US/EU)",
+      hintText:
+        "How it works: Each task produces a full draft. You see the first 30% clearly. The remaining text stays softly blurred so you can confirm it “feels right” without copying it. Once you’re comfortable, you can unlock the full draft for $19.9.",
 
-        submitTitle: "Submit a task to your Desk",
-        submitSub:
-          "The more details you provide, the more precise the draft. Focus on what happened, what you want to say now, and any boundaries or red lines.",
+      submitTitle: "Submit a task to your Desk",
+      submitSub:
+        "The more details you provide, the more precise the draft. Focus on what happened, what you want to say now, and any boundaries or red lines.",
 
-        labelTaskType: "Task type",
-        optEmail: "Email / Letter",
-        optFamily: "Family communication",
-        optBusiness: "Business text / policy / notice",
-        optReply: "Reply to an existing message",
-        optLinkedin: "LinkedIn post or update",
-        optSpeech: "Short speech / talking points",
-        optOther: "Other (describe below)",
+      labelTaskType: "Task type",
+      optEmail: "Email / Letter",
+      optFamily: "Family communication",
+      optBusiness: "Business text / policy / notice",
+      optReply: "Reply to an existing message",
+      optLinkedin: "LinkedIn post or update",
+      optSpeech: "Short speech / talking points",
+      optOther: "Other (describe below)",
 
-        labelTone: "Tone",
-        optToneCalm: "Calm and respectful",
-        optTonePro: "Professional and clear",
-        optToneWarm: "Warm and supportive",
-        optToneFirm: "Firm but polite",
-        optToneSimple: "Very simple English",
+      labelTone: "Tone",
+      optToneCalm: "Calm and respectful",
+      optTonePro: "Professional and clear",
+      optToneWarm: "Warm and supportive",
+      optToneFirm: "Firm but polite",
+      optToneSimple: "Very simple English",
 
-        labelLanguage: "Language",
-        optLangEn: "English",
-        optLangBi: "English + Chinese",
-        optLangZh: "Chinese only",
+      labelLanguage: "Language",
+      optLangEn: "English",
+      optLangBi: "English + Chinese",
+      optLangZh: "Chinese only",
 
-        labelAudience: "Who is this for?",
-        audiencePlaceholder:
-          "My daughter, my ex-wife, my boss, a trucking client, LinkedIn readers...",
-        labelDetails: "What do you want to say? (details)",
-        detailsPlaceholder:
-          "Explain what happened, what you want to say now, any limits or boundaries, and any key dates or facts. The Desk will turn this into a clear draft.",
+      labelAudience: "Who is this for?",
+      audiencePlaceholder:
+        "My daughter, my ex-wife, my boss, a trucking client, LinkedIn readers...",
+      labelDetails: "What do you want to say? (details)",
+      detailsPlaceholder:
+        "Explain what happened, what you want to say now, any limits or boundaries, and any key dates or facts. The Desk will turn this into a clear draft.",
 
-        btnGenerate: "Generate 30% preview",
-        btnCopy: "Copy current draft",
-        resultEmpty:
-          "No draft yet. Submit a task on this page and your Desk will generate a full draft — showing you a clear 30% preview first.",
-        footerText:
-          "© 2025 Aurum Task Desk — Enterprise Personal Desk. Internal pilot use only."
-      },
-      zh: {
-        navHome: "首页",
-        navTasks: "任务大厅",
-        navPricing: "定价",
-        navContact: "联系",
-        navBadge: "企业内部试运行",
+      btnGenerate: "Generate 30% preview",
+      btnCopy: "Copy current draft",
+      resultEmpty:
+        "No draft yet. Submit a task on this page and your Desk will generate a full draft — showing you a clear 30% preview first.",
+      footerText:
+        "© 2025 Aurum Task Desk — Enterprise Personal Desk. Internal pilot use only."
+    },
 
-        deskLabel: "个人任务桌",
-        headerTitle: "你的 Aurum 任务桌",
-        headerSub:
-          "用日常语言写下你想表达的内容。任务桌会把它整理成冷静、清晰、低冲突的稿件，让欧美 50+ 读者也能轻松理解并产生信任。",
-        chipPrivate: "草稿完全私密",
-        chip50plus: "针对 50+ 读者优化",
-        chipLang: "支持英文 / 中文",
+    // ===== 简体中文 =====
+    zh: {
+      navHome: "首页",
+      navTasks: "任务大厅",
+      navPricing: "定价",
+      navContact: "联系",
+      navBadge: "企业内部试运行",
 
-        overviewTitle: "任务桌概览",
-        overviewSub:
-          "适合写信、解释说明、家庭沟通、简短帖子等，尤其是那些情绪重、容易被误解的话题。",
-        planPill: "Aurum 任务桌 · 预览模式",
-        usagePill: "30% 免费预览 · 完整稿 $19.9 解锁",
-        modePill: "当前模式：仅预览",
-        usageTitle: "本浏览器当月预览次数",
-        usageFootnote:
-          "次数记录只保存在你本地设备上，清理浏览器存储后会重置。",
-        statToneLabel: "常用语气",
-        statToneValue: "冷静、尊重",
-        statBestLabel: "最佳场景",
-        statBestValue: "家人沟通、道歉、解释说明",
-        statAudienceLabel: "主要读者",
-        statAudienceValue: "欧美 50+ 男性为主",
-        hintText:
-          "使用方式：每个任务都会生成一份完整稿件，你先看到清晰的 30%。剩余内容会被柔和遮挡，只用来感受整体风格，不能直接复制。确认风格合适后，可以支付 $19.9 解锁完整文本。",
+      deskLabel: "个人任务桌",
+      headerTitle: "你的 Aurum 任务桌",
+      headerSub:
+        "用日常语言写下你想表达的内容。任务桌会把它整理成冷静、清晰、低冲突的稿件，让欧美 50+ 读者也能轻松理解并产生信任。",
+      chipPrivate: "草稿完全私密",
+      chip50plus: "针对 50+ 读者优化",
+      chipLang: "支持英文 / 中文",
 
-        submitTitle: "向任务桌提交一次写作需求",
-        submitSub:
-          "信息越详细，草稿越精准。重点写清楚：发生了什么、你现在想表达什么、有哪些底线和不能说的话。",
+      overviewTitle: "任务桌概览",
+      overviewSub:
+        "适合写信、解释说明、家庭沟通、简短帖子等，尤其是那些情绪重、容易被误解的话题。",
+      planPill: "Aurum 任务桌 · 预览模式",
+      usagePill: "30% 免费预览 · 完整稿 $19.9 解锁",
+      modePill: "当前模式：仅预览",
+      usageTitle: "本浏览器当月预览次数",
+      usageFootnote:
+        "次数记录只保存在你本地设备上，清理浏览器存储后会重置。",
+      statToneLabel: "常用语气",
+      statToneValue: "冷静、尊重",
+      statBestLabel: "最佳场景",
+      statBestValue: "家人沟通、道歉、解释说明",
+      statAudienceLabel: "主要读者",
+      statAudienceValue: "欧美 50+ 男性为主",
+      hintText:
+        "使用方式：每个任务都会生成一份完整稿件，你先看到清晰的 30%。剩余内容会被柔和遮挡，只用来感受整体风格，不能直接复制。确认风格合适后，可以支付 $19.9 解锁完整文本。",
 
-        labelTaskType: "任务类型",
-        optEmail: "邮件 / 信件",
-        optFamily: "家庭沟通",
-        optBusiness: "商务文本 / 通知 / 政策",
-        optReply: "回复已经收到的信息",
-        optLinkedin: "LinkedIn 内容更新",
-        optSpeech: "简短发言 / 要点提纲",
-        optOther: "其他（在下方说明）",
+      submitTitle: "向任务桌提交一次写作需求",
+      submitSub:
+        "信息越详细，草稿越精准。重点写清楚：发生了什么、你现在想表达什么、有哪些底线和不能说的话。",
 
-        labelTone: "语气",
-        optToneCalm: "冷静、尊重",
-        optTonePro: "专业、清晰",
-        optToneWarm: "温和、支持",
-        optToneFirm: "坚定但有礼貌",
-        optToneSimple: "非常简单的英文",
+      labelTaskType: "任务类型",
+      optEmail: "邮件 / 信件",
+      optFamily: "家庭沟通",
+      optBusiness: "商务文本 / 通知 / 政策",
+      optReply: "回复已经收到的信息",
+      optLinkedin: "LinkedIn 内容更新",
+      optSpeech: "简短发言 / 要点提纲",
+      optOther: "其他（在下方说明）",
 
-        labelLanguage: "语言选择",
-        optLangEn: "英文",
-        optLangBi: "英文 + 中文",
-        optLangZh: "仅中文",
+      labelTone: "语气",
+      optToneCalm: "冷静、尊重",
+      optTonePro: "专业、清晰",
+      optToneWarm: "温和、支持",
+      optToneFirm: "坚定但有礼貌",
+      optToneSimple: "非常简单的英文",
 
-        labelAudience: "这段话要写给谁？",
-        audiencePlaceholder:
-          "比如：我的女儿、前妻、老板、一位货运客户、LinkedIn 读者……",
-        labelDetails: "你具体想说什么？（请详细说明）",
-        detailsPlaceholder:
-          "写清楚：事情经过、你现在的想法、哪些话可以说、哪些不能说、重要时间点或事实。任务桌会把它整理成可直接发送的稿件。",
+      labelLanguage: "语言选择",
+      optLangEn: "英文",
+      optLangBi: "英文 + 中文",
+      optLangZh: "仅中文",
 
-        btnGenerate: "生成 30% 预览稿",
-        btnCopy: "复制当前稿件",
-        resultEmpty:
-          "还没有草稿。先在上面提交一次写作需求，任务桌会生成完整稿件，并先展示清晰的 30% 预览。",
-        footerText:
-          "© 2025 Aurum Task Desk — 企业级个人任务桌。仅供内部试运行使用。"
-      }
-    };
+      labelAudience: "这段话要写给谁？",
+      audiencePlaceholder:
+        "比如：我的女儿、前妻、老板、一位货运客户、LinkedIn 读者……",
+      labelDetails: "你具体想说什么？（请详细说明）",
+      detailsPlaceholder:
+        "写清楚：事情经过、你现在的想法、哪些话可以说、哪些不能说、重要时间点或事实。任务桌会把它整理成可直接发送的稿件。",
 
-    function applyGlobalLanguage() {
-      AURUM_LANG = localStorage.getItem("aurum_lang") || "en";
-      const dict = LANG_STRINGS[AURUM_LANG] || LANG_STRINGS.en;
+      btnGenerate: "生成 30% 预览稿",
+      btnCopy: "复制当前稿件",
+      resultEmpty:
+        "还没有草稿。先在上面提交一次写作需求，任务桌会生成完整稿件，并先展示清晰的 30% 预览。",
+      footerText:
+        "© 2025 Aurum Task Desk — 企业级个人任务桌。仅供内部试运行使用。"
+    },
 
-      function setText(id, key) {
-        const el = document.getElementById(id);
-        if (el && dict[key]) el.textContent = dict[key];
-      }
+    // ===== Arabic (اللغة العربية) =====
+    ar: {
+      navHome: "الرئيسية",
+      navTasks: "سوق المهام",
+      navPricing: "الأسعار",
+      navContact: "تواصل",
+      navBadge: "نسخة تجريبية للشركات",
 
-      setText("navHome", "navHome");
-      setText("navTasks", "navTasks");
-      setText("navPricing", "navPricing");
-      setText("navContact", "navContact");
-      setText("navBadge", "navBadge");
+      deskLabel: "مكتب شخصي",
+      headerTitle: "مكتب Aurum الخاص بك",
+      headerSub:
+        "اكتب ما تريد قوله بلغة بسيطة. يقوم المكتب بتحويله إلى نص هادئ وواضح يمكن للقرّاء الأكبر سنًا في الولايات المتحدة وأوروبا فهمه والثقة به.",
+      chipPrivate: "المسودات تبقى خاصة",
+      chip50plus: "محسّن للرجال +50",
+      chipLang: "يدعم الإنجليزية / الصينية",
 
-      setText("deskLabel", "deskLabel");
-      setText("headerTitle", "headerTitle");
-      setText("headerSub", "headerSub");
-      setText("chipPrivate", "chipPrivate");
-      setText("chip50plus", "chip50plus");
-      setText("chipLang", "chipLang");
+      overviewTitle: "نظرة عامة على المكتب",
+      overviewSub:
+        "هذا المكتب مخصص للرسائل، والتوضيحات، والتواصل العائلي، والمنشورات القصيرة – خاصة عندما يكون الموضوع حساسًا أو سهل سوء الفهم.",
+      planPill: "مكتب Aurum · وضع المعاينة",
+      usagePill: "معاينة 30٪ مجانًا · إظهار كامل مقابل ‎$19.9‎",
+      modePill: "الوضع الحالي: معاينة فقط",
+      usageTitle: "عدد المعاينات الشهري (هذا المتصفح)",
+      usageFootnote:
+        "يتم حفظ العداد على جهازك فقط ويُعاد ضبطه عند مسح بيانات المتصفح.",
+      statToneLabel: "نبرة الكتابة",
+      statToneValue: "هادئة ومحترمة",
+      statBestLabel: "أفضل الاستخدامات",
+      statBestValue: "العائلة، الاعتذارات، التوضيحات",
+      statAudienceLabel: "الفئة المستهدفة",
+      statAudienceValue: "رجال فوق 50 في أمريكا وأوروبا",
+      hintText:
+        "طريقة العمل: كل مهمة تُنتج مسودة كاملة. ترى أول 30٪ بوضوح، والباقي يبقى مموّهًا بلطف حتى تتأكد أن الأسلوب مناسب. بعد ذلك يمكنك دفع ‎$19.9‎ لفتح النص الكامل.",
 
-      setText("overviewTitle", "overviewTitle");
-      setText("overviewSub", "overviewSub");
-      setText("planPill", "planPill");
-      setText("usagePill", "usagePill");
-      setText("modePill", "modePill");
-      setText("usageTitle", "usageTitle");
-      setText("usageFootnote", "usageFootnote");
-      setText("statToneLabel", "statToneLabel");
-      setText("statToneValue", "statToneValue");
-      setText("statBestLabel", "statBestLabel");
-      setText("statBestValue", "statBestValue");
-      setText("statAudienceLabel", "statAudienceLabel");
-      setText("statAudienceValue", "statAudienceValue");
+      submitTitle: "أرسل مهمة إلى مكتبك",
+      submitSub:
+        "كلما قدّمت تفاصيل أكثر، كانت المسودة أدق. ركّز على ما حدث، وما الذي تريد قوله الآن، وأي حدود أو خطوط حمراء.",
 
-      const hintEl = document.getElementById("hintText");
-      if (hintEl && dict.hintText) {
-        // 简单处理粗体部分
-        if (AURUM_LANG === "zh") {
-          hintEl.innerHTML =
-            "<strong>使用方式：</strong>" +
-            dict.hintText.replace("使用方式：", "");
-        } else {
-          hintEl.innerHTML =
-            "<strong>How it works:</strong> " +
-            dict.hintText.replace("How it works: ", "");
-        }
-      }
+      labelTaskType: "نوع المهمة",
+      optEmail: "بريد إلكتروني / رسالة",
+      optFamily: "تواصل عائلي",
+      optBusiness: "نص تجاري / سياسة / إشعار",
+      optReply: "رد على رسالة موجودة",
+      optLinkedin: "منشور أو تحديث LinkedIn",
+      optSpeech: "خطاب قصير / نقاط حديث",
+      optOther: "أخرى (اشرح في الأسفل)",
 
-      setText("submitTitle", "submitTitle");
-      setText("submitSub", "submitSub");
+      labelTone: "نبرة الكتابة",
+      optToneCalm: "هادئة ومحترمة",
+      optTonePro: "مهنية وواضحة",
+      optToneWarm: "دافئة وداعمة",
+      optToneFirm: "حاسمة ولكن مهذبة",
+      optToneSimple: "إنجليزية بسيطة جدًا",
 
-      setText("labelTaskType", "labelTaskType");
-      setText("optEmail", "optEmail");
-      setText("optFamily", "optFamily");
-      setText("optBusiness", "optBusiness");
-      setText("optReply", "optReply");
-      setText("optLinkedin", "optLinkedin");
-      setText("optSpeech", "optSpeech");
-      setText("optOther", "optOther");
+      labelLanguage: "اللغة",
+      optLangEn: "الإنجليزية",
+      optLangBi: "إنجليزي + صيني",
+      optLangZh: "صيني فقط",
 
-      setText("labelTone", "labelTone");
-      setText("optToneCalm", "optToneCalm");
-      setText("optTonePro", "optTonePro");
-      setText("optToneWarm", "optToneWarm");
-      setText("optToneFirm", "optToneFirm");
-      setText("optToneSimple", "optToneSimple");
+      labelAudience: "لمن تُكتب هذه الرسالة؟",
+      audiencePlaceholder:
+        "ابنتي، زوجتي السابقة، مديري، عميل شاحنات، جمهور LinkedIn...",
+      labelDetails: "ماذا تريد أن تقول؟ (مع التفاصيل)",
+      detailsPlaceholder:
+        "اشرح ما حدث، وما الذي تريد قوله الآن، والحدود أو الخطوط الحمراء، وأي تواريخ أو حقائق مهمة. سيحوّل المكتب ذلك إلى مسودة جاهزة للإرسال.",
 
-      setText("labelLanguage", "labelLanguage");
-      setText("optLangEn", "optLangEn");
-      setText("optLangBi", "optLangBi");
-      setText("optLangZh", "optLangZh");
+      btnGenerate: "إنشاء معاينة بنسبة 30٪",
+      btnCopy: "نسخ المسودة الحالية",
+      resultEmpty:
+        "لا توجد مسودة بعد. أرسل مهمة من النموذج أعلاه وسينشئ المكتب مسودة كاملة مع عرض أول 30٪ بشكل واضح.",
+      footerText:
+        "© 2025 Aurum Task Desk — مكتب شخصي على مستوى الشركات. للاستخدام التجريبي الداخلي فقط."
+    },
 
-      setText("labelAudience", "labelAudience");
-      const audienceInput = document.getElementById("audience");
-      if (audienceInput && dict.audiencePlaceholder) {
-        audienceInput.placeholder = dict.audiencePlaceholder;
-      }
+    // ===== French =====
+    fr: {
+      navHome: "Accueil",
+      navTasks: "Place de tâches",
+      navPricing: "Tarifs",
+      navContact: "Contact",
+      navBadge: "Pilotage entreprise",
 
-      setText("labelDetails", "labelDetails");
-      const detailsEl = document.getElementById("details");
-      if (detailsEl && dict.detailsPlaceholder) {
-        detailsEl.placeholder = dict.detailsPlaceholder;
-      }
+      deskLabel: "BUREAU PERSONNEL",
+      headerTitle: "Votre bureau Aurum",
+      headerSub:
+        "Décrivez simplement ce que vous souhaitez dire. Le bureau le transforme en texte clair, posé et sans drame, que des lecteurs plus âgés aux États-Unis et en Europe peuvent comprendre et apprécier.",
+      chipPrivate: "Brouillons privés",
+      chip50plus: "Optimisé pour 50+",
+      chipLang: "Anglais / Chinois pris en charge",
 
-      const generateBtn = document.getElementById("generateBtn");
-      if (generateBtn && dict.btnGenerate) generateBtn.textContent = dict.btnGenerate;
-      const copyBtn = document.getElementById("copyBtn");
-      if (copyBtn && dict.btnCopy) copyBtn.textContent = dict.btnCopy;
+      overviewTitle: "Vue d’ensemble du bureau",
+      overviewSub:
+        "Ce bureau sert pour les lettres, clarifications, messages familiaux et courts textes – surtout lorsque le sujet est sensible ou facile à mal comprendre.",
+      planPill: "Bureau Aurum · Mode aperçu",
+      usagePill: "Aperçu 30 % gratuit · texte complet à 19,9 $",
+      modePill: "Mode actuel : aperçu uniquement",
+      usageTitle: "Aperçus mensuels (ce navigateur)",
+      usageFootnote:
+        "Ce compteur est stocké localement sur votre appareil et se réinitialise quand vous effacez les données du navigateur.",
+      statToneLabel: "Ton habituel",
+      statToneValue: "Calme et respectueux",
+      statBestLabel: "Cas d’usage idéaux",
+      statBestValue: "Famille, excuses, clarifications",
+      statAudienceLabel: "Public cible",
+      statAudienceValue: "Hommes 50+ (US/UE)",
+      hintText:
+        "Fonctionnement : chaque tâche génère un texte complet. Vous voyez clairement les 30 % initiaux, le reste reste flouté pour juger le style. Quand cela vous convient, vous pouvez payer 19,9 $ pour débloquer l’intégralité du texte.",
 
-      const resultEmpty = document.getElementById("resultEmpty");
-      if (resultEmpty && dict.resultEmpty) resultEmpty.textContent = dict.resultEmpty;
+      submitTitle: "Envoyer une demande à votre bureau",
+      submitSub:
+        "Plus vous donnez de détails, plus le brouillon sera précis. Concentrez-vous sur ce qui s’est passé, ce que vous voulez dire maintenant et vos limites.",
 
-      const footerText = document.getElementById("footerText");
-      if (footerText && dict.footerText) footerText.textContent = dict.footerText;
+      labelTaskType: "Type de tâche",
+      optEmail: "E-mail / Lettre",
+      optFamily: "Communication familiale",
+      optBusiness: "Texte professionnel / politique / avis",
+      optReply: "Réponse à un message reçu",
+      optLinkedin: "Publication ou mise à jour LinkedIn",
+      optSpeech: "Court discours / points de parole",
+      optOther: "Autre (décrivez ci-dessous)",
+
+      labelTone: "Ton",
+      optToneCalm: "Calme et respectueux",
+      optTonePro: "Professionnel et clair",
+      optToneWarm: "Chaleureux et soutenant",
+      optToneFirm: "Ferme mais poli",
+      optToneSimple: "Anglais très simple",
+
+      labelLanguage: "Langue",
+      optLangEn: "Anglais",
+      optLangBi: "Anglais + Chinois",
+      optLangZh: "Chinois uniquement",
+
+      labelAudience: "Pour qui est ce message ?",
+      audiencePlaceholder:
+        "Ma fille, mon ex-femme, mon patron, un client transport, les lecteurs LinkedIn…",
+      labelDetails: "Que voulez-vous dire ? (détails)",
+      detailsPlaceholder:
+        "Expliquez ce qui s’est passé, ce que vous voulez dire maintenant, vos limites et les dates ou faits importants. Le bureau en fera un texte prêt à envoyer.",
+
+      btnGenerate: "Générer un aperçu 30 %",
+      btnCopy: "Copier le brouillon",
+      resultEmpty:
+        "Aucun brouillon pour l’instant. Envoyez d’abord une demande via le formulaire ci-dessus et le bureau générera un texte complet avec un aperçu clair de 30 %. ",
+      footerText:
+        "© 2025 Aurum Task Desk — Bureau personnel niveau entreprise. Usage pilote interne uniquement."
+    },
+
+    // ===== German =====
+    de: {
+      navHome: "Startseite",
+      navTasks: "Aufgaben-Marktplatz",
+      navPricing: "Preise",
+      navContact: "Kontakt",
+      navBadge: "Enterprise-Pilot",
+
+      deskLabel: "PERSÖNLICHER SCHREIBTISCH",
+      headerTitle: "Dein Aurum Desk",
+      headerSub:
+        "Beschreibe in einfachen Worten, was du sagen möchtest. Der Desk macht daraus einen ruhigen, klaren Text, den ältere Leser in den USA und Europa gut verstehen und vertrauen können.",
+      chipPrivate: "Entwürfe bleiben privat",
+      chip50plus: "Optimiert für 50+ Leser",
+      chipLang: "Englisch / Chinesisch verfügbar",
+
+      overviewTitle: "Überblick über den Desk",
+      overviewSub:
+        "Geeignet für Briefe, Klarstellungen, Familienkommunikation und kurze Beiträge – besonders bei emotionalen oder leicht missverständlichen Themen.",
+      planPill: "Aurum Desk · Vorschaumodus",
+      usagePill: "30 %-Vorschau gratis · voller Text für 19,9 $",
+      modePill: "Modus: Nur Vorschau",
+      usageTitle: "Monatliche Vorschauen (dieser Browser)",
+      usageFootnote:
+        "Der Zähler wird nur lokal auf deinem Gerät gespeichert und beim Löschen der Browserdaten zurückgesetzt.",
+      statToneLabel: "Typischer Ton",
+      statToneValue: "Ruhig & respektvoll",
+      statBestLabel: "Beste Einsatzfälle",
+      statBestValue: "Familie, Entschuldigungen, Erklärungen",
+      statAudienceLabel: "Zielgruppe",
+      statAudienceValue: "Männer 50+ (USA/EU)",
+      hintText:
+        "So funktioniert es: Jede Aufgabe erzeugt einen vollständigen Entwurf. Du siehst zuerst 30 % klar, der Rest bleibt weich überblendet, damit du den Stil prüfen kannst. Wenn alles passt, kannst du für 19,9 $ den kompletten Text freischalten.",
+
+      submitTitle: "Aufgabe an deinen Desk senden",
+      submitSub:
+        "Je mehr Details du gibst, desto genauer wird der Entwurf. Konzentriere dich darauf, was passiert ist, was du jetzt sagen möchtest und welche Grenzen es gibt.",
+
+      labelTaskType: "Aufgabentyp",
+      optEmail: "E-Mail / Brief",
+      optFamily: "Familienkommunikation",
+      optBusiness: "Geschäftstext / Richtlinie / Hinweis",
+      optReply: "Antwort auf eine vorhandene Nachricht",
+      optLinkedin: "LinkedIn-Post oder Update",
+      optSpeech: "Kurze Rede / Stichpunkte",
+      optOther: "Sonstiges (unten beschreiben)",
+
+      labelTone: "Ton",
+      optToneCalm: "Ruhig und respektvoll",
+      optTonePro: "Professionell und klar",
+      optToneWarm: "Warm und unterstützend",
+      optToneFirm: "Bestimmt, aber höflich",
+      optToneSimple: "Sehr einfaches Englisch",
+
+      labelLanguage: "Sprache",
+      optLangEn: "Englisch",
+      optLangBi: "Englisch + Chinesisch",
+      optLangZh: "Nur Chinesisch",
+
+      labelAudience: "Für wen ist dieser Text?",
+      audiencePlaceholder:
+        "Für meine Tochter, meine Ex-Frau, meinen Chef, einen Trucking-Kunden, LinkedIn-Leser …",
+      labelDetails: "Was möchtest du sagen? (Details)",
+      detailsPlaceholder:
+        "Erkläre, was passiert ist, was du jetzt sagen willst, welche Grenzen es gibt und welche Daten/Fakten wichtig sind. Der Desk macht daraus einen versandfertigen Text.",
+
+      btnGenerate: "30 %-Vorschau erstellen",
+      btnCopy: "Aktuellen Entwurf kopieren",
+      resultEmpty:
+        "Noch kein Entwurf. Sende zuerst eine Aufgabe über das Formular oben, dann erzeugt der Desk einen vollständigen Text und zeigt dir 30 % klar als Vorschau.",
+      footerText:
+        "© 2025 Aurum Task Desk — Persönlicher Enterprise-Desk. Nur für internen Pilotbetrieb."
+    }
+  };
+
+  function applyGlobalLanguage() {
+    AURUM_LANG = localStorage.getItem("aurum_lang") || "en";
+    const dict = LANG_STRINGS[AURUM_LANG] || LANG_STRINGS.en;
+
+    function setText(id, key) {
+      const el = document.getElementById(id);
+      if (el && dict[key]) el.textContent = dict[key];
     }
 
-    // Cloudflare Worker backend
-    const WORKER_API_URL = "https://aurum-task-worker.sophieinbg.workers.dev/api/generate";
+    setText("navHome", "navHome");
+    setText("navTasks", "navTasks");
+    setText("navPricing", "navPricing");
+    setText("navContact", "navContact");
+    setText("navBadge", "navBadge");
 
-    // 简单“本月预览次数”计数（本地浏览器记，假装企业用量统计）
-    const USAGE_LIMIT = 5;
-    const USAGE_KEY = "aurum_desk_preview_count";
+    setText("deskLabel", "deskLabel");
+    setText("headerTitle", "headerTitle");
+    setText("headerSub", "headerSub");
+    setText("chipPrivate", "chipPrivate");
+    setText("chip50plus", "chip50plus");
+    setText("chipLang", "chipLang");
 
-    const nameOverlay = document.getElementById("nameOverlay");
-    const nameInput = document.getElementById("nameInput");
-    const saveNameBtn = document.getElementById("saveNameBtn");
+    setText("overviewTitle", "overviewTitle");
+    setText("overviewSub", "overviewSub");
+    setText("planPill", "planPill");
+    setText("usagePill", "usagePill");
+    setText("modePill", "modePill");
+    setText("usageTitle", "usageTitle");
+    setText("usageFootnote", "usageFootnote");
+    setText("statToneLabel", "statToneLabel");
+    setText("statToneValue", "statToneValue");
+    setText("statBestLabel", "statBestLabel");
+    setText("statBestValue", "statBestValue");
+    setText("statAudienceLabel", "statAudienceLabel");
+    setText("statAudienceValue", "statAudienceValue");
 
-    const planPill = document.getElementById("planPill");
-    const usagePill = document.getElementById("usagePill");
+    const hintEl = document.getElementById("hintText");
+    if (hintEl && dict.hintText) {
+      if (AURUM_LANG === "zh") {
+        hintEl.innerHTML =
+          "<strong>使用方式：</strong>" +
+          dict.hintText.replace("使用方式：", "");
+      } else if (AURUM_LANG === "en") {
+        hintEl.innerHTML =
+          "<strong>How it works:</strong> " +
+          dict.hintText.replace("How it works: ", "");
+      } else if (AURUM_LANG === "fr") {
+        hintEl.innerHTML =
+          "<strong>Fonctionnement :</strong> " +
+          dict.hintText.replace("Fonctionnement : ", "");
+      } else if (AURUM_LANG === "de") {
+        hintEl.innerHTML =
+          "<strong>So funktioniert es:</strong> " +
+          dict.hintText.replace("So funktioniert es: ", "");
+      } else if (AURUM_LANG === "ar") {
+        hintEl.innerHTML =
+          "<strong>طريقة العمل:</strong> " +
+          dict.hintText.replace("طريقة العمل:", "");
+      } else {
+        hintEl.textContent = dict.hintText;
+      }
+    }
 
-    const usageCountText = document.getElementById("usageCountText");
-    const usageBar = document.getElementById("usageBar");
+    setText("submitTitle", "submitTitle");
+    setText("submitSub", "submitSub");
 
-    const taskTypeEl = document.getElementById("taskType");
-    const toneEl = document.getElementById("tone");
-    const languageEl = document.getElementById("language");
-    const audienceEl = document.getElementById("audience");
+    setText("labelTaskType", "labelTaskType");
+    setText("optEmail", "optEmail");
+    setText("optFamily", "optFamily");
+    setText("optBusiness", "optBusiness");
+    setText("optReply", "optReply");
+    setText("optLinkedin", "optLinkedin");
+    setText("optSpeech", "optSpeech");
+    setText("optOther", "optOther");
+
+    setText("labelTone", "labelTone");
+    setText("optToneCalm", "optToneCalm");
+    setText("optTonePro", "optTonePro");
+    setText("optToneWarm", "optToneWarm");
+    setText("optToneFirm", "optToneFirm");
+    setText("optToneSimple", "optToneSimple");
+
+    setText("labelLanguage", "labelLanguage");
+    setText("optLangEn", "optLangEn");
+    setText("optLangBi", "optLangBi");
+    setText("optLangZh", "optLangZh");
+
+    setText("labelAudience", "labelAudience");
+    const audienceInput = document.getElementById("audience");
+    if (audienceInput && dict.audiencePlaceholder) {
+      audienceInput.placeholder = dict.audiencePlaceholder;
+    }
+
+    setText("labelDetails", "labelDetails");
     const detailsEl = document.getElementById("details");
+    if (detailsEl && dict.detailsPlaceholder) {
+      detailsEl.placeholder = dict.detailsPlaceholder;
+    }
 
     const generateBtn = document.getElementById("generateBtn");
+    if (generateBtn && dict.btnGenerate) generateBtn.textContent = dict.btnGenerate;
     const copyBtn = document.getElementById("copyBtn");
-    const statusText = document.getElementById("statusText");
-    const resultBox = document.getElementById("resultBox");
+    if (copyBtn && dict.btnCopy) copyBtn.textContent = dict.btnCopy;
 
-    let currentDraft = "";
+    const resultEmpty = document.getElementById("resultEmpty");
+    if (resultEmpty && dict.resultEmpty) resultEmpty.textContent = dict.resultEmpty;
 
-    function getUsageCount() {
-      const raw = localStorage.getItem(USAGE_KEY);
-      const n = parseInt(raw, 10);
-      if (isNaN(n) || n < 0) return 0;
-      return n;
+    const footerText = document.getElementById("footerText");
+    if (footerText && dict.footerText) footerText.textContent = dict.footerText;
+  }
+
+  // === 下面开始是你原来的逻辑（AI 调用 / 计数 / 登录），保持不变 ===
+
+  // Cloudflare Worker backend
+  const WORKER_API_URL = "https://aurum-task-worker.sophieinbg.workers.dev/api/generate";
+
+  const USAGE_LIMIT = 5;
+  const USAGE_KEY = "aurum_desk_preview_count";
+
+  const nameOverlay = document.getElementById("nameOverlay");
+  const nameInput = document.getElementById("nameInput");
+  const saveNameBtn = document.getElementById("saveNameBtn");
+
+  const planPill = document.getElementById("planPill");
+  const usagePill = document.getElementById("usagePill");
+
+  const usageCountText = document.getElementById("usageCountText");
+  const usageBar = document.getElementById("usageBar");
+
+  const taskTypeEl = document.getElementById("taskType");
+  const toneEl = document.getElementById("tone");
+  const languageEl = document.getElementById("language");
+  const audienceEl = document.getElementById("audience");
+  const detailsEl = document.getElementById("details");
+
+  const generateBtn = document.getElementById("generateBtn");
+  const copyBtn = document.getElementById("copyBtn");
+  const statusText = document.getElementById("statusText");
+  const resultBox = document.getElementById("resultBox");
+
+  let currentDraft = "";
+
+  function getUsageCount() {
+    const raw = localStorage.getItem(USAGE_KEY);
+    const n = parseInt(raw, 10);
+    if (isNaN(n) || n < 0) return 0;
+    return n;
+  }
+
+  function setUsageCount(n) {
+    localStorage.setItem(USAGE_KEY, String(n));
+  }
+
+  function renderUsage() {
+    const count = getUsageCount();
+    const clamped = Math.min(count, USAGE_LIMIT);
+    usageCountText.textContent = clamped + " / " + USAGE_LIMIT + " used";
+    const percent = Math.min(100, (clamped / USAGE_LIMIT) * 100);
+    usageBar.style.width = percent + "%";
+  }
+
+  function setupDeskUI() {
+    renderUsage();
+  }
+
+  function initName() {
+    const stored = localStorage.getItem("aurum_desk_name") || "";
+    if (stored) {
+      nameOverlay.style.display = "none";
+    } else {
+      nameOverlay.style.display = "none"; // 如需启用改成 "flex"
     }
+  }
 
-    function setUsageCount(n) {
-      localStorage.setItem(USAGE_KEY, String(n));
-    }
-
-    function renderUsage() {
-      const count = getUsageCount();
-      const clamped = Math.min(count, USAGE_LIMIT);
-      usageCountText.textContent = clamped + " / " + USAGE_LIMIT + " used";
-      const percent = Math.min(100, (clamped / USAGE_LIMIT) * 100);
-      usageBar.style.width = percent + "%";
-    }
-
-    function setupDeskUI() {
-      // 文字会被多语言覆盖，这里保持默认英文
-      renderUsage();
-    }
-
-    // 名字逻辑现在默认关闭 Overlay
-    function initName() {
-      const stored = localStorage.getItem("aurum_desk_name") || "";
-      if (stored) {
-        nameOverlay.style.display = "none";
-      } else {
-        nameOverlay.style.display = "none"; // 如需启用改成 "flex"
-      }
-    }
-
-    if (saveNameBtn) {
-      saveNameBtn.addEventListener("click", () => {
-        const name = nameInput.value.trim();
-        if (!name) {
-          alert("Please enter a first name.");
-          return;
-        }
-        localStorage.setItem("aurum_desk_name", name);
-        nameOverlay.style.display = "none";
-      });
-    }
-
-    // 生成草稿（30% 清晰 + 70% 半透明模糊遮罩）
-    generateBtn.addEventListener("click", async () => {
-      const taskType = taskTypeEl.value;
-      const tone = toneEl.value;
-      const language = languageEl.value;
-      const audience = audienceEl.value.trim();
-      const details = detailsEl.value.trim();
-      const name = localStorage.getItem("aurum_desk_name") || "";
-
-      if (!details) {
-        alert(AURUM_LANG === "zh"
-          ? "请先描述一下你想表达的内容。"
-          : "Please describe the situation or what you want to say.");
+  if (saveNameBtn) {
+    saveNameBtn.addEventListener("click", () => {
+      const name = nameInput.value.trim();
+      if (!name) {
+        alert("Please enter a first name.");
         return;
       }
+      localStorage.setItem("aurum_desk_name", name);
+      nameOverlay.style.display = "none";
+    });
+  }
 
-      generateBtn.disabled = true;
-      generateBtn.textContent =
-        AURUM_LANG === "zh" ? "正在生成..." : "Generating...";
-      statusText.textContent =
+  generateBtn.addEventListener("click", async () => {
+    const taskType = taskTypeEl.value;
+    const tone = toneEl.value;
+    const language = languageEl.value;
+    const audience = audienceEl.value.trim();
+    const details = detailsEl.value.trim();
+    const name = localStorage.getItem("aurum_desk_name") || "";
+
+    if (!details) {
+      alert(
         AURUM_LANG === "zh"
-          ? "任务桌正在为你整理一份冷静、清晰的稿件……"
-          : "Your Desk is drafting a calm, clear message...";
+          ? "请先描述一下你想表达的内容。"
+          : AURUM_LANG === "ar"
+          ? "يرجى وصف ما تريد قوله أولاً."
+          : AURUM_LANG === "fr"
+          ? "Merci de décrire d’abord ce que vous souhaitez dire."
+          : AURUM_LANG === "de"
+          ? "Bitte beschreibe zuerst, was du sagen möchtest."
+          : "Please describe the situation or what you want to say."
+      );
+      return;
+    }
+
+    generateBtn.disabled = true;
+    generateBtn.textContent =
+      AURUM_LANG === "zh"
+        ? "正在生成..."
+        : AURUM_LANG === "ar"
+        ? "جارٍ الإنشاء..."
+        : AURUM_LANG === "fr"
+        ? "Génération en cours..."
+        : AURUM_LANG === "de"
+        ? "Wird erstellt..."
+        : "Generating...";
+    statusText.textContent =
+      AURUM_LANG === "zh"
+        ? "任务桌正在为你整理一份冷静、清晰的稿件……"
+        : AURUM_LANG === "ar"
+        ? "يعمل المكتب الآن على صياغة رسالة هادئة وواضحة لك..."
+        : AURUM_LANG === "fr"
+        ? "Votre bureau prépare un texte calme et clair..."
+        : AURUM_LANG === "de"
+        ? "Dein Desk formuliert gerade einen ruhigen, klaren Text..."
+        : "Your Desk is drafting a calm, clear message...";
+    resultBox.innerHTML = "";
+
+    try {
+      let prompt =
+        "You are Aurum Task Desk AI. You support older US and EU men (50+), " +
+        "including veterans, truck drivers, engineers and business owners, with calm, clear, respectful writing.\n\n";
+
+      if (name) prompt += "Client first name: " + name + ".\n";
+      prompt += "Task type: " + taskType + ".\n";
+      prompt += "Tone: " + tone + ".\n";
+      prompt +=
+        "Language: " +
+        language +
+        " (if bilingual, answer in English first then Chinese).\n";
+      if (audience) prompt += "Audience: " + audience + ".\n";
+      prompt += "Details: " + details + ".\n\n";
+
+      prompt +=
+        "Write a complete draft that the client can copy and send directly. " +
+        "Avoid overly fancy language. Sound mature, respectful, and steady. " +
+        "If language = Chinese, reply in Chinese. If bilingual, provide English first, then Chinese.\n";
+
+      const res = await fetch(WORKER_API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt })
+      });
+
+      const data = await res.json();
+
+      if (!res.ok || !data.ok) {
+        const msg = data && data.error ? data.error : "HTTP " + res.status;
+        throw new Error(msg);
+      }
+
+      const full = data.text || "No content returned from Aurum Desk AI.";
+      currentDraft = full;
+
+      const current = getUsageCount();
+      setUsageCount(current + 1);
+      renderUsage();
+
+      const previewRatio = 0.3;
+      const previewLength = Math.max(40, Math.floor(full.length * previewRatio));
+      const previewText = full.slice(0, previewLength);
+      const hiddenText = full.slice(previewLength);
+
       resultBox.innerHTML = "";
 
-      try {
-        let prompt =
-          "You are Aurum Task Desk AI. You support older US and EU men (50+), " +
-          "including veterans, truck drivers, engineers and business owners, with calm, clear, respectful writing.\n\n";
+      const previewDiv = document.createElement("div");
+      previewDiv.textContent = previewText;
+      previewDiv.style.marginBottom = "12px";
+      resultBox.appendChild(previewDiv);
 
-        if (name) prompt += "Client first name: " + name + ".\n";
-        prompt += "Task type: " + taskType + ".\n";
-        prompt += "Tone: " + tone + ".\n";
-        prompt += "Language: " + language + " (if bilingual, answer in English first then Chinese).\n";
-        if (audience) prompt += "Audience: " + audience + ".\n";
-        prompt += "Details: " + details + ".\n\n";
+      const blurContainer = document.createElement("div");
+      blurContainer.style.position = "relative";
+      blurContainer.style.marginTop = "10px";
+      blurContainer.style.padding = "12px";
+      blurContainer.style.borderRadius = "10px";
+      blurContainer.style.background = "rgba(240, 242, 255, 0.9)";
+      blurContainer.style.color = "rgba(40, 44, 60, 0.3)";
+      blurContainer.style.whiteSpace = "pre-wrap";
+      blurContainer.style.userSelect = "none";
+      blurContainer.style.overflow = "hidden";
 
-        prompt +=
-          "Write a complete draft that the client can copy and send directly. " +
-          "Avoid overly fancy language. Sound mature, respectful, and steady. " +
-          "If language = Chinese, reply in Chinese. If bilingual, provide English first, then Chinese.\n";
+      blurContainer.textContent = hiddenText;
 
-        const res = await fetch(WORKER_API_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ prompt })
-        });
+      const overlay = document.createElement("div");
+      overlay.style.position = "absolute";
+      overlay.style.inset = "0";
+      overlay.style.background =
+        "linear-gradient(to bottom, rgba(248, 244, 230, 0.7), rgba(232, 231, 245, 0.9))";
+      overlay.style.backdropFilter = "blur(6px)";
+      overlay.style.borderRadius = "10px";
+      overlay.style.display = "flex";
+      overlay.style.flexDirection = "column";
+      overlay.style.alignItems = "center";
+      overlay.style.justifyContent = "center";
+      overlay.style.color = "#815712";
+      overlay.style.fontSize = "14px";
+      overlay.style.textAlign = "center";
+      overlay.style.padding = "20px";
 
-        const data = await res.json();
+      const unlockBtn = document.createElement("button");
+      unlockBtn.textContent =
+        AURUM_LANG === "zh"
+          ? "解锁完整稿件 — $19.9"
+          : AURUM_LANG === "ar"
+          ? "فتح النص الكامل — ‎$19.9‎"
+          : AURUM_LANG === "fr"
+          ? "Débloquer le texte complet — 19,9 $"
+          : AURUM_LANG === "de"
+          ? "Vollen Text freischalten — 19,9 $"
+          : "Unlock full draft — $19.9";
+      unlockBtn.style.padding = "10px 20px";
+      unlockBtn.style.border = "none";
+      unlockBtn.style.borderRadius = "999px";
+      unlockBtn.style.cursor = "pointer";
+      unlockBtn.style.fontSize = "15px";
+      unlockBtn.style.fontWeight = "600";
+      unlockBtn.style.background = "linear-gradient(135deg,#f4b738,#d48c1a)";
+      unlockBtn.style.color = "#15100a";
+      unlockBtn.style.boxShadow = "0 10px 20px rgba(210,140,26,0.35)";
+      unlockBtn.style.marginBottom = "6px";
 
-        if (!res.ok || !data.ok) {
-          const msg = data && data.error ? data.error : "HTTP " + res.status;
-          throw new Error(msg);
-        }
+      unlockBtn.addEventListener("click", () => {
+        window.location.href = "pricing.html#unlock";
+      });
 
-        const full = data.text || "No content returned from Aurum Desk AI.";
-        currentDraft = full;
+      const tip = document.createElement("div");
+      tip.innerHTML =
+        AURUM_LANG === "zh"
+          ? "完整内容目前被柔和锁定。<br>支付 <b>$19.9</b> 后可查看 100% 文本。"
+          : AURUM_LANG === "ar"
+          ? "المحتوى الكامل مقفول حاليًا برفق.<br>ادفع <b>$19.9</b> للوصول إلى 100٪ من النص."
+          : AURUM_LANG === "fr"
+          ? "Le texte complet est actuellement verrouillé en douceur.<br>Payer <b>19,9 $</b> pour accéder à 100 % du contenu."
+          : AURUM_LANG === "de"
+          ? "Der vollständige Text ist derzeit weich gesperrt.<br>Bezahle <b>19,9 $</b>, um 100 % des Entwurfs zu sehen."
+          : "Full content is softly locked.<br>Pay <b>$19.9</b> to access 100% of this draft.";
+      tip.style.opacity = "0.95";
 
-        // usage 计数 + UI
-        const current = getUsageCount();
-        setUsageCount(current + 1);
-        renderUsage();
+      overlay.appendChild(unlockBtn);
+      overlay.appendChild(tip);
 
-        // ---- 30% 清晰预览 + 70% 半透明模糊遮罩 ----
-        const previewRatio = 0.3;
-        const previewLength = Math.max(40, Math.floor(full.length * previewRatio));
-        const previewText = full.slice(0, previewLength);
-        const hiddenText = full.slice(previewLength);
+      blurContainer.appendChild(overlay);
+      resultBox.appendChild(blurContainer);
 
-        resultBox.innerHTML = "";
-
-        const previewDiv = document.createElement("div");
-        previewDiv.textContent = previewText;
-        previewDiv.style.marginBottom = "12px";
-        resultBox.appendChild(previewDiv);
-
-        const blurContainer = document.createElement("div");
-        blurContainer.style.position = "relative";
-        blurContainer.style.marginTop = "10px";
-        blurContainer.style.padding = "12px";
-        blurContainer.style.borderRadius = "10px";
-        blurContainer.style.background = "rgba(240, 242, 255, 0.9)";
-        blurContainer.style.color = "rgba(40, 44, 60, 0.3)";
-        blurContainer.style.whiteSpace = "pre-wrap";
-        blurContainer.style.userSelect = "none";
-        blurContainer.style.overflow = "hidden";
-
-        blurContainer.textContent = hiddenText;
-
-        const overlay = document.createElement("div");
-        overlay.style.position = "absolute";
-        overlay.style.inset = "0";
-        overlay.style.background =
-          "linear-gradient(to bottom, rgba(248, 244, 230, 0.7), rgba(232, 231, 245, 0.9))";
-        overlay.style.backdropFilter = "blur(6px)";
-        overlay.style.borderRadius = "10px";
-        overlay.style.display = "flex";
-        overlay.style.flexDirection = "column";
-        overlay.style.alignItems = "center";
-        overlay.style.justifyContent = "center";
-        overlay.style.color = "#815712";
-        overlay.style.fontSize = "14px";
-        overlay.style.textAlign = "center";
-        overlay.style.padding = "20px";
-
-        const unlockBtn = document.createElement("button");
-        unlockBtn.textContent =
-          AURUM_LANG === "zh"
-            ? "解锁完整稿件 — $19.9"
-            : "Unlock full draft — $19.9";
-        unlockBtn.style.padding = "10px 20px";
-        unlockBtn.style.border = "none";
-        unlockBtn.style.borderRadius = "999px";
-        unlockBtn.style.cursor = "pointer";
-        unlockBtn.style.fontSize = "15px";
-        unlockBtn.style.fontWeight = "600";
-        unlockBtn.style.background = "linear-gradient(135deg,#f4b738,#d48c1a)";
-        unlockBtn.style.color = "#15100a";
-        unlockBtn.style.boxShadow = "0 10px 20px rgba(210,140,26,0.35)";
-        unlockBtn.style.marginBottom = "6px";
-
-        unlockBtn.addEventListener("click", () => {
-          window.location.href = "pricing.html#unlock";
-        });
-
-        const tip = document.createElement("div");
-        tip.innerHTML =
-          AURUM_LANG === "zh"
-            ? "完整内容目前被柔和锁定。<br>支付 <b>$19.9</b> 后可查看 100% 文本。"
-            : "Full content is softly locked.<br>Pay <b>$19.9</b> to access 100% of this draft.";
-        tip.style.opacity = "0.95";
-
-        overlay.appendChild(unlockBtn);
-        overlay.appendChild(tip);
-
-        blurContainer.appendChild(overlay);
-        resultBox.appendChild(blurContainer);
-
-        statusText.textContent =
-          AURUM_LANG === "zh"
-            ? "已生成 30% 清晰预览，其余内容在解锁前将保持柔和遮挡。"
-            : "30% preview displayed — remaining content is blurred until you unlock it.";
-        copyBtn.disabled = true;
-      } catch (err) {
-        console.error(err);
-        resultBox.innerHTML =
-          '<div class="result-empty">' +
-          (AURUM_LANG === "zh"
-            ? "生成稿件时出现问题："
-            : "Something went wrong while generating your draft: ") +
-          (err.message || String(err)) +
-          "</div>";
-        statusText.textContent = "";
-        copyBtn.disabled = true;
-      } finally {
-        generateBtn.disabled = false;
-        const dict = (LANG_STRINGS[AURUM_LANG] || LANG_STRINGS.en);
-        generateBtn.textContent = dict.btnGenerate || "Generate 30% preview";
-      }
-    });
-
-    // Copy 逻辑保留，未来可以给“已付费/订阅用户”开放
-    copyBtn.addEventListener("click", async () => {
-      if (!currentDraft) {
-        alert(
-          AURUM_LANG === "zh"
-            ? "还没有可以复制的稿件。"
-            : "There is no draft to copy yet."
-        );
-        return;
-      }
-      try {
-        await navigator.clipboard.writeText(currentDraft);
-        statusText.textContent =
-          AURUM_LANG === "zh"
-            ? "稿件已复制到剪贴板。"
-            : "Draft copied to your clipboard.";
-      } catch (e) {
-        alert(
-          AURUM_LANG === "zh"
-            ? "复制失败，请手动选择文字后复制。"
-            : "Copy failed. Please select the text manually and copy."
-        );
-      }
-    });
-
-    setupDeskUI();
-    initName();
-
-    // ===== 登录状态脚本：读取 localStorage.aurum_user =====
-    function getAurumUser() {
-      try {
-        const raw = localStorage.getItem("aurum_user");
-        if (!raw) return null;
-        return JSON.parse(raw);
-      } catch (e) {
-        return null;
-      }
+      statusText.textContent =
+        AURUM_LANG === "zh"
+          ? "已生成 30% 清晰预览，其余内容在解锁前将保持柔和遮挡。"
+          : AURUM_LANG === "ar"
+          ? "تم إنشاء معاينة بنسبة 30٪، وسيظل باقي النص مموّهًا حتى تقوم بفتحه."
+          : AURUM_LANG === "fr"
+          ? "Aperçu 30 % généré — le reste du texte reste flouté jusqu’au déblocage."
+          : AURUM_LANG === "de"
+          ? "30 %-Vorschau erstellt – der Rest bleibt bis zur Freischaltung weich überblendet."
+          : "30% preview displayed — remaining content is blurred until you unlock it.";
+      copyBtn.disabled = true;
+    } catch (err) {
+      console.error(err);
+      resultBox.innerHTML =
+        '<div class="result-empty">' +
+        (AURUM_LANG === "zh"
+          ? "生成稿件时出现问题："
+          : AURUM_LANG === "ar"
+          ? "حدث خطأ أثناء إنشاء المسودة: "
+          : AURUM_LANG === "fr"
+          ? "Un problème est survenu lors de la génération du texte : "
+          : AURUM_LANG === "de"
+          ? "Beim Erstellen des Entwurfs ist ein Fehler aufgetreten: "
+          : "Something went wrong while generating your draft: ") +
+        (err.message || String(err)) +
+        "</div>";
+      statusText.textContent = "";
+      copyBtn.disabled = true;
+    } finally {
+      generateBtn.disabled = false;
+      const dict = LANG_STRINGS[AURUM_LANG] || LANG_STRINGS.en;
+      generateBtn.textContent = dict.btnGenerate || "Generate 30% preview";
     }
+  });
 
-    function aurumLogout() {
-      localStorage.removeItem("aurum_user");
-      renderNavUserArea();
-      // 如需登出后跳首页，可以打开：
-      // window.location.href = "index.html";
+  copyBtn.addEventListener("click", async () => {
+    if (!currentDraft) {
+      alert(
+        AURUM_LANG === "zh"
+          ? "还没有可以复制的稿件。"
+          : AURUM_LANG === "ar"
+          ? "لا يوجد نص لنسخه بعد."
+          : AURUM_LANG === "fr"
+          ? "Aucun brouillon à copier pour le moment."
+          : AURUM_LANG === "de"
+          ? "Es gibt noch keinen Entwurf zum Kopieren."
+          : "There is no draft to copy yet."
+      );
+      return;
     }
-
-    function renderNavUserArea() {
-      const area = document.getElementById("navUserArea");
-      if (!area) return;
-
-      const user = getAurumUser();
-      if (!user) {
-        area.innerHTML = '<a href="auth.html" class="nav-signin-link">Sign in</a>';
-      } else {
-        const displayName = user.name || user.email || user.phone || "Member";
-        area.innerHTML = `
-          <span class="nav-hi">Hi, ${displayName}</span>
-          <button type="button" class="nav-logout-btn" onclick="aurumLogout()">
-            Logout
-          </button>
-        `;
-      }
+    try {
+      await navigator.clipboard.writeText(currentDraft);
+      statusText.textContent =
+        AURUM_LANG === "zh"
+          ? "稿件已复制到剪贴板。"
+          : AURUM_LANG === "ar"
+          ? "تم نسخ المسودة إلى الحافظة."
+          : AURUM_LANG === "fr"
+          ? "Brouillon copié dans le presse-papiers."
+          : AURUM_LANG === "de"
+          ? "Entwurf wurde in die Zwischenablage kopiert."
+          : "Draft copied to your clipboard.";
+    } catch (e) {
+      alert(
+        AURUM_LANG === "zh"
+          ? "复制失败，请手动选择文字后复制。"
+          : AURUM_LANG === "ar"
+          ? "فشل النسخ، يرجى تحديد النص ونسخه يدويًا."
+          : AURUM_LANG === "fr"
+          ? "Échec de la copie, veuillez sélectionner le texte et le copier manuellement."
+          : AURUM_LANG === "de"
+          ? "Kopieren fehlgeschlagen, bitte Text manuell auswählen und kopieren."
+          : "Copy failed. Please select the text manually and copy."
+      );
     }
+  });
 
-    document.addEventListener("DOMContentLoaded", () => {
-      renderNavUserArea();
-      applyGlobalLanguage(); // 这里同步首页选择的语言
-    });
-  </script>
-</body>
-</html>
+  setupDeskUI();
+  initName();
+
+  // ===== 登录状态脚本：读取 localStorage.aurum_user =====
+  function getAurumUser() {
+    try {
+      const raw = localStorage.getItem("aurum_user");
+      if (!raw) return null;
+      return JSON.parse(raw);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function aurumLogout() {
+    localStorage.removeItem("aurum_user");
+    renderNavUserArea();
+    // window.location.href = "index.html";
+  }
+
+  function renderNavUserArea() {
+    const area = document.getElementById("navUserArea");
+    if (!area) return;
+
+    const user = getAurumUser();
+    if (!user) {
+      area.innerHTML = '<a href="auth.html" class="nav-signin-link">Sign in</a>';
+    } else {
+      const displayName = user.name || user.email || user.phone || "Member";
+      area.innerHTML = `
+        <span class="nav-hi">Hi, ${displayName}</span>
+        <button type="button" class="nav-logout-btn" onclick="aurumLogout()">
+          Logout
+        </button>
+      `;
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    renderNavUserArea();
+    applyGlobalLanguage(); // 这里同步首页的 aurum_lang
+  });
+</script>
