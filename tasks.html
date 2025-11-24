@@ -94,7 +94,7 @@
       margin-left: 14px;
     }
 
-    /* 新增：登录区域样式 */
+    /* 登录区域样式 */
     .nav-user-area {
       display: inline-flex;
       align-items: center;
@@ -473,7 +473,7 @@
       <a href="tasks.html" id="navTasks">Task Marketplace</a>
       <a href="pricing.html" id="navPricing">Pricing</a>
       <a href="contact.html" id="navContact">Contact</a>
-      <!-- 新增：登录状态显示区域 -->
+      <!-- 登录状态显示区域 -->
       <span id="navUserArea" class="nav-user-area"></span>
     </nav>
   </header>
@@ -648,7 +648,6 @@
   </main>
 
   <script>
-   <script>
   // ========== 多语言：读取首页设置的 localStorage.aurum_lang ==========
   let AURUM_LANG = "en";
 
@@ -801,7 +800,7 @@
         "© 2025 Aurum Task Desk — 企业级个人任务桌。仅供内部试运行使用。"
     },
 
-    // ===== Arabic (اللغة العربية) =====
+    // ===== Arabic =====
     ar: {
       navHome: "الرئيسية",
       navTasks: "سوق المهام",
@@ -1137,7 +1136,6 @@
 
   // === 下面开始是你原来的逻辑（AI 调用 / 计数 / 登录），保持不变 ===
 
-  // Cloudflare Worker backend
   const WORKER_API_URL = "https://aurum-task-worker.sophieinbg.workers.dev/api/generate";
 
   const USAGE_LIMIT = 5;
@@ -1499,6 +1497,8 @@
 
   document.addEventListener("DOMContentLoaded", () => {
     renderNavUserArea();
-    applyGlobalLanguage(); // 这里同步首页的 aurum_lang
+    applyGlobalLanguage(); // 同步首页 aurum_lang
   });
-</script>
+  </script>
+</body>
+</html>
