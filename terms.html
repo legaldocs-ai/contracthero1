@@ -9,7 +9,7 @@
   <link rel="icon" href="favicon.png" />
   <link rel="icon" type="image/png" href="favicon.png">
 
-  <!-- Google tag（如果首页有就保留，没有可以删掉） -->
+  <!-- Google Tag -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-NEY7RNB5S"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -37,12 +37,12 @@
       flex-direction: column;
     }
 
-    /* ===== Navbar ===== */
+    /* ===== Navbar（与首页风格一致，删除登录按钮） ===== */
     .navbar {
       position: sticky;
       top: 0;
-      z-index: 20;
-      backdrop-filter: blur(16px);
+      z-index: 30;
+      backdrop-filter: blur(14px);
       background: rgba(5, 8, 22, 0.95);
       color: #f6f4ed;
       border-bottom: 1px solid rgba(148, 163, 184, 0.4);
@@ -55,211 +55,173 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
     }
 
     .nav-left {
       display: flex;
       align-items: center;
       gap: 10px;
-      font-weight: 600;
-      font-size: 18px;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #f5f2e6;
     }
 
-    .nav-logo-mark {
+    .logo-mark {
       width: 26px;
       height: 26px;
       border-radius: 999px;
       background: conic-gradient(
-        from 140deg,
-        #eab308, #facc15, #f97316, #eab308
+        from 220deg,
+        #facc6b,
+        #f97316,
+        #facc6b,
+        #fde68a
       );
-      box-shadow: 0 0 24px rgba(250, 204, 21, 0.55);
+      box-shadow: 0 0 14px rgba(250, 204, 21, 0.65);
     }
 
     .nav-right {
       display: flex;
       align-items: center;
-      gap: 18px;
+      gap: 20px;
+    }
+
+    .nav-links a {
+      margin-left: 18px;
       font-size: 14px;
+      opacity: 0.86;
     }
 
-    .nav-links {
-      display: flex;
-      gap: 14px;
-      opacity: 0.9;
-    }
-
-    .nav-link {
-      padding: 4px 0;
-    }
-
-    .nav-link:hover {
+    .nav-links a:hover {
       opacity: 1;
+      color: #f0d37a;
     }
 
-    .nav-cta {
-      padding: 6px 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(248, 250, 252, 0.16);
-      background: radial-gradient(circle at top left, #facc15, #eab308);
-      color: #111827;
-      font-weight: 600;
-      font-size: 13px;
-      box-shadow: 0 12px 22px rgba(8, 47, 73, 0.55);
-      white-space: nowrap;
-    }
-
-    .nav-cta:hover {
-      filter: brightness(1.05);
-    }
-
-    .lang-switch {
-      display: flex;
-      gap: 6px;
-      padding-left: 12px;
-      border-left: 1px solid rgba(148, 163, 184, 0.5);
-      font-size: 13px;
-    }
-
-    .lang-btn {
-      border: none;
-      background: transparent;
-      color: inherit;
-      cursor: pointer;
-      padding: 2px 6px;
-      border-radius: 999px;
-      opacity: 0.78;
-    }
-
-    .lang-btn.active {
-      background: rgba(15, 23, 42, 0.9);
-      color: #facc15;
-      opacity: 1;
-    }
-
-    @media (max-width: 720px) {
-      .navbar-inner {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .nav-right {
-        width: 100%;
-        justify-content: space-between;
-      }
-    }
-
-    /* ===== Main Content ===== */
-    .main {
-      flex: 1;
-      padding: 32px 16px 40px;
-    }
-
-    .main-inner {
-      max-width: 920px;
-      margin: 0 auto;
-      background: #ffffff;
-      border-radius: 16px;
-      padding: 28px 26px 36px;
-      box-shadow:
-        0 24px 70px rgba(15, 23, 42, 0.20),
-        0 0 0 1px rgba(148, 163, 184, 0.35);
-    }
-
-    .pill {
+    /* ===== 多语言按钮 ===== */
+    .nav-lang {
       display: inline-flex;
       align-items: center;
       gap: 6px;
+    }
+
+    .lang-label {
       font-size: 11px;
-      letter-spacing: 0.06em;
       text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #a7a39a;
+    }
+
+    .lang-btn {
+      border-radius: 999px;
+      border: 1px solid transparent;
+      background: transparent;
       padding: 4px 10px;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.04);
-      color: #4b5563;
+      font-size: 12px;
+      cursor: pointer;
+      opacity: 0.85;
+      color: #e5e7eb;
+    }
+
+    .lang-btn:hover {
+      opacity: 1;
+      border-color: rgba(240, 211, 122, 0.5);
+    }
+
+    .lang-btn.active {
+      border-color: #facc6b;
+      background: rgba(240, 211, 122, 0.12);
+      color: #fefce8;
+      opacity: 1;
+    }
+
+    /* ===== 内容 ===== */
+    .content-wrap {
+      flex: 1;
+      padding: 32px 16px 48px;
+    }
+
+    .content-inner {
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 18px;
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.18);
+      padding: 32px 28px 40px;
+    }
+
+    .breadcrumb {
+      font-size: 12px;
+      color: #64748b;
       margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
-    .pill-dot {
-      width: 6px;
-      height: 6px;
+    .breadcrumb-dot {
+      width: 8px;
+      height: 8px;
       border-radius: 999px;
-      background: #6366f1;
+      background: #06b6d4;
     }
 
-    h1 {
-      font-size: 28px;
-      margin: 4px 0 4px;
-      color: #111827;
-      letter-spacing: 0.02em;
+    .page-title {
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 4px;
     }
 
-    .updated {
+    .page-updated {
       font-size: 13px;
       color: #6b7280;
-      margin-bottom: 18px;
+      margin-bottom: 20px;
     }
 
-    p {
-      margin: 0 0 12px;
-      font-size: 15px;
-      color: #374151;
-    }
-
-    h2 {
-      margin-top: 26px;
-      margin-bottom: 8px;
+    .section-title {
       font-size: 18px;
-      color: #111827;
+      font-weight: 600;
+      margin-top: 24px;
+      margin-bottom: 8px;
+    }
+
+    .section-text {
+      font-size: 15px;
+      margin-bottom: 6px;
+      color: #374151;
     }
 
     ul {
       padding-left: 20px;
-      margin-top: 6px;
-      margin-bottom: 12px;
-      font-size: 15px;
-    }
-
-    li {
-      margin-bottom: 6px;
-    }
-
-    .section-divider {
-      height: 1px;
-      background: linear-gradient(to right, transparent, #e5e7eb, transparent);
-      margin: 18px 0;
-    }
-
-    .footer-note {
-      margin-top: 22px;
-      font-size: 13px;
-      color: #6b7280;
-      border-top: 1px dashed #e5e7eb;
-      padding-top: 14px;
+      margin: 6px 0 14px;
     }
   </style>
 </head>
+
 <body>
 <div class="page-shell">
   <!-- ===== Navbar ===== -->
   <header class="navbar">
     <div class="navbar-inner">
       <div class="nav-left">
-        <div class="nav-logo-mark"></div>
-        <a href="index.html">
-          <span data-i18n="nav_brand">Aurum Task Desk</span>
-        </a>
+        <div class="logo-mark"></div>
+        <span>Aurum Task Desk</span>
       </div>
+
       <div class="nav-right">
         <nav class="nav-links">
-          <a href="index.html" class="nav-link" data-i18n="nav_home">Home</a>
-          <a href="pricing.html" class="nav-link" data-i18n="nav_pricing">Pricing</a>
-          <a href="tasks.html" class="nav-link" data-i18n="nav_tasks">Tasks</a>
-          <a href="contact.html" class="nav-link" data-i18n="nav_contact">Contact</a>
+          <a href="index.html" data-i18n="nav.home">Home</a>
+          <a href="pricing.html" data-i18n="nav.pricing">Pricing</a>
+          <a href="tasks.html" data-i18n="nav.tasks">Tasks</a>
+          <a href="contact.html" data-i18n="nav.contact">Contact</a>
         </nav>
-        <a href="auth.html" class="nav-cta" data-i18n="nav_signin">Sign in</a>
-        <div class="lang-switch">
+
+        <div class="nav-lang">
+          <span class="lang-label">LANG</span>
           <button class="lang-btn" data-lang="en">EN</button>
           <button class="lang-btn" data-lang="zh">中文</button>
         </div>
@@ -268,262 +230,184 @@
   </header>
 
   <!-- ===== Main Content ===== -->
-  <main class="main">
-    <div class="main-inner">
-      <div class="pill">
-        <span class="pill-dot"></span>
-        <span data-i18n="terms_pill">Terms of use</span>
-      </div>
+  <main class="content-wrap">
+    <div class="content-inner">
+      <section class="card">
 
-      <h1 data-i18n="terms_title">Terms of Use</h1>
-      <div class="updated">
-        <span data-i18n="updated_prefix">Last updated:</span> 2025
-      </div>
+        <div class="breadcrumb">
+          <span class="breadcrumb-dot"></span>
+          <span data-i18n="crumb.terms">Terms of Use</span>
+        </div>
 
-      <p data-i18n="intro_1">
-        These Terms of Use (“Terms”) govern your access to and use of Aurum Task Desk and related services
-        (collectively, the “Desk”). By using the Desk, you agree to these Terms.
-      </p>
+        <h1 class="page-title" data-i18n="page.title">Terms of Use</h1>
+        <p class="page-updated">
+          <span data-i18n="page.updated.label">Last updated:</span>
+          <span data-i18n="page.updated.value">2025</span>
+        </p>
 
-      <div class="section-divider"></div>
+        <p class="section-text" data-i18n="intro.text">
+          These Terms govern your use of Aurum Task Desk (“the Desk”). By accessing or using the service, you agree to these Terms.
+        </p>
 
-      <h2 data-i18n="sec1_title">1. Service Description</h2>
-      <p data-i18n="sec1_body">
-        Aurum Task Desk provides AI-assisted writing, editing and light task automation based on the information
-        you submit. Our service is intended as professional support, not as legal, financial or medical advice.
-      </p>
+        <h2 class="section-title" data-i18n="sec1.title">1. Service Description</h2>
+        <p class="section-text" data-i18n="sec1.text1">
+          We provide AI-assisted writing, editing, and light task automation. Content generated may require human review for accuracy.
+        </p>
 
-      <h2 data-i18n="sec2_title">2. Your Responsibilities</h2>
-      <p data-i18n="sec2_intro">
-        When using the Desk, you agree to:
-      </p>
-      <ul>
-        <li data-i18n="sec2_li1">Provide accurate information for your tasks</li>
-        <li data-i18n="sec2_li2">Ensure you have the right to share any content or files you upload</li>
-        <li data-i18n="sec2_li3">Not use the Desk for unlawful, harmful or abusive purposes</li>
-        <li data-i18n="sec2_li4">Comply with applicable laws in your jurisdiction</li>
-      </ul>
+        <h2 class="section-title" data-i18n="sec2.title">2. User Responsibilities</h2>
+        <p class="section-text" data-i18n="sec2.text1">You agree to:</p>
+        <ul>
+          <li data-i18n="sec2.li1">Provide accurate information for your tasks</li>
+          <li data-i18n="sec2.li2">Ensure you own or have rights to submitted content</li>
+          <li data-i18n="sec2.li3">Not misuse the Desk for unlawful or harmful activities</li>
+          <li data-i18n="sec2.li4">Comply with applicable laws</li>
+        </ul>
 
-      <h2 data-i18n="sec3_title">3. Payments and Refunds</h2>
-      <p data-i18n="sec3_body">
-        Fees and pricing for the Desk are shown on our website or agreed with you in writing.
-        Payments are processed securely by third-party providers. Because our work is largely custom and
-        begins quickly, refunds are generally not provided once a task has started, unless required by law
-        or explicitly stated in a specific offer.
-      </p>
+        <h2 class="section-title" data-i18n="sec3.title">3. Payments & Refunds</h2>
+        <p class="section-text" data-i18n="sec3.text1">
+          Payments are securely processed by third-party providers (e.g., Paddle, Wise).  
+          Due to the customized nature of tasks, refunds are generally not offered once work has begun.
+        </p>
 
-      <h2 data-i18n="sec4_title">4. Intellectual Property</h2>
-      <p data-i18n="sec4_body">
-        After full payment is received, you may use the deliverables we create for you for your personal or
-        business purposes, subject to any usage limitations we clearly state in advance.
-        We retain ownership of our underlying methods, tools, templates and brand assets.
-      </p>
+        <h2 class="section-title" data-i18n="sec4.title">4. Intellectual Property</h2>
+        <p class="section-text" data-i18n="sec4.text1">
+          Once payment is completed, you may use deliverables for personal or business use.  
+          We retain rights to underlying tools, templates, and systems.
+        </p>
 
-      <h2 data-i18n="sec5_title">5. AI Content and Accuracy</h2>
-      <p data-i18n="sec5_body">
-        Parts of the Desk rely on AI models which may generate outputs that are incomplete, outdated or inaccurate.
-        You are responsible for independently reviewing any final content before using it in your business
-        or making decisions based on it.
-      </p>
+        <h2 class="section-title" data-i18n="sec5.title">5. AI Output Accuracy</h2>
+        <p class="section-text" data-i18n="sec5.text1">
+          AI-generated content may be outdated or incorrect. You are responsible for reviewing all outputs before use.
+        </p>
 
-      <h2 data-i18n="sec6_title">6. Limitation of Liability</h2>
-      <p data-i18n="sec6_body">
-        To the maximum extent permitted by law, the Desk and its operators are not liable for any indirect,
-        incidental or consequential damages arising from your use of the service.
-        Our total liability for any claim is limited to the amount you paid for the specific task or
-        subscription giving rise to the claim.
-      </p>
+        <h2 class="section-title" data-i18n="sec6.title">6. Limitation of Liability</h2>
+        <p class="section-text" data-i18n="sec6.text1">
+          To the extent permitted by law, our liability is limited to the amount paid for the specific task or subscription.
+        </p>
 
-      <h2 data-i18n="sec7_title">7. Changes to the Service or Terms</h2>
-      <p data-i18n="sec7_body">
-        We may update the Desk or these Terms from time to time.
-        If changes are material, we will make a reasonable effort to notify you via the website or email.
-        Continuing to use the Desk after changes become effective means you accept the updated Terms.
-      </p>
+        <h2 class="section-title" data-i18n="sec7.title">7. Changes to Terms</h2>
+        <p class="section-text" data-i18n="sec7.text1">
+          We may update these Terms at any time. Continued use constitutes acceptance of the updated Terms.
+        </p>
 
-      <h2 data-i18n="sec8_title">8. Governing Law</h2>
-      <p data-i18n="sec8_body">
-        Unless otherwise required by local law, these Terms are governed by the laws of the jurisdiction
-        where Aurum Task Desk is primarily operated, without regard to conflict of law principles.
-      </p>
+        <h2 class="section-title" data-i18n="sec8.title">8. Contact</h2>
+        <p class="section-text" data-i18n="sec8.text1">
+          For questions about these Terms, email: <b>support@aurumdesks.com</b>
+        </p>
 
-      <h2 data-i18n="sec9_title">9. Contact</h2>
-      <p data-i18n="sec9_body">
-        For questions about these Terms or the Desk, please contact us at
-        <strong>support@aurumdesks.com</strong>.
-      </p>
-
-      <p class="footer-note" data-i18n="footer_note">
-        Your use of the Desk is also subject to our Privacy Policy.
-        Please review it to understand how we handle your information.
-      </p>
+      </section>
     </div>
   </main>
 </div>
 
-<!-- ===== 语言自动判断 + 同步脚本（和 privacy.html 同一逻辑） ===== -->
+<!-- ===== 语言脚本（和首页、privacy 完全同步） ===== -->
 <script>
-  const LANG_KEYS = ["aurum-lang", "aurumLang", "desk-lang", "site-lang", "lang", "language"];
-
-  const translations = {
+  const TERMS_LANG = {
     en: {
-      nav_brand: "Aurum Task Desk",
-      nav_home: "Home",
-      nav_pricing: "Pricing",
-      nav_tasks: "Tasks",
-      nav_contact: "Contact",
-      nav_signin: "Sign in",
+      "nav.home": "Home",
+      "nav.pricing": "Pricing",
+      "nav.tasks": "Tasks",
+      "nav.contact": "Contact",
 
-      terms_pill: "Terms of use",
-      terms_title: "Terms of Use",
-      updated_prefix: "Last updated:",
-      intro_1:
-        "These Terms of Use (“Terms”) govern your access to and use of Aurum Task Desk and related services (collectively, the “Desk”). By using the Desk, you agree to these Terms.",
+      "crumb.terms": "Terms of Use",
 
-      sec1_title: "1. Service Description",
-      sec1_body:
-        "Aurum Task Desk provides AI-assisted writing, editing and light task automation based on the information you submit. Our service is intended as professional support, not as legal, financial or medical advice.",
+      "page.title": "Terms of Use",
+      "page.updated.label": "Last updated:",
+      "page.updated.value": "2025",
 
-      sec2_title: "2. Your Responsibilities",
-      sec2_intro:
-        "When using the Desk, you agree to:",
-      sec2_li1: "Provide accurate information for your tasks",
-      sec2_li2: "Ensure you have the right to share any content or files you upload",
-      sec2_li3: "Not use the Desk for unlawful, harmful or abusive purposes",
-      sec2_li4: "Comply with applicable laws in your jurisdiction",
+      "intro.text":
+        "These Terms govern your use of Aurum Task Desk (“the Desk”). By accessing or using the service, you agree to these Terms.",
 
-      sec3_title: "3. Payments and Refunds",
-      sec3_body:
-        "Fees and pricing for the Desk are shown on our website or agreed with you in writing. Payments are processed securely by third-party providers. Because our work is largely custom and begins quickly, refunds are generally not provided once a task has started, unless required by law or explicitly stated in a specific offer.",
+      "sec1.title": "1. Service Description",
+      "sec1.text1":
+        "We provide AI-assisted writing, editing, and light task automation. Content generated may require human review for accuracy.",
 
-      sec4_title: "4. Intellectual Property",
-      sec4_body:
-        "After full payment is received, you may use the deliverables we create for you for your personal or business purposes, subject to any usage limitations we clearly state in advance. We retain ownership of our underlying methods, tools, templates and brand assets.",
+      "sec2.title": "2. User Responsibilities",
+      "sec2.text1": "You agree to:",
+      "sec2.li1": "Provide accurate information for your tasks",
+      "sec2.li2": "Ensure you own or have rights to submitted content",
+      "sec2.li3": "Not misuse the Desk for unlawful or harmful activities",
+      "sec2.li4": "Comply with applicable laws",
 
-      sec5_title: "5. AI Content and Accuracy",
-      sec5_body:
-        "Parts of the Desk rely on AI models which may generate outputs that are incomplete, outdated or inaccurate. You are responsible for independently reviewing any final content before using it in your business or making decisions based on it.",
+      "sec3.title": "3. Payments & Refunds",
+      "sec3.text1":
+        "Payments are securely processed by third-party providers (e.g., Paddle, Wise). Due to the customized nature of tasks, refunds are generally not offered once work has begun.",
 
-      sec6_title: "6. Limitation of Liability",
-      sec6_body:
-        "To the maximum extent permitted by law, the Desk and its operators are not liable for any indirect, incidental or consequential damages arising from your use of the service. Our total liability for any claim is limited to the amount you paid for the specific task or subscription giving rise to the claim.",
+      "sec4.title": "4. Intellectual Property",
+      "sec4.text1":
+        "Once payment is completed, you may use deliverables for personal or business use. We retain rights to underlying tools, templates, and systems.",
 
-      sec7_title: "7. Changes to the Service or Terms",
-      sec7_body:
-        "We may update the Desk or these Terms from time to time. If changes are material, we will make a reasonable effort to notify you via the website or email. Continuing to use the Desk after changes become effective means you accept the updated Terms.",
+      "sec5.title": "5. AI Output Accuracy",
+      "sec5.text1":
+        "AI-generated content may be outdated or incorrect. You are responsible for reviewing all outputs before use.",
 
-      sec8_title: "8. Governing Law",
-      sec8_body:
-        "Unless otherwise required by local law, these Terms are governed by the laws of the jurisdiction where Aurum Task Desk is primarily operated, without regard to conflict of law principles.",
+      "sec6.title": "6. Limitation of Liability",
+      "sec6.text1":
+        "To the extent permitted by law, our liability is limited to the amount paid for the specific task or subscription.",
 
-      sec9_title: "9. Contact",
-      sec9_body:
-        "For questions about these Terms or the Desk, please contact us at support@aurumdesks.com.",
+      "sec7.title": "7. Changes to Terms",
+      "sec7.text1":
+        "We may update these Terms at any time. Continued use constitutes acceptance of the updated Terms.",
 
-      footer_note:
-        "Your use of the Desk is also subject to our Privacy Policy. Please review it to understand how we handle your information."
+      "sec8.title": "8. Contact",
+      "sec8.text1":
+        "For questions about these Terms, email: support@aurumdesks.com"
     },
+
     zh: {
-      nav_brand: "Aurum Task Desk 桌面",
-      nav_home: "首页",
-      nav_pricing: "价格",
-      nav_tasks: "任务",
-      nav_contact: "联系",
-      nav_signin: "登录",
+      "nav.home": "首页",
+      "nav.pricing": "价格",
+      "nav.tasks": "任务",
+      "nav.contact": "联系",
 
-      terms_pill: "使用条款",
-      terms_title: "使用条款",
-      updated_prefix: "最近更新：",
-      intro_1:
-        "本《使用条款》（“条款”）适用于您访问和使用 Aurum Task Desk 及相关服务（统称“本服务”或“Desk”）。您使用本服务即表示您同意并接受本条款。",
+      "crumb.terms": "使用条款",
 
-      sec1_title: "1. 服务说明",
-      sec1_body:
-        "Aurum Task Desk 基于您提供的信息，为您提供 AI 辅助写作、编辑以及轻量级任务自动化支持。本服务仅作为专业支持工具，不构成法律、财务、医疗等专业意见。",
+      "page.title": "使用条款",
+      "page.updated.label": "最近更新：",
+      "page.updated.value": "2025",
 
-      sec2_title: "2. 您的责任",
-      sec2_intro:
-        "使用本服务时，您同意：",
-      sec2_li1: "为任务提供真实、准确的信息；",
-      sec2_li2: "确保您有权共享所上传的任何内容或文件；",
-      sec2_li3: "不将本服务用于违法、有害或滥用用途；",
-      sec2_li4: "遵守您所在地区适用的法律法规。",
+      "intro.text":
+        "本《使用条款》适用于您对 Aurum Task Desk（“本服务”）的访问和使用。访问或使用本服务即代表您同意本条款。",
 
-      sec3_title: "3. 费用与退款",
-      sec3_body:
-        "本服务的费用和价格将显示在我们的网站上，或以书面方式与您确认。付款由第三方支付服务安全处理。由于我们的工作多为定制且启动较快，一旦任务开始，原则上不再提供退款，除非法律要求或在具体方案中另有明确约定。",
+      "sec1.title": "1. 服务说明",
+      "sec1.text1":
+        "我们提供 AI 辅助写作、编辑和轻量级任务自动化。AI 输出可能需要人工审核以确保准确性。",
 
-      sec4_title: "4. 知识产权",
-      sec4_body:
-        "在您完成全部费用支付后，您可以根据我们事先说明的范围，出于个人或商业目的使用我们为您制作的成果。我们保留对底层方法、工具、模板以及品牌资产的所有权。",
+      "sec2.title": "2. 用户责任",
+      "sec2.text1": "您同意：",
+      "sec2.li1": "为您的任务提供准确的信息；",
+      "sec2.li2": "确保您拥有或有权使用所提交内容；",
+      "sec2.li3": "不将本服务用于非法或有害活动；",
+      "sec2.li4": "遵守适用法律；",
 
-      sec5_title: "5. AI 内容与准确性",
-      sec5_body:
-        "本服务部分功能依赖 AI 模型，输出可能存在不完整、过时或不准确的情况。您有责任在实际使用前，对最终内容进行独立审阅和判断。",
+      "sec3.title": "3. 支付与退款",
+      "sec3.text1":
+        "付款由 Paddle、Wise 等第三方安全处理。由于任务多为定制，一旦工作开始通常不再退款，除非法律要求。",
 
-      sec6_title: "6. 责任限制",
-      sec6_body:
-        "在法律允许的最大范围内，本服务及其运营方不对因您使用本服务而产生的任何间接、附带或后果性损失承担责任。就任何索赔而言，我们承担的总责任上限为您因该项具体任务或订阅实际支付的费用。",
+      "sec4.title": "4. 知识产权",
+      "sec4.text1":
+        "付款完成后，您可将交付物用于个人或商业用途。但我们保留底层系统、模板与方法的所有权。",
 
-      sec7_title: "7. 服务和条款的变更",
-      sec7_body:
-        "我们可能会不时更新本服务或本条款。如属于重大变更，我们会通过网站或电子邮件等合理方式通知您。在变更生效后继续使用本服务，即视为您接受更新后的条款。",
+      "sec5.title": "5. AI 输出准确性",
+      "sec5.text1":
+        "AI 输出可能存在不准确或过时情况。您应在使用前自行审核所有内容。",
 
-      sec8_title: "8. 适用法律",
-      sec8_body:
-        "除当地法律另有强制性规定外，本条款受 Aurum Task Desk 主要运营地的法律管辖，而不考虑法律冲突原则。",
+      "sec6.title": "6. 责任限制",
+      "sec6.text1":
+        "在法律允许的范围内，我们的责任仅限于您为该任务或订阅支付的金额。",
 
-      sec9_title: "9. 联系我们",
-      sec9_body:
-        "如您对本条款或本服务有任何疑问，请发送邮件至 support@aurumdesks.com 与我们联系。",
+      "sec7.title": "7. 条款变更",
+      "sec7.text1":
+        "我们可能随时更新本条款。继续使用服务即代表您接受更新内容。",
 
-      footer_note:
-        "您对本服务的使用同时受我们的《隐私政策》约束。建议您阅读隐私政策，以了解我们如何处理您的信息。"
+      "sec8.title": "8. 联系方式",
+      "sec8.text1":
+        "如对本条款有疑问，请发送邮件至：support@aurumdesks.com"
     }
   };
 
-  function getCookieLang() {
-    try {
-      const match = document.cookie.match(/(?:^|;\s*)lang=([^;]+)/);
-      return match ? decodeURIComponent(match[1]) : null;
-    } catch (e) {
-      return null;
-    }
-  }
-
-  function setCookieLang(lang) {
-    try {
-      document.cookie = "lang=" + encodeURIComponent(lang) + "; path=/; max-age=31536000";
-    } catch (e) {}
-  }
-
-  function getStoredLang() {
-    // 1) localStorage 多 key
-    for (const k of LANG_KEYS) {
-      try {
-        const v = localStorage.getItem(k);
-        if (v) return v;
-      } catch (e) {}
-    }
-    // 2) cookie
-    const fromCookie = getCookieLang();
-    if (fromCookie) return fromCookie;
-    // 3) 浏览器语言
-    const navLang = (navigator.language || navigator.userLanguage || "en").toLowerCase();
-    if (navLang.startsWith("zh")) return "zh";
-    return "en";
-  }
-
-  function setStoredLang(lang) {
-    LANG_KEYS.forEach((k) => {
-      try { localStorage.setItem(k, lang); } catch (e) {}
-    });
-    setCookieLang(lang);
-    try { document.documentElement.lang = lang === "zh" ? "zh" : "en"; } catch (e) {}
-  }
-
   function applyLanguage(lang) {
-    const dict = translations[lang] || translations.en;
+    const dict = TERMS_LANG[lang] || TERMS_LANG["en"];
     document.querySelectorAll("[data-i18n]").forEach((el) => {
       const key = el.getAttribute("data-i18n");
       if (dict[key]) {
@@ -532,24 +416,27 @@
     });
 
     document.querySelectorAll(".lang-btn").forEach((btn) => {
-      btn.classList.toggle("active", btn.dataset.lang === lang);
+      btn.classList.toggle("active", btn.getAttribute("data-lang") === lang);
     });
   }
 
-  (function init() {
-    let lang = getStoredLang();
-    if (!translations[lang]) lang = "zh";   // 找不到就默认中文
-    setStoredLang(lang);
+  document.addEventListener("DOMContentLoaded", () => {
+    let lang = localStorage.getItem("aurum_lang");
+    if (!lang) {
+      lang = "zh";  // 默认中文
+      localStorage.setItem("aurum_lang", lang);
+    }
+
     applyLanguage(lang);
 
     document.querySelectorAll(".lang-btn").forEach((btn) => {
       btn.addEventListener("click", () => {
-        const newLang = btn.dataset.lang || "en";
-        setStoredLang(newLang);
+        const newLang = btn.getAttribute("data-lang");
+        localStorage.setItem("aurum_lang", newLang);
         applyLanguage(newLang);
       });
     });
-  })();
+  });
 </script>
 </body>
 </html>
