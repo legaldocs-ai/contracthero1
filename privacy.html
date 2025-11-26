@@ -9,7 +9,7 @@
   <link rel="icon" href="favicon.png" />
   <link rel="icon" type="image/png" href="favicon.png">
 
-  <!-- Google tag（和首页一样，有就留着） -->
+  <!-- Google tag（如果首页有就保留，没有可以删掉） -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-NEY7RNB5S"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -18,7 +18,6 @@
     gtag('config', 'G-NEY7RNB5S');
   </script>
 
-  <!-- 样式：深蓝导航 + 卡片主体 -->
   <style>
     * { box-sizing: border-box; }
 
@@ -113,25 +112,6 @@
 
     .nav-cta:hover {
       filter: brightness(1.05);
-    }
-
-    .nav-user {
-      display: none;
-      align-items: center;
-      gap: 8px;
-      font-size: 13px;
-      padding: 4px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      background: rgba(15, 23, 42, 0.4);
-    }
-
-    .nav-user-name {
-      font-weight: 600;
-      max-width: 160px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
     }
 
     .lang-switch {
@@ -278,19 +258,7 @@
           <a href="tasks.html" class="nav-link" data-i18n="nav_tasks">Tasks</a>
           <a href="contact.html" class="nav-link" data-i18n="nav_contact">Contact</a>
         </nav>
-
-        <!-- 未登录显示 -->
-        <a href="auth.html"
-           class="nav-cta"
-           data-role="signin-btn"
-           data-i18n="nav_signin">Sign in</a>
-
-        <!-- 已登录显示 -->
-        <div class="nav-user" data-role="user-box">
-          <span data-i18n="nav_hi">Hi,</span>
-          <span class="nav-user-name" data-role="user-name"></span>
-        </div>
-
+        <a href="auth.html" class="nav-cta" data-i18n="nav_signin">Sign in</a>
         <div class="lang-switch">
           <button class="lang-btn" data-lang="en">EN</button>
           <button class="lang-btn" data-lang="zh">中文</button>
@@ -368,10 +336,9 @@
   </main>
 </div>
 
-<!-- ===== Language + 登录状态 同步脚本 ===== -->
+<!-- ===== 语言自动判断 + 同步脚本 ===== -->
 <script>
-  // 多个 key 兼容：尽量和首页保持一致
-  const LANG_KEYS = ["aurum-lang", "aurumLang", "desk-lang"];
+  const LANG_KEYS = ["aurum-lang", "aurumLang", "desk-lang", "site-lang", "lang", "language"];
 
   const translations = {
     en: {
@@ -381,7 +348,6 @@
       nav_tasks: "Tasks",
       nav_contact: "Contact",
       nav_signin: "Sign in",
-      nav_hi: "Hi,",
       policy_pill: "Privacy & data use",
       policy_title: "Privacy Policy",
       updated_prefix: "Last updated:",
@@ -419,7 +385,6 @@
       nav_tasks: "任务",
       nav_contact: "联系",
       nav_signin: "登录",
-      nav_hi: "Hi,",
       policy_pill: "隐私与数据使用",
       policy_title: "隐私政策",
       updated_prefix: "最近更新：",
@@ -452,11 +417,35 @@
     }
   };
 
-  function getStoredLang() {
-    for (const k of LANG_KEYS) {
-      const v = localStorage.getItem(k);
-      if (v) return v;
+  function getCookieLang() {
+    try {
+      const match = document.cookie.match(/(?:^|;\s*)lang=([^;]+)/);
+      return match ? decodeURIComponent(match[1]) : null;
+    } catch (e) {
+      return null;
     }
+  }
+
+  function setCookieLang(lang) {
+    try {
+      document.cookie = "lang=" + encodeURIComponent(lang) + "; path=/; max-age=31536000";
+    } catch (e) {}
+  }
+
+  function getStoredLang() {
+    // 1) localStorage 多 key
+    for (const k of LANG_KEYS) {
+      try {
+        const v = localStorage.getItem(k);
+        if (v) return v;
+      } catch (e) {}
+    }
+    // 2) cookie
+    const fromCookie = getCookieLang();
+    if (fromCookie) return fromCookie;
+    // 3) 浏览器语言
+    const navLang = (navigator.language || navigator.userLanguage || "en").toLowerCase();
+    if (navLang.startsWith("zh")) return "zh";
     return "en";
   }
 
@@ -464,6 +453,8 @@
     LANG_KEYS.forEach((k) => {
       try { localStorage.setItem(k, lang); } catch (e) {}
     });
+    setCookieLang(lang);
+    try { document.documentElement.lang = lang === "zh" ? "zh" : "en"; } catch (e) {}
   }
 
   function applyLanguage(lang) {
@@ -480,62 +471,19 @@
     });
   }
 
-  // 从本地存储里尝试读取用户名 / 邮箱，兼容多个 key
-  function getStoredUserName() {
-    const keys = [
-      "aurum-user-name",
-      "aurumUserName",
-      "aurum_user_name",
-      "aurum-auth-name",
-      "aurum-auth-email",
-      "aurumUser",
-      "desk-user-name"
-    ];
-    for (const k of keys) {
-      const v =
-        localStorage.getItem(k) ||
-        sessionStorage.getItem(k);
-      if (v) return v;
-    }
-    return null;
-  }
-
-  function syncAuthUI() {
-    const name = getStoredUserName();
-    const signBtn = document.querySelector("[data-role='signin-btn']");
-    const userBox = document.querySelector("[data-role='user-box']");
-    const userNameSpan = document.querySelector("[data-role='user-name']");
-
-    if (!signBtn || !userBox) return;
-
-    if (name) {
-      signBtn.style.display = "none";
-      userBox.style.display = "inline-flex";
-      if (userNameSpan) {
-        userNameSpan.textContent = name;
-      }
-    } else {
-      signBtn.style.display = "inline-flex";
-      userBox.style.display = "none";
-    }
-  }
-
   (function init() {
-    // 语言初始化
     let lang = getStoredLang();
-    if (!translations[lang]) lang = "en";
+    if (!translations[lang]) lang = "zh";   // 找不到就默认中文
+    setStoredLang(lang);
     applyLanguage(lang);
 
     document.querySelectorAll(".lang-btn").forEach((btn) => {
       btn.addEventListener("click", () => {
-        const newLang = btn.dataset.lang;
+        const newLang = btn.dataset.lang || "en";
         setStoredLang(newLang);
         applyLanguage(newLang);
       });
     });
-
-    // 登录显示初始化
-    syncAuthUI();
   })();
 </script>
 </body>
