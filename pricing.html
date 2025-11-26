@@ -477,7 +477,7 @@
   <script>
     Paddle.Setup({ vendor: 267799 });
 
-    // 一次性任务：19.90 USD
+    // 一次性任务：19.90 USD（你的一次性 price）
     function payOneTimeTask() {
       Paddle.Checkout.open({
         items: [{ price: 'pri_01kazfrs3egad4wafytnrncmq6', quantity: 1 }]
@@ -506,14 +506,454 @@
     }
   </script>
 
-  <!-- 下面整段多语言 + 登录脚本，保持你原来的版本不变 -->
+  <!-- 多语言 + 登录脚本（保留你原来的整段） -->
   <script>
     // ========== 多语言：跟随首页 localStorage.aurum_lang ==========
     let AURUM_LANG = localStorage.getItem("aurum_lang") || "en";
 
     const LANG_STRINGS = {
-      /* 这里你直接把前面那整段 en / zh / ar / fr / de 的配置原封不动贴回去 */
-      /* 我没有改里面任何文案，你只要复制你原文件里的 LANG_STRINGS 即可 */
+      /* ===== English ===== */
+      en: {
+        navHome: "Home",
+        navTasks: "Task Marketplace",
+        navAbout: "About",
+        navPricing: "Pricing",
+        navContact: "Contact",
+
+        headerTitle: "Pricing & Desk Models",
+        headerSub:
+          "Aurum Task Desk offers a simple structure: you can start with a one-time task, or move into a private Desk subscription when you want calmer, long-term support.",
+
+        oneTimeTitle: "One-Time Task",
+        oneTimeSub:
+          "Best for first-time clients or one-off needs. A single draft you can copy, adjust, and send.",
+        oneTimePrice: "$19.90",
+        oneTimeNote: "per task · pay as you go",
+        oneTimeLi1: "One complete draft (email, letter, short post, or message)",
+        oneTimeLi2: "Calm, respectful tone for older US/EU audiences",
+        oneTimeLi3: "Suitable for family, business, or simple legal-style language",
+        oneTimeLi4: "No subscription, no login — just pay and receive the text",
+        oneTimeCta: "Start with a one-time task",
+        oneTimeTip:
+          "Ideal for testing the Desk before moving into a monthly relationship.",
+
+        plansTitle: "Monthly Desk Plans",
+        plansSub:
+          "Monthly Desks are for people who prefer a quiet, ongoing writing partner: tone is remembered, context is saved, and tasks are handled calmly over time.",
+
+        starterBadge: "Entry Desk",
+        starterName: "Starter Desk",
+        starterPriceMain: "$140",
+        starterPriceUnit: "/ month",
+        starterDesc:
+          "For clients who occasionally need a calm, reliable writing desk.",
+        starterLi1: "Up to 5 tasks per month",
+        starterLi2: "Tone & preferences remembered",
+        starterLi3: "Priority delivery (within 48 hours)",
+        starterLi4: "Personal Desk page (after subscription)",
+        starterLi5: "Email-based communication only",
+        starterCta: "Start Starter Desk",
+        starterTagline:
+          "Good for letters, replies, and occasional business writing.",
+
+        proBadge: "Most Popular",
+        proName: "Professional Desk",
+        proPriceMain: "$280",
+        proPriceUnit: "/ month",
+        proDesc:
+          "For US/EU professionals, veterans, and business owners who need steady, structured help.",
+        proLi1: "Up to 12 tasks per month",
+        proLi2: "One long-form piece included (1000–1500 words)",
+        proLi3: "Ongoing tone & story continuity",
+        proLi4: "Light content planning each month",
+        proLi5: "Priority delivery (24–48 hours)",
+        proLi6: "Personal Desk page for tasks",
+        proCta: "Start Professional Desk",
+        proTagline:
+          "Designed for people who want a quiet, long-term writing partner.",
+
+        privateBadge: "Private Office",
+        privateName: "Private Desk",
+        privatePriceMain: "$580",
+        privatePriceUnit: "/ month",
+        privateDesc:
+          "Reserved for clients who want a private writing office, not a platform.",
+        privateLi1: "Unlimited short tasks (fair use)",
+        privateLi2: "Up to 3 long-form pieces per month",
+        privateLi3: "Full tone & background memory",
+        privateLi4: "Support for sensitive family or work communication",
+        privateLi5: "Highest priority in the Desk queue",
+        privateLi6: "Premium Personal Desk page",
+        privateCta: "Start Private Desk",
+        privateTagline:
+          "For clients who prefer a quiet, ongoing relationship instead of one-off tasks.",
+
+        noteTitle1: "What happens after you subscribe?",
+        noteP1:
+          "After your payment is confirmed, you will be redirected to your Personal Desk page. That page is your private workspace for this plan. You can submit tasks there at any time during your current billing period.",
+        noteP2:
+          "Please bookmark your Desk page in your browser. If a billing period ends and your subscription is not renewed, your Desk page will stop accepting new tasks and will gently redirect you back to the public Pricing page.",
+        noteTitle2: "How Desk fees work (simple version):",
+        noteP3:
+          "You see one clear price (for example, $280). Contributors and tools are paid from that amount. The Desk fee is the spread, which covers scoping, tone management, and quality control.",
+
+        footerText: "© 2025 Aurum Task Desk — Private AI Task Coordination Desk"
+      },
+
+      /* ===== 简体中文 ===== */
+      zh: {
+        navHome: "首页",
+        navTasks: "任务大厅",
+        navAbout: "关于",
+        navPricing: "定价",
+        navContact: "联系",
+
+        headerTitle: "定价与任务桌方案",
+        headerSub:
+          "Aurum Task Desk 的结构很简单：你可以先从单次任务开始尝试，之后在需要更稳定、长期支持时，再升级为私人任务桌订阅。",
+
+        oneTimeTitle: "单次任务",
+        oneTimeSub:
+          "适合第一次体验或偶尔需要写作帮助的客户。生成一份完整稿件，你可以自行微调后直接发送。",
+        oneTimePrice: "$19.90",
+        oneTimeNote: "按次收费 · 用一次付一次",
+        oneTimeLi1: "一份完整稿件（邮件、信件、短帖或消息）",
+        oneTimeLi2: "语气冷静、尊重，适合欧美 50+ 读者",
+        oneTimeLi3: "可用于家庭沟通、商务往来或简单法律风格文字",
+        oneTimeLi4: "无需订阅、无需登录——只需支付并收到文本",
+        oneTimeCta: "从单次任务开始体验",
+        oneTimeTip:
+          "很适合在升级到月度任务桌之前，先测试一下整体风格。",
+
+        plansTitle: "月度任务桌方案",
+        plansSub:
+          "月度任务桌适合想要“固定写作搭档”的人：语气会被记住，背景会被保留，任务会在安静、稳定的节奏中完成。",
+
+        starterBadge: "入门任务桌",
+        starterName: "Starter Desk",
+        starterPriceMain: "$140",
+        starterPriceUnit: "/ 月",
+        starterDesc:
+          "适合偶尔需要冷静、可靠写作支持的客户。",
+        starterLi1: "每月最多 5 个任务",
+        starterLi2: "记录你的语气与偏好",
+        starterLi3: "优先交付（48 小时内）",
+        starterLi4: "订阅后提供专属任务桌页面",
+        starterLi5: "仅通过邮箱沟通",
+        starterCta: "开通 Starter Desk",
+        starterTagline:
+          "适合信件回复、解释说明和偶发的商务写作需求。",
+
+        proBadge: "最受欢迎",
+        proName: "Professional Desk",
+        proPriceMain: "$280",
+        proPriceUnit: "/ 月",
+        proDesc:
+          "面向欧美专业人士、退伍军人和企业主，提供稳定、结构化的写作支持。",
+        proLi1: "每月最多 12 个任务",
+        proLi2: "含一篇长文（约 1000–1500 词）",
+        proLi3: "持续保持语气与故事连贯性",
+        proLi4: "每月轻量内容规划",
+        proLi5: "优先交付（24–48 小时）",
+        proLi6: "提供专属任务桌提交页面",
+        proCta: "开通 Professional Desk",
+        proTagline:
+          "适合希望长期拥有安静、可靠写作伙伴的客户。",
+
+        privateBadge: "私密办公室",
+        privateName: "Private Desk",
+        privatePriceMain: "$580",
+        privatePriceUnit: "/ 月",
+        privateDesc:
+          "只为希望拥有“私人写作办公室”的客户准备，而非面向大众的平台。",
+        privateLi1: "不限数量短任务（合理使用原则）",
+        privateLi2: "每月最多 3 篇长文",
+        privateLi3: "完整记录语气和背景",
+        privateLi4: "支持敏感家庭 / 工作沟通场景",
+        privateLi5: "队列中最高优先级",
+        privateLi6: "高优先级 Premium 个人任务桌页",
+        privateCta: "开通 Private Desk",
+        privateTagline:
+          "适合不想频繁换写手、只想安静长期合作的客户。",
+
+        noteTitle1: "订阅后会发生什么？",
+        noteP1:
+          "付款成功后，你会被跳转到专属的个人任务桌页面。这个页面就是你当期方案下的私人工作区，在整个计费周期内，你都可以随时在上面提交任务。",
+        noteP2:
+          "建议你把任务桌页面加入浏览器书签。若计费周期结束而未续费，该页面将停止接收新任务，并温和地把你带回公开的定价页面。",
+        noteTitle2: "任务桌费用如何构成（简单说明）：",
+        noteP3:
+          "你看到的是一个清晰的价格（例如 $280）。从这笔费用中，部分用于支付工具和协作者，剩余部分是任务桌服务费，用于覆盖需求拆分、语气管理和质量把控。",
+
+        footerText: "© 2025 Aurum Task Desk — 私人 AI 任务协调桌"
+      },
+
+      /* ===== Arabic ===== */
+      ar: {
+        navHome: "الرئيسية",
+        navTasks: "سوق المهام",
+        navAbout: "حول",
+        navPricing: "الأسعار",
+        navContact: "تواصل",
+
+        headerTitle: "خطط الأسعار ونماذج المكتب",
+        headerSub:
+          "يقدّم Aurum Task Desk هيكلًا بسيطًا: يمكنك البدء بمهمة واحدة، ثم الانتقال إلى اشتراك مكتب خاص عندما تحتاج إلى دعم هادئ وطويل الأمد.",
+
+        oneTimeTitle: "مهمة لمرة واحدة",
+        oneTimeSub:
+          "الأفضل للعملاء الجدد أو الاحتياجات الفردية. مسودة واحدة يمكنك نسخها وتعديلها ثم إرسالها.",
+        oneTimePrice: "$19.90",
+        oneTimeNote: "لكل مهمة · تدفع عند الاستخدام",
+        oneTimeLi1: "مسودة كاملة واحدة (بريد إلكتروني، رسالة، منشور قصير أو رسالة نصية)",
+        oneTimeLi2: "نبرة هادئة ومحترمة للقرّاء الأكبر سنًا في أمريكا وأوروبا",
+        oneTimeLi3: "مناسبة للعائلة، والأعمال، والنصوص الشبيهة باللغة القانونية البسيطة",
+        oneTimeLi4: "لا اشتراك، لا تسجيل دخول — فقط تدفع وتتلقى النص",
+        oneTimeCta: "ابدأ بمهمة لمرة واحدة",
+        oneTimeTip:
+          "مناسب لتجربة أسلوب المكتب قبل الانتقال إلى اشتراك شهري.",
+
+        plansTitle: "خطط المكتب الشهرية",
+        plansSub:
+          "المكتب الشهري مخصص لمن يفضّل شريك كتابة هادئ ومستمر: يتم تذكّر النبرة، وتُحفظ الخلفية، وتُنجز المهام بهدوء مع الوقت.",
+
+        starterBadge: "مكتب ابتدائي",
+        starterName: "Starter Desk",
+        starterPriceMain: "$140",
+        starterPriceUnit: "/ شهر",
+        starterDesc:
+          "لعملاء يحتاجون أحيانًا إلى مكتب كتابة هادئ وموثوق.",
+        starterLi1: "حتى 5 مهام شهريًا",
+        starterLi2: "تذكّر النبرة والتفضيلات",
+        starterLi3: "أولوية في التسليم (خلال 48 ساعة)",
+        starterLi4: "صفحة مكتب شخصية بعد الاشتراك",
+        starterLi5: "تواصل عبر البريد الإلكتروني فقط",
+        starterCta: "ابدأ بخطة Starter Desk",
+        starterTagline:
+          "مناسب للرسائل، والردود، وكتابة الأعمال بشكل متقطع.",
+
+        proBadge: "الأكثر شيوعًا",
+        proName: "Professional Desk",
+        proPriceMain: "$280",
+        proPriceUnit: "/ شهر",
+        proDesc:
+          "مخصص للمهنيين في أمريكا وأوروبا، والمحاربين القدامى، وأصحاب الأعمال الذين يحتاجون إلى مساعدة ثابتة ومنظمة.",
+        proLi1: "حتى 12 مهمة شهريًا",
+        proLi2: "تشمل قطعة طويلة واحدة (1000–1500 كلمة تقريبًا)",
+        proLi3: "استمرارية في النبرة والقصة",
+        proLi4: "تخطيط خفيف للمحتوى كل شهر",
+        proLi5: "أولوية في التسليم (24–48 ساعة)",
+        proLi6: "صفحة مكتب شخصية للمهام",
+        proCta: "ابدأ بخطة Professional Desk",
+        proTagline:
+          "مصممة لمن يرغب في شريك كتابة هادئ وطويل الأمد.",
+
+        privateBadge: "مكتب خاص",
+        privateName: "Private Desk",
+        privatePriceMain: "$580",
+        privatePriceUnit: "/ شهر",
+        privateDesc:
+          "مخصّص للعملاء الذين يرغبون في مكتب كتابة خاص، وليس منصة عامة.",
+        privateLi1: "عدد غير محدود من المهام القصيرة (ضمن الاستخدام العادل)",
+        privateLi2: "حتى 3 قطع طويلة شهريًا",
+        privateLi3: "ذاكرة كاملة للنبرة والخلفية",
+        privateLi4: "دعم للتواصل الحساس في العائلة أو العمل",
+        privateLi5: "أعلى أولوية في قائمة المهام",
+        privateLi6: "صفحة مكتب شخصية مميزة",
+        privateCta: "ابدأ بخطة Private Desk",
+        privateTagline:
+          "للعملاء الذين يفضّلون علاقة هادئة ومستمرّة بدلًا من مهام منفصلة.",
+
+        noteTitle1: "ماذا يحدث بعد الاشتراك؟",
+        noteP1:
+          "بعد تأكيد الدفع، سيتم تحويلك إلى صفحة مكتبك الشخصي. هذه الصفحة هي مساحة عملك الخاصة لهذه الخطة، ويمكنك إرسال المهام هناك في أي وقت خلال فترة الفوترة الحالية.",
+        noteP2:
+          "من الأفضل حفظ صفحة مكتبك في المفضّلة بالمتصفح. إذا انتهت فترة الفوترة ولم يتم تجديد الاشتراك، سيتوقف المكتب عن استقبال مهام جديدة ويعيد توجيهك بلطف إلى صفحة الأسعار العامة.",
+        noteTitle2: "كيف تعمل رسوم المكتب (بشكل مبسّط):",
+        noteP3:
+          "ترى سعرًا واحدًا واضحًا (مثلاً 280 دولارًا). يُدفع جزء منه للأدوات والمتعاونين، أما باقي المبلغ فهو أتعاب المكتب مقابل تنظيم الطلب، وإدارة النبرة، وضبط الجودة.",
+
+        footerText:
+          "© 2025 Aurum Task Desk — مكتب تنسيق مهام بالذكاء الاصطناعي"
+      },
+
+      /* ===== French ===== */
+      fr: {
+        navHome: "Accueil",
+        navTasks: "Place de tâches",
+        navAbout: "À propos",
+        navPricing: "Tarifs",
+        navContact: "Contact",
+
+        headerTitle: "Tarifs et modèles de bureau",
+        headerSub:
+          "Aurum Task Desk propose une structure simple : vous pouvez commencer par une mission ponctuelle, puis passer à un abonnement de bureau privé lorsque vous souhaitez un soutien plus calme et durable.",
+
+        oneTimeTitle: "Mission ponctuelle",
+        oneTimeSub:
+          "Idéal pour les nouveaux clients ou les besoins isolés. Une seule rédaction que vous pouvez copier, ajuster et envoyer.",
+        oneTimePrice: "$19.90",
+        oneTimeNote: "par mission · paiement à l’usage",
+        oneTimeLi1: "Une rédaction complète (e-mail, lettre, court texte ou message)",
+        oneTimeLi2: "Ton calme et respectueux pour un public plus âgé US/UE",
+        oneTimeLi3: "Adapté à la famille, aux affaires ou à un style juridique simple",
+        oneTimeLi4: "Pas d’abonnement, pas de connexion — vous payez et recevez le texte",
+        oneTimeCta: "Commencer avec une mission ponctuelle",
+        oneTimeTip:
+          "Idéal pour tester le bureau avant de passer à une relation mensuelle.",
+
+        plansTitle: "Bureaux mensuels",
+        plansSub:
+          "Les bureaux mensuels sont conçus pour ceux qui préfèrent un partenaire d’écriture calme et continu : le ton est mémorisé, le contexte conservé, et les tâches gérées sereinement.",
+
+        starterBadge: "Bureau d’entrée",
+        starterName: "Starter Desk",
+        starterPriceMain: "$140",
+        starterPriceUnit: "/ mois",
+        starterDesc:
+          "Pour les clients qui ont besoin d’un bureau d’écriture fiable de temps en temps.",
+        starterLi1: "Jusqu’à 5 missions par mois",
+        starterLi2: "Ton et préférences mémorisés",
+        starterLi3: "Délai prioritaire (sous 48 h)",
+        starterLi4: "Page de bureau personnelle après abonnement",
+        starterLi5: "Communication uniquement par e-mail",
+        starterCta: "Démarrer le Starter Desk",
+        starterTagline:
+          "Convient aux lettres, réponses et textes professionnels occasionnels.",
+
+        proBadge: "Le plus populaire",
+        proName: "Professional Desk",
+        proPriceMain: "$280",
+        proPriceUnit: "/ mois",
+        proDesc:
+          "Pour les professionnels US/UE, anciens combattants et chefs d’entreprise qui ont besoin d’un soutien régulier et structuré.",
+        proLi1: "Jusqu’à 12 missions par mois",
+        proLi2: "Inclut un texte long (environ 1000–1500 mots)",
+        proLi3: "Continuité du ton et de l’histoire",
+        proLi4: "Planification légère de contenu chaque mois",
+        proLi5: "Délai prioritaire (24–48 h)",
+        proLi6: "Page de bureau personnelle pour les tâches",
+        proCta: "Démarrer le Professional Desk",
+        proTagline:
+          "Conçu pour ceux qui souhaitent un partenaire d’écriture calme sur le long terme.",
+
+        privateBadge: "Bureau privé",
+        privateName: "Private Desk",
+        privatePriceMain: "$580",
+        privatePriceUnit: "/ mois",
+        privateDesc:
+          "Réservé aux clients qui veulent un bureau d’écriture privé, et non une plateforme.",
+        privateLi1: "Tâches courtes illimitées (usage raisonnable)",
+        privateLi2: "Jusqu’à 3 textes longs par mois",
+        privateLi3: "Mémoire complète du ton et du contexte",
+        privateLi4: "Soutien pour les communications familiales ou professionnelles sensibles",
+        privateLi5: "Priorité maximale dans la file du bureau",
+        privateLi6: "Page de bureau personnelle premium",
+        privateCta: "Démarrer le Private Desk",
+        privateTagline:
+          "Pour les clients qui préfèrent une relation continue plutôt que des missions isolées.",
+
+        noteTitle1: "Que se passe-t-il après votre abonnement ?",
+        noteP1:
+          "Une fois le paiement confirmé, vous êtes redirigé vers votre page de bureau personnelle. Cette page est votre espace de travail privé pour cette offre, où vous pouvez envoyer des missions à tout moment pendant la période de facturation.",
+        noteP2:
+          "Ajoutez cette page à vos favoris. Si la période de facturation se termine sans renouvellement, la page cessera d’accepter de nouvelles missions et vous ramènera doucement vers la page publique des tarifs.",
+        noteTitle2: "Comment fonctionnent les frais de bureau (version simple) :",
+        noteP3:
+          "Vous voyez un prix unique et clair (par exemple 280 $). Les outils et collaborateurs sont payés à partir de cette somme. Le reste représente les frais du bureau pour la définition des besoins, la gestion du ton et le contrôle qualité.",
+
+        footerText:
+          "© 2025 Aurum Task Desk — Bureau privé de coordination de tâches IA"
+      },
+
+      /* ===== German ===== */
+      de: {
+        navHome: "Startseite",
+        navTasks: "Aufgaben-Marktplatz",
+        navAbout: "Über uns",
+        navPricing: "Preise",
+        navContact: "Kontakt",
+
+        headerTitle: "Preise und Desk-Modelle",
+        headerSub:
+          "Aurum Task Desk bietet eine einfache Struktur: Du kannst mit einer einmaligen Aufgabe beginnen und später zu einem privaten Monats-Desk wechseln, wenn du ruhigere, langfristige Unterstützung möchtest.",
+
+        oneTimeTitle: "Einmalige Aufgabe",
+        oneTimeSub:
+          "Am besten für neue Kunden oder einzelne Anliegen. Ein kompletter Entwurf, den du kopieren, anpassen und versenden kannst.",
+        oneTimePrice: "$19.90",
+        oneTimeNote: "pro Aufgabe · Bezahlung nach Bedarf",
+        oneTimeLi1: "Ein vollständiger Entwurf (E-Mail, Brief, kurzer Beitrag oder Nachricht)",
+        oneTimeLi2: "Ruhiger, respektvoller Ton für ältere Leser in USA/EU",
+        oneTimeLi3: "Geeignet für Familie, Geschäftstexte oder einfachen juristischen Stil",
+        oneTimeLi4: "Kein Abo, kein Login – du bezahlst und erhältst den Text",
+        oneTimeCta: "Mit einer einmaligen Aufgabe starten",
+        oneTimeTip:
+          "Ideal, um den Desk zu testen, bevor du ein Monatsmodell wählst.",
+
+        plansTitle: "Monatliche Desk-Pläne",
+        plansSub:
+          "Monats-Desks sind für Menschen gedacht, die einen ruhigen, dauerhaften Schreibpartner bevorzugen: Der Ton wird gemerkt, der Kontext bleibt erhalten und Aufgaben werden gelassen abgearbeitet.",
+
+        starterBadge: "Einstiegs-Desk",
+        starterName: "Starter Desk",
+        starterPriceMain: "$140",
+        starterPriceUnit: "/ Monat",
+        starterDesc:
+          "Für Kunden, die gelegentlich einen ruhigen, verlässlichen Schreibtisch brauchen.",
+        starterLi1: "Bis zu 5 Aufgaben pro Monat",
+        starterLi2: "Ton und Vorlieben werden gemerkt",
+        starterLi3: "Priorisierte Lieferung (innerhalb von 48 Stunden)",
+        starterLi4: "Persönliche Desk-Seite nach Abo",
+        starterLi5: "Kommunikation ausschließlich per E-Mail",
+        starterCta: "Starter Desk starten",
+        starterTagline:
+          "Gut für Briefe, Antworten und gelegentliche Geschäftstexte.",
+
+        proBadge: "Am beliebtesten",
+        proName: "Professional Desk",
+        proPriceMain: "$280",
+        proPriceUnit: "/ Monat",
+        proDesc:
+          "Für Fachleute in USA/EU, Veteranen und Unternehmer, die stetige, strukturierte Unterstützung brauchen.",
+        proLi1: "Bis zu 12 Aufgaben pro Monat",
+        proLi2: "Eine Langform-Text pro Monat inklusive (ca. 1000–1500 Wörter)",
+        proLi3: "Fortlaufende Konsistenz von Ton und Geschichte",
+        proLi4: "Leichte Content-Planung pro Monat",
+        proLi5: "Priorisierte Lieferung (24–48 Stunden)",
+        proLi6: "Persönliche Desk-Seite für Aufgaben",
+        proCta: "Professional Desk starten",
+        proTagline:
+          "Für alle, die einen ruhigen, langfristigen Schreibpartner wollen.",
+
+        privateBadge: "Privates Büro",
+        privateName: "Private Desk",
+        privatePriceMain: "$580",
+        privatePriceUnit: "/ Monat",
+        privateDesc:
+          "Reserviert für Kunden, die ein privates Schreibbüro möchten – keine offene Plattform.",
+        privateLi1: "Unbegrenzte kurze Aufgaben (Fair-Use-Prinzip)",
+        privateLi2: "Bis zu 3 Langform-Texte pro Monat",
+        privateLi3: "Vollständige Erinnerung an Ton und Hintergrund",
+        privateLi4: "Unterstützung bei sensibler Familien- oder Arbeitskommunikation",
+        privateLi5: "Höchste Priorität in der Desk-Warteschlange",
+        privateLi6: "Premium-Persönliche-Desk-Seite",
+        privateCta: "Private Desk starten",
+        privateTagline:
+          "Für Kunden, die eine ruhige, kontinuierliche Zusammenarbeit bevorzugen.",
+
+        noteTitle1: "Was passiert nach dem Abonnement?",
+        noteP1:
+          "Nach Bestätigung der Zahlung wirst du zu deiner persönlichen Desk-Seite weitergeleitet. Diese Seite ist dein privater Arbeitsbereich für diesen Plan, und du kannst während des gesamten Abrechnungszeitraums Aufgaben einreichen.",
+        noteP2:
+          "Speichere deine Desk-Seite als Lesezeichen im Browser. Wenn der Abrechnungszeitraum endet und du nicht verlängerst, nimmt der Desk keine neuen Aufgaben mehr an und leitet dich sanft zurück zur öffentlichen Preisseite.",
+        noteTitle2: "So funktionieren die Desk-Gebühren (vereinfachte Version):",
+        noteP3:
+          "Du siehst einen klaren Preis (z. B. 280 $). Daraus werden Tools und Mitwirkende bezahlt. Der restliche Teil ist die Desk-Gebühr für Auftragsklärung, Ton-Management und Qualitätssicherung.",
+
+        footerText:
+          "© 2025 Aurum Task Desk — Privater KI-Aufgaben-Desk"
+      }
     };
 
     function applyGlobalLanguage() {
