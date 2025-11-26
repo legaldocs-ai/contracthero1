@@ -2,33 +2,36 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-    <!-- Google tag (gtag.js) -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aurum Task Desk — Pricing</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png" />
+
+  <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-NEY7RNB5S"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag(){ dataLayer.push(arguments); }
     gtag('js', new Date());
     gtag('config', 'G-NEY7RNB5S');
   </script>
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Aurum Task Desk — Pricing</title>
-  <link rel="icon" type="image/png" href="favicon.png" />
-
-  <!-- Stripe.js，用于跳转到 Stripe Checkout -->
-  <script src="https://js.stripe.com/v3/"></script>
+  <!-- SEO -->
+  <meta
+    name="description"
+    content="Aurum Task Desk pricing. One-time tasks from USD 19.9, plus Starter, Professional and Private Desk subscriptions for calm writing support for 30+ professionals."
+  />
 
   <style>
     * { box-sizing: border-box; }
-
     body {
       margin: 0;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-      background: #f5f3ef;
-      color: #1d2734;
+      background: radial-gradient(circle at top, #101322, #050816 55%, #02030a 100%);
+      color: #f6f4ed;
       line-height: 1.6;
     }
-
     a { text-decoration: none; color: inherit; }
 
     .container {
@@ -39,1092 +42,1138 @@
 
     /* Navbar */
     .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 18px 0;
-      border-bottom: 1px solid #d5d3ce;
-      background: rgba(245,243,239,0.92);
-      backdrop-filter: blur(10px);
       position: sticky;
       top: 0;
-      z-index: 10;
+      z-index: 20;
+      backdrop-filter: blur(14px);
+      background: rgba(5, 8, 22, 0.94);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.16);
     }
-
+    .navbar-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
     .nav-left {
       font-size: 20px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #111927;
-    }
-
-    .nav-right a {
-      margin-left: 22px;
-      font-size: 14px;
-      opacity: 0.85;
-    }
-
-    .nav-right a:hover {
-      opacity: 1;
-      color: #7a642f;
-    }
-
-    /* 登录区域样式 */
-    .nav-user-area {
-      display: inline-flex;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      display: flex;
       align-items: center;
-      margin-left: 20px;
-      gap: 10px;
+      gap: 8px;
     }
-
-    .nav-user-area .nav-hi {
-      font-size: 13px;
+    .nav-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #fdf4ce, #f4b76a);
+      box-shadow: 0 0 12px rgba(250, 204, 21, 0.8);
+    }
+    .nav-middle {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 14px;
+    }
+    .nav-link {
+      padding: 6px 10px;
+      border-radius: 999px;
+      color: #e5e7eb;
       opacity: 0.9;
     }
-
-    .nav-user-area .nav-logout-btn {
-      padding: 5px 12px;
-      border-radius: 999px;
-      border: 1px solid #7a642f;
-      background: transparent;
-      color: inherit;
-      font-size: 12px;
-      cursor: pointer;
+    .nav-link:hover {
+      background: rgba(148, 163, 184, 0.16);
+      opacity: 1;
+    }
+    .nav-link-active {
+      background: rgba(251, 191, 36, 0.1);
+      color: #facc6b;
+      border: 1px solid rgba(250, 204, 21, 0.5);
     }
 
-    .nav-user-area .nav-logout-btn:hover {
-      background: rgba(122, 100, 47, 0.1);
-    }
-
-    .nav-user-area .nav-signin-link {
-      font-size: 14px;
-      padding: 5px 0;
-    }
-
-    /* Header */
-    .page-header {
-      margin-top: 32px;
-      margin-bottom: 16px;
-    }
-
-    .header-title {
-      font-size: 30px;
-      font-weight: 800;
-      color: #132033;
-      margin-bottom: 6px;
-    }
-
-    .header-sub {
-      font-size: 14px;
-      max-width: 640px;
-      color: #55514a;
-    }
-
-    /* Pricing layout */
-    .pricing-layout {
-      display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.3fr);
-      gap: 24px;
-      margin-top: 26px;
-      align-items: flex-start;
-    }
-
-    @media (max-width: 900px) {
-      .pricing-layout {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .card {
-      background: rgba(255,255,255,0.96);
-      border-radius: 16px;
-      border: 1px solid #dcd9d3;
-      padding: 20px 20px 22px;
-    }
-
-    .card-title {
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 6px;
-      color: #132033;
-    }
-
-    .card-sub {
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
       font-size: 13px;
-      color: #6c6558;
-      margin-bottom: 16px;
     }
 
-    /* One-time card */
-    .one-time-price {
-      font-size: 26px;
-      font-weight: 800;
-      margin-bottom: 4px;
-      color: #132033;
-    }
-
-    .muted {
-      font-size: 12px;
-      color: #7c7567;
-    }
-
-    .btn-primary {
-      display: inline-block;
-      padding: 9px 18px;
+    .lang-pill-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px;
       border-radius: 999px;
-      border: 1px solid #24364c;
-      background: #24364c;
-      color: #fff;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      margin-top: 10px;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(148, 163, 184, 0.35);
     }
-
-    .btn-primary:hover {
-      filter: brightness(1.03);
-    }
-
-    /* Plans */
-    .plans-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 18px;
-      margin-top: 8px;
-    }
-
-    .plan-card {
-      background: #fefcf7;
-      border-radius: 14px;
-      border: 1px solid #ded3c1;
-      padding: 16px 16px 18px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .plan-badge {
+    .lang-pill-label {
+      padding: 0 6px;
       font-size: 11px;
       text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: #8d7140;
-      margin-bottom: 4px;
+      color: #9ca3af;
     }
-
-    .plan-name {
-      font-size: 17px;
-      font-weight: 700;
-      color: #1b2836;
-      margin-bottom: 4px;
+    .lang-pill {
+      padding: 4px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      color: #e5e7eb;
+      opacity: 0.75;
     }
-
-    .plan-price {
-      font-size: 24px;
-      font-weight: 800;
-      color: #1b2836;
-      margin-bottom: 4px;
-    }
-
-    .plan-price span {
-      font-size: 13px;
-      font-weight: 500;
-      color: #7b7569;
-    }
-
-    .plan-desc {
-      font-size: 13px;
-      color: #615a4d;
-      margin-bottom: 10px;
-    }
-
-    .plan-list {
-      font-size: 13px;
-      color: #4e473a;
-      padding-left: 18px;
-      margin: 0 0 10px;
-    }
-
-    .plan-list li {
-      margin-bottom: 4px;
+    .lang-pill-active {
+      background: #f4b76a;
+      color: #111827;
+      opacity: 1;
     }
 
     .btn-outline {
-      display: inline-block;
-      padding: 8px 16px;
+      padding: 6px 14px;
       border-radius: 999px;
-      border: 1px solid #b89452;
-      background: #f9f2e4;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: transparent;
+      color: #e5e7eb;
       font-size: 13px;
-      font-weight: 600;
-      color: #6e5321;
       cursor: pointer;
-      margin-top: 4px;
     }
-
     .btn-outline:hover {
-      background: #f0e3cc;
+      border-color: #facc6b;
+      color: #fefce8;
+      box-shadow: 0 0 0 1px rgba(250, 204, 21, 0.4);
     }
 
-    .plan-tagline {
+    .btn-gold {
+      padding: 11px 20px;
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(135deg, #f4d191, #f4b76a);
+      color: #111827;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow:
+        0 12px 30px rgba(15, 23, 42, 0.9),
+        0 0 18px rgba(250, 204, 21, 0.5);
+      transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
+    }
+    .btn-gold:hover {
+      transform: translateY(-1px);
+      box-shadow:
+        0 18px 40px rgba(15, 23, 42, 1),
+        0 0 22px rgba(250, 204, 21, 0.7);
+    }
+
+    /* Hero */
+    .hero {
+      padding: 38px 20px 26px;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: 34px;
+      align-items: flex-start;
+    }
+    .hero-eyebrow {
+      font-size: 13px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #9ca3af;
+      margin-bottom: 10px;
+    }
+    .hero-title {
+      font-size: 32px;
+      line-height: 1.25;
+      margin: 0 0 10px;
+    }
+    .hero-title span {
+      color: #f4d191;
+    }
+    .hero-subtitle {
+      font-size: 16px;
+      color: #d1d5db;
+      margin-bottom: 12px;
+    }
+    .hero-body {
+      font-size: 14px;
+      color: #9ca3af;
+      max-width: 520px;
+      margin-bottom: 18px;
+    }
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    .tag {
+      font-size: 11px;
+      padding: 5px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.8);
+      color: #e5e7eb;
+    }
+    .hero-note {
       font-size: 12px;
-      color: #7a7369;
-      margin-top: 6px;
+      color: #9ca3af;
+    }
+    .hero-note span {
+      color: #facc6b;
+      font-weight: 500;
     }
 
-    .highlight {
-      border-color: #c39a4f;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+    .hero-right-card {
+      border-radius: 18px;
+      border: 1px solid rgba(250, 204, 21, 0.4);
+      background: radial-gradient(circle at top left, rgba(244, 209, 145, 0.16), rgba(15, 23, 42, 0.96));
+      padding: 16px 18px;
+      box-shadow:
+        0 18px 45px rgba(15, 23, 42, 0.9),
+        0 0 0 1px rgba(148, 163, 184, 0.35);
+      font-size: 13px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-right-card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle at top, rgba(244, 209, 145, 0.22), transparent 60%);
+      opacity: 0;
+      animation: heroGlow 6s ease-in-out infinite;
+      pointer-events: none;
+    }
+    @keyframes heroGlow {
+      0%, 100% { opacity: 0; transform: translateY(0); }
+      40% { opacity: 1; transform: translateY(6px); }
+    }
+    .hero-right-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .hero-right-sub {
+      font-size: 12px;
+      color: #d1d5db;
+      margin-bottom: 10px;
+    }
+    .hero-right-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+      font-size: 12px;
+    }
+    .hero-right-label {
+      color: #9ca3af;
+    }
+    .hero-right-value {
+      color: #facc6b;
+      font-weight: 600;
+    }
+    .hero-right-foot {
+      font-size: 11px;
+      color: #9ca3af;
+      margin-top: 8px;
+    }
+
+    /* Sections */
+    section {
+      padding: 14px 20px 32px;
+    }
+    .section-title {
+      font-size: 20px;
+      margin-bottom: 6px;
+    }
+    .section-sub {
+      font-size: 13px;
+      color: #9ca3af;
+      max-width: 620px;
+      margin-bottom: 18px;
+    }
+
+    /* Pricing grid */
+    .plans-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .plan-card {
+      position: relative;
+      border-radius: 18px;
+      padding: 18px 18px 16px;
+      background: radial-gradient(circle at top left, rgba(148, 163, 184, 0.08), rgba(15, 23, 42, 0.98));
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.85);
+      overflow: hidden;
+      transition: transform 0.18s ease-out, box-shadow 0.18s ease-out, border-color 0.18s ease-out;
+    }
+    .plan-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(250, 204, 21, 0.8);
+      box-shadow:
+        0 24px 55px rgba(15, 23, 42, 1),
+        0 0 22px rgba(250, 204, 21, 0.5);
+    }
+    .plan-card.featured {
+      border-color: rgba(250, 204, 21, 0.85);
+      background: radial-gradient(circle at top left, rgba(244, 209, 145, 0.18), rgba(15, 23, 42, 1));
+    }
+    .plan-badge {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: #e5e7eb;
+      opacity: 0.85;
+      margin-bottom: 6px;
+    }
+    .plan-tagline {
+      font-size: 11px;
+      color: #9ca3af;
+      margin-bottom: 4px;
+    }
+    .plan-name {
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .plan-price {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+    .plan-price span.unit {
+      font-size: 12px;
+      font-weight: 400;
+      color: #9ca3af;
+      margin-left: 4px;
+    }
+    .plan-note {
+      font-size: 12px;
+      color: #9ca3af;
+      margin-bottom: 10px;
+    }
+    .plan-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 10px;
+      font-size: 13px;
+      color: #e5e7eb;
+    }
+    .plan-list li {
+      position: relative;
+      padding-left: 18px;
+      margin-bottom: 4px;
+    }
+    .plan-list li::before {
+      content: "•";
+      position: absolute;
+      left: 6px;
+      top: 0;
+      color: #facc6b;
+    }
+    .plan-cta {
+      margin-top: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+    }
+    .plan-cta button {
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.8);
+      background: rgba(15, 23, 42, 0.9);
+      color: #fefce8;
+      cursor: pointer;
+      font-size: 12px;
+    }
+    .plan-cta button:hover {
+      border-color: #facc6b;
+    }
+    .plan-cta span {
+      color: #9ca3af;
     }
 
     /* Note block */
     .note-block {
-      margin-top: 26px;
-      padding: 16px 16px 18px;
+      margin-top: 18px;
+      border-radius: 16px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.96);
+      padding: 12px 14px;
+      font-size: 12px;
+      color: #d1d5db;
+    }
+    .note-title {
+      font-weight: 500;
+      margin-bottom: 4px;
+      color: #fefce8;
+    }
+    .note-block ul {
+      padding-left: 18px;
+      margin: 4px 0 0;
+    }
+    .note-block li {
+      margin-bottom: 2px;
+    }
+
+    /* After subscribe */
+    .after-subscribe-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      font-size: 13px;
+    }
+    .after-card {
+      border-radius: 16px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: radial-gradient(circle at top left, rgba(30, 64, 175, 0.16), rgba(15, 23, 42, 0.97));
+      padding: 12px 14px;
+    }
+    .after-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: #9ca3af;
+      margin-bottom: 4px;
+    }
+    .after-title {
+      font-size: 14px;
+      margin-bottom: 4px;
+      color: #fefce8;
+    }
+    .after-text {
+      color: #d1d5db;
+      font-size: 13px;
+    }
+
+    /* FAQ */
+    .faq-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: 18px;
+    }
+    .faq-item {
       border-radius: 14px;
-      border: 1px solid #d2c9b7;
-      background: #fbf7ee;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.96);
+      padding: 12px 14px;
       font-size: 13px;
-      color: #5a5347;
+      margin-bottom: 10px;
+    }
+    .faq-q {
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+    .faq-a {
+      color: #d1d5db;
+      font-size: 13px;
+    }
+    .faq-note {
+      font-size: 12px;
+      color: #9ca3af;
+      margin-top: 4px;
     }
 
-    .note-block strong {
-      color: #3b3121;
+    /* Footer */
+    footer {
+      border-top: 1px solid rgba(148, 163, 184, 0.35);
+      padding: 14px 20px 20px;
+      font-size: 11px;
+      color: #6b7280;
+      background: #020617;
+    }
+    .footer-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .footer-links {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .footer-link {
+      color: #9ca3af;
+    }
+    .footer-link:hover {
+      color: #e5e7eb;
     }
 
-    .footer {
-      margin-top: 50px;
-      border-top: 1px solid #d2cfca;
-      padding: 26px 0 36px;
-      text-align: center;
-      font-size: 13px;
-      color: #746e64;
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .hero-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .hero-right-card {
+        margin-top: 6px;
+      }
+      .plans-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .after-subscribe-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .faq-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+    @media (max-width: 720px) {
+      .plans-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+    @media (max-width: 640px) {
+      .navbar-inner {
+        flex-wrap: wrap;
+        justify-content: space-between;
+      }
+      .nav-middle {
+        display: none;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- NAVBAR -->
-  <nav class="navbar container">
-    <div class="nav-left">Aurum Task Desk</div>
-    <div class="nav-right">
-      <a href="index.html" id="navHome">Home</a>
-      <a href="tasks.html" id="navTasks">Task Marketplace</a>
-      <a href="about.html" id="navAbout">About</a>
-      <a href="pricing.html" id="navPricing">Pricing</a>
-      <a href="contact.html" id="navContact">Contact</a>
-      <!-- 登录状态显示区域 -->
-      <span id="navUserArea" class="nav-user-area"></span>
-    </div>
-  </nav>
-
-  <!-- HEADER -->
-  <header class="container page-header">
-    <h1 class="header-title" id="headerTitle">Pricing & Desk Models</h1>
-    <p class="header-sub" id="headerSub">
-      Aurum Task Desk offers a simple structure: you can start with a one-time task,
-      or move into a private Desk subscription when you want calmer, long-term support.
-    </p>
-  </header>
-
-  <main class="container pricing-layout">
-    <!-- LEFT: One-time -->
-    <section class="card">
-      <h2 class="card-title" id="oneTimeTitle">One-Time Task</h2>
-      <p class="card-sub" id="oneTimeSub">
-        Best for first-time clients or one-off needs. A single draft you can copy,
-        adjust, and send.
-      </p>
-
-      <div class="one-time-price" id="oneTimePrice">$19.90</div>
-      <div class="muted" id="oneTimeNote">per task · pay as you go</div>
-
-      <ul class="plan-list" style="margin-top:10px;">
-        <li id="oneTimeLi1">One complete draft (email, letter, short post, or message)</li>
-        <li id="oneTimeLi2">Calm, respectful tone for older US/EU audiences</li>
-        <li id="oneTimeLi3">Suitable for family, business, or simple legal-style language</li>
-        <li id="oneTimeLi4">No subscription, no login — just pay and receive the text</li>
-      </ul>
-
-      <!-- 一次性付款按钮：现在会走 Stripe + Worker -->
-      <a href="#" class="btn-primary" id="oneTimeCta">Start with a one-time task</a>
-      <div id="oneTimeError" class="muted" style="margin-top:6px;color:#b32626;"></div>
-
-      <p class="muted" style="margin-top:8px;" id="oneTimeTip">
-        Ideal for testing the Desk before moving into a monthly relationship.
-      </p>
-    </section>
-
-    <!-- RIGHT: Desk plans -->
-    <section class="card">
-      <h2 class="card-title" id="plansTitle">Monthly Desk Plans</h2>
-      <p class="card-sub" id="plansSub">
-        Monthly Desks are for people who prefer a quiet, ongoing writing partner:
-        tone is remembered, context is saved, and tasks are handled calmly over time.
-      </p>
-
-      <div class="plans-grid">
-        <!-- Starter -->
-        <article class="plan-card">
-          <div class="plan-badge" id="starterBadge">Entry Desk</div>
-          <div class="plan-name" id="starterName">Starter Desk</div>
-          <div class="plan-price">
-            <span id="starterPriceMain">$140</span>
-            <span id="starterPriceUnit">/ month</span>
-          </div>
-          <p class="plan-desc" id="starterDesc">
-            For clients who occasionally need a calm, reliable writing desk.
-          </p>
-          <ul class="plan-list">
-            <li id="starterLi1">Up to 5 tasks per month</li>
-            <li id="starterLi2">Tone & preferences remembered</li>
-            <li id="starterLi3">Priority delivery (within 48 hours)</li>
-            <li id="starterLi4">Personal Desk page (after subscription)</li>
-            <li id="starterLi5">Email-based communication only</li>
-          </ul>
-          <!-- TODO: 换成你在 Stripe 里建好的 Starter Desk 订阅链接 -->
-          <a href="https://YOUR_STARTER_DESK_STRIPE_LINK" class="btn-outline" id="starterCta">
-            Start Starter Desk
-          </a>
-          <div class="plan-tagline" id="starterTagline">
-            Good for letters, replies, and occasional business writing.
-          </div>
-        </article>
-
-        <!-- Professional -->
-        <article class="plan-card highlight">
-          <div class="plan-badge" id="proBadge">Most Popular</div>
-          <div class="plan-name" id="proName">Professional Desk</div>
-          <div class="plan-price">
-            <span id="proPriceMain">$280</span>
-            <span id="proPriceUnit">/ month</span>
-          </div>
-          <p class="plan-desc" id="proDesc">
-            For US/EU professionals, veterans, and business owners who need steady, structured help.
-          </p>
-          <ul class="plan-list">
-            <li id="proLi1">Up to 12 tasks per month</li>
-            <li id="proLi2">One long-form piece included (1000–1500 words)</li>
-            <li id="proLi3">Ongoing tone & story continuity</li>
-            <li id="proLi4">Light content planning each month</li>
-            <li id="proLi5">Priority delivery (24–48 hours)</li>
-            <li id="proLi6">Personal Desk page for tasks</li>
-          </ul>
-          <!-- TODO: 换成 Professional Desk 的 Stripe 订阅链接 -->
-          <a href="https://YOUR_PRO_DESK_STRIPE_LINK" class="btn-outline" id="proCta">
-            Start Professional Desk
-          </a>
-          <div class="plan-tagline" id="proTagline">
-            Designed for people who want a quiet, long-term writing partner.
-          </div>
-        </article>
-
-        <!-- Private -->
-        <article class="plan-card">
-          <div class="plan-badge" id="privateBadge">Private Office</div>
-          <div class="plan-name" id="privateName">Private Desk</div>
-          <div class="plan-price">
-            <span id="privatePriceMain">$580</span>
-            <span id="privatePriceUnit">/ month</span>
-          </div>
-          <p class="plan-desc" id="privateDesc">
-            Reserved for clients who want a private writing office, not a platform.
-          </p>
-          <ul class="plan-list">
-            <li id="privateLi1">Unlimited short tasks (fair use)</li>
-            <li id="privateLi2">Up to 3 long-form pieces per month</li>
-            <li id="privateLi3">Full tone & background memory</li>
-            <li id="privateLi4">Support for sensitive family or work communication</li>
-            <li id="privateLi5">Highest priority in the Desk queue</li>
-            <li id="privateLi6">Premium Personal Desk page</li>
-          </ul>
-          <!-- TODO: 换成 Private Desk 的 Stripe 订阅链接 -->
-          <a href="https://YOUR_PRIVATE_DESK_STRIPE_LINK" class="btn-outline" id="privateCta">
-            Start Private Desk
-          </a>
-          <div class="plan-tagline" id="privateTagline">
-            For clients who prefer a quiet, ongoing relationship instead of one-off tasks.
-          </div>
-        </article>
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="navbar-inner">
+      <div class="nav-left">
+        <span class="nav-dot"></span>
+        <span>AURUM TASK DESK</span>
       </div>
 
-      <div class="note-block">
-        <p><strong id="noteTitle1">What happens after you subscribe?</strong></p>
-        <p id="noteP1">
-          After your payment is confirmed, you will be redirected to your Personal Desk page.
-          That page is your private workspace for this plan. You can submit tasks there at
-          any time during your current billing period.
+      <nav class="nav-middle">
+        <a href="index.html" class="nav-link" data-i18n="navHome">Home</a>
+        <a href="tasks.html" class="nav-link" data-i18n="navTasks">Tasks</a>
+        <a href="about.html" class="nav-link" data-i18n="navAbout">About</a>
+        <a href="pricing.html" class="nav-link nav-link-active" data-i18n="navPricing">Pricing</a>
+        <a href="contact.html" class="nav-link" data-i18n="navContact">Contact</a>
+      </nav>
+
+      <div class="nav-right">
+        <div class="lang-pill-group">
+          <span class="lang-pill-label">LANG</span>
+          <button class="lang-pill lang-pill-active" data-lang="en">EN</button>
+          <button class="lang-pill" data-lang="zh">中文</button>
+          <button class="lang-pill" data-lang="ar">عربي</button>
+          <button class="lang-pill" data-lang="fr">FR</button>
+          <button class="lang-pill" data-lang="de">DE</button>
+        </div>
+
+        <div id="authArea"></div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="hero-eyebrow" data-i18n="heroEyebrow">
+            PRICING · QUIET DESK FOR 30+ PROFESSIONALS
+          </div>
+          <h1 class="hero-title" data-i18n="heroTitle">
+            One quiet desk, <span>two ways to pay</span>
+          </h1>
+          <p class="hero-subtitle" data-i18n="heroSubtitle">
+            Start with a single USD 19.9 task, or keep a small writing desk on standby every month.
+          </p>
+          <p class="hero-body" data-i18n="heroBody">
+            Aurum Task Desk is designed for clients 30+ who prefer calm, respectful, long-term communication.
+            Pricing is simple: one-time tasks when you occasionally need help, or subscription desks when writing support
+            is part of your monthly routine.
+          </p>
+          <div class="hero-tags">
+            <span class="tag" data-i18n="tagOneTime">One-time from USD 19.9</span>
+            <span class="tag" data-i18n="tagSub">Starter / Professional / Private Desk</span>
+            <span class="tag" data-i18n="tagCalm">Calm tone for US & EU clients 30+</span>
+          </div>
+          <p class="hero-note" data-i18n="heroNote">
+            You can always begin with a <span>single one-time task</span> and upgrade later if you like how the Desk works.
+          </p>
+        </div>
+
+        <aside class="hero-right-card">
+          <div class="hero-right-title" data-i18n="heroRightTitle">At a glance</div>
+          <div class="hero-right-sub" data-i18n="heroRightSub">
+            A calm writing desk for letters, updates, content packs and sensitive communication.
+          </div>
+          <div class="hero-right-row">
+            <span class="hero-right-label" data-i18n="heroRightOneTimeLabel">One-time tasks</span>
+            <span class="hero-right-value" data-i18n="heroRightOneTimeValue">USD 19.9 / task</span>
+          </div>
+          <div class="hero-right-row">
+            <span class="hero-right-label" data-i18n="heroRightSubLabel">Subscriptions</span>
+            <span class="hero-right-value" data-i18n="heroRightSubValue">USD 140–580 / month</span>
+          </div>
+          <div class="hero-right-row">
+            <span class="hero-right-label" data-i18n="heroRightClientsLabel">Best for</span>
+            <span class="hero-right-value" data-i18n="heroRightClientsValue">US & EU clients 30+</span>
+          </div>
+          <p class="hero-right-foot" data-i18n="heroRightFoot">
+            No custody of funds on this site. All payments use Stripe / card / Wise-style methods you already know.
+          </p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- One-time vs Subscription -->
+    <section>
+      <div class="container">
+        <h2 class="section-title" data-i18n="sectionMainTitle">Choose how your Desk works</h2>
+        <p class="section-sub" data-i18n="sectionMainSub">
+          Most people start with a one-time task. If you find that writing support becomes part of your monthly routine,
+          you can move into a subscription Desk with clear rules and boundaries.
         </p>
-        <p id="noteP2">
-          Please bookmark your Desk page in your browser. If a billing period ends and your
-          subscription is not renewed, your Desk page will stop accepting new tasks and
-          will gently redirect you back to the public Pricing page.
+
+        <div class="plans-grid">
+          <!-- One-time -->
+          <article class="plan-card" id="oneTimeCard">
+            <div class="plan-badge" data-i18n="oneTimeBadge">Entry point</div>
+            <div class="plan-tagline" data-i18n="oneTimeTagline">Good for occasional letters or content</div>
+            <div class="plan-name" data-i18n="oneTimeName">One-Time Task</div>
+            <div class="plan-price">
+              <span id="oneTimePriceMain" data-i18n="oneTimePriceMain">USD 19.9</span>
+              <span class="unit" data-i18n="oneTimePriceUnit">/ task</span>
+            </div>
+            <div class="plan-note" data-i18n="oneTimeNote">Pay as you go · no subscription · no minimum.</div>
+            <ul class="plan-list">
+              <li data-i18n="oneTimeLi1">One complete draft: email, letter, short post or message.</li>
+              <li data-i18n="oneTimeLi2">Calm, respectful tone for US/EU 30+ clients and families.</li>
+              <li data-i18n="oneTimeLi3">Suitable for family, business or simple legal-style wording.</li>
+              <li data-i18n="oneTimeLi4">No subscription, no portal to learn — just pay and receive the text.</li>
+            </ul>
+            <div class="plan-cta">
+              <button onclick="goTasks()" data-i18n="oneTimeCta">Start with a one-time task</button>
+              <span data-i18n="oneTimeHint">You can later convert into a Desk if needed.</span>
+            </div>
+          </article>
+
+          <!-- Starter -->
+          <article class="plan-card" id="starterCard">
+            <div class="plan-badge" data-i18n="starterBadge">Entry Desk</div>
+            <div class="plan-tagline" data-i18n="starterTagline">For light but regular support</div>
+            <div class="plan-name" data-i18n="starterName">Starter Desk</div>
+            <div class="plan-price">
+              <span id="starterPriceMain" data-i18n="starterPriceMain">USD 140</span>
+              <span class="unit" data-i18n="starterPriceUnit">/ month</span>
+            </div>
+            <div class="plan-note" data-i18n="starterNote">A small, quiet desk you can lean on a few times a month.</div>
+            <ul class="plan-list">
+              <li data-i18n="starterLi1">Up to 5 tasks per month (emails, short letters, small updates).</li>
+              <li data-i18n="starterLi2">Tone and preferences remembered across tasks.</li>
+              <li data-i18n="starterLi3">Simple scheduling and expectations agreed upfront.</li>
+              <li data-i18n="starterLi4">Email-based communication only – calm, written, traceable.</li>
+            </ul>
+            <div class="plan-cta">
+              <button onclick="goContact()" data-i18n="starterCta">Ask about Starter Desk</button>
+              <span data-i18n="starterHint">Best if you send a few important messages each month.</span>
+            </div>
+          </article>
+
+          <!-- Pro (featured) -->
+          <article class="plan-card featured" id="proCard">
+            <div class="plan-badge" data-i18n="proBadge">Most popular</div>
+            <div class="plan-tagline" data-i18n="proTagline">For ongoing client or investor communication</div>
+            <div class="plan-name" data-i18n="proName">Professional Desk</div>
+            <div class="plan-price">
+              <span id="proPriceMain" data-i18n="proPriceMain">USD 280</span>
+              <span class="unit" data-i18n="proPriceUnit">/ month</span>
+            </div>
+            <div class="plan-note" data-i18n="proNote">
+              A steady writing partner for monthly updates, content packs and formal letters.
+            </div>
+            <ul class="plan-list">
+              <li data-i18n="proLi1">Up to 12 tasks per month (shorter pieces and message flows).</li>
+              <li data-i18n="proLi2">One long-form piece included each month (e.g. a long letter or article).</li>
+              <li data-i18n="proLi3">Business-grade content structure and consistency.</li>
+              <li data-i18n="proLi4">Priority delivery on most tasks (typically 24–48 hours).</li>
+              <li data-i18n="proLi5">Personal Desk page to organise tasks and status.</li>
+            </ul>
+            <div class="plan-cta">
+              <button onclick="goContact()" data-i18n="proCta">Discuss a Professional Desk</button>
+              <span data-i18n="proHint">Good for small practices, boutiques and family offices.</span>
+            </div>
+          </article>
+
+          <!-- Private -->
+          <article class="plan-card" id="privateCard">
+            <div class="plan-badge" data-i18n="privateBadge">Private office</div>
+            <div class="plan-tagline" data-i18n="privateTagline">For sensitive, relationship-heavy work</div>
+            <div class="plan-name" data-i18n="privateName">Private Desk</div>
+            <div class="plan-price">
+              <span id="privatePriceMain" data-i18n="privatePriceMain">USD 580</span>
+              <span class="unit" data-i18n="privatePriceUnit">/ month</span>
+            </div>
+            <div class="plan-note" data-i18n="privateNote">
+              A quiet, premium desk focused on complex family, client or stakeholder communication.
+            </div>
+            <ul class="plan-list">
+              <li data-i18n="privateLi1">Unlimited short tasks (fair use, within agreed scope).</li>
+              <li data-i18n="privateLi2">Up to 3 long-form pieces per month (lengthy letters or documents).</li>
+              <li data-i18n="privateLi3">Full tone & background memory over time.</li>
+              <li data-i18n="privateLi4">Support for sensitive family or work communication.</li>
+              <li data-i18n="privateLi5">Highest priority in the Desk queue.</li>
+              <li data-i18n="privateLi6">Premium Personal Desk page for your ongoing work.</li>
+            </ul>
+            <div class="plan-cta">
+              <button onclick="goContact()" data-i18n="privateCta">Enquire about a Private Desk</button>
+              <span data-i18n="privateHint">For relationships where words carry long-term weight.</span>
+            </div>
+          </article>
+        </div>
+
+        <div class="note-block">
+          <div class="note-title" data-i18n="noteTitle">How to read these limits and rules</div>
+          <ul>
+            <li data-i18n="noteLi1">“Tasks” are clearly defined pieces of work (for example: one email thread, one letter, one short content pack).</li>
+            <li data-i18n="noteLi2">For subscription Desks, we agree what counts as a task before you commit, so there are no surprises.</li>
+            <li data-i18n="noteLi3">All plans keep firm ethical and legal boundaries — no promises of guaranteed returns or misleading communication.</li>
+            <li data-i18n="noteLi4">This site never holds client funds; payments flow through standard providers like Stripe.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- After you subscribe -->
+    <section>
+      <div class="container">
+        <h2 class="section-title" data-i18n="afterTitle">What happens after you subscribe?</h2>
+        <p class="section-sub" data-i18n="afterSub">
+          The Desk stays small on purpose. The goal is not to flood you with content, but to help you say important things
+          properly, at the right time, in a tone that fits your relationships.
         </p>
-        <p><strong id="noteTitle2">How Desk fees work (simple version):</strong></p>
-        <p id="noteP3">
-          You see one clear price (for example, $280). Contributors and tools are paid from
-          that amount. The Desk fee is the spread, which covers scoping, tone management,
-          and quality control.
-        </p>
+
+        <div class="after-subscribe-grid">
+          <div class="after-card">
+            <div class="after-label" data-i18n="after1Label">01 · Intake</div>
+            <div class="after-title" data-i18n="after1Title">We build a quiet profile</div>
+            <p class="after-text" data-i18n="after1Text">
+              We note who you write to, your role, your risk comfort and tone preferences. For 30+ clients, this often
+              includes family, a small group of investors, or a handful of long-term clients.
+            </p>
+          </div>
+          <div class="after-card">
+            <div class="after-label" data-i18n="after2Label">02 · Flow</div>
+            <div class="after-title" data-i18n="after2Title">You send tasks in simple language</div>
+            <p class="after-text" data-i18n="after2Text">
+              You do not have to speak “AI”. You describe what is happening and what you hope to achieve; the Desk turns
+              this into drafts you can review, adjust and send.
+            </p>
+          </div>
+          <div class="after-card">
+            <div class="after-label" data-i18n="after3Label">03 · Boundaries</div>
+            <div class="after-title" data-i18n="after3Title">We keep limits and expectations clear</div>
+            <p class="after-text" data-i18n="after3Text">
+              Number of tasks, typical turnaround times and topics we will not touch are all agreed upfront, and revisited
+              if your situation changes.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section>
+      <div class="container faq-grid">
+        <div>
+          <h2 class="section-title" data-i18n="faqTitle">Questions people ask before starting</h2>
+
+          <div class="faq-item">
+            <div class="faq-q" data-i18n="faq1Q">Why USD 19.9 for a one-time task?</div>
+            <div class="faq-a" data-i18n="faq1A">
+              It is enough to give each task careful attention, while still being an easy “yes” for many US/EU clients 30+.
+              It also keeps the Desk model simple: no coupons, no complexity — just a clear starting point.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q" data-i18n="faq2Q">Can I move from one-time tasks into a subscription Desk?</div>
+            <div class="faq-a" data-i18n="faq2A">
+              Yes. Many clients begin with a single letter or content pack, then move into Starter or Professional Desks
+              when they realise they want this form of support every month.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q" data-i18n="faq3Q">Can I downgrade or pause a Desk?</div>
+            <div class="faq-a" data-i18n="faq3A">
+              Desks are intentionally small and flexible. You can discuss pausing, downgrading or returning to one-time
+              tasks if your workload or finances change.
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="faq-item">
+            <div class="faq-q" data-i18n="faq4Q">Do you guarantee financial or legal outcomes?</div>
+            <div class="faq-a" data-i18n="faq4A">
+              No. The Desk helps you communicate clearly and calmly; it does not provide legal, tax or investment advice,
+              and does not promise any specific result from your decisions.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q" data-i18n="faq5Q">Is this only for clients in the US and Europe?</div>
+            <div class="faq-a" data-i18n="faq5A">
+              The Desk is optimised for Western-style communication and for English-speaking clients 30+, but you can be
+              based anywhere as long as you are comfortable paying in USD and using standard online payment methods.
+            </div>
+            <div class="faq-note" data-i18n="faq5Note">
+              Many users are based elsewhere but write to US/EU clients, colleagues, investors or family.
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   </main>
 
-  <footer class="footer" id="footerText">
-    © 2025 Aurum Task Desk — Private AI Task Coordination Desk
+  <footer>
+    <div class="footer-inner">
+      <span>© <span id="yearSpan"></span> Aurum Task Desk. All rights reserved.</span>
+      <div class="footer-links">
+        <a href="privacy.html" class="footer-link" data-i18n="footerPrivacy">Privacy policy</a>
+        <a href="terms.html" class="footer-link" data-i18n="footerTerms">Terms of use</a>
+        <a href="contact.html" class="footer-link" data-i18n="footerContact">Contact Desk</a>
+      </div>
+    </div>
   </footer>
 
   <script>
-    // ========= 这里填你的 Cloudflare Worker 域名 =========
-    // 例如：https://aurum-task-desk.yourname.workers.dev
-    const WORKER_BASE = "https://YOUR_WORKER_DOMAIN";
+    // Year
+    document.addEventListener("DOMContentLoaded", function () {
+      var y = document.getElementById("yearSpan");
+      if (y) y.textContent = new Date().getFullYear();
+    });
 
-    // 一次性任务：Stripe Checkout 逻辑
-    async function startOneTimeCheckout(btn) {
-      const errorBox = document.getElementById("oneTimeError");
-      if (errorBox) errorBox.textContent = "";
-
-      // 防止忘记改域名
-      if (!WORKER_BASE || WORKER_BASE.includes("YOUR_WORKER_DOMAIN")) {
-        if (errorBox) {
-          errorBox.textContent = "Payment backend is not configured yet.";
-        }
-        return;
-      }
-
-      const originalText = btn.textContent;
-      btn.disabled = true;
-      btn.textContent = (window.AURUM_LANG === "zh" ? "处理中..." : "Processing...");
-
-      try {
-        // 1) 获取 Stripe publishable key
-        const cfgRes = await fetch(`${WORKER_BASE}/stripe/config`);
-        const cfgData = await cfgRes.json();
-
-        if (!cfgData.ok || !cfgData.publishableKey) {
-          throw new Error("Stripe config error");
-        }
-
-        const stripe = Stripe(cfgData.publishableKey);
-
-        // 2) 创建 Checkout Session
-        const sessionRes = await fetch(`${WORKER_BASE}/stripe/create-checkout-session`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          // 这里 body 可以为空，让后端用默认 PRICE
-          body: JSON.stringify({
-            type: "one_time_task"
-          })
-        });
-
-        const sessionData = await sessionRes.json();
-        if (!sessionData.ok || !sessionData.id) {
-          console.error("Session error:", sessionData);
-          throw new Error(sessionData.error || "Unable to create checkout session");
-        }
-
-        // 3) 跳转到 Stripe Checkout
-        const { error } = await stripe.redirectToCheckout({
-          sessionId: sessionData.id
-        });
-
-        if (error) {
-          throw error;
-        }
-      } catch (err) {
-        console.error(err);
-        if (errorBox) {
-          errorBox.textContent =
-            (window.AURUM_LANG === "zh"
-              ? "支付失败，请稍后重试，或联系支持。"
-              : "Payment failed, please try again or contact support.");
-        }
-      } finally {
-        btn.disabled = false;
-        btn.textContent = originalText;
+    // Auth area: same logic as on index (localStorage-based)
+    function renderAuthArea() {
+      var authArea = document.getElementById("authArea");
+      if (!authArea) return;
+      var name = localStorage.getItem("aurumUserName");
+      if (name) {
+        authArea.innerHTML =
+          '<span style="font-size:13px;margin-right:8px;">Hi, ' +
+          name +
+          '</span><button class="btn-outline" onclick="logout()">' +
+          'Logout' +
+          "</button>";
+      } else {
+        authArea.innerHTML =
+          '<button class="btn-outline" onclick="window.location.href=\'auth.html\'">Sign in</button>';
       }
     }
+    function logout() {
+      localStorage.removeItem("aurumUserName");
+      localStorage.removeItem("aurumAuthToken");
+      window.location.href = "auth.html";
+    }
+    renderAuthArea();
 
-    function attachOneTimePayHandler() {
-      const btn = document.getElementById("oneTimeCta");
-      if (!btn) return;
-      btn.addEventListener("click", async (event) => {
-        event.preventDefault();
-        await startOneTimeCheckout(btn);
-      });
+    function goTasks() {
+      window.location.href = "tasks.html";
+    }
+    function goContact() {
+      window.location.href = "contact.html";
     }
 
-    // ========== 多语言：跟随首页 localStorage.aurum_lang ==========
-    let AURUM_LANG = localStorage.getItem("aurum_lang") || "en";
-
-    const LANG_STRINGS = {
-      // ===== English =====
+    // Simple i18n
+    const STRINGS = {
       en: {
         navHome: "Home",
-        navTasks: "Task Marketplace",
+        navTasks: "Tasks",
         navAbout: "About",
         navPricing: "Pricing",
         navContact: "Contact",
-
-        headerTitle: "Pricing & Desk Models",
-        headerSub:
-          "Aurum Task Desk offers a simple structure: you can start with a one-time task, or move into a private Desk subscription when you want calmer, long-term support.",
-
-        oneTimeTitle: "One-Time Task",
-        oneTimeSub:
-          "Best for first-time clients or one-off needs. A single draft you can copy, adjust, and send.",
-        oneTimePrice: "$19.90",
-        oneTimeNote: "per task · pay as you go",
-        oneTimeLi1: "One complete draft (email, letter, short post, or message)",
-        oneTimeLi2: "Calm, respectful tone for older US/EU audiences",
-        oneTimeLi3: "Suitable for family, business, or simple legal-style language",
-        oneTimeLi4: "No subscription, no login — just pay and receive the text",
+        heroEyebrow: "PRICING · QUIET DESK FOR 30+ PROFESSIONALS",
+        heroTitle: "One quiet desk, two ways to pay",
+        heroSubtitle: "Start with a single USD 19.9 task, or keep a small writing desk on standby every month.",
+        heroBody:
+          "Aurum Task Desk is designed for clients 30+ who prefer calm, respectful, long-term communication. Pricing is simple: one-time tasks when you occasionally need help, or subscription desks when writing support is part of your monthly routine.",
+        tagOneTime: "One-time from USD 19.9",
+        tagSub: "Starter / Professional / Private Desk",
+        tagCalm: "Calm tone for US & EU clients 30+",
+        heroNote:
+          "You can always begin with a single one-time task and upgrade later if you like how the Desk works.",
+        heroRightTitle: "At a glance",
+        heroRightSub:
+          "A calm writing desk for letters, updates, content packs and sensitive communication.",
+        heroRightOneTimeLabel: "One-time tasks",
+        heroRightOneTimeValue: "USD 19.9 / task",
+        heroRightSubLabel: "Subscriptions",
+        heroRightSubValue: "USD 140–580 / month",
+        heroRightClientsLabel: "Best for",
+        heroRightClientsValue: "US & EU clients 30+",
+        heroRightFoot:
+          "No custody of funds on this site. All payments use providers like Stripe or bank card.",
+        sectionMainTitle: "Choose how your Desk works",
+        sectionMainSub:
+          "Most people start with a one-time task. If you find that writing support becomes part of your monthly routine, you can move into a subscription Desk with clear rules and boundaries.",
+        oneTimeBadge: "Entry point",
+        oneTimeTagline: "Good for occasional letters or content",
+        oneTimeName: "One-Time Task",
+        oneTimePriceMain: "USD 19.9",
+        oneTimePriceUnit: "/ task",
+        oneTimeNote: "Pay as you go · no subscription · no minimum.",
+        oneTimeLi1: "One complete draft: email, letter, short post or message.",
+        oneTimeLi2: "Calm, respectful tone for US/EU 30+ clients and families.",
+        oneTimeLi3: "Suitable for family, business or simple legal-style wording.",
+        oneTimeLi4: "No subscription, no portal to learn — just pay and receive the text.",
         oneTimeCta: "Start with a one-time task",
-        oneTimeTip:
-          "Ideal for testing the Desk before moving into a monthly relationship.",
-
-        plansTitle: "Monthly Desk Plans",
-        plansSub:
-          "Monthly Desks are for people who prefer a quiet, ongoing writing partner: tone is remembered, context is saved, and tasks are handled calmly over time.",
-
+        oneTimeHint: "You can later convert into a Desk if needed.",
         starterBadge: "Entry Desk",
+        starterTagline: "For light but regular support",
         starterName: "Starter Desk",
-        starterPriceMain: "$140",
+        starterPriceMain: "USD 140",
         starterPriceUnit: "/ month",
-        starterDesc:
-          "For clients who occasionally need a calm, reliable writing desk.",
-        starterLi1: "Up to 5 tasks per month",
-        starterLi2: "Tone & preferences remembered",
-        starterLi3: "Priority delivery (within 48 hours)",
-        starterLi4: "Personal Desk page (after subscription)",
-        starterLi5: "Email-based communication only",
-        starterCta: "Start Starter Desk",
-        starterTagline:
-          "Good for letters, replies, and occasional business writing.",
-
-        proBadge: "Most Popular",
+        starterNote: "A small, quiet desk you can lean on a few times a month.",
+        starterLi1: "Up to 5 tasks per month (emails, short letters, small updates).",
+        starterLi2: "Tone and preferences remembered across tasks.",
+        starterLi3: "Simple scheduling and expectations agreed upfront.",
+        starterLi4: "Email-based communication only – calm, written, traceable.",
+        starterCta: "Ask about Starter Desk",
+        starterHint: "Best if you send a few important messages each month.",
+        proBadge: "Most popular",
+        proTagline: "For ongoing client or investor communication",
         proName: "Professional Desk",
-        proPriceMain: "$280",
+        proPriceMain: "USD 280",
         proPriceUnit: "/ month",
-        proDesc:
-          "For US/EU professionals, veterans, and business owners who need steady, structured help.",
-        proLi1: "Up to 12 tasks per month",
-        proLi2: "One long-form piece included (1000–1500 words)",
-        proLi3: "Ongoing tone & story continuity",
-        proLi4: "Light content planning each month",
-        proLi5: "Priority delivery (24–48 hours)",
-        proLi6: "Personal Desk page for tasks",
-        proCta: "Start Professional Desk",
-        proTagline:
-          "Designed for people who want a quiet, long-term writing partner.",
-
-        privateBadge: "Private Office",
+        proNote:
+          "A steady writing partner for monthly updates, content packs and formal letters.",
+        proLi1: "Up to 12 tasks per month (shorter pieces and message flows).",
+        proLi2: "One long-form piece included each month (e.g. a long letter or article).",
+        proLi3: "Business-grade content structure and consistency.",
+        proLi4: "Priority delivery on most tasks (typically 24–48 hours).",
+        proLi5: "Personal Desk page to organise tasks and status.",
+        proCta: "Discuss a Professional Desk",
+        proHint: "Good for small practices, boutiques and family offices.",
+        privateBadge: "Private office",
+        privateTagline: "For sensitive, relationship-heavy work",
         privateName: "Private Desk",
-        privatePriceMain: "$580",
+        privatePriceMain: "USD 580",
         privatePriceUnit: "/ month",
-        privateDesc:
-          "Reserved for clients who want a private writing office, not a platform.",
-        privateLi1: "Unlimited short tasks (fair use)",
-        privateLi2: "Up to 3 long-form pieces per month",
-        privateLi3: "Full tone & background memory",
-        privateLi4: "Support for sensitive family or work communication",
-        privateLi5: "Highest priority in the Desk queue",
-        privateLi6: "Premium Personal Desk page",
-        privateCta: "Start Private Desk",
-        privateTagline:
-          "For clients who prefer a quiet, ongoing relationship instead of one-off tasks.",
-
-        noteTitle1: "What happens after you subscribe?",
-        noteP1:
-          "After your payment is confirmed, you will be redirected to your Personal Desk page. That page is your private workspace for this plan. You can submit tasks there at any time during your current billing period.",
-        noteP2:
-          "Please bookmark your Desk page in your browser. If a billing period ends and your subscription is not renewed, your Desk page will stop accepting new tasks and will gently redirect you back to the public Pricing page.",
-        noteTitle2: "How Desk fees work (simple version):",
-        noteP3:
-          "You see one clear price (for example, $280). Contributors and tools are paid from that amount. The Desk fee is the spread, which covers scoping, tone management, and quality control.",
-
-        footerText: "© 2025 Aurum Task Desk — Private AI Task Coordination Desk"
+        privateNote:
+          "A quiet, premium desk focused on complex family, client or stakeholder communication.",
+        privateLi1: "Unlimited short tasks (fair use, within agreed scope).",
+        privateLi2: "Up to 3 long-form pieces per month (lengthy letters or documents).",
+        privateLi3: "Full tone & background memory over time.",
+        privateLi4: "Support for sensitive family or work communication.",
+        privateLi5: "Highest priority in the Desk queue.",
+        privateLi6: "Premium Personal Desk page for your ongoing work.",
+        privateCta: "Enquire about a Private Desk",
+        privateHint: "For relationships where words carry long-term weight.",
+        noteTitle: "How to read these limits and rules",
+        noteLi1:
+          ""Tasks" are clearly defined pieces of work (for example: one email thread, one letter, one short content pack).",
+        noteLi2:
+          "For subscription Desks, we agree what counts as a task before you commit, so there are no surprises.",
+        noteLi3:
+          "All plans keep firm ethical and legal boundaries — no promises of guaranteed returns or misleading communication.",
+        noteLi4:
+          "This site never holds client funds; payments flow through standard providers like Stripe.",
+        afterTitle: "What happens after you subscribe?",
+        afterSub:
+          "The Desk stays small on purpose. The goal is not to flood you with content, but to help you say important things properly, at the right time, in a tone that fits your relationships.",
+        after1Label: "01 · Intake",
+        after1Title: "We build a quiet profile",
+        after1Text:
+          "We note who you write to, your role, your risk comfort and tone preferences. For 30+ clients, this often includes family, a small group of investors, or a handful of long-term clients.",
+        after2Label: "02 · Flow",
+        after2Title: "You send tasks in simple language",
+        after2Text:
+          "You do not have to speak "AI". You describe what is happening and what you hope to achieve; the Desk turns this into drafts you can review, adjust and send.",
+        after3Label: "03 · Boundaries",
+        after3Title: "We keep limits and expectations clear",
+        after3Text:
+          "Number of tasks, typical turnaround times and topics we will not touch are all agreed upfront, and revisited if your situation changes.",
+        faqTitle: "Questions people ask before starting",
+        faq1Q: "Why USD 19.9 for a one-time task?",
+        faq1A:
+          "It is enough to give each task careful attention, while still being an easy “yes” for many US/EU clients 30+. It also keeps the Desk model simple: no coupons, no complexity — just a clear starting point.",
+        faq2Q: "Can I move from one-time tasks into a subscription Desk?",
+        faq2A:
+          "Yes. Many clients begin with a single letter or content pack, then move into Starter or Professional Desks when they realise they want this form of support every month.",
+        faq3Q: "Can I downgrade or pause a Desk?",
+        faq3A:
+          "Desks are intentionally small and flexible. You can discuss pausing, downgrading or returning to one-time tasks if your workload or finances change.",
+        faq4Q: "Do you guarantee financial or legal outcomes?",
+        faq4A:
+          "No. The Desk helps you communicate clearly and calmly; it does not provide legal, tax or investment advice, and does not promise any specific result from your decisions.",
+        faq5Q: "Is this only for clients in the US and Europe?",
+        faq5A:
+          "The Desk is optimised for Western-style communication and for English-speaking clients 30+, but you can be based anywhere as long as you are comfortable paying in USD and using standard online payment methods.",
+        faq5Note:
+          "Many users are based elsewhere but write to US/EU clients, colleagues, investors or family.",
+        footerPrivacy: "Privacy policy",
+        footerTerms: "Terms of use",
+        footerContact: "Contact Desk"
       },
-
-      // ===== 简体中文 =====
       zh: {
         navHome: "首页",
         navTasks: "任务大厅",
         navAbout: "关于",
         navPricing: "定价",
         navContact: "联系",
-
-        headerTitle: "定价与任务桌方案",
-        headerSub:
-          "Aurum Task Desk 的结构很简单：你可以先从单次任务开始尝试，之后在需要更稳定、长期支持时，再升级为私人任务桌订阅。",
-
-        oneTimeTitle: "单次任务",
-        oneTimeSub:
-          "适合第一次体验或偶尔需要写作帮助的客户。生成一份完整稿件，你可以自行微调后直接发送。",
-        oneTimePrice: "$19.90",
-        oneTimeNote: "按次收费 · 用一次付一次",
-        oneTimeLi1: "一份完整稿件（邮件、信件、短帖或消息）",
-        oneTimeLi2: "语气冷静、尊重，适合欧美 50+ 读者",
-        oneTimeLi3: "可用于家庭沟通、商务往来或简单法律风格文字",
-        oneTimeLi4: "无需订阅、无需登录——只需支付并收到文本",
-        oneTimeCta: "从单次任务开始体验",
-        oneTimeTip:
-          "很适合在升级到月度任务桌之前，先测试一下整体风格。",
-
-        plansTitle: "月度任务桌方案",
-        plansSub:
-          "月度任务桌适合想要“固定写作搭档”的人：语气会被记住，背景会被保留，任务会在安静、稳定的节奏中完成。",
-
-        starterBadge: "入门任务桌",
+        heroEyebrow: "定价 · 为 30+ 客户准备的一张安静任务桌",
+        heroTitle: "一张安静的任务桌，两种付费方式",
+        heroSubtitle: "可以从一单 USD 19.9 的小任务开始，也可以直接按月保留一张写作桌。",
+        heroBody:
+          "Aurum Task Desk 是为 30 岁以上、重视长期关系的客户准备的安静写作桌。定价很简单：偶尔需要帮忙，可以按次付费；如果写作已经变成常态，就可以选择按月保留 Desk。",
+        tagOneTime: "单次任务 · 每次 USD 19.9 起",
+        tagSub: "Starter / Professional / Private Desk",
+        tagCalm: "适合欧美 30+ 客户的稳重语气",
+        heroNote: "你完全可以先从一单小任务开始，如果觉得合适，再升级成按月的 Desk。",
+        heroRightTitle: "快速一览",
+        heroRightSub: "适合处理信件、更新、内容包和需要认真措辞的沟通。",
+        heroRightOneTimeLabel: "单次任务",
+        heroRightOneTimeValue: "USD 19.9 / 次",
+        heroRightSubLabel: "订阅 Desk",
+        heroRightSubValue: "USD 140–580 / 月",
+        heroRightClientsLabel: "最适合",
+        heroRightClientsValue: "欧美 30+ 年龄段客户",
+        heroRightFoot:
+          "本网站不代管资金，支付通过 Stripe 等标准服务完成。",
+        sectionMainTitle: "选择你希望 Desk 如何为你工作",
+        sectionMainSub:
+          "多数人会先从一单任务开始。如果你发现每月都有类似需求，就可以再升级到订阅 Desk，在清晰规则下保持长期支持。",
+        oneTimeBadge: "入门方式",
+        oneTimeTagline: "适合偶尔需要写一封信或一个内容包",
+        oneTimeName: "单次任务（One‑Time Task）",
+        oneTimePriceMain: "USD 19.9",
+        oneTimePriceUnit: "/ 次",
+        oneTimeNote: "按次付费 · 无订阅 · 无最低消费。",
+        oneTimeLi1: "对一封邮件、一封信、一个短文或信息，给出完整可用的初稿。",
+        oneTimeLi2: "语气平和、尊重，适合欧美 30+ 客户和家人。",
+        oneTimeLi3: "适用于家庭、业务或简单法律风格的文字。",
+        oneTimeLi4: "无需账号、无需学习系统——只需付款并收到文字。",
+        oneTimeCta: "先来一单试试",
+        oneTimeHint: "如果觉得 Desk 合适，后续可以升级成订阅。",
+        starterBadge: "入门 Desk",
+        starterTagline: "适合轻量但稳定的写作需求",
         starterName: "Starter Desk",
-        starterPriceMain: "$140",
+        starterPriceMain: "USD 140",
         starterPriceUnit: "/ 月",
-        starterDesc:
-          "适合偶尔需要冷静、可靠写作支持的客户。",
-        starterLi1: "每月最多 5 个任务",
-        starterLi2: "记录你的语气与偏好",
-        starterLi3: "优先交付（48 小时内）",
-        starterLi4: "订阅后提供专属任务桌页面",
-        starterLi5: "仅通过邮箱沟通",
-        starterCta: "开通 Starter Desk",
-        starterTagline:
-          "适合信件回复、解释说明和偶发的商务写作需求。",
-
+        starterNote: "一张小而稳的任务桌，每月可以靠它几次。",
+        starterLi1: "每月最多 5 个任务（邮件、短信件、小更新）。",
+        starterLi2: "会记住你的偏好和常用语气。",
+        starterLi3: "提前约定好排期和预期，不会超负荷。",
+        starterLi4: "仅通过邮件沟通——安静、有记录、可回溯。",
+        starterCta: "咨询 Starter Desk",
+        starterHint: "适合你每月只需少量几封关键邮件的情况。",
         proBadge: "最受欢迎",
+        proTagline: "适合持续对外沟通和内容输出",
         proName: "Professional Desk",
-        proPriceMain: "$280",
+        proPriceMain: "USD 280",
         proPriceUnit: "/ 月",
-        proDesc:
-          "面向欧美专业人士、退伍军人和企业主，提供稳定、结构化的写作支持。",
-        proLi1: "每月最多 12 个任务",
-        proLi2: "含一篇长文（约 1000–1500 词）",
-        proLi3: "持续保持语气与故事连贯性",
-        proLi4: "每月轻量内容规划",
-        proLi5: "优先交付（24–48 小时）",
-        proLi6: "提供专属任务桌提交页面",
-        proCta: "开通 Professional Desk",
-        proTagline:
-          "适合希望长期拥有安静、可靠写作伙伴的客户。",
-
+        proNote: "适合作为每月简报、内容包和正式信件的长期写作伙伴。",
+        proLi1: "每月最多 12 个任务（短内容、脚本和回复流程等）。",
+        proLi2: "每月含 1 篇长文（如长信、长篇文章等）。",
+        proLi3: "为你梳理结构、保持内容风格统一。",
+        proLi4: "大部分任务有优先交付（通常 24–48 小时）。",
+        proLi5: "为你准备一个 Personal Desk 页面管理任务和状态。",
+        proCta: "和我们聊聊 Professional Desk",
+        proHint: "适合小型事务所、精品服务商或家族办公室。",
         privateBadge: "私密办公室",
+        privateTagline: "适合高度敏感、关系复杂的沟通",
         privateName: "Private Desk",
-        privatePriceMain: "$580",
+        privatePriceMain: "USD 580",
         privatePriceUnit: "/ 月",
-        privateDesc:
-          "只为希望拥有“私人写作办公室”的客户准备，而非面向大众的平台。",
-        privateLi1: "不限数量短任务（合理使用原则）",
-        privateLi2: "每月最多 3 篇长文",
-        privateLi3: "完整记录语气和背景",
-        privateLi4: "支持敏感家庭 / 工作沟通场景",
-        privateLi5: "队列中最高优先级",
-        privateLi6: "高优先级 Premium 个人任务桌页",
-        privateCta: "开通 Private Desk",
-        privateTagline:
-          "适合不想频繁换写手、只想安静长期合作的客户。",
-
-        noteTitle1: "订阅后会发生什么？",
-        noteP1:
-          "付款成功后，你会被跳转到专属的个人任务桌页面。这个页面就是你当期方案下的私人工作区，在整个计费周期内，你都可以随时在上面提交任务。",
-        noteP2:
-          "建议你把任务桌页面加入浏览器书签。若计费周期结束而未续费，该页面将停止接收新任务，并温和地把你带回公开的定价页面。",
-        noteTitle2: "任务桌费用如何构成（简单说明）：",
-        noteP3:
-          "你看到的是一个清晰的价格（例如 $280）。从这笔费用中，部分用于支付工具和协作者，剩余部分是任务桌服务费，用于覆盖需求拆分、语气管理和质量把控。",
-
-        footerText: "© 2025 Aurum Task Desk — 私人 AI 任务协调桌"
-      },
-
-      // ===== Arabic =====
-      ar: {
-        navHome: "الرئيسية",
-        navTasks: "سوق المهام",
-        navAbout: "حول",
-        navPricing: "الأسعار",
-        navContact: "تواصل",
-
-        headerTitle: "خطط الأسعار ونماذج المكتب",
-        headerSub:
-          "يقدّم Aurum Task Desk هيكلًا بسيطًا: يمكنك البدء بمهمة واحدة، ثم الانتقال إلى اشتراك مكتب خاص عندما تحتاج إلى دعم هادئ وطويل الأمد.",
-
-        oneTimeTitle: "مهمة لمرة واحدة",
-        oneTimeSub:
-          "الأفضل للعملاء الجدد أو الاحتياجات الفردية. مسودة واحدة يمكنك نسخها وتعديلها ثم إرسالها.",
-        oneTimePrice: "$19.90",
-        oneTimeNote: "لكل مهمة · تدفع عند الاستخدام",
-        oneTimeLi1: "مسودة كاملة واحدة (بريد إلكتروني، رسالة، منشور قصير أو رسالة نصية)",
-        oneTimeLi2: "نبرة هادئة ومحترمة للقرّاء الأكبر سنًا في أمريكا وأوروبا",
-        oneTimeLi3: "مناسبة للعائلة، والأعمال، والنصوص الشبيهة باللغة القانونية البسيطة",
-        oneTimeLi4: "لا اشتراك، لا تسجيل دخول — فقط تدفع وتتلقى النص",
-        oneTimeCta: "ابدأ بمهمة لمرة واحدة",
-        oneTimeTip:
-          "مناسب لتجربة أسلوب المكتب قبل الانتقال إلى اشتراك شهري.",
-
-        plansTitle: "خطط المكتب الشهرية",
-        plansSub:
-          "المكتب الشهري مخصص لمن يفضّل شريك كتابة هادئ ومستمر: يتم تذكّر النبرة، وتُحفظ الخلفية، وتُنجز المهام بهدوء مع الوقت.",
-
-        starterBadge: "مكتب ابتدائي",
-        starterName: "Starter Desk",
-        starterPriceMain: "$140",
-        starterPriceUnit: "/ شهر",
-        starterDesc:
-          "لعملاء يحتاجون أحيانًا إلى مكتب كتابة هادئ وموثوق.",
-        starterLi1: "حتى 5 مهام شهريًا",
-        starterLi2: "تذكّر النبرة والتفضيلات",
-        starterLi3: "أولوية في التسليم (خلال 48 ساعة)",
-        starterLi4: "صفحة مكتب شخصية بعد الاشتراك",
-        starterLi5: "تواصل عبر البريد الإلكتروني فقط",
-        starterCta: "ابدأ بخطة Starter Desk",
-        starterTagline:
-          "مناسب للرسائل، والردود، وكتابة الأعمال بشكل متقطع.",
-
-        proBadge: "الأكثر شيوعًا",
-        proName: "Professional Desk",
-        proPriceMain: "$280",
-        proPriceUnit: "/ شهر",
-        proDesc:
-          "مخصص للمهنيين في أمريكا وأوروبا، والمحاربين القدامى، وأصحاب الأعمال الذين يحتاجون إلى مساعدة ثابتة ومنظمة.",
-        proLi1: "حتى 12 مهمة شهريًا",
-        proLi2: "تشمل قطعة طويلة واحدة (1000–1500 كلمة تقريبًا)",
-        proLi3: "استمرارية في النبرة والقصة",
-        proLi4: "تخطيط خفيف للمحتوى كل شهر",
-        proLi5: "أولوية في التسليم (24–48 ساعة)",
-        proLi6: "صفحة مكتب شخصية للمهام",
-        proCta: "ابدأ بخطة Professional Desk",
-        proTagline:
-          "مصممة لمن يرغب في شريك كتابة هادئ وطويل الأمد.",
-
-        privateBadge: "مكتب خاص",
-        privateName: "Private Desk",
-        privatePriceMain: "$580",
-        privatePriceUnit: "/ شهر",
-        privateDesc:
-          "مخصّص للعملاء الذين يرغبون في مكتب كتابة خاص، وليس منصة عامة.",
-        privateLi1: "عدد غير محدود من المهام القصيرة (ضمن الاستخدام العادل)",
-        privateLi2: "حتى 3 قطع طويلة شهريًا",
-        privateLi3: "ذاكرة كاملة للنبرة والخلفية",
-        privateLi4: "دعم للتواصل الحساس في العائلة أو العمل",
-        privateLi5: "أعلى أولوية في قائمة المهام",
-        privateLi6: "صفحة مكتب شخصية مميزة",
-        privateCta: "ابدأ بخطة Private Desk",
-        privateTagline:
-          "للعملاء الذين يفضّلون علاقة هادئة ومستمرّة بدلًا من مهام منفصلة.",
-
-        noteTitle1: "ماذا يحدث بعد الاشتراك؟",
-        noteP1:
-          "بعد تأكيد الدفع، سيتم تحويلك إلى صفحة مكتبك الشخصي. هذه الصفحة هي مساحة عملك الخاصة لهذه الخطة، ويمكنك إرسال المهام هناك في أي وقت خلال فترة الفوترة الحالية.",
-        noteP2:
-          "من الأفضل حفظ صفحة مكتبك في المفضّلة بالمتصفح. إذا انتهت فترة الفوترة ولم يتم تجديد الاشتراك، سيتوقف المكتب عن استقبال مهام جديدة ويعيد توجيهك بلطف إلى صفحة الأسعار العامة.",
-        noteTitle2: "كيف تعمل رسوم المكتب (بشكل مبسّط):",
-        noteP3:
-          "ترى سعرًا واحدًا واضحًا (مثلاً 280 دولارًا). يُدفع جزء منه للأدوات والمتعاونين، أما باقي المبلغ فهو أتعاب المكتب مقابل تنظيم الطلب، وإدارة النبرة، وضبط الجودة.",
-
-        footerText:
-          "© 2025 Aurum Task Desk — مكتب تنسيق مهام بالذكاء الاصطناعي"
-      },
-
-      // ===== French =====
-      fr: {
-        navHome: "Accueil",
-        navTasks: "Place de tâches",
-        navAbout: "À propos",
-        navPricing: "Tarifs",
-        navContact: "Contact",
-
-        headerTitle: "Tarifs et modèles de bureau",
-        headerSub:
-          "Aurum Task Desk propose une structure simple : vous pouvez commencer par une mission ponctuelle, puis passer à un abonnement de bureau privé lorsque vous souhaitez un soutien plus calme et durable.",
-
-        oneTimeTitle: "Mission ponctuelle",
-        oneTimeSub:
-          "Idéal pour les nouveaux clients ou les besoins isolés. Une seule rédaction que vous pouvez copier, ajuster et envoyer.",
-        oneTimePrice: "$19.90",
-        oneTimeNote: "par mission · paiement à l’usage",
-        oneTimeLi1: "Une rédaction complète (e-mail, lettre, court texte ou message)",
-        oneTimeLi2: "Ton calme et respectueux pour un public plus âgé US/UE",
-        oneTimeLi3: "Adapté à la famille, aux affaires ou à un style juridique simple",
-        oneTimeLi4: "Pas d’abonnement, pas de connexion — vous payez et recevez le texte",
-        oneTimeCta: "Commencer avec une mission ponctuelle",
-        oneTimeTip:
-          "Idéal pour tester le bureau avant de passer à une relation mensuelle.",
-
-        plansTitle: "Bureaux mensuels",
-        plansSub:
-          "Les bureaux mensuels sont conçus pour ceux qui préfèrent un partenaire d’écriture calme et continu : le ton est mémorisé, le contexte conservé, et les tâches gérées sereinement.",
-
-        starterBadge: "Bureau d’entrée",
-        starterName: "Starter Desk",
-        starterPriceMain: "$140",
-        starterPriceUnit: "/ mois",
-        starterDesc:
-          "Pour les clients qui ont besoin d’un bureau d’écriture fiable de temps en temps.",
-        starterLi1: "Jusqu’à 5 missions par mois",
-        starterLi2: "Ton et préférences mémorisés",
-        starterLi3: "Délai prioritaire (sous 48 h)",
-        starterLi4: "Page de bureau personnelle après abonnement",
-        starterLi5: "Communication uniquement par e-mail",
-        starterCta: "Démarrer le Starter Desk",
-        starterTagline:
-          "Convient aux lettres, réponses et textes professionnels occasionnels.",
-
-        proBadge: "Le plus populaire",
-        proName: "Professional Desk",
-        proPriceMain: "$280",
-        proPriceUnit: "/ mois",
-        proDesc:
-          "Pour les professionnels US/UE, anciens combattants et chefs d’entreprise qui ont besoin d’un soutien régulier et structuré.",
-        proLi1: "Jusqu’à 12 missions par mois",
-        proLi2: "Inclut un texte long (environ 1000–1500 mots)",
-        proLi3: "Continuité du ton et de l’histoire",
-        proLi4: "Planification légère de contenu chaque mois",
-        proLi5: "Délai prioritaire (24–48 h)",
-        proLi6: "Page de bureau personnelle pour les tâches",
-        proCta: "Démarrer le Professional Desk",
-        proTagline:
-          "Conçu pour ceux qui souhaitent un partenaire d’écriture calme sur le long terme.",
-
-        privateBadge: "Bureau privé",
-        privateName: "Private Desk",
-        privatePriceMain: "$580",
-        privatePriceUnit: "/ mois",
-        privateDesc:
-          "Réservé aux clients qui veulent un bureau d’écriture privé, et non une plateforme.",
-        privateLi1: "Tâches courtes illimitées (usage raisonnable)",
-        privateLi2: "Jusqu’à 3 textes longs par mois",
-        privateLi3: "Mémoire complète du ton et du contexte",
-        privateLi4: "Soutien pour les communications familiales ou professionnelles sensibles",
-        privateLi5: "Priorité maximale dans la file du bureau",
-        privateLi6: "Page de bureau personnelle premium",
-        privateCta: "Démarrer le Private Desk",
-        privateTagline:
-          "Pour les clients qui préfèrent une relation continue plutôt que des missions isolées.",
-
-        noteTitle1: "Que se passe-t-il après votre abonnement ?",
-        noteP1:
-          "Une fois le paiement confirmé, vous êtes redirigé vers votre page de bureau personnelle. Cette page est votre espace de travail privé pour cette offre, où vous pouvez envoyer des missions à tout moment pendant la période de facturation.",
-        noteP2:
-          "Ajoutez cette page à vos favoris. Si la période de facturation se termine sans renouvellement, la page cessera d’accepter de nouvelles missions et vous ramènera doucement vers la page publique des tarifs.",
-        noteTitle2: "Comment fonctionnent les frais de bureau (version simple) :",
-        noteP3:
-          "Vous voyez un prix unique et clair (par exemple 280 $). Les outils et collaborateurs sont payés à partir de cette somme. Le reste représente les frais du bureau pour la définition des besoins, la gestion du ton et le contrôle qualité.",
-
-        footerText:
-          "© 2025 Aurum Task Desk — Bureau privé de coordination de tâches IA"
-      },
-
-      // ===== German =====
-      de: {
-        navHome: "Startseite",
-        navTasks: "Aufgaben-Marktplatz",
-        navAbout: "Über uns",
-        navPricing: "Preise",
-        navContact: "Kontakt",
-
-        headerTitle: "Preise und Desk-Modelle",
-        headerSub:
-          "Aurum Task Desk bietet eine einfache Struktur: Du kannst mit einer einmaligen Aufgabe beginnen und später zu einem privaten Monats-Desk wechseln, wenn du ruhigere, langfristige Unterstützung möchtest.",
-
-        oneTimeTitle: "Einmalige Aufgabe",
-        oneTimeSub:
-          "Am besten für neue Kunden oder einzelne Anliegen. Ein kompletter Entwurf, den du kopieren, anpassen und versenden kannst.",
-        oneTimePrice: "$19.90",
-        oneTimeNote: "pro Aufgabe · Bezahlung nach Bedarf",
-        oneTimeLi1: "Ein vollständiger Entwurf (E-Mail, Brief, kurzer Beitrag oder Nachricht)",
-        oneTimeLi2: "Ruhiger, respektvoller Ton für ältere Leser in USA/EU",
-        oneTimeLi3: "Geeignet für Familie, Geschäftstexte oder einfachen juristischen Stil",
-        oneTimeLi4: "Kein Abo, kein Login – du bezahlst und erhältst den Text",
-        oneTimeCta: "Mit einer einmaligen Aufgabe starten",
-        oneTimeTip:
-          "Ideal, um den Desk zu testen, bevor du ein Monatsmodell wählst.",
-
-        plansTitle: "Monatliche Desk-Pläne",
-        plansSub:
-          "Monats-Desks sind für Menschen gedacht, die einen ruhigen, dauerhaften Schreibpartner bevorzugen: Der Ton wird gemerkt, der Kontext bleibt erhalten und Aufgaben werden gelassen abgearbeitet.",
-
-        starterBadge: "Einstiegs-Desk",
-        starterName: "Starter Desk",
-        starterPriceMain: "$140",
-        starterPriceUnit: "/ Monat",
-        starterDesc:
-          "Für Kunden, die gelegentlich einen ruhigen, verlässlichen Schreibtisch brauchen.",
-        starterLi1: "Bis zu 5 Aufgaben pro Monat",
-        starterLi2: "Ton und Vorlieben werden gemerkt",
-        starterLi3: "Priorisierte Lieferung (innerhalb von 48 Stunden)",
-        starterLi4: "Persönliche Desk-Seite nach Abo",
-        starterLi5: "Kommunikation ausschließlich per E-Mail",
-        starterCta: "Starter Desk starten",
-        starterTagline:
-          "Gut für Briefe, Antworten und gelegentliche Geschäftstexte.",
-
-        proBadge: "Am beliebtesten",
-        proName: "Professional Desk",
-        proPriceMain: "$280",
-        proPriceUnit: "/ Monat",
-        proDesc:
-          "Für Fachleute in USA/EU, Veteranen und Unternehmer, die stetige, strukturierte Unterstützung brauchen.",
-        proLi1: "Bis zu 12 Aufgaben pro Monat",
-        proLi2: "Eine Langform-Text pro Monat inklusive (ca. 1000–1500 Wörter)",
-        proLi3: "Fortlaufende Konsistenz von Ton und Geschichte",
-        proLi4: "Leichte Content-Planung pro Monat",
-        proLi5: "Priorisierte Lieferung (24–48 Stunden)",
-        proLi6: "Persönliche Desk-Seite für Aufgaben",
-        proCta: "Professional Desk starten",
-        proTagline:
-          "Für alle, die einen ruhigen, langfristigen Schreibpartner wollen.",
-
-        privateBadge: "Privates Büro",
-        privateName: "Private Desk",
-        privatePriceMain: "$580",
-        privatePriceUnit: "/ Monat",
-        privateDesc:
-          "Reserviert für Kunden, die ein privates Schreibbüro möchten – keine offene Plattform.",
-        privateLi1: "Unbegrenzte kurze Aufgaben (Fair-Use-Prinzip)",
-        privateLi2: "Bis zu 3 Langform-Texte pro Monat",
-        privateLi3: "Vollständige Erinnerung an Ton und Hintergrund",
-        privateLi4: "Unterstützung bei sensibler Familien- oder Arbeitskommunikation",
-        privateLi5: "Höchste Priorität in der Desk-Warteschlange",
-        privateLi6: "Premium-Persönliche-Desk-Seite",
-        privateCta: "Private Desk starten",
-        privateTagline:
-          "Für Kunden, die eine ruhige, kontinuierliche Zusammenarbeit bevorzugen.",
-
-        noteTitle1: "Was passiert nach dem Abonnement?",
-        noteP1:
-          "Nach Bestätigung der Zahlung wirst du zu deiner persönlichen Desk-Seite weitergeleitet. Diese Seite ist dein privater Arbeitsbereich für diesen Plan, und du kannst während des gesamten Abrechnungszeitraums Aufgaben einreichen.",
-        noteP2:
-          "Speichere deine Desk-Seite als Lesezeichen im Browser. Wenn der Abrechnungszeitraum endet und du nicht verlängerst, nimmt der Desk keine neuen Aufgaben mehr an und leitet dich sanft zurück zur öffentlichen Preisseite.",
-        noteTitle2: "So funktionieren die Desk-Gebühren (vereinfachte Version):",
-        noteP3:
-          "Du siehst einen klaren Preis (z. B. 280 $). Daraus werden Tools und Mitwirkende bezahlt. Der restliche Teil ist die Desk-Gebühr für Auftragsklärung, Ton-Management und Qualitätssicherung.",
-
-        footerText:
-          "© 2025 Aurum Task Desk — Privater KI-Aufgaben-Desk"
+        privateNote:
+          "专注处理复杂家庭、客户或关键利益相关方的沟通，是一张更安静的高级任务桌。",
+        privateLi1: "短任务不限次数（在公平使用和约定范围内）。",
+        privateLi2: "每月最多 3 个长篇任务（长信、长文或重要文件）。",
+        privateLi3: "完整记忆你的背景与语气，越用越贴近你本人。",
+        privateLi4: "可以处理较敏感的家庭或职场沟通场景。",
+        privateLi5: "在 Desk 队列中拥有最高优先级。",
+        privateLi6: "为你准备 Premium Personal Desk 页面。",
+        privateCta: "咨询 Private Desk 方案",
+        privateHint: "适合那些「说错一句话代价很高」的关系。",
+        noteTitle: "如何理解这些限制和规则",
+        noteLi1:
+          "“任务”指一块清晰定义的工作（例如：一封邮件线程、一封信或一个小内容包）。",
+        noteLi2:
+          "对订阅 Desk，我们会在你确认前先对「什么算一个任务」达成一致，避免误解。",
+        noteLi3:
+          "所有方案都严格遵守合规和伦理边界——不会承诺稳赚不赔、不会写误导性内容。",
+        noteLi4:
+          "本网站不代管任何资金，所有支付都通过 Stripe 等标准第三方完成。",
+        afterTitle: "订阅之后，会发生什么？",
+        afterSub:
+          "Desk 故意保持小体量。目标不是堆字数，而是在合适的时间，用合适的语气帮你把重要的话说清楚。",
+        after1Label: "01 · 了解你",
+        after1Title: "我们先搭一个安静的「画像」",
+        after1Text:
+          "会了解你通常写给谁、你在关系中的角色、风险偏好和语气偏好。对许多 30+ 客户来说，这往往包括家人、小范围投资人或少量长期客户。",
+        after2Label: "02 · 交付流程",
+        after2Title: "你只要用自己的话描述情况",
+        after2Text:
+          "你不需要会「写提示词」。只要描述现在发生了什么、你想达到什么效果，Desk 会帮你整理成可修改、可发送的文字。",
+        after3Label: "03 · 边界与预期",
+        after3Title: "我们保持范围清晰、预期明确",
+        after3Text:
+          "每月任务数量、通常交付时间，以及哪些话题不会涉及，都会在一开始说明，并在你情况变化时重新讨论。",
+        faqTitle: "开始之前，很多人会问的几个问题",
+        faq1Q: "为什么单次任务定在 USD 19.9？",
+        faq1A:
+          "这个价格既足以让我们认真对待每一单，也让欧美 30+ 客户很容易说「好，试一次」。同时，定价简单，不需要优惠券和复杂条款。",
+        faq2Q: "可以从单次任务升级到订阅 Desk 吗？",
+        faq2A:
+          "可以。许多客户先从一封信或一个内容包开始，如果发现每个月都有类似需求，就会升级到 Starter 或 Professional Desk。",
+        faq3Q: "Desk 可以降级或暂停吗？",
+        faq3A:
+          "Desk 本身设计得很小而灵活。如果你的工作量或预算有变化，可以协商暂停、降级或改回单次任务模式。",
+        faq4Q: "你们会对结果做财务或法律上的保证吗？",
+        faq4A:
+          "不会。Desk 只负责帮你把话说清楚、说得体面，不提供法律、税务或投资建议，也不会对你的决策结果做出任何承诺。",
+        faq5Q: "是否只适合欧美本地客户？",
+        faq5A:
+          "Desk 的文字风格是为西方式沟通和英文场景设计的，但你可以在世界任何地方，只要你习惯用美元支付，并使用常见的在线支付方式即可。",
+        faq5Note:
+          "很多用户人在别处，但需要对欧美的客户、同事、投资人或家人写信。",
+        footerPrivacy: "隐私政策",
+        footerTerms: "使用条款",
+        footerContact: "联系 Desk"
       }
     };
 
-    function applyGlobalLanguage() {
-      AURUM_LANG = localStorage.getItem("aurum_lang") || "en";
-      window.AURUM_LANG = AURUM_LANG; // 让 Stripe 提示里也能用到
-
-      const dict = LANG_STRINGS[AURUM_LANG] || LANG_STRINGS.en;
-
-      function setText(id, key) {
-        const el = document.getElementById(id);
-        if (el && dict[key]) el.textContent = dict[key];
-      }
-
-      setText("navHome", "navHome");
-      setText("navTasks", "navTasks");
-      setText("navAbout", "navAbout");
-      setText("navPricing", "navPricing");
-      setText("navContact", "navContact");
-
-      setText("headerTitle", "headerTitle");
-      setText("headerSub", "headerSub");
-
-      setText("oneTimeTitle", "oneTimeTitle");
-      setText("oneTimeSub", "oneTimeSub");
-      setText("oneTimePrice", "oneTimePrice");
-      setText("oneTimeNote", "oneTimeNote");
-      setText("oneTimeLi1", "oneTimeLi1");
-      setText("oneTimeLi2", "oneTimeLi2");
-      setText("oneTimeLi3", "oneTimeLi3");
-      setText("oneTimeLi4", "oneTimeLi4");
-      setText("oneTimeCta", "oneTimeCta");
-      setText("oneTimeTip", "oneTimeTip");
-
-      setText("plansTitle", "plansTitle");
-      setText("plansSub", "plansSub");
-
-      setText("starterBadge", "starterBadge");
-      setText("starterName", "starterName");
-      setText("starterPriceMain", "starterPriceMain");
-      setText("starterPriceUnit", "starterPriceUnit");
-      setText("starterDesc", "starterDesc");
-      setText("starterLi1", "starterLi1");
-      setText("starterLi2", "starterLi2");
-      setText("starterLi3", "starterLi3");
-      setText("starterLi4", "starterLi4");
-      setText("starterLi5", "starterLi5");
-      setText("starterCta", "starterCta");
-      setText("starterTagline", "starterTagline");
-
-      setText("proBadge", "proBadge");
-      setText("proName", "proName");
-      setText("proPriceMain", "proPriceMain");
-      setText("proPriceUnit", "proPriceUnit");
-      setText("proDesc", "proDesc");
-      setText("proLi1", "proLi1");
-      setText("proLi2", "proLi2");
-      setText("proLi3", "proLi3");
-      setText("proLi4", "proLi4");
-      setText("proLi5", "proLi5");
-      setText("proLi6", "proLi6");
-      setText("proCta", "proCta");
-      setText("proTagline", "proTagline");
-
-      setText("privateBadge", "privateBadge");
-      setText("privateName", "privateName");
-      setText("privatePriceMain", "privatePriceMain");
-      setText("privatePriceUnit", "privatePriceUnit");
-      setText("privateDesc", "privateDesc");
-      setText("privateLi1", "privateLi1");
-      setText("privateLi2", "privateLi2");
-      setText("privateLi3", "privateLi3");
-      setText("privateLi4", "privateLi4");
-      setText("privateLi5", "privateLi5");
-      setText("privateLi6", "privateLi6");
-      setText("privateCta", "privateCta");
-      setText("privateTagline", "privateTagline");
-
-      setText("noteTitle1", "noteTitle1");
-      setText("noteP1", "noteP1");
-      setText("noteP2", "noteP2");
-      setText("noteTitle2", "noteTitle2");
-      setText("noteP3", "noteP3");
-
-      setText("footerText", "footerText");
+    function applyLang(lang) {
+      const dict = STRINGS[lang] || STRINGS["en"];
+      document.querySelectorAll("[data-i18n]").forEach(function (el) {
+        const key = el.getAttribute("data-i18n");
+        if (dict[key]) {
+          el.textContent = dict[key];
+        }
+      });
+      document.querySelectorAll(".lang-pill").forEach(function (btn) {
+        btn.classList.toggle("lang-pill-active", btn.getAttribute("data-lang") === lang);
+      });
     }
 
-    // ===== 登录状态脚本：读取 localStorage.aurum_user =====
-    function getAurumUser() {
-      try {
-        const raw = localStorage.getItem("aurum_user");
-        if (!raw) return null;
-        return JSON.parse(raw);
-      } catch (e) {
-        return null;
-      }
-    }
-
-    function aurumLogout() {
-      localStorage.removeItem("aurum_user");
-      renderNavUserArea();
-      // 如需登出后跳首页，可以打开：
-      // window.location.href = "index.html";
-    }
-
-    function renderNavUserArea() {
-      const area = document.getElementById("navUserArea");
-      if (!area) return;
-
-      const user = getAurumUser();
-      if (!user) {
-        area.innerHTML = '<a href="auth.html" class="nav-signin-link">Sign in</a>';
-      } else {
-        const displayName = user.name || user.email || user.phone || "Member";
-        area.innerHTML = `
-          <span class="nav-hi">Hi, ${displayName}</span>
-          <button type="button" class="nav-logout-btn" onclick="aurumLogout()">
-            Logout
-          </button>
-        `;
-      }
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      renderNavUserArea();
-      applyGlobalLanguage(); // 同步首页语言
-      attachOneTimePayHandler(); // 绑定一次性支付按钮
+    document.querySelectorAll(".lang-pill").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        const lang = btn.getAttribute("data-lang");
+        localStorage.setItem("aurumLang", lang);
+        applyLang(lang);
+      });
     });
+
+    (function initLang() {
+      const saved = localStorage.getItem("aurumLang") || "en";
+      applyLang(saved);
+    })();
   </script>
 </body>
 </html>
