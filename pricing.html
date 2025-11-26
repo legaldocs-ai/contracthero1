@@ -15,17 +15,15 @@
   <title>Aurum Task Desk — Pricing</title>
   <link rel="icon" type="image/png" href="favicon.png" />
 
-  <!-- 如果以后用 Stripe，可以保留；暂时没接好也不会影响页面显示 -->
-  <script src="https://js.stripe.com/v3/"></script>
-
   <style>
     * { box-sizing: border-box; }
 
     body {
       margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-      background: #f5f3ef;
-      color: #1d2734;
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+        system-ui, sans-serif;
+      background: #050816;
+      color: #f7f5f0;
       line-height: 1.6;
     }
 
@@ -39,94 +37,154 @@
 
     /* Navbar */
     .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 18px 0;
-      border-bottom: 1px solid #d5d3ce;
-      background: rgba(245,243,239,0.92);
-      backdrop-filter: blur(10px);
       position: sticky;
       top: 0;
-      z-index: 10;
+      z-index: 30;
+      backdrop-filter: blur(16px);
+      background: rgba(5, 8, 22, 0.94);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.22);
+    }
+
+    .nav-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
     }
 
     .nav-left {
       font-size: 20px;
       font-weight: 700;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: #111927;
+      color: #f9fafb;
     }
 
-    .nav-right a {
-      margin-left: 22px;
+    .nav-center {
+      display: flex;
+      gap: 18px;
       font-size: 14px;
-      opacity: 0.85;
+      color: #e5e7eb;
     }
 
-    .nav-right a:hover {
+    .nav-center a {
+      opacity: 0.82;
+    }
+
+    .nav-center a:hover {
       opacity: 1;
-      color: #7a642f;
     }
 
-    /* 登录区域样式 */
-    .nav-user-area {
-      display: inline-flex;
+    .nav-center a.nav-active {
+      opacity: 1;
+      color: #fbbf24;
+    }
+
+    .nav-right {
+      display: flex;
       align-items: center;
-      margin-left: 20px;
-      gap: 10px;
+      gap: 16px;
     }
 
-    .nav-user-area .nav-hi {
-      font-size: 13px;
+    .lang-switch {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: #9ca3af;
+    }
+
+    .lang-label {
+      text-transform: uppercase;
       opacity: 0.9;
     }
 
-    .nav-user-area .nav-logout-btn {
+    .lang-btn {
+      border: 0;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: transparent;
+      color: #e5e7eb;
+      font-size: 12px;
+      cursor: pointer;
+      opacity: 0.7;
+    }
+
+    .lang-btn.lang-active {
+      background: rgba(250, 204, 21, 0.12);
+      color: #fde68a;
+      opacity: 1;
+    }
+
+    .nav-user-area {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: #e5e7eb;
+    }
+
+    .nav-logout-btn {
       padding: 5px 12px;
       border-radius: 999px;
-      border: 1px solid #7a642f;
+      border: 1px solid rgba(248, 250, 252, 0.8);
       background: transparent;
-      color: inherit;
+      color: #f9fafb;
       font-size: 12px;
       cursor: pointer;
     }
 
-    .nav-user-area .nav-logout-btn:hover {
-      background: rgba(122, 100, 47, 0.1);
+    .nav-logout-btn:hover {
+      background: rgba(15, 23, 42, 0.8);
     }
 
-    .nav-user-area .nav-signin-link {
-      font-size: 14px;
-      padding: 5px 0;
+    .nav-signin-link {
+      font-size: 13px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.7);
     }
 
-    /* Header */
+    /* Page header */
     .page-header {
-      margin-top: 32px;
-      margin-bottom: 16px;
+      max-width: 1180px;
+      margin: 32px auto 10px;
+      padding: 0 20px;
+    }
+
+    .header-eyebrow {
+      font-size: 13px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #9ca3af;
+      margin-bottom: 6px;
     }
 
     .header-title {
-      font-size: 30px;
+      font-size: 32px;
       font-weight: 800;
-      color: #132033;
-      margin-bottom: 6px;
+      color: #f9fafb;
+      margin-bottom: 8px;
     }
 
     .header-sub {
       font-size: 14px;
-      max-width: 640px;
-      color: #55514a;
+      max-width: 620px;
+      color: #9ca3af;
     }
 
-    /* Pricing layout */
+    /* Layout */
     .pricing-layout {
+      max-width: 1180px;
+      margin: 24px auto 0;
+      padding: 0 20px 40px;
       display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.3fr);
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.3fr);
       gap: 24px;
-      margin-top: 26px;
       align-items: flex-start;
     }
 
@@ -137,22 +195,23 @@
     }
 
     .card {
-      background: rgba(255,255,255,0.96);
-      border-radius: 16px;
-      border: 1px solid #dcd9d3;
+      background: radial-gradient(circle at top left, #111827, #020617);
+      border-radius: 20px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
       padding: 20px 20px 22px;
+      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.75);
     }
 
     .card-title {
       font-size: 18px;
       font-weight: 700;
       margin-bottom: 6px;
-      color: #132033;
+      color: #f9fafb;
     }
 
     .card-sub {
       font-size: 13px;
-      color: #6c6558;
+      color: #9ca3af;
       margin-bottom: 16px;
     }
 
@@ -161,162 +220,177 @@
       font-size: 26px;
       font-weight: 800;
       margin-bottom: 4px;
-      color: #132033;
+      color: #e5e7eb;
     }
 
     .muted {
       font-size: 12px;
-      color: #7c7567;
+      color: #9ca3af;
     }
 
     .btn-primary {
       display: inline-block;
       padding: 9px 18px;
       border-radius: 999px;
-      border: 1px solid #24364c;
-      background: #24364c;
-      color: #fff;
+      border: 1px solid rgba(250, 204, 21, 0.8);
+      background: linear-gradient(135deg, #facc15, #f97316);
+      color: #111827;
       font-size: 14px;
       font-weight: 600;
       cursor: pointer;
-      margin-top: 10px;
+      margin-top: 12px;
     }
 
     .btn-primary:hover {
-      filter: brightness(1.03);
+      filter: brightness(1.02);
     }
 
-    /* Plans */
-    .plans-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 18px;
-      margin-top: 8px;
-    }
-
-    .plan-card {
-      background: #fefcf7;
-      border-radius: 14px;
-      border: 1px solid #ded3c1;
-      padding: 16px 16px 18px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .plan-badge {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: #8d7140;
-      margin-bottom: 4px;
-    }
-
-    .plan-name {
-      font-size: 17px;
-      font-weight: 700;
-      color: #1b2836;
-      margin-bottom: 4px;
-    }
-
-    .plan-price {
-      font-size: 24px;
-      font-weight: 800;
-      color: #1b2836;
-      margin-bottom: 4px;
-    }
-
-    .plan-price span {
-      font-size: 13px;
-      font-weight: 500;
-      color: #7b7569;
-    }
-
-    .plan-desc {
-      font-size: 13px;
-      color: #615a4d;
-      margin-bottom: 10px;
-    }
-
+    /* bullets */
     .plan-list {
       font-size: 13px;
-      color: #4e473a;
+      color: #e5e7eb;
       padding-left: 18px;
-      margin: 0 0 10px;
+      margin: 10px 0;
     }
 
     .plan-list li {
       margin-bottom: 4px;
     }
 
+    /* Monthly plans */
+    .plans-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-top: 8px;
+    }
+
+    .plan-card {
+      position: relative;
+      background: radial-gradient(circle at top left, #111827, #020617);
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      padding: 14px 14px 18px;
+      overflow: hidden;
+    }
+
+    .plan-card.highlight {
+      border-color: rgba(250, 204, 21, 0.85);
+      box-shadow: 0 20px 55px rgba(250, 204, 21, 0.08);
+    }
+
+    .plan-badge {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: #fde68a;
+      margin-bottom: 6px;
+    }
+
+    .plan-name {
+      font-size: 17px;
+      font-weight: 700;
+      color: #f9fafb;
+      margin-bottom: 4px;
+    }
+
+    .plan-price {
+      font-size: 22px;
+      font-weight: 800;
+      color: #e5e7eb;
+      margin-bottom: 4px;
+    }
+
+    .plan-price span {
+      font-size: 13px;
+      font-weight: 500;
+      color: #9ca3af;
+    }
+
+    .plan-desc {
+      font-size: 13px;
+      color: #9ca3af;
+      margin-bottom: 8px;
+    }
+
     .btn-outline {
       display: inline-block;
-      padding: 8px 16px;
+      padding: 7px 15px;
       border-radius: 999px;
-      border: 1px solid #b89452;
-      background: #f9f2e4;
+      border: 1px solid rgba(250, 204, 21, 0.8);
+      background: transparent;
       font-size: 13px;
       font-weight: 600;
-      color: #6e5321;
+      color: #fde68a;
       cursor: pointer;
-      margin-top: 4px;
+      margin-top: 6px;
     }
 
     .btn-outline:hover {
-      background: #f0e3cc;
+      background: rgba(250, 204, 21, 0.08);
     }
 
     .plan-tagline {
       font-size: 12px;
-      color: #7a7369;
+      color: #9ca3af;
       margin-top: 6px;
-    }
-
-    .highlight {
-      border-color: #c39a4f;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.06);
     }
 
     /* Note block */
     .note-block {
-      margin-top: 26px;
+      margin-top: 22px;
       padding: 16px 16px 18px;
-      border-radius: 14px;
-      border: 1px solid #d2c9b7;
-      background: #fbf7ee;
+      border-radius: 16px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: radial-gradient(circle at top left, #111827, #020617);
       font-size: 13px;
-      color: #5a5347;
+      color: #e5e7eb;
     }
 
     .note-block strong {
-      color: #3b3121;
+      color: #fde68a;
     }
 
+    /* Footer */
     .footer {
-      margin-top: 50px;
-      border-top: 1px solid #d2cfca;
-      padding: 26px 0 36px;
+      border-top: 1px solid rgba(148, 163, 184, 0.4);
+      padding: 22px 20px 32px;
       text-align: center;
-      font-size: 13px;
-      color: #746e64;
+      font-size: 12px;
+      color: #6b7280;
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
   <!-- NAVBAR -->
-  <nav class="navbar container">
-    <div class="nav-left">Aurum Task Desk</div>
-    <div class="nav-right">
-      <a href="index.html" id="navHome">Home</a>
-      <a href="tasks.html" id="navTasks">Task Marketplace</a>
-      <a href="about.html" id="navAbout">About</a>
-      <a href="pricing.html" id="navPricing">Pricing</a>
-      <a href="contact.html" id="navContact">Contact</a>
-      <span id="navUserArea" class="nav-user-area"></span>
+  <header class="navbar">
+    <div class="nav-inner">
+      <div class="nav-left">AURUM TASK DESK</div>
+      <nav class="nav-center">
+        <a href="index.html" id="navHome">首页</a>
+        <a href="tasks.html" id="navTasks">任务大厅</a>
+        <a href="about.html" id="navAbout">关于</a>
+        <a href="pricing.html" id="navPricing" class="nav-active">定价</a>
+        <a href="contact.html" id="navContact">联系</a>
+      </nav>
+      <div class="nav-right">
+        <div class="lang-switch">
+          <span class="lang-label">LANG</span>
+          <button class="lang-btn" data-lang="en" id="langEn">EN</button>
+          <button class="lang-btn" data-lang="zh" id="langZh">中文</button>
+          <button class="lang-btn" data-lang="ar" id="langAr">عربى</button>
+          <button class="lang-btn" data-lang="fr" id="langFr">FR</button>
+          <button class="lang-btn" data-lang="de" id="langDe">DE</button>
+        </div>
+        <span id="navUserArea" class="nav-user-area"></span>
+      </div>
     </div>
-  </nav>
+  </header>
 
   <!-- HEADER -->
-  <header class="container page-header">
+  <header class="page-header">
+    <div class="header-eyebrow" id="headerEyebrow">PRICING</div>
     <h1 class="header-title" id="headerTitle">Pricing &amp; Desk Models</h1>
     <p class="header-sub" id="headerSub">
       Start with a one-time task at <strong>$19.90</strong> per draft, or move into a private monthly Desk when you prefer
@@ -324,7 +398,7 @@
     </p>
   </header>
 
-  <main class="container pricing-layout">
+  <main class="pricing-layout">
     <!-- LEFT: One-time -->
     <section class="card">
       <h2 class="card-title" id="oneTimeTitle">One-Time Task</h2>
@@ -335,17 +409,14 @@
       <div class="one-time-price" id="oneTimePrice">$19.90</div>
       <div class="muted" id="oneTimeNote">per task · pay as you go · no subscription</div>
 
-      <ul class="plan-list" style="margin-top:10px;">
+      <ul class="plan-list">
         <li id="oneTimeLi1">One complete draft (email, letter, short post, or message)</li>
         <li id="oneTimeLi2">Calm, respectful tone for older US/EU audiences</li>
         <li id="oneTimeLi3">Suitable for family, business, or simple legal-style language</li>
         <li id="oneTimeLi4">No account needed — just pay and receive the text</li>
       </ul>
 
-      <!-- 一次性按钮：现在先跳到 one-time Desk 页面，支付以后再接 -->
       <a href="#" class="btn-primary" id="oneTimeCta">Start with a one-time task</a>
-      <div id="oneTimeError" class="muted" style="margin-top:6px;color:#b32626;"></div>
-
       <p class="muted" style="margin-top:8px;" id="oneTimeTip">
         If you're not sure about a monthly Desk, this is the best place to start.
       </p>
@@ -362,7 +433,7 @@
       <div class="plans-grid">
         <!-- Starter -->
         <article class="plan-card">
-          <div class="plan-badge" id="starterBadge">Entry Desk</div>
+          <div class="plan-badge" id="starterBadge">ENTRY DESK</div>
           <div class="plan-name" id="starterName">Starter Desk</div>
           <div class="plan-price">
             <span id="starterPriceMain">$140</span>
@@ -378,7 +449,6 @@
             <li id="starterLi4">Personal Desk page (after subscription)</li>
             <li id="starterLi5">Email-based communication only</li>
           </ul>
-          <!-- TODO: 换成你最终的 Starter Desk 支付链接（Stripe / Wise 等都可以） -->
           <a href="contact.html" class="btn-outline" id="starterCta">
             Talk about Starter Desk
           </a>
@@ -389,7 +459,7 @@
 
         <!-- Professional -->
         <article class="plan-card highlight">
-          <div class="plan-badge" id="proBadge">Most Popular</div>
+          <div class="plan-badge" id="proBadge">MOST POPULAR</div>
           <div class="plan-name" id="proName">Professional Desk</div>
           <div class="plan-price">
             <span id="proPriceMain">$280</span>
@@ -406,7 +476,6 @@
             <li id="proLi5">Priority delivery (24–48 hours)</li>
             <li id="proLi6">Personal Desk page for tasks</li>
           </ul>
-          <!-- TODO: 换成 Professional Desk 的支付链接 -->
           <a href="contact.html" class="btn-outline" id="proCta">
             Talk about Professional Desk
           </a>
@@ -417,7 +486,7 @@
 
         <!-- Private -->
         <article class="plan-card">
-          <div class="plan-badge" id="privateBadge">Private Office</div>
+          <div class="plan-badge" id="privateBadge">PRIVATE OFFICE</div>
           <div class="plan-name" id="privateName">Private Desk</div>
           <div class="plan-price">
             <span id="privatePriceMain">$580</span>
@@ -434,7 +503,6 @@
             <li id="privateLi5">Highest priority in the Desk queue</li>
             <li id="privateLi6">Premium Personal Desk page</li>
           </ul>
-          <!-- TODO: 换成 Private Desk 的支付链接 -->
           <a href="contact.html" class="btn-outline" id="privateCta">
             Talk about Private Desk
           </a>
@@ -464,7 +532,7 @@
   </footer>
 
   <script>
-    // 简单登录状态：从 localStorage 里读用户名，显示 Hi, xxx
+    // ===== 登录状态，同首页 =====
     (function () {
       var area = document.getElementById('navUserArea');
       if (!area) return;
@@ -472,7 +540,7 @@
       var name = localStorage.getItem('aurumUserName');
       if (name) {
         area.innerHTML =
-          '<span class="nav-hi">Hi, ' +
+          '<span>Hi, ' +
           name +
           '</span><button class="nav-logout-btn" id="navLogoutBtn">Logout</button>';
 
@@ -489,16 +557,384 @@
       }
     })();
 
-    // 一次性任务按钮：暂时直接跳到 Desk 页面的 one-time 入口
-    document.addEventListener('DOMContentLoaded', function () {
-      var oneTimeBtn = document.getElementById('oneTimeCta');
-      if (!oneTimeBtn) return;
+    // ===== 多语言，同步首页 =====
+    var langButtons = document.querySelectorAll('.lang-btn');
+    var currentLang = localStorage.getItem('aurumLang') || 'zh';
 
-      oneTimeBtn.addEventListener('click', function (e) {
-        e.preventDefault();
-        // 这里可以改成你以后真正的一次性支付链接（Wise / Stripe 等）
-        window.location.href = 'desk.html?plan=one-time';
+    var translations = {
+      en: {
+        headerEyebrow: 'PRICING',
+        headerTitle: 'Pricing & Desk Models',
+        headerSub:
+          'Start with a one-time task at $19.90 per draft, or move into a private monthly Desk when you prefer calm, ongoing support. No complicated tiers, no hidden fees.',
+
+        oneTimeTitle: 'One-Time Task',
+        oneTimeSub:
+          'Best for first-time clients or one-off needs. You describe the situation, and the Desk prepares one clear draft you can copy, adjust, and send.',
+        oneTimeNote: 'per task · pay as you go · no subscription',
+        oneTimeLi1: 'One complete draft (email, letter, short post, or message)',
+        oneTimeLi2: 'Calm, respectful tone for older US/EU audiences',
+        oneTimeLi3: 'Suitable for family, business, or simple legal-style language',
+        oneTimeLi4: 'No account needed — just pay and receive the text',
+        oneTimeCta: 'Start with a one-time task',
+        oneTimeTip:
+          "If you're not sure about a monthly Desk, this is the best place to start.",
+
+        plansTitle: 'Monthly Desk Plans',
+        plansSub:
+          'Monthly Desks are for people who prefer a quiet, ongoing writing partner: tone is remembered, context is saved, and tasks are handled calmly over time.',
+
+        starterBadge: 'ENTRY DESK',
+        starterName: 'Starter Desk',
+        starterDesc:
+          'For clients who occasionally need a calm, reliable writing desk.',
+        starterTagline:
+          'Good for letters, replies, and occasional business writing.',
+        starterCta: 'Talk about Starter Desk',
+
+        proBadge: 'MOST POPULAR',
+        proName: 'Professional Desk',
+        proDesc:
+          'For US/EU professionals, veterans, and business owners who need steady, structured help.',
+        proTagline:
+          'Designed for people who want a quiet, long-term writing partner.',
+        proCta: 'Talk about Professional Desk',
+
+        privateBadge: 'PRIVATE OFFICE',
+        privateName: 'Private Desk',
+        privateDesc:
+          'Reserved for clients who want a private writing office, not a platform.',
+        privateTagline:
+          'For clients who prefer a quiet, ongoing relationship instead of one-off tasks.',
+        privateCta: 'Talk about Private Desk',
+
+        noteTitle1: 'What happens after you pay?',
+        noteP1:
+          'For one-time tasks, you receive a simple form or email address to send your situation. For monthly Desks, we set up a Personal Desk page where you can see tasks, drafts, and notes in one place.',
+        noteTitle2: 'No pressure, no lock-in.',
+        noteP2:
+          'You can start with a single $19.90 task and only move into a monthly Desk if it actually helps you. The Desk is built for older US & EU clients who prefer calm, private support instead of noisy platforms.',
+
+        navHome: 'Home',
+        navTasks: 'Task Marketplace',
+        navAbout: 'About',
+        navPricing: 'Pricing',
+        navContact: 'Contact'
+      },
+      zh: {
+        headerEyebrow: '定价',
+        headerTitle: '定价与 Desk 模式',
+        headerSub:
+          '可以先用每次 19.90 美元的一次性任务试一试；如果觉得合适，再考虑升级为每月 Desk，长期、安静地陪你写。没有复杂套餐，也没有隐藏费用。',
+
+        oneTimeTitle: '一次性任务',
+        oneTimeSub:
+          '适合第一次合作，或偶尔需要帮忙的客户。你描述情况，Desk 帮你整理成一份清晰的文本草稿，你可以直接复制、微调后发送。',
+        oneTimeNote: '按次收费 · 用多少付多少 · 无订阅',
+        oneTimeLi1: '1 份完整草稿（邮件、信件、短内容或消息）',
+        oneTimeLi2: '语气安静、礼貌，适合欧美中老年读者',
+        oneTimeLi3: '可用于家庭沟通、商务往来、简单偏法律风格文本',
+        oneTimeLi4: '无需注册账号 —— 直接付款，收到文本即可使用',
+        oneTimeCta: '先试一次性任务',
+        oneTimeTip:
+          '如果还不确定要不要订阅 Desk，可以先从一次性任务开始。',
+
+        plansTitle: '每月 Desk 方案',
+        plansSub:
+          '每月 Desk 适合希望长期、安静写作伙伴的客户：语气会被记住，背景会被积累，事情可以慢慢、有条理地推进。',
+
+        starterBadge: '入门 Desk',
+        starterName: 'Starter Desk',
+        starterDesc: '适合偶尔需要写作支持的客户。',
+        starterTagline: '适合偶尔的信件、回复和轻量商务文本。',
+        starterCta: '聊聊 Starter Desk',
+
+        proBadge: '最受欢迎',
+        proName: 'Professional Desk',
+        proDesc:
+          '适合欧美专业人士、退伍军人、小企业主等，需要稳定写作支持的人。',
+        proTagline: '适合希望有一个长期、安静写作伙伴的客户。',
+        proCta: '聊聊 Professional Desk',
+
+        privateBadge: '私人办公室',
+        privateName: 'Private Desk',
+        privateDesc:
+          '保留给需要「私人写作办公室」而不是平台账号的客户。',
+        privateTagline: '适合更敏感、更长期的沟通与文本管理。',
+        privateCta: '聊聊 Private Desk',
+
+        noteTitle1: '付款之后会怎样？',
+        noteP1:
+          '一次性任务：会给你一个简单的表单或邮箱，你把情况写进去即可。每月 Desk：会为你搭建一个 Personal Desk 页面，集中查看任务、草稿和备注。',
+        noteTitle2: '不绑架、不强推。',
+        noteP2:
+          '你可以只从一单 19.90 美元开始，如果真的觉得有用，再考虑 Desk 订阅。这个 Desk 专门为欧美中老年客户设计，更安静、更私密。',
+
+        navHome: '首页',
+        navTasks: '任务大厅',
+        navAbout: '关于',
+        navPricing: '定价',
+        navContact: '联系'
+      },
+      ar: {
+        headerEyebrow: 'الأسعار',
+        headerTitle: 'خطة الأسعار و المكتب',
+        headerSub:
+          'ابدأ بمهمة واحدة بـ 19.90 دولارًا للمسودة، أو انتقل لاحقًا إلى مكتب شهري هادئ عندما تحتاج إلى دعم مستمر.',
+
+        oneTimeTitle: 'مهمة لمرة واحدة',
+        oneTimeSub:
+          'جيد للتجربة أو للاحتياجات العرضية. تصف الموقف، والمكتب يجهز مسودة واضحة يمكنك إرسالها.',
+        oneTimeNote: 'لكل مهمة · بدون اشتراك',
+        oneTimeLi1: 'مسودة كاملة واحدة (بريد، رسالة، منشور قصير، أو رسالة)',
+        oneTimeLi2: 'نبرة هادئة ومحترمة لكبار السن في أوروبا والولايات المتحدة',
+        oneTimeLi3: 'مناسب للعائلة، والعمل، ونبرة بسيطة تشبه القانونية',
+        oneTimeLi4: 'لا حاجة لحساب — فقط تدفع وتتلقى النص',
+        oneTimeCta: 'ابدأ بمهمة واحدة',
+        oneTimeTip: 'إذا لم تكن متأكدًا من الاشتراك الشهري، ابدأ من هنا.',
+
+        plansTitle: 'خطط المكتب الشهري',
+        plansSub:
+          'المكتب الشهري مخصص لمن يفضل شريك كتابة هادئًا على المدى الطويل.',
+
+        starterBadge: 'مكتب مبدئي',
+        starterName: 'Starter Desk',
+        starterDesc:
+          'للعملاء الذين يحتاجون إلى مساعدة كتابة من حين لآخر.',
+        starterTagline: 'جيد للرسائل والردود والنصوص البسيطة.',
+        starterCta: 'التحدث عن Starter Desk',
+
+        proBadge: 'الأكثر شيوعًا',
+        proName: 'Professional Desk',
+        proDesc:
+          'للمهنيين وأصحاب الأعمال الذين يحتاجون إلى دعم ثابت ومنظم.',
+        proTagline: 'لمن يريد شريك كتابة هادئًا وطويل الأمد.',
+        proCta: 'التحدث عن Professional Desk',
+
+        privateBadge: 'مكتب خاص',
+        privateName: 'Private Desk',
+        privateDesc:
+          'لمن يفضل مكتب كتابة خاصًا بدل منصة عامة.',
+        privateTagline:
+          'لعلاقة كتابة هادئة وخاصة على المدى الطويل.',
+        privateCta: 'التحدث عن Private Desk',
+
+        noteTitle1: 'ماذا يحدث بعد الدفع؟',
+        noteP1:
+          'في المهام الفردية تحصل على نموذج أو بريد لإرسال حالتك. في المكتب الشهري يتم إنشاء صفحة مكتب خاصة بك.',
+        noteTitle2: 'بدون التزام طويل.',
+        noteP2:
+          'يمكنك البدء بمهمة واحدة فقط، ثم تقرر لاحقًا إن كان المكتب الشهري مناسبًا لك.',
+
+        navHome: 'الرئيسية',
+        navTasks: 'مهام',
+        navAbout: 'حول',
+        navPricing: 'الأسعار',
+        navContact: 'تواصل'
+      },
+      fr: {
+        headerEyebrow: 'TARIFS',
+        headerTitle: 'Tarifs & modèles de Desk',
+        headerSub:
+          'Commencez par une mission unique à 19,90 $ par brouillon, puis passez à un Desk mensuel privé si vous avez besoin d’un accompagnement calme et régulier.',
+
+        oneTimeTitle: 'Mission ponctuelle',
+        oneTimeSub:
+          'Idéal pour un premier essai ou un besoin isolé. Vous décrivez la situation, le Desk prépare un brouillon clair que vous pouvez adapter et envoyer.',
+        oneTimeNote: 'par mission · sans abonnement',
+        oneTimeLi1:
+          'Un brouillon complet (e-mail, lettre, court texte ou message)',
+        oneTimeLi2:
+          'Ton calme et respectueux pour un public senior US/UE',
+        oneTimeLi3:
+          'Adapté à la famille, au business ou à un style simple proche du juridique',
+        oneTimeLi4:
+          'Aucun compte nécessaire — vous payez et recevez le texte',
+        oneTimeCta: 'Commencer avec une mission ponctuelle',
+        oneTimeTip:
+          'Si vous hésitez encore pour un Desk mensuel, commencez ici.',
+
+        plansTitle: 'Desks mensuels',
+        plansSub:
+          'Les Desks mensuels sont faits pour ceux qui préfèrent un partenaire d’écriture calme sur la durée.',
+
+        starterBadge: 'DESK D’ENTRÉE',
+        starterName: 'Starter Desk',
+        starterDesc:
+          'Pour les clients qui ont besoin d’aide à l’écriture de temps en temps.',
+        starterTagline:
+          'Bien pour les lettres, réponses et petits textes business.',
+        starterCta: 'Parler du Starter Desk',
+
+        proBadge: 'LE PLUS CHOISI',
+        proName: 'Professional Desk',
+        proDesc:
+          'Pour les professionnels US/UE, vétérans et dirigeants qui veulent un cadre régulier.',
+        proTagline:
+          'Pensé pour ceux qui veulent un partenaire d’écriture calme et durable.',
+        proCta: 'Parler du Professional Desk',
+
+        privateBadge: 'BUREAU PRIVÉ',
+        privateName: 'Private Desk',
+        privateDesc:
+          'Réservé aux clients qui souhaitent un bureau d’écriture privé, pas une plateforme.',
+        privateTagline:
+          'Pour une relation d’écriture discrète et suivie.',
+        privateCta: 'Parler du Private Desk',
+
+        noteTitle1: 'Que se passe-t-il après le paiement ?',
+        noteP1:
+          'Pour les missions ponctuelles, vous recevez un formulaire ou une adresse e-mail pour expliquer la situation. Pour les Desks mensuels, une page Desk personnelle est créée.',
+        noteTitle2: 'Sans pression, sans engagement lourd.',
+        noteP2:
+          'Vous pouvez commencer par une seule mission à 19,90 $, puis décider ensuite si un Desk mensuel vous aide vraiment.',
+
+        navHome: 'Accueil',
+        navTasks: 'Hall des tâches',
+        navAbout: 'À propos',
+        navPricing: 'Tarifs',
+        navContact: 'Contact'
+      },
+      de: {
+        headerEyebrow: 'PREISE',
+        headerTitle: 'Preise & Desk-Modelle',
+        headerSub:
+          'Beginnen Sie mit einem Einmal-Auftrag für 19,90 $ pro Entwurf oder wechseln Sie später zu einem privaten Monats-Desk für ruhige, laufende Unterstützung.',
+
+        oneTimeTitle: 'Einmal-Auftrag',
+        oneTimeSub:
+          'Ideal zum Testen oder für seltene Anliegen. Sie beschreiben die Situation, der Desk erstellt einen klaren Entwurf, den Sie versenden können.',
+        oneTimeNote: 'pro Auftrag · kein Abo',
+        oneTimeLi1:
+          'Ein vollständiger Entwurf (E-Mail, Brief, kurzer Text oder Nachricht)',
+        oneTimeLi2:
+          'Ruhiger, respektvoller Ton für ältere Leser in den USA & Europa',
+        oneTimeLi3:
+          'Geeignet für Familie, Business oder einfachen, juristisch angehauchten Stil',
+        oneTimeLi4:
+          'Kein Konto nötig – Sie zahlen und erhalten den Text',
+        oneTimeCta: 'Mit einem Einmal-Auftrag starten',
+        oneTimeTip:
+          'Wenn Sie unsicher sind wegen eines Monats-Desks, starten Sie hier.',
+
+        plansTitle: 'Monatliche Desks',
+        plansSub:
+          'Monats-Desks sind für Menschen, die einen ruhigen, langfristigen Schreibpartner möchten.',
+
+        starterBadge: 'EINSTIEGS-DESK',
+        starterName: 'Starter Desk',
+        starterDesc:
+          'Für Kunden, die nur gelegentlich Schreibunterstützung brauchen.',
+        starterTagline:
+          'Gut für Briefe, Antworten und kleinere Geschäftstexte.',
+        starterCta: 'Über Starter Desk sprechen',
+
+        proBadge: 'AM BELIEBTESTEN',
+        proName: 'Professional Desk',
+        proDesc:
+          'Für Profis und Unternehmer in den USA/EU, die stetige, strukturierte Hilfe möchten.',
+        proTagline:
+          'Für alle, die einen ruhigen, langfristigen Schreibpartner suchen.',
+        proCta: 'Über Professional Desk sprechen',
+
+        privateBadge: 'PRIVATBÜRO',
+        privateName: 'Private Desk',
+        privateDesc:
+          'Für Kunden, die ein privates Schreibbüro statt einer Plattform wollen.',
+        privateTagline:
+          'Für eine leise, langfristige Schreibbeziehung.',
+        privateCta: 'Über Private Desk sprechen',
+
+        noteTitle1: 'Was passiert nach der Zahlung?',
+        noteP1:
+          'Bei Einmal-Aufträgen erhalten Sie ein Formular oder eine E-Mail-Adresse für Ihre Situation. Bei Monats-Desks richten wir eine persönliche Desk-Seite ein.',
+        noteTitle2: 'Kein Druck, keine Bindung.',
+        noteP2:
+          'Sie können mit einem einzigen Auftrag über 19,90 $ starten und erst später entscheiden, ob ein Monats-Desk für Sie sinnvoll ist.',
+
+        navHome: 'Startseite',
+        navTasks: 'Aufgaben',
+        navAbout: 'Über',
+        navPricing: 'Preise',
+        navContact: 'Kontakt'
+      }
+    };
+
+    function applyLang(lang) {
+      currentLang = lang;
+      localStorage.setItem('aurumLang', lang);
+
+      langButtons.forEach(function (btn) {
+        btn.classList.toggle('lang-active', btn.dataset.lang === lang);
       });
+
+      var t = translations[lang] || translations.en;
+
+      function setText(id, key) {
+        var el = document.getElementById(id);
+        if (el && t[key]) el.innerHTML = t[key];
+      }
+
+      setText('headerEyebrow', 'headerEyebrow');
+      setText('headerTitle', 'headerTitle');
+      setText('headerSub', 'headerSub');
+
+      setText('oneTimeTitle', 'oneTimeTitle');
+      setText('oneTimeSub', 'oneTimeSub');
+      setText('oneTimeNote', 'oneTimeNote');
+      setText('oneTimeLi1', 'oneTimeLi1');
+      setText('oneTimeLi2', 'oneTimeLi2');
+      setText('oneTimeLi3', 'oneTimeLi3');
+      setText('oneTimeLi4', 'oneTimeLi4');
+      setText('oneTimeCta', 'oneTimeCta');
+      setText('oneTimeTip', 'oneTimeTip');
+
+      setText('plansTitle', 'plansTitle');
+      setText('plansSub', 'plansSub');
+
+      setText('starterBadge', 'starterBadge');
+      setText('starterName', 'starterName');
+      setText('starterDesc', 'starterDesc');
+      setText('starterTagline', 'starterTagline');
+      setText('starterCta', 'starterCta');
+
+      setText('proBadge', 'proBadge');
+      setText('proName', 'proName');
+      setText('proDesc', 'proDesc');
+      setText('proTagline', 'proTagline');
+      setText('proCta', 'proCta');
+
+      setText('privateBadge', 'privateBadge');
+      setText('privateName', 'privateName');
+      setText('privateDesc', 'privateDesc');
+      setText('privateTagline', 'privateTagline');
+      setText('privateCta', 'privateCta');
+
+      setText('noteTitle1', 'noteTitle1');
+      setText('noteP1', 'noteP1');
+      setText('noteTitle2', 'noteTitle2');
+      setText('noteP2', 'noteP2');
+
+      setText('navHome', 'navHome');
+      setText('navTasks', 'navTasks');
+      setText('navAbout', 'navAbout');
+      setText('navPricing', 'navPricing');
+      setText('navContact', 'navContact');
+    }
+
+    langButtons.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        applyLang(btn.dataset.lang);
+      });
+    });
+
+    // 初始化语言（和首页保持一致）
+    applyLang(currentLang);
+
+    // 一次性任务按钮：目前跳转到 one-time Desk 页面（你以后可以改成 Wise/Stripe 链接）
+    document.getElementById('oneTimeCta').addEventListener('click', function (e) {
+      e.preventDefault();
+      window.location.href = 'desk.html?plan=one-time';
     });
   </script>
 </body>
