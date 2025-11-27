@@ -465,6 +465,24 @@
           and quality control.
         </p>
       </div>
+
+      <!-- 新增：Payments & refunds 多语言区块 -->
+      <section class="note-block" style="margin-top:18px;">
+        <p><strong id="paymentsTitle">Payments & refunds</strong></p>
+        <p id="paymentsP1">
+          All payments for Aurum Task Desk are securely processed by Paddle, our payment partner.
+          Aurum Task Desk does not store full card numbers or other sensitive payment details on its own servers.
+        </p>
+        <p id="paymentsP2">
+          Because services are digital and custom-made for each client, payments are generally
+          non-refundable once work has started, except where local consumer protection law requires otherwise.
+        </p>
+        <p id="paymentsP3">
+          If there is a clear mismatch with the original agreed task scope, we will provide reasonable
+          revisions so the final result matches the scope agreed at the start.
+        </p>
+      </section>
+      <!-- 结束：Payments & refunds 区块 -->
     </section>
   </main>
 
@@ -506,7 +524,7 @@
     }
   </script>
 
-  <!-- 多语言 + 登录脚本（保留你原来的整段） -->
+  <!-- 多语言 + 登录脚本（保留你原来的整段，只是加了 payments 文案） -->
   <script>
     // ========== 多语言：跟随首页 localStorage.aurum_lang ==========
     let AURUM_LANG = localStorage.getItem("aurum_lang") || "en";
@@ -597,6 +615,15 @@
         noteP3:
           "You see one clear price (for example, $280). Contributors and tools are paid from that amount. The Desk fee is the spread, which covers scoping, tone management, and quality control.",
 
+        /* 新增：Payments & refunds 文案 */
+        paymentsTitle: "Payments & refunds",
+        paymentsP1:
+          "All payments for Aurum Task Desk are securely processed by Paddle, our payment partner. Aurum Task Desk does not store full card numbers or other sensitive payment details on its own servers.",
+        paymentsP2:
+          "Because services are digital and custom-made for each client, payments are generally non-refundable once work has started, except where local consumer protection law requires otherwise.",
+        paymentsP3:
+          "If there is a clear mismatch with the original agreed task scope, we will provide reasonable revisions so the final result matches the scope agreed at the start.",
+
         footerText: "© 2025 Aurum Task Desk — Private AI Task Coordination Desk"
       },
 
@@ -685,6 +712,15 @@
         noteP3:
           "你看到的是一个清晰的价格（例如 $280）。从这笔费用中，部分用于支付工具和协作者，剩余部分是任务桌服务费，用于覆盖需求拆分、语气管理和质量把控。",
 
+        /* 新增：Payments & refunds 文案（中文） */
+        paymentsTitle: "支付与退款说明",
+        paymentsP1:
+          "Aurum Task Desk 的所有费用均由支付合作方 Paddle 安全处理，本站本身不存储完整银行卡号等敏感支付信息。",
+        paymentsP2:
+          "由于本服务属于数字化定制服务，一旦工作开始，费用通常不再退款，除非相关消费者保护法律有明确要求。",
+        paymentsP3:
+          "如果交付结果与最初约定的任务范围明显不符，我们会在合理范围内提供修改，使最终结果尽量符合最初约定的范围。",
+
         footerText: "© 2025 Aurum Task Desk — 私人 AI 任务协调桌"
       },
 
@@ -772,6 +808,15 @@
         noteTitle2: "كيف تعمل رسوم المكتب (بشكل مبسّط):",
         noteP3:
           "ترى سعرًا واحدًا واضحًا (مثلاً 280 دولارًا). يُدفع جزء منه للأدوات والمتعاونين، أما باقي المبلغ فهو أتعاب المكتب مقابل تنظيم الطلب، وإدارة النبرة، وضبط الجودة.",
+
+        /* Payments & refunds */
+        paymentsTitle: "الدفع وسياسة الاسترجاع",
+        paymentsP1:
+          "تُعالج جميع المدفوعات الخاصة بـ Aurum Task Desk بشكل آمن عبر Paddle، شريك الدفع لدينا. لا يخزّن Aurum Task Desk أرقام البطاقات الكاملة أو بيانات الدفع الحساسة على خوادمه الخاصة.",
+        paymentsP2:
+          "نظرًا لأن الخدمة رقمية ومخصّصة لكل عميل، فإن المدفوعات عادةً غير قابلة للاسترجاع بعد بدء العمل، إلا إذا تطلّبت قوانين حماية المستهلك المحلية غير ذلك.",
+        paymentsP3:
+          "إذا كان هناك اختلاف واضح عن نطاق المهمة المتفق عليه في البداية، فسوف نقدّم تعديلات معقولة بحيث يتوافق العمل النهائي مع النطاق المتفق عليه من البداية.",
 
         footerText:
           "© 2025 Aurum Task Desk — مكتب تنسيق مهام بالذكاء الاصطناعي"
@@ -862,6 +907,15 @@
         noteP3:
           "Vous voyez un prix unique et clair (par exemple 280 $). Les outils et collaborateurs sont payés à partir de cette somme. Le reste représente les frais du bureau pour la définition des besoins, la gestion du ton et le contrôle qualité.",
 
+        /* Payments & refunds */
+        paymentsTitle: "Paiements et remboursements",
+        paymentsP1:
+          "Tous les paiements pour Aurum Task Desk sont traités de manière sécurisée par Paddle, notre partenaire de paiement. Aurum Task Desk ne stocke pas les numéros complets de cartes ni les données sensibles de paiement sur ses propres serveurs.",
+        paymentsP2:
+          "Comme il s’agit d’un service numérique et sur mesure pour chaque client, les paiements sont en général non remboursables une fois le travail commencé, sauf lorsque la loi locale de protection des consommateurs l’exige.",
+        paymentsP3:
+          "S’il existe un écart clair avec le périmètre de mission convenu au départ, nous proposons des révisions raisonnables afin que le résultat final corresponde à ce qui avait été convenu.",
+
         footerText:
           "© 2025 Aurum Task Desk — Bureau privé de coordination de tâches IA"
       },
@@ -951,6 +1005,15 @@
         noteP3:
           "Du siehst einen klaren Preis (z. B. 280 $). Daraus werden Tools und Mitwirkende bezahlt. Der restliche Teil ist die Desk-Gebühr für Auftragsklärung, Ton-Management und Qualitätssicherung.",
 
+        /* Payments & refunds */
+        paymentsTitle: "Zahlungen & Rückerstattungen",
+        paymentsP1:
+          "Alle Zahlungen für Aurum Task Desk werden sicher über Paddle, unseren Zahlungspartner, abgewickelt. Aurum Task Desk speichert keine vollständigen Kartennummern oder andere sensible Zahlungsdaten auf eigenen Servern.",
+        paymentsP2:
+          "Da es sich um digitale, maßgeschneiderte Dienstleistungen handelt, sind Zahlungen in der Regel nicht erstattungsfähig, sobald die Arbeit begonnen hat – außer, wenn lokale Verbraucherschutzgesetze etwas anderes vorschreiben.",
+        paymentsP3:
+          "Wenn eine deutliche Abweichung vom ursprünglich vereinbarten Aufgabenumfang vorliegt, bieten wir angemessene Überarbeitungen an, damit das Endergebnis dem vereinbarten Umfang entspricht.",
+
         footerText:
           "© 2025 Aurum Task Desk — Privater KI-Aufgaben-Desk"
       }
@@ -1035,6 +1098,12 @@
       setText("noteP2", "noteP2");
       setText("noteTitle2", "noteTitle2");
       setText("noteP3", "noteP3");
+
+      /* 新增：Payments & refunds 多语言绑定 */
+      setText("paymentsTitle", "paymentsTitle");
+      setText("paymentsP1", "paymentsP1");
+      setText("paymentsP2", "paymentsP2");
+      setText("paymentsP3", "paymentsP3");
 
       setText("footerText", "footerText");
     }
