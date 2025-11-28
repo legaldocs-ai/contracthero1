@@ -195,15 +195,20 @@
     }
     .desk-pill {
       border-radius: 16px;
-      padding: 8px 9px;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      background: rgba(15, 23, 42, 0.98);
+      padding: 8px 11px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: radial-gradient(circle at top left, rgba(15,23,42,0.98), rgba(15,23,42,1));
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 8px;
       cursor: pointer;
-      transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, transform 0.18s ease;
+    }
+    .desk-pill:hover {
+      transform: translateY(-1px);
+      border-color: rgba(251, 191, 36, 0.7);
+      box-shadow: 0 12px 30px rgba(8, 47, 73, 0.7);
     }
     .desk-pill-left {
       display: flex;
@@ -299,7 +304,35 @@
       gap: 6px;
     }
 
-    @media (max-width: 900px) {
+    
+    .desk-detail-card {
+      border-radius: 22px;
+      border: 1px solid rgba(148, 163, 184, 0.65);
+      background: radial-gradient(circle at top left, rgba(15,23,42,0.98), rgba(15,23,42,1));
+      box-shadow: 0 26px 60px rgba(8, 47, 73, 0.95);
+      padding: 18px 20px 16px;
+      position: relative;
+      overflow: hidden;
+    }
+    .desk-detail-card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle at 0% 0%, rgba(250, 204, 21, 0.16), transparent 55%);
+      opacity: 0.7;
+      pointer-events: none;
+    }
+    .desk-detail-inner {
+      position: relative;
+      z-index: 1;
+      animation: fadeUpDesk 0.32s ease;
+    }
+    @keyframes fadeUpDesk {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+@media (max-width: 900px) {
       .desk-layout {
         grid-template-columns: minmax(0, 1fr);
       }
@@ -506,10 +539,11 @@
       const cfg = deskConfigs[key] || deskConfigs.legal;
       const container = document.getElementById("desk-detail");
       container.innerHTML = `
-        <div class="desk-detail-label">Selected scenario</div>
-        <div class="desk-detail-title">${cfg.label}</div>
-        <div class="desk-detail-desc">${cfg.desc}</div>
-        <div class="desk-detail-grid">
+        <div class="desk-detail-inner">
+          <div class="desk-detail-label">Selected scenario</div>
+          <div class="desk-detail-title">${cfg.label}</div>
+          <div class="desk-detail-desc">${cfg.desc}</div>
+          <div class="desk-detail-grid">
           <div class="desk-detail-block">
             <div class="desk-detail-block-title">${cfg.prepTitle}</div>
             <ul>
@@ -522,17 +556,26 @@
               ${cfg.getList.map((item) => `<li>${item}</li>`).join("")}
             </ul>
           </div>
-        </div>
-        <div class="desk-detail-footer">
-          <div class="desk-footer-note" data-i18n-key="whoLabel">
-            Designed for 40+ users who prefer clear steps instead of prompts.
           </div>
-          <a href="auth.html" class="desk-footer-btn">
-            <span data-i18n-key="login">Login / My Desk</span>
-            <span>→</span>
-          </a>
+          <div class="desk-detail-footer">
+            <div class="desk-footer-note" data-i18n-key="whoLabel">
+              Designed for 40+ users who prefer clear steps instead of prompts.
+            </div>
+            <button type="button" class="desk-footer-btn" onclick="startTask('${key}')">
+              <span data-i18n-key="startTask">Start this task</span>
+              <span>→</span>
+            </button>
+          </div>
         </div>
       `;
+
+    function startTask(key) {
+      try {
+        localStorage.setItem("aurum_selected_service", key);
+      } catch (_) {}
+      window.location.href = "auth.html";
+    }
+
     }
 
     function initDeskPills() {
@@ -575,6 +618,7 @@
         trust2: "语气与结构专为律师、HR、审核官而优化",
         ctaPrimary: "开始一个任务",
         ctaSecondary: "查看 5 大核心服务",
+        startTask: "开始这个任务",
         chip1: "上传截图或简单描述事情经过",
         chip2: "告诉我们写给谁、希望得到什么结果",
         chip3: "收到结构完整、可以直接提交的英文信件",
