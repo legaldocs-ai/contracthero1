@@ -1005,59 +1005,76 @@
     const recipientInput = document.getElementById("recipientInput");
     const detailsTextarea = document.getElementById("detailsTextarea");
 
-    async function callPreview() {
-      const taskType = (taskTypeInput.value || "").trim() || "写作任务";
-      const tone = (toneSelect.value || "calm, respectful").toString();
-      const language = (languageSelect.value || "English").toString();
-      const recipient = (recipientInput.value || "").toString();
-      const details = (detailsTextarea.value || "").toString();
+    async function callAIPreview() {
+  const taskType = (taskTypeInput.value || "").trim() || "写作任务";
+  const tone = (toneSelect.value || "calm, respectful").toString();
+  const language = (languageSelect.value || "English").toString();
+  const recipient = (recipientInput.value || "").toString();
+  const details = (detailsTextarea.value || "").toString();
 
-      previewGenerateBtn.disabled = true;
-      previewStatusText.textContent = language === "中文"
-        ? "正在为你生成预览草稿…"
-        : "The system is preparing a preview draft for you…";
+  aiGenerateBtn.disabled = true;
+  aiStatusText.textContent =
+    language === "中文"
+      ? "预览草稿正在生成中，请稍候…"
+      : "Preview draft is being generated…";
 
-      try {
-        const res = await fetch("/api/generate", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify({
-    taskType,
-    tone,
-    language,
-    recipient,
-    details
-  })
-});
+  try {
+    const res = await fetch("/api/generate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        taskType,
+        tone,
+        language,
+        recipient,
+        details
+      })
+    });
 
-
-        if (!res.ok) {
-          throw new Error("HTTP " + res.status);
-        }
-        const data = await res.json();
-
-        if (!data.ok || !data.preview) {
-          throw new Error(data.error || "Empty response");
-        }
-
-        previewPlaceholder.style.display = "none";
-        previewContent.style.display = "block";
-        previewContent.textContent = data.preview;
-
-        previewStatusText.textContent = language === "中文"
-          ? "预览完成。你可以修改细节，再次生成，或稍后在正式任务中继续。"
-          : "Preview ready. You can adjust details, generate again, or continue later inside a full Desk.";
-      } catch (err) {
-        console.error(err);
-        previewStatusText.textContent = languageSelect.value === "中文"
-          ? "抱歉，预览暂时失败，请稍后再试。"
-          : "Sorry, the preview failed for now. Please try again in a moment.";
-      } finally {
-        previewGenerateBtn.disabled = false;
-      }
+    let data = null;
+    try {
+      data = await res.json();
+    } catch (e) {
+      // 如果后端没返回 JSON，也不要直接崩
+      console.error("Response is not JSON:", e);
     }
+
+    // HTTP 本身报错
+    if (!res.ok) {
+      const msg =
+        (data && (data.error || data.message)) ||
+        ("HTTP " + res.status + " " + res.statusText);
+      throw new Error(msg);
+    }
+
+    // HTTP 正常但 data 结构不对 / AI 出错
+    if (!data || !data.ok || !data.preview) {
+      const msg =
+        (data && (data.error || data.message)) || "Empty AI response";
+      throw new Error(msg);
+    }
+
+    // 一切 OK，显示预览
+    aiPreviewPlaceholder.style.display = "none";
+    aiPreviewBox.textContent = data.preview;
+    aiStatusText.textContent =
+      language === "中文"
+        ? "预览已生成。你可以修改内容，再次生成，或者稍后在正式任务台里继续。"
+        : "Preview ready. You can adjust details, generate again, or continue later inside a full Desk.";
+  } catch (err) {
+    console.error("Preview error:", err);
+    const msg = err && err.message ? err.message : String(err);
+    aiStatusText.textContent =
+      languageSelect.value === "中文"
+        ? "预览失败：" + msg
+        : "Preview failed: " + msg;
+  } finally {
+    aiGenerateBtn.disabled = false;
+  }
+}
+
 
     previewGenerateBtn.addEventListener("click", () => {
       callPreview();
