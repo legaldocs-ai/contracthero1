@@ -468,6 +468,13 @@
   // 你的 Worker 域名
   const API_BASE = "https://aurum-task-worker.sophieinbg.workers.dev";
 
+  // ===================== GA4 自定义事件封装 =====================
+  function aurumTrack(eventName, params = {}) {
+    if (typeof gtag === "function") {
+      gtag("event", eventName, params);
+    }
+  }
+
   /* ===================== 多语言 ===================== */
 
   const translations = {
@@ -726,6 +733,7 @@
   langButtons.forEach(btn => {
     btn.addEventListener("click", () => {
       applyLanguage(btn.dataset.lang);
+      aurumTrack("auth_lang_switch", { lang: btn.dataset.lang });
     });
   });
   applyLanguage(currentLang);
@@ -750,12 +758,22 @@
     resetPanel.style.display    = tab === "reset"    ? "block" : "none";
   }
 
-  tabLogin.addEventListener("click", () => showTab("login"));
-  tabRegister.addEventListener("click", () => showTab("register"));
-  tabReset.addEventListener("click", () => showTab("reset"));
+  tabLogin.addEventListener("click", () => {
+    showTab("login");
+    aurumTrack("auth_tab_view", { tab: "login", lang: currentLang });
+  });
+  tabRegister.addEventListener("click", () => {
+    showTab("register");
+    aurumTrack("auth_tab_view", { tab: "register", lang: currentLang });
+  });
+  tabReset.addEventListener("click", () => {
+    showTab("reset");
+    aurumTrack("auth_tab_view", { tab: "reset", lang: currentLang });
+  });
   document.getElementById("linkGoRegister").addEventListener("click", (e) => {
     e.preventDefault();
     showTab("register");
+    aurumTrack("auth_tab_view", { tab: "register_link", lang: currentLang });
   });
 
   /* ===================== 登录后状态 & 跳转 ===================== */
@@ -786,7 +804,7 @@
 
   /* ===================== 公共：发送验证码 ===================== */
 
-  async function sendCodeCommon(email, statusEl, buttonEl, setTokenFn) {
+  async function sendCodeCommon(email, statusEl, buttonEl, setTokenFn, scene) {
     if (!email) {
       statusEl.textContent = currentLang === "zh"
         ? "请输入邮箱。"
@@ -799,6 +817,11 @@
       : "Sending code to your email...";
     statusEl.className = "status";
     buttonEl.disabled = true;
+
+    aurumTrack("auth_send_code_submit", {
+      scene: scene || "unknown",
+      lang: currentLang
+    });
 
     try {
       const res = await fetch(API_BASE + "/auth/send-code", {
@@ -815,10 +838,20 @@
         ? "验证码已发送，请检查你的邮箱。"
         : "Code sent. Please check your inbox.";
       statusEl.className = "status status-ok";
+
+      aurumTrack("auth_send_code_success", {
+        scene: scene || "unknown",
+        lang: currentLang
+      });
     } catch (err) {
       statusEl.textContent = (currentLang === "zh" ? "发送失败: " : "Send failed: ") + err.message;
       statusEl.className = "status status-err";
       buttonEl.disabled = false;
+
+      aurumTrack("auth_send_code_error", {
+        scene: scene || "unknown",
+        lang: currentLang
+      });
       return;
     }
 
@@ -854,6 +887,11 @@
       return;
     }
 
+    aurumTrack("auth_login_submit", {
+      method: "password",
+      lang: currentLang
+    });
+
     btnPasswordLogin.disabled = true;
     loginStatus.textContent = currentLang === "zh"
       ? "正在登录..."
@@ -874,6 +912,12 @@
       const user = data.user || { email, name: email.split("@")[0], plan: "free" };
       setCurrentUser(user);
 
+      aurumTrack("auth_login_success", {
+        method: "password",
+        lang: currentLang,
+        plan: user.plan || "unknown"
+      });
+
       loginStatus.textContent = currentLang === "zh"
         ? "登录成功，正在跳转..."
         : "Signed in. Redirecting...";
@@ -882,6 +926,11 @@
     } catch (err) {
       loginStatus.textContent = (currentLang === "zh" ? "登录失败: " : "Sign-in failed: ") + err.message;
       loginStatus.className = "status status-err";
+
+      aurumTrack("auth_login_error", {
+        method: "password",
+        lang: currentLang
+      });
     } finally {
       btnPasswordLogin.disabled = false;
     }
@@ -905,7 +954,8 @@
       signupEmail.value.trim(),
       signupStatus,
       btnSignupSendCode,
-      token => { signupToken = token; }
+      token => { signupToken = token; },
+      "signup"
     );
   });
 
@@ -938,6 +988,10 @@
       return;
     }
 
+    aurumTrack("auth_register_submit", {
+      lang: currentLang
+    });
+
     btnSignup.disabled = true;
     signupStatus.textContent = currentLang === "zh"
       ? "正在注册账户..."
@@ -964,6 +1018,11 @@
       const user = data.user || { name, email, plan: "free" };
       setCurrentUser(user);
 
+      aurumTrack("auth_register_success", {
+        lang: currentLang,
+        plan: user.plan || "free"
+      });
+
       signupStatus.textContent = currentLang === "zh"
         ? "注册成功，正在返回..."
         : "Account created. Redirecting...";
@@ -972,6 +1031,10 @@
     } catch (err) {
       signupStatus.textContent = (currentLang === "zh" ? "注册失败: " : "Sign-up failed: ") + err.message;
       signupStatus.className = "status status-err";
+
+      aurumTrack("auth_register_error", {
+        lang: currentLang
+      });
     } finally {
       btnSignup.disabled = false;
     }
@@ -994,7 +1057,8 @@
       resetEmail.value.trim(),
       resetStatus,
       btnResetSendCode,
-      token => { resetToken = token; }
+      token => { resetToken = token; },
+      "reset"
     );
   });
 
@@ -1026,6 +1090,10 @@
       return;
     }
 
+    aurumTrack("auth_reset_submit", {
+      lang: currentLang
+    });
+
     btnReset.disabled = true;
     resetStatus.textContent = currentLang === "zh"
       ? "正在重置密码..."
@@ -1053,6 +1121,10 @@
         : "Password reset. Please sign in with your new password.";
       resetStatus.className = "status status-ok";
 
+      aurumTrack("auth_reset_success", {
+        lang: currentLang
+      });
+
       // 自动切回登录 Tab，并帮你填好邮箱
       setTimeout(() => {
         showTab("login");
@@ -1061,6 +1133,10 @@
     } catch (err) {
       resetStatus.textContent = (currentLang === "zh" ? "重置失败: " : "Reset failed: ") + err.message;
       resetStatus.className = "status status-err";
+
+      aurumTrack("auth_reset_error", {
+        lang: currentLang
+      });
     } finally {
       btnReset.disabled = false;
     }
