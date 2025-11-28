@@ -935,7 +935,13 @@
         flex-direction: column;
       }
     }
-  </style>
+  
+    @media (max-width: 640px) {
+      .compare-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+</style>
 </head>
 <body>
   <div class="page-shell">
