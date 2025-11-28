@@ -374,18 +374,39 @@
       background: radial-gradient(circle at 30% 0%, #0f172a,#020617);
     }
     .service-text-block {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      min-width: 0;
-    }
-    .service-title {
-      font-size: 13px;
-      font-weight: 500;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+/* 主标题：变成很亮的字 */
+.service-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #e5e7eb;           /* 新增这一行 */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 副标题：稍微浅一点，但仍然清晰可见 */
+.service-sub {
+  font-size: 11px;
+  color: rgba(148, 163, 184, 0.95);  /* 比之前更亮一点 */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 选中状态再稍微提高对比度 */
+.service-item.active .service-title {
+  color: #f9fafb;
+}
+.service-item.active .service-sub {
+  color: rgba(209, 213, 219, 0.95);
+}
+
     .service-sub {
       font-size: 11px;
       color: #d5e1ff;        /* 调亮，方便看清 */
