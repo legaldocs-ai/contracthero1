@@ -379,28 +379,21 @@
       gap: 2px;
       min-width: 0;
     }
-    /* 主标题变亮 */
     .service-title {
       font-size: 13px;
-      font-weight: 600;
-      color: #e5e7eb;
+      font-weight: 500;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-    }
-    /* 副标题也变亮 */
-    .service-sub {
-      font-size: 11px;
-      color: rgba(148, 163, 184, 0.95);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .service-item.active .service-title {
       color: #f9fafb;
     }
-    .service-item.active .service-sub {
-      color: rgba(209, 213, 219, 0.95);
+    .service-sub {
+      font-size: 12px;               /* 小字变大一点 */
+      color: #d1d5db;                 /* 变亮，方便看清 */
+      opacity: 0.96;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .service-price {
       font-size: 12px;
@@ -410,7 +403,7 @@
       margin-left: 8px;
     }
 
-    /* 右侧预览面板 */
+    /* 右侧预览面板（不写 AI 文案） */
     .ai-panel {
       border-radius: var(--radius-lg);
       border: 1px solid rgba(148, 163, 184, 0.4);
@@ -426,11 +419,11 @@
       overflow: hidden;
     }
     .ai-panel::after {
-      content: "DESK";
+      content: "DESK PREVIEW";
       position: absolute;
       right: -20px;
       bottom: -10px;
-      font-size: 40px;
+      font-size: 32px;
       letter-spacing: 0.15em;
       color: rgba(15, 23, 42, 0.8);
       font-weight: 700;
@@ -661,7 +654,7 @@
         <div class="brand-text-block">
           <div class="brand-name">Aurum Task Desk</div>
           <div class="brand-sub" id="brandSubText">
-            Quiet writing & resolution desk
+            Private AI Writing & Resolution Desk
           </div>
         </div>
       </div>
@@ -715,7 +708,7 @@
             <span class="flow-chip-badge">Step 2</span>
             <span class="label" id="flowChip2Label">Clarify who and what.</span>
             <span id="flowChip2Text">
-              Tell us who you are writing to and what outcome you hope for.
+              Tell us who you are writing to (lawyer, embassy, insurer, employer, airline) and your ideal outcome.
             </span>
           </div>
           <div class="flow-chip">
@@ -844,29 +837,28 @@
           </div>
         </aside>
 
-        <!-- 右侧 30% 预览窗口 -->
+        <!-- 右侧预览窗口（文案不写 AI） -->
         <section class="ai-panel">
           <div class="ai-header-row">
             <div class="ai-title-block">
               <div class="ai-title" id="aiTitle">
-                Preview window
+                Draft preview window
                 <span class="ai-title-pill" id="aiTitlePill">
-                  About 30% preview only
+                  Only ~30% preview draft
                 </span>
               </div>
               <p class="ai-subtitle" id="aiSubtitle">
-                Let the desk draft about 30% of your letter as a preview.
-                Nothing is stored or sent. You stay anonymous at this step.
+                Let the desk generate about 30% of a draft letter. It is only a preview and is not stored or submitted.
               </p>
             </div>
           </div>
 
           <div class="ai-hint-row">
             <div class="ai-hint-pill" id="aiHint1">
-              ✓ No login required for preview
+              ✓ No login required for this preview
             </div>
             <div class="ai-hint-pill" id="aiHint2">
-              ✓ Region-free
+              ✓ Region-friendly, runs quietly in the background
             </div>
             <div class="ai-hint-pill" id="aiHint3">
               ✓ You can still change everything later
@@ -927,7 +919,7 @@
               <textarea
                 id="detailsTextarea"
                 class="ai-textarea"
-                placeholder="Describe the situation in your own words. You can keep it short, the desk will expand and structure it for you."
+                placeholder="Describe the situation in your own words. You can keep it short, the desk will expand it for you."
               ></textarea>
             </div>
           </div>
@@ -943,11 +935,11 @@
             </div>
             <div class="ai-left-buttons">
               <button type="button" class="ai-generate-btn" id="aiGenerateBtn">
-                <span id="aiGenerateBtnText">Preview draft</span>
+                <span id="aiGenerateBtnText">Generate preview draft</span>
               </button>
               <div class="ai-status" id="aiStatus">
                 <span id="aiStatusText">
-                  The system will generate about 30% of the letter as a preview only.
+                  The desk will generate ~30% of the letter as a preview only.
                 </span>
               </div>
             </div>
@@ -955,9 +947,9 @@
 
           <div class="ai-preview-box" id="aiPreviewBox">
             <div class="ai-preview-placeholder" id="aiPreviewPlaceholder">
-              Your 30% preview will appear here. It is not saved and not sent to any
-              company or person. When you are happy with the direction, you can open a
-              full Desk and continue privately.
+              Your 30% preview draft will appear here. It is not saved, not sent
+              to any company or person. When you are happy with the direction,
+              you can open a full Desk and continue privately.
             </div>
           </div>
         </section>
@@ -991,7 +983,7 @@
     const recipientInput = document.getElementById("recipientInput");
     const detailsTextarea = document.getElementById("detailsTextarea");
 
-    async function callAIPreview() {
+    async function callPreview() {
       const taskType = (taskTypeInput.value || "").trim() || "写作任务";
       const tone = (toneSelect.value || "calm, respectful").toString();
       const language = (languageSelect.value || "English").toString();
@@ -999,12 +991,12 @@
       const details = (detailsTextarea.value || "").toString();
 
       aiGenerateBtn.disabled = true;
-      aiStatusText.textContent =
-        language === "中文"
-          ? "预览草稿正在生成中，请稍候…"
-          : "Preview draft is being generated…";
+      aiStatusText.textContent = language === "中文"
+        ? "系统正在为你生成一段预览草稿…"
+        : "The desk is generating a preview draft for you…";
 
       try {
+        // ★ 这里改成 /api/generate，和 Worker 保持一致
         const res = await fetch("/api/generate", {
           method: "POST",
           headers: {
@@ -1019,59 +1011,43 @@
           })
         });
 
-        let data = null;
-        try {
-          data = await res.json();
-        } catch (e) {
-          console.error("Response is not JSON:", e);
-        }
-
         if (!res.ok) {
-          const msg =
-            (data && (data.error || data.message)) ||
-            ("HTTP " + res.status + " " + res.statusText);
-          throw new Error(msg);
+          throw new Error("HTTP " + res.status);
         }
+        const data = await res.json();
 
-        if (!data || !data.ok || !data.preview) {
-          const msg =
-            (data && (data.error || data.message)) || "Empty preview response";
-          throw new Error(msg);
+        if (!data.ok || !data.preview) {
+          throw new Error(data.error || "Empty response");
         }
 
         aiPreviewPlaceholder.style.display = "none";
         aiPreviewBox.textContent = data.preview;
-
-        aiStatusText.textContent =
-          language === "中文"
-            ? "预览已生成。你可以修改内容，再次生成，或者稍后在正式任务台里继续。"
-            : "Preview ready. You can adjust details, generate again, or continue later inside a full Desk.";
+        aiStatusText.textContent = language === "中文"
+          ? "预览草稿已生成。你可以修改细节后再次生成，或稍后在正式任务台中继续。"
+          : "Preview ready. You can adjust details, generate again, or continue later inside a full Desk.";
       } catch (err) {
-        console.error("Preview error:", err);
-        const msg = err && err.message ? err.message : String(err);
-        aiStatusText.textContent =
-          languageSelect.value === "中文"
-            ? "预览失败：" + msg
-            : "Preview failed: " + msg;
+        console.error(err);
+        aiStatusText.textContent = languageSelect.value === "中文"
+          ? "抱歉，预览草稿暂时生成失败，请稍后再试。"
+          : "Sorry, the preview failed for now. Please try again in a moment.";
       } finally {
         aiGenerateBtn.disabled = false;
       }
     }
 
     aiGenerateBtn.addEventListener("click", () => {
-      callAIPreview();
+      callPreview();
     });
 
-    // ========== Reset & 示例按钮 ==========
+    // ========== 辅助按钮 ==========
     document.getElementById("btnClear").addEventListener("click", () => {
       recipientInput.value = "";
       detailsTextarea.value = "";
       aiPreviewBox.textContent = "";
       aiPreviewPlaceholder.style.display = "block";
-      aiStatusText.textContent =
-        languageSelect.value === "中文"
-          ? "系统会生成约 30% 的预览草稿，不会保存也不会发送。"
-          : "The system will generate about 30% of the letter as a preview only.";
+      aiStatusText.textContent = languageSelect.value === "中文"
+        ? "系统将生成约 30% 的预览草稿，不会保存也不会发送。"
+        : "The desk will generate ~30% of the letter as a preview only.";
     });
 
     document.getElementById("btnPasteExample").addEventListener("click", () => {
@@ -1085,11 +1061,11 @@
       }
     });
 
-    // ========== 中英文切换 ==========
+    // ========== 简单中英文切换（只切这个页面的文案） ==========
     const langButtons = document.querySelectorAll(".lang-btn");
     const i18n = {
       en: {
-        brandSub: "Quiet writing & resolution desk",
+        brandSub: "Private AI Writing & Resolution Desk",
         navHome: "Home",
         navServices: "Services",
         navFlow: "Flow",
@@ -1111,12 +1087,12 @@
           "You review, add personal details if needed, and then send it on.",
         serviceCardTitle: "5 core services",
         serviceCardMini: "Pick one scenario to open a desk",
-        aiTitle: "Preview window",
-        aiTitlePill: "About 30% preview only",
+        aiTitle: "Draft preview window",
+        aiTitlePill: "Only ~30% preview draft",
         aiSubtitle:
-          "Let the desk draft about 30% of your letter as a preview. Nothing is stored or sent.",
-        aiHint1: "✓ No login required for preview",
-        aiHint2: "✓ Region-free",
+          "Let the desk generate about 30% of a draft letter. It is only a preview and is not stored or submitted.",
+        aiHint1: "✓ No login required for this preview",
+        aiHint2: "✓ Region-friendly, runs quietly in the background",
         aiHint3: "✓ You can still change everything later",
         lblTaskType: "Task type",
         lblTaskTypeBadge: "Auto from left",
@@ -1125,14 +1101,14 @@
         lblRecipient: "Recipient (optional)",
         lblDetails: "What happened? (you can be brief)",
         btnExample: "Paste an example case",
-        btnPreview: "Preview draft",
+        btnPreview: "Generate preview draft",
         statusDefault:
-          "The system will generate about 30% of the letter as a preview only.",
+          "The desk will generate ~30% of the letter as a preview only.",
         previewPlaceholder:
-          "Your 30% preview will appear here. It is not saved and not sent to any company or person. When you are happy with the direction, you can open a full Desk and continue privately."
+          "Your 30% preview draft will appear here. It is not saved, not sent to any company or person. When you are happy with the direction, you can open a full Desk and continue privately."
       },
       zh: {
-        brandSub: "安静而专业的写作与申诉任务台",
+        brandSub: "安静而专业的 AI 写作与申诉任务台",
         navHome: "首页",
         navServices: "服务",
         navFlow: "流程",
@@ -1155,11 +1131,11 @@
         serviceCardTitle: "5 个核心服务场景",
         serviceCardMini: "先选一个场景打开任务台",
         aiTitle: "预览草稿小窗口",
-        aiTitlePill: "仅生成约 30% 预览内容",
+        aiTitlePill: "只生成约 30% 预览内容",
         aiSubtitle:
-          "先生成一小段预览草稿，帮助你确认语气和结构，真正提交会在自己的任务台里完成。",
+          "先让任务台帮你起一段约 30% 的预览草稿。此步骤不会保存、也不会发送给任何机构。",
         aiHint1: "✓ 无需登录即可预览",
-        aiHint2: "✓ 无地区限制",
+        aiHint2: "✓ 地区友好，后台静默运行",
         aiHint3: "✓ 后面可以随时全部修改",
         lblTaskType: "任务类型",
         lblTaskTypeBadge: "从左侧自动带入",
@@ -1170,9 +1146,9 @@
         btnExample: "粘贴一个示例案例",
         btnPreview: "生成预览草稿",
         statusDefault:
-          "系统会生成约 30% 的预览草稿，不会保存也不会发送。",
+          "系统将生成约 30% 的预览草稿，不会保存也不会发送。",
         previewPlaceholder:
-          "生成的 30% 预览内容会显示在这里。它不会被保存，也不会发给任何人。确认方向后，你可以在完整任务台中，在更私密的环境里继续完善。"
+          "预览草稿会显示在这里。它不会被保存，也不会发给任何人。确认方向后，你可以在完整任务台中，在更私密的环境里继续完善。"
       }
     };
 
@@ -1244,6 +1220,7 @@
       });
     });
 
+    // 初始语言
     (function initLang() {
       const saved = localStorage.getItem("aurum_lang");
       if (saved === "zh" || saved === "en") {
