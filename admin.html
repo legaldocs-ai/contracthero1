@@ -2,1170 +2,1127 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <title>Aurum Admin — Internal Desk</title>
+  <title>Aurum Task Desk 后台总览</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
   <style>
-    :root {
-      --bg-deep: #020617;
-      --bg-card: #020617;
-      --bg-soft: #020617;
-      --border-subtle: rgba(30, 64, 175, 0.6);
-      --border-strong: rgba(148, 163, 184, 0.7);
-      --text-main: #f9fafb;
-      --text-sub: #9ca3af;
-      --text-mute: #6b7280;
-      --accent-gold: #fbbf24;
-      --accent-gold-soft: rgba(251, 191, 36, 0.2);
-      --accent-blue: #38bdf8;
-    }
-
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
+    :root {
+      --bg: #020617;
+      --card: #020617;
+      --card-soft: #020617;
+      --border-soft: rgba(148, 163, 184, 0.18);
+      --text-main: #e5e7eb;
+      --text-soft: #9ca3af;
+      --accent: #fbbf24;
+      --accent-strong: #f59e0b;
+      --danger: #f97373;
+      --muted: #6b7280;
+      --blue-soft: #0b1220;
+      --panel-radius: 22px;
+    }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui,
-        "Segoe UI", sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        system-ui, "Segoe UI", sans-serif;
       min-height: 100vh;
       background:
-        radial-gradient(circle at top left, #020617 0%, #020617 45%, #000 100%);
+        radial-gradient(circle at top left, #111827 0%, #020617 45%, #000 100%);
       color: var(--text-main);
-    }
-    .hidden { display: none !important; }
-
-    .env-tag {
-      position: fixed;
-      top: 10px;
-      right: 16px;
-      font-size: 10px;
-      color: #6b7280;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      z-index: 20;
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      padding: 32px 16px 40px;
     }
 
-    /* 登录视图 */
-    #login-view {
-      min-height: 100vh;
+    .shell {
+      width: 100%;
+      max-width: 1260px;
+      border-radius: 28px;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      background:
+        radial-gradient(circle at top left, rgba(15,23,42,0.9) 0%, #020617 50%),
+        radial-gradient(circle at bottom right, rgba(15,23,42,0.8) 0%, #020617 55%);
+      box-shadow:
+        0 26px 80px rgba(0,0,0,0.8),
+        0 0 0 1px rgba(15,23,42,0.8) inset;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .shell-header {
+      padding: 20px 28px 12px;
+      border-bottom: 1px solid rgba(51,65,85,0.8);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .shell-header-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .logo-badge {
+      width: 40px;
+      height: 40px;
+      border-radius: 16px;
+      background:
+        radial-gradient(circle at 10% 0%, #fef3c7 0%, #facc15 30%, #f59e0b 70%, #92400e 100%);
+      box-shadow:
+        0 12px 30px rgba(0,0,0,0.6),
+        0 0 0 1px rgba(180, 83, 9, 0.45) inset;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 32px 16px;
+      color: #111827;
+      font-weight: 800;
+      font-size: 20px;
+      letter-spacing: 0.02em;
     }
-    .login-card {
-      width: 100%;
-      max-width: 460px;
-      padding: 26px 26px 22px;
-      border-radius: 26px;
-      background: radial-gradient(circle at top left, #020617 0%, #020617 55%);
-      box-shadow:
-        0 30px 90px rgba(15, 23, 42, 0.95),
-        0 0 0 1px rgba(148, 163, 184, 0.18);
-      position: relative;
-      overflow: hidden;
+    .title-block h1 {
+      font-size: 18px;
+      letter-spacing: 0.03em;
+      font-weight: 650;
     }
-    .login-card::before {
-      content: "";
-      position: absolute;
-      inset: -180px;
-      background:
-        radial-gradient(circle at 10% 0%, rgba(251, 191, 36, 0.26), transparent 55%),
-        radial-gradient(circle at 90% 0%, rgba(56, 189, 248, 0.22), transparent 60%);
-      opacity: 0.9;
-      pointer-events: none;
-      z-index: -1;
+    .title-block p {
+      font-size: 12px;
+      color: var(--text-soft);
+      margin-top: 2px;
     }
-    .badge-row {
+
+    .tag-row {
       display: flex;
-      gap: 8px;
-      margin-bottom: 12px;
+      align-items: center;
+      gap: 6px;
     }
-    .badge {
-      font-size: 11px;
-      letter-spacing: 0.12em;
+    .tag-chip {
+      font-size: 10px;
       text-transform: uppercase;
-      padding: 5px 10px;
+      letter-spacing: 0.16em;
+      padding: 4px 9px;
       border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      color: #e5e7eb;
+      background: rgba(15,23,42,0.8);
+    }
+    .tag-chip.gold {
+      border-color: rgba(251, 191, 36, 0.7);
+      color: #fbbf24;
+      background: linear-gradient(
+        135deg,
+        rgba(251, 191, 36, 0.18),
+        rgba(30, 64, 175, 0.2)
+      );
+    }
+    .tag-chip.small {
+      font-size: 9px;
+      opacity: 0.8;
+    }
+
+    .shell-header-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .btn {
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      padding: 7px 14px;
+      font-size: 12px;
+      color: var(--text-main);
+      background: rgba(15,23,42,0.85);
+      cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      color: var(--text-main);
-      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.95), #020617);
-      backdrop-filter: blur(12px);
+      transition: all 0.16s ease-out;
     }
-    .badge-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: radial-gradient(circle, #fbbf24, #f97316);
-      box-shadow: 0 0 10px rgba(251, 191, 36, 0.9);
+    .btn:hover {
+      border-color: rgba(148,163,184,0.9);
+      background: rgba(30,64,175,0.85);
     }
-    .badge.secondary {
-      border-color: rgba(148, 163, 184, 0.5);
-      color: #9ca3af;
-    }
-    .login-title {
-      font-size: 24px;
-      font-weight: 600;
-      margin-bottom: 4px;
-    }
-    .login-subtitle {
-      font-size: 13px;
-      color: var(--text-sub);
-      line-height: 1.7;
-      margin-bottom: 18px;
-    }
-
-    label {
-      font-size: 13px;
-      color: var(--text-main);
-      display: inline-block;
-      margin-bottom: 6px;
-    }
-    .input {
-      width: 100%;
-      padding: 11px 13px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      background: rgba(15, 23, 42, 0.98);
-      color: var(--text-main);
-      font-size: 14px;
-      outline: none;
-      transition: border-color 0.16s ease, box-shadow 0.16s ease,
-        background 0.16s ease, transform 0.05s ease;
-    }
-    .input::placeholder { color: #6b7280; }
-    .input:focus {
-      border-color: rgba(251, 191, 36, 0.95);
-      box-shadow:
-        0 0 0 1px rgba(251, 191, 36, 0.7),
-        0 0 26px rgba(251, 191, 36, 0.35);
-      background: rgba(15, 23, 42, 1);
-      transform: translateY(-0.5px);
-    }
-
     .btn-primary {
-      width: 100%;
-      margin-top: 14px;
-      padding: 11px 16px;
-      border-radius: 999px;
-      border: none;
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      text-align: center;
+      border-color: rgba(251, 191, 36, 0.9);
+      background: linear-gradient(135deg, #fbbf24, #f59e0b);
       color: #111827;
-      background:
-        radial-gradient(circle at 10% 0%, #fde68a, #f59e0b 45%, #ea580c 100%);
-      box-shadow:
-        0 18px 44px rgba(234, 179, 8, 0.78),
-        0 0 0 1px rgba(248, 250, 252, 0.16),
-        0 0 24px rgba(234, 179, 8, 0.72);
-      position: relative;
-      overflow: hidden;
-      transition: transform 0.08s ease-out, box-shadow 0.12s ease-out,
-        opacity 0.12s ease-out;
+      font-weight: 600;
+      box-shadow: 0 14px 35px rgba(0,0,0,0.7);
     }
     .btn-primary:hover {
-      transform: translateY(-1px);
-      box-shadow:
-        0 22px 52px rgba(234, 179, 8, 0.88),
-        0 0 0 1px rgba(248, 250, 252, 0.2);
+      filter: brightness(1.03);
+      transform: translateY(-0.5px);
     }
-    .btn-primary:active {
-      transform: translateY(0);
-      box-shadow:
-        0 10px 30px rgba(234, 179, 8, 0.65),
-        0 0 0 1px rgba(248, 250, 252, 0.18);
+    .btn-danger {
+      border-color: rgba(248, 113, 113, 0.7);
+      color: #fecaca;
+      background: linear-gradient(
+        135deg,
+        rgba(239,68,68,0.26),
+        rgba(127,29,29,0.6)
+      );
     }
-    .btn-primary[disabled] {
-      opacity: 0.7;
-      cursor: default;
-      transform: none;
-      box-shadow:
-        0 10px 30px rgba(15, 23, 42, 0.95),
-        0 0 0 1px rgba(148, 163, 184, 0.55);
+    .btn-danger:hover {
+      border-color: rgba(248,113,113,0.9);
     }
 
-    .login-status {
-      margin-top: 10px;
-      font-size: 12px;
-      line-height: 1.6;
-      min-height: 18px;
-    }
-    .login-status.error { color: #fecaca; }
-    .login-status.success { color: #bbf7d0; }
-    .login-status.muted { color: var(--text-sub); }
-
-    .login-hint {
-      margin-top: 14px;
-      padding-top: 11px;
-      border-top: 1px dashed rgba(55, 65, 81, 0.95);
-      font-size: 11px;
-      color: var(--text-mute);
-      line-height: 1.6;
-    }
-    .login-hint code {
-      font-family: "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono",
-        "Courier New", monospace;
-      font-size: 11px;
-      padding: 2px 4px;
-      border-radius: 4px;
-      background: rgba(15, 23, 42, 0.98);
-      border: 1px solid rgba(55, 65, 81, 0.9);
-      color: #eab308;
+    .pill-text {
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
     }
 
-    /* Dashboard 布局 */
-    #dashboard-view {
-      min-height: 100vh;
+    /* layout */
+    .shell-body {
       display: flex;
-      background:
-        radial-gradient(circle at top left, #020617 0%, #020617 40%, #000 100%);
-      color: var(--text-main);
-    }
-    .shell {
-      display: flex;
-      width: 100%;
-      max-width: 1320px;
-      margin: 0 auto;
-      padding: 18px 14px 26px;
+      padding: 18px 20px 22px;
       gap: 16px;
     }
-
-    /* 侧边栏 */
-    .sidebar {
-      width: 260px;
-      min-width: 240px;
-      background: radial-gradient(circle at top left, #020617 0%, #020617 58%);
-      border-radius: 22px;
-      border: 1px solid rgba(30, 64, 175, 0.8);
-      box-shadow:
-        0 24px 80px rgba(15, 23, 42, 0.95),
-        0 0 0 1px rgba(148, 163, 184, 0.28);
-      padding: 16px 14px 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-    .sidebar-header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 6px;
-    }
-    .logo-pill {
-      width: 38px;
-      height: 38px;
-      border-radius: 16px;
-      background:
-        conic-gradient(from 210deg, #fbbf24, #f97316, #fef3c7, #fbbf24, #b45309);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 10px 24px rgba(234, 179, 8, 0.8);
-    }
-    .logo-pill span {
-      font-size: 20px;
-      font-weight: 700;
-      color: #020617;
-    }
-    .sidebar-title {
-      font-size: 15px;
-      font-weight: 600;
-    }
-    .sidebar-subtitle {
-      font-size: 11px;
-      color: var(--text-sub);
-    }
-
-    .sidebar-section-title {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--text-mute);
-      margin: 8px 2px 4px;
-    }
-    .sidebar-chip-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 2px;
-    }
-    .sidebar-chip {
-      font-size: 11px;
-      padding: 4px 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(51, 65, 85, 0.95);
-      color: var(--text-sub);
-      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.98), #020617);
-    }
-    .sidebar-chip.gold {
-      border-color: rgba(251, 191, 36, 0.9);
-      color: var(--accent-gold);
-      background: radial-gradient(circle at top, rgba(250, 204, 21, 0.08), #020617);
-    }
-
-    .side-stat-card {
-      margin-top: 4px;
-      padding: 10px 10px 9px;
-      border-radius: 16px;
-      border: 1px solid rgba(30, 64, 175, 0.9);
-      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.98), #020617);
-    }
-    .side-stat-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      margin-bottom: 2px;
-    }
-    .side-stat-label {
-      font-size: 11px;
-      color: var(--text-sub);
-    }
-    .side-stat-value {
-      font-size: 18px;
-      font-weight: 600;
-    }
-    .side-stat-sub {
-      font-size: 11px;
-      color: var(--text-mute);
-      margin-top: 4px;
-    }
-
-    .side-table-wrapper {
-      margin-top: 4px;
-      padding: 10px 8px 8px;
-      border-radius: 16px;
-      border: 1px solid rgba(30, 64, 175, 0.9);
-      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.98), #020617);
-      flex: 1;
-      min-height: 0;
-      display: flex;
-      flex-direction: column;
-    }
-    .side-table-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 4px;
-    }
-    .side-table-title {
-      font-size: 11px;
-      color: var(--text-sub);
-    }
-    .side-table-sub {
-      font-size: 11px;
-      color: var(--text-mute);
-    }
-    .side-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 11px;
-    }
-    .side-table th,
-    .side-table td {
-      padding: 3px 4px;
-      border-bottom: 1px solid rgba(30, 64, 175, 0.55);
-      white-space: nowrap;
-      text-align: left;
-    }
-    .side-table th {
-      color: var(--text-mute);
-      font-weight: 500;
-    }
-    .side-table td {
-      color: var(--text-main);
-      max-width: 150px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    /* 主内容区 */
-    .main {
-      flex: 1;
-      min-width: 0;
-      background: radial-gradient(circle at top right, #020617 0%, #020617 60%);
-      border-radius: 26px;
-      border: 1px solid rgba(30, 64, 175, 0.8);
-      box-shadow:
-        0 26px 90px rgba(15, 23, 42, 0.95),
-        0 0 0 1px rgba(148, 163, 184, 0.25);
-      padding: 16px 18px 18px;
+    .side-panel {
+      flex: 0 0 280px;
       display: flex;
       flex-direction: column;
       gap: 12px;
     }
-
-    .main-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 10px;
-      margin-bottom: 6px;
-    }
-    .main-title-block h1 {
-      font-size: 22px;
-      font-weight: 600;
-      margin-bottom: 4px;
-    }
-    .main-title-block p {
-      font-size: 13px;
-      color: var(--text-sub);
-      max-width: 520px;
-      line-height: 1.7;
-    }
-
-    .main-header-actions {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-    .btn-ghost {
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      background: transparent;
-      color: var(--text-main);
-      font-size: 12px;
-      padding: 7px 12px;
-      cursor: pointer;
-    }
-    .btn-ghost:hover {
-      background: rgba(15, 23, 42, 0.9);
-      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.95);
-    }
-    .btn-outline-gold {
-      border-color: rgba(251, 191, 36, 0.85);
-      color: var(--accent-gold);
-      background: radial-gradient(circle at top, rgba(250, 204, 21, 0.09), #020617);
-    }
-
-    .metrics-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 10px;
-      margin-bottom: 4px;
-    }
-    .metric-card {
-      border-radius: 16px;
-      padding: 10px 10px 9px;
-      border: 1px solid rgba(30, 64, 175, 0.9);
-      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.98), #020617);
-    }
-    .metric-label {
-      font-size: 11px;
-      color: var(--text-sub);
-      margin-bottom: 3px;
-    }
-    .metric-value {
-      font-size: 20px;
-      font-weight: 600;
-    }
-    .metric-sub {
-      font-size: 11px;
-      color: var(--text-mute);
-      margin-top: 3px;
-    }
-
-    .charts-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
-      gap: 10px;
-      margin-bottom: 6px;
-    }
-    .chart-card {
-      border-radius: 16px;
-      border: 1px solid rgba(30, 64, 175, 0.9);
-      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.98), #020617);
-      padding: 10px 10px 12px;
-    }
-    .chart-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 4px;
-    }
-    .chart-title {
-      font-size: 11px;
-      color: var(--text-sub);
-    }
-    .chart-sub {
-      font-size: 11px;
-      color: var(--text-mute);
-    }
-    .chart-wrapper {
-      position: relative;
-      height: 210px;
-    }
-
-    .table-card {
-      border-radius: 16px;
-      border: 1px solid rgba(30, 64, 175, 0.9);
-      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.98), #020617);
-      padding: 10px 10px 8px;
+    .main-panel {
       flex: 1;
-      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .card {
+      border-radius: var(--panel-radius);
+      background: radial-gradient(circle at top, #020617 0%, #020617 48%, #020617 100%);
+      border: 1px solid rgba(30, 64, 175, 0.55);
+      box-shadow:
+        0 18px 40px rgba(0,0,0,0.8),
+        0 0 0 1px rgba(15,23,42,0.9) inset;
+      padding: 14px 16px 12px;
+      position: relative;
+    }
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(circle at top left, rgba(251,191,36,0.12), transparent 60%);
+      opacity: 0.9;
+      pointer-events: none;
+      mix-blend-mode: soft-light;
+    }
+    .card-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .side-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .side-header h2 {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #e5e7eb;
+    }
+
+    .stat-kpi {
+      margin-top: 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 12px;
+      color: var(--text-soft);
+    }
+    .stat-kpi strong {
+      font-size: 24px;
+      font-weight: 700;
+      color: #e5e7eb;
+      letter-spacing: 0.06em;
+    }
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      margin-top: 6px;
+      color: var(--text-soft);
+    }
+    .stat-row span.value {
+      color: #e5e7eb;
+      font-weight: 500;
+    }
+
+    .small-caption {
+      margin-top: 10px;
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .table-wrapper {
+      margin-top: 6px;
+      border-radius: 12px;
+      border: 1px solid rgba(55,65,81,0.9);
+      background: radial-gradient(circle at top, #020617 0%, #020617 50%, #020617 100%);
+      max-height: 220px;
+      overflow: hidden;
       display: flex;
       flex-direction: column;
     }
     .table-header {
+      font-size: 11px;
+      color: var(--muted);
+      padding: 6px 8px;
+      border-bottom: 1px solid rgba(55,65,81,0.9);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 6px;
     }
-    .table-title {
-      font-size: 12px;
-      font-weight: 500;
-    }
-    .table-sub {
-      font-size: 11px;
-      color: var(--text-mute);
+    .table-header span {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
     }
 
+    .table-scroll {
+      flex: 1;
+      overflow: auto;
+    }
     table {
       width: 100%;
       border-collapse: collapse;
       font-size: 11px;
     }
     th, td {
-      padding: 5px 4px;
-      border-bottom: 1px solid rgba(30, 64, 175, 0.6);
-      text-align: left;
+      padding: 5px 8px;
+      border-bottom: 1px solid rgba(31,41,55,0.9);
       white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
     }
     th {
-      color: var(--text-sub);
+      position: sticky;
+      top: 0;
+      background: #020617;
+      z-index: 1;
       font-weight: 500;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
     }
     td {
-      color: var(--text-main);
-      max-width: 220px;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      color: #e5e7eb;
     }
+    tr:nth-child(even) td {
+      background: rgba(15,23,42,0.8);
+    }
+
     .pill-plan {
-      display: inline-flex;
-      align-items: center;
-      padding: 2px 8px;
-      border-radius: 999px;
       font-size: 10px;
-      letter-spacing: 0.08em;
+      padding: 2px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.7);
       text-transform: uppercase;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      color: var(--text-sub);
+      letter-spacing: 0.12em;
     }
     .pill-plan.free {
-      border-color: rgba(148, 163, 184, 0.9);
-      color: var(--text-sub);
+      border-color: rgba(148,163,184,0.65);
+      color: #e5e7eb;
     }
     .pill-plan.paid {
-      border-color: rgba(251, 191, 36, 0.9);
-      color: var(--accent-gold);
+      border-color: rgba(251,191,36,0.9);
+      background: rgba(251,191,36,0.16);
+      color: #facc15;
     }
 
-    .scroll-y { overflow-y: auto; }
+    .chart-row {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.3fr);
+      gap: 12px;
+    }
+    .chart-container {
+      margin-top: 8px;
+      border-radius: 14px;
+      border: 1px solid rgba(55,65,81,0.9);
+      background: radial-gradient(circle at top, rgba(15,23,42,1) 0%, #020617 60%);
+      padding: 8px 10px 10px;
+    }
+    .chart-title {
+      font-size: 12px;
+      margin-bottom: 4px;
+      color: #e5e7eb;
+    }
+    .chart-sub {
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    canvas {
+      width: 100%;
+      height: 160px;
+      display: block;
+    }
 
-    @media (max-width: 980px) {
-      .shell { flex-direction: column; }
-      .sidebar {
-        width: 100%;
-        flex-direction: row;
-        flex-wrap: wrap;
-        min-height: 0;
+    .section-tabs {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 4px;
+      margin-top: 2px;
+    }
+    .section-tab {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      color: var(--muted);
+      cursor: pointer;
+      background: transparent;
+      transition: all 0.15s ease-out;
+    }
+    .section-tab.active {
+      color: #fde68a;
+      border-color: rgba(251,191,36,0.8);
+      background: radial-gradient(circle at top, rgba(251,191,36,0.22), transparent 70%);
+    }
+
+    .error-text {
+      font-size: 11px;
+      margin-top: 6px;
+      color: #fecaca;
+    }
+    .hint-text {
+      font-size: 11px;
+      margin-top: 4px;
+      color: var(--muted);
+    }
+
+    /* 登录视图 */
+    #login-view {
+      min-height: 260px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 28px;
+    }
+    .login-card {
+      width: 100%;
+      max-width: 460px;
+      border-radius: 26px;
+      border: 1px solid rgba(148,163,184,0.4);
+      background:
+        radial-gradient(circle at top left, rgba(30,64,175,0.7) 0%, #020617 55%),
+        radial-gradient(circle at bottom right, rgba(15,23,42,0.9) 0%, #020617 65%);
+      box-shadow: 0 26px 70px rgba(0,0,0,0.9);
+      padding: 22px 24px 18px;
+      position: relative;
+    }
+    .login-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      border: 1px solid rgba(15,23,42,0.8);
+      pointer-events: none;
+    }
+    .login-title {
+      font-size: 18px;
+      font-weight: 650;
+      margin-bottom: 4px;
+    }
+    .login-sub {
+      font-size: 12px;
+      color: var(--text-soft);
+      margin-bottom: 16px;
+    }
+    .field-label {
+      font-size: 12px;
+      margin-bottom: 4px;
+      color: var(--text-soft);
+    }
+    .field-input {
+      width: 100%;
+      padding: 9px 11px;
+      border-radius: 999px;
+      border: 1px solid rgba(55,65,81,0.9);
+      background: rgba(15,23,42,0.9);
+      color: #e5e7eb;
+      font-size: 13px;
+      outline: none;
+      box-shadow: 0 0 0 1px rgba(15,23,42,1) inset;
+    }
+    .field-input:focus {
+      border-color: rgba(251,191,36,0.9);
+      box-shadow: 0 0 0 1px rgba(251,191,36,0.7) inset;
+    }
+    .login-btn-row {
+      margin-top: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    #dashboard-view {
+      display: none;
+    }
+
+    @media (max-width: 960px) {
+      .shell {
+        border-radius: 0;
       }
-      .side-table-wrapper { max-height: 220px; }
-      .charts-grid { grid-template-columns: minmax(0, 1fr); }
-    }
-    @media (max-width: 720px) {
-      .metrics-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    }
-    @media (max-width: 580px) {
-      .main-header {
+      .shell-body {
         flex-direction: column;
-        align-items: flex-start;
       }
-      .metrics-grid { grid-template-columns: minmax(0, 1fr); }
+      .side-panel {
+        flex-basis: auto;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="env-tag">INTERNAL USE ONLY</div>
+<div class="shell">
+  <!-- 顶部标题 & 环境标签 -->
+  <div class="shell-header">
+    <div class="shell-header-left">
+      <div class="logo-badge">A</div>
+      <div>
+        <div class="tag-row">
+          <div class="tag-chip gold">AURUM ADMIN</div>
+          <div class="tag-chip small">INTERNAL DESK</div>
+        </div>
+        <div class="title-block">
+          <h1>Aurum Task Desk 后台总览</h1>
+          <p>查看注册趋势、套餐分布、访问日志等数据，仅供内部使用。</p>
+        </div>
+      </div>
+    </div>
+    <div class="shell-header-right">
+      <span class="pill-text">INTERNAL USE ONLY</span>
+    </div>
+  </div>
 
   <!-- 登录视图 -->
   <div id="login-view">
     <div class="login-card">
-      <div class="badge-row">
-        <div class="badge">
-          <span class="badge-dot"></span>
-          AURUM ADMIN
-        </div>
-        <div class="badge secondary">INTERNAL DESK</div>
+      <div class="tag-row" style="margin-bottom: 10px;">
+        <div class="tag-chip gold">AURUM ADMIN</div>
+        <div class="tag-chip small">CLOUDFLARE · D1 · WORKERS AI</div>
       </div>
-
       <div class="login-title">Aurum Task Desk 后台</div>
-      <div class="login-subtitle">
-        输入你的 <strong>管理员密码</strong> 登录，然后查看站点用户总数、近 7 天新增、套餐分布、IP 和国家等信息。
+      <div class="login-sub">
+        输入你的 <b>管理员密码</b> 登录，然后查看用户列表、注册趋势以及访问日志。
       </div>
 
-      <form id="admin-form">
-        <label for="admin-password">Admin password</label>
-        <input
-          id="admin-password"
-          class="input"
-          type="password"
-          placeholder="输入后台专用密码"
-          autocomplete="current-password"
-          required
-        />
+      <label class="field-label" for="admin-password-input">Admin password</label>
+      <input id="admin-password-input" class="field-input" type="password" placeholder="输入管理员密码…" />
 
-        <button type="submit" class="btn-primary" id="admin-btn">
-          进入 Aurum Task Desk 后台
-        </button>
+      <div class="login-btn-row">
+        <button id="login-btn" class="btn btn-primary">进入 Aurum Task Desk 后台</button>
+        <span id="login-status" class="hint-text"></span>
+      </div>
 
-        <div class="login-status muted" id="admin-status"></div>
-
-        <div class="login-hint">
-          提示：密码保存在 Cloudflare Worker 的 <code>ADMIN_PASSWORD</code> 环境变量中。<br />
-          本页面仅用于「自己看的后台数据」，请不要对外公开链接。
-        </div>
-      </form>
+      <div class="small-caption" style="margin-top: 14px;">
+        密码保存在 Cloudflare Worker 的 <code>ADMIN_PASSWORD</code> 环境变量中。<br>
+        本页面只在你自己的后台使用，不要对外公开链接。
+      </div>
     </div>
   </div>
 
-  <!-- Dashboard 视图 -->
-  <div id="dashboard-view" class="hidden">
-    <div class="shell">
-      <!-- 侧边栏 -->
-      <aside class="sidebar">
-        <div>
-          <div class="sidebar-header">
-            <div class="logo-pill"><span>A</span></div>
-            <div>
-              <div class="sidebar-title">Aurum Task Desk</div>
-              <div class="sidebar-subtitle">Private AI Writing & Desk Admin</div>
+  <!-- 仪表盘视图 -->
+  <div id="dashboard-view">
+    <div class="shell-body">
+      <!-- 左侧侧栏 -->
+      <div class="side-panel">
+        <div class="card">
+          <div class="card-inner">
+            <div class="side-header">
+              <h2>站点概览</h2>
+              <button id="refresh-btn" class="btn btn-primary" style="padding-inline: 10px;">
+                刷新数据
+              </button>
             </div>
-          </div>
-
-          <div class="sidebar-section-title">Environment</div>
-          <div class="sidebar-chip-row">
-            <div class="sidebar-chip gold">Production</div>
-            <div class="sidebar-chip">Cloudflare · D1 · Workers AI</div>
-          </div>
-
-          <div class="sidebar-section-title">Overview</div>
-          <div class="side-stat-card">
-            <div class="side-stat-row">
-              <div class="side-stat-label">总用户数</div>
-              <div class="side-stat-value" id="side-total">-</div>
+            <div class="stat-kpi">
+              <div>总用户数</div>
+              <strong id="total-users">-</strong>
+              <div class="stat-row">
+                <span>最近一位用户注册时间：</span>
+                <span class="value" id="latest-user-time">-</span>
+              </div>
+              <div class="stat-row">
+                <span>最近一位用户地区：</span>
+                <span class="value" id="latest-user-country">-</span>
+              </div>
+              <div class="stat-row">
+                <span>最近 7 天新增</span>
+                <span class="value" id="recent-7d-users">-</span>
+              </div>
+              <div class="stat-row">
+                <span>付费用户 / 免费用户</span>
+                <span class="value" id="paid-free-ratio">-</span>
+              </div>
             </div>
-            <div class="side-stat-sub" id="side-total-sub">—</div>
-            <div class="side-stat-row" style="margin-top:6px;">
-              <div class="side-stat-label">近 7 天新增</div>
-              <div class="side-stat-value" id="side-new7">-</div>
+
+            <div class="small-caption">
+              提示：所有数据来自 D1 数据库 <code>aurum_users</code>，每次刷新会重新统计。
+            </div>
+
+            <div style="margin-top: 10px;">
+              <button id="logout-btn" class="btn btn-danger" style="width: 100%; justify-content: center;">
+                登出后台
+              </button>
             </div>
           </div>
         </div>
 
-        <div class="side-table-wrapper">
-          <div class="side-table-header">
-            <div class="side-table-title">最近 5 个注册用户</div>
-            <div class="side-table-sub" id="side-mini-sub">—</div>
-          </div>
-          <div class="scroll-y" style="max-height:180px;">
-            <table class="side-table">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Email</th>
-                  <th>Plan</th>
-                  <th>Country</th>
-                </tr>
-              </thead>
-              <tbody id="side-mini-users">
-                <tr>
-                  <td colspan="4" style="text-align:center; color:#6b7280;">暂无数据</td>
-                </tr>
-              </tbody>
-            </table>
+        <!-- 最近用户（精简版） -->
+        <div class="card">
+          <div class="card-inner">
+            <div class="side-header">
+              <h2>最近 5 个注册用户</h2>
+            </div>
+            <div class="table-wrapper" style="max-height: 210px;">
+              <div class="table-header">
+                <span>最近注册</span>
+              </div>
+              <div class="table-scroll">
+                <table id="recent-users-table">
+                  <thead>
+                  <tr>
+                    <th style="width: 26px;">#</th>
+                    <th>Email</th>
+                    <th style="width: 56px;">Plan</th>
+                    <th style="width: 60px;">国家</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <!-- js 填充 -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="small-caption">
+              按注册时间倒序，仅展示最近 5 个用户。
+            </div>
           </div>
         </div>
-      </aside>
+      </div>
 
-      <!-- 主内容 -->
-      <main class="main">
-        <div class="main-header">
-          <div class="main-title-block">
-            <h1>Aurum Task Desk 后台总览</h1>
-            <p id="dash-subtitle">正在加载数据…</p>
-          </div>
-          <div class="main-header-actions">
-            <button class="btn-ghost" id="refresh-btn">刷新数据</button>
-            <button class="btn-ghost btn-outline-gold" id="logout-btn">登出后台</button>
-          </div>
-        </div>
+      <!-- 右侧主面板 -->
+      <div class="main-panel">
+        <!-- 顶部 KPI 卡片 & 图表 -->
+        <div class="card">
+          <div class="card-inner">
+            <div class="section-tabs">
+              <button class="section-tab active" data-section="users">用户概览</button>
+              <button class="section-tab" data-section="logs">访问日志</button>
+            </div>
 
-        <!-- 指标卡片 -->
-        <div class="metrics-grid">
-          <div class="metric-card">
-            <div class="metric-label">总用户数</div>
-            <div class="metric-value" id="metric-total">-</div>
-            <div class="metric-sub" id="metric-total-sub">—</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-label">近 7 天新增</div>
-            <div class="metric-value" id="metric-new7">-</div>
-            <div class="metric-sub" id="metric-new7-sub">—</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-label">付费 / 免费</div>
-            <div class="metric-value" id="metric-paid">-</div>
-            <div class="metric-sub" id="metric-paid-sub">—</div>
-          </div>
-        </div>
+            <!-- 用户概览区域 -->
+            <div id="section-users">
+              <div class="chart-row">
+                <div class="chart-container">
+                  <div class="chart-title">最近 14 天注册趋势</div>
+                  <div class="chart-sub">按日期统计注册用户数，用于观察投放节奏。</div>
+                  <canvas id="users-line-chart"></canvas>
+                </div>
+                <div class="chart-container">
+                  <div class="chart-title">套餐分布（当前用户）</div>
+                  <div class="chart-sub">免费 / 付费 用户数比例。</div>
+                  <canvas id="plan-pie-chart"></canvas>
+                </div>
+              </div>
 
-        <!-- 图表 -->
-        <div class="charts-grid">
-          <div class="chart-card">
-            <div class="chart-header">
-              <div class="chart-title">最近 14 天注册趋势</div>
-              <div class="chart-sub" id="chart-signups-sub">—</div>
+              <!-- 全量用户列表 -->
+              <div style="margin-top: 10px;">
+                <div class="table-wrapper" style="max-height: 260px;">
+                  <div class="table-header">
+                    <span>最近注册用户（最多 200 条）</span>
+                  </div>
+                  <div class="table-scroll">
+                    <table id="all-users-table">
+                      <thead>
+                      <tr>
+                        <th style="width: 34px;">ID</th>
+                        <th>Email</th>
+                        <th style="width: 60px;">Plan</th>
+                        <th style="width: 110px;">IP</th>
+                        <th style="width: 66px;">国家</th>
+                        <th style="width: 90px;">来源</th>
+                        <th style="width: 140px;">创建时间</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <!-- js 填充 -->
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="hint-text">
+                  数据来源：<code>/admin/users</code> API，按创建时间倒序，最多 200 条。
+                </div>
+              </div>
             </div>
-            <div class="chart-wrapper">
-              <canvas id="chart-signups"></canvas>
-            </div>
-          </div>
-          <div class="chart-card">
-            <div class="chart-header">
-              <div class="chart-title">套餐分布（当前用户）</div>
-              <div class="chart-sub" id="chart-plans-sub">—</div>
-            </div>
-            <div class="chart-wrapper">
-              <canvas id="chart-plans"></canvas>
-            </div>
-          </div>
-        </div>
 
-        <!-- 用户表格 -->
-        <div class="table-card">
-          <div class="table-header">
-            <div>
-              <div class="table-title">最近注册用户（最多 200 条）</div>
-              <div class="table-sub" id="users-subtitle">—</div>
+            <!-- 访问日志区域 -->
+            <div id="section-logs" style="display:none;">
+              <div class="chart-container">
+                <div class="chart-title">最近访问日志（最多 200 条）</div>
+                <div class="chart-sub">
+                  显示每次请求的路径、方法、IP、国家与 User-Agent，用于排查异常流量。
+                </div>
+                <div class="table-wrapper" style="max-height: 330px; margin-top: 6px;">
+                  <div class="table-scroll">
+                    <table id="logs-table">
+                      <thead>
+                      <tr>
+                        <th style="width:40px;">ID</th>
+                        <th style="width:120px;">时间</th>
+                        <th>Path</th>
+                        <th style="width:55px;">Method</th>
+                        <th style="width:110px;">IP</th>
+                        <th style="width:70px;">国家</th>
+                        <th>User-Agent</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <!-- js 填充 -->
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="hint-text">
+                  数据来源：<code>/admin/logs</code> API。日志由 Worker 自动写入
+                  <code>request_logs</code> 表。
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="scroll-y" style="max-height:260px;">
-            <table>
-              <thead>
-                <tr>
-                  <th style="width:40px;">ID</th>
-                  <th>Email</th>
-                  <th style="width:70px;">Plan</th>
-                  <th style="width:120px;">IP</th>
-                  <th style="width:70px;">国家</th>
-                  <th style="width:150px;">创建时间</th>
-                </tr>
-              </thead>
-              <tbody id="users-body">
-                <tr>
-                  <td colspan="6" style="text-align:center; color:#6b7280;">正在加载…</td>
-                </tr>
-              </tbody>
-            </table>
+
+            <div id="global-error" class="error-text" style="display:none;"></div>
           </div>
         </div>
-      </main>
+      </div>
     </div>
   </div>
+</div>
 
-  <script>
-    const ADMIN_API_BASE = "https://aurum-task-worker.sophieinbg.workers.dev";
+<script>
+  // ===== 根据你的 Worker 域名修改这里 =====
+  const API_BASE = "https://aurum-task-worker.sophieinbg.workers.dev";
+  // =======================================
 
-    const loginView = document.getElementById("login-view");
-    const dashboardView = document.getElementById("dashboard-view");
-    const adminForm = document.getElementById("admin-form");
-    const adminPasswordInput = document.getElementById("admin-password");
-    const adminBtn = document.getElementById("admin-btn");
-    const adminStatus = document.getElementById("admin-status");
+  let adminPassword = "";
+  let usersCache = [];
 
-    const dashSubtitle = document.getElementById("dash-subtitle");
-    const refreshBtn = document.getElementById("refresh-btn");
-    const logoutBtn = document.getElementById("logout-btn");
+  const loginView = document.getElementById("login-view");
+  const dashboardView = document.getElementById("dashboard-view");
+  const loginBtn = document.getElementById("login-btn");
+  const loginStatus = document.getElementById("login-status");
+  const adminPwdInput = document.getElementById("admin-password-input");
+  const refreshBtn = document.getElementById("refresh-btn");
+  const logoutBtn = document.getElementById("logout-btn");
+  const errorBox = document.getElementById("global-error");
 
-    const metricTotal = document.getElementById("metric-total");
-    const metricTotalSub = document.getElementById("metric-total-sub");
-    const metricNew7 = document.getElementById("metric-new7");
-    const metricNew7Sub = document.getElementById("metric-new7-sub");
-    const metricPaid = document.getElementById("metric-paid");
-    const metricPaidSub = document.getElementById("metric-paid-sub");
+  const sectionTabs = document.querySelectorAll(".section-tab");
+  const sectionUsers = document.getElementById("section-users");
+  const sectionLogs = document.getElementById("section-logs");
 
-    const sideTotal = document.getElementById("side-total");
-    const sideTotalSub = document.getElementById("side-total-sub");
-    const sideNew7 = document.getElementById("side-new7");
-    const sideMiniSub = document.getElementById("side-mini-sub");
-    const sideMiniUsers = document.getElementById("side-mini-users");
+  const totalUsersEl = document.getElementById("total-users");
+  const latestUserTimeEl = document.getElementById("latest-user-time");
+  const latestUserCountryEl = document.getElementById("latest-user-country");
+  const recent7El = document.getElementById("recent-7d-users");
+  const ratioEl = document.getElementById("paid-free-ratio");
 
-    const usersBody = document.getElementById("users-body");
-    const usersSubtitle = document.getElementById("users-subtitle");
+  const recentUsersTableBody = document.querySelector("#recent-users-table tbody");
+  const allUsersTableBody = document.querySelector("#all-users-table tbody");
+  const logsTableBody = document.querySelector("#logs-table tbody");
 
-    const chartSignupsSub = document.getElementById("chart-signups-sub");
-    const chartPlansSub = document.getElementById("chart-plans-sub");
+  let lineChartCtx, pieChartCtx;
 
-    let adminPasswordMemory = "";
-    let chartSignups = null;
-    let chartPlans = null;
+  function formatTime(ts) {
+    if (!ts) return "-";
+    const d = new Date(ts * 1000);
+    const y = d.getFullYear();
+    const m = (d.getMonth() + 1).toString().padStart(2, "0");
+    const day = d.getDate().toString().padStart(2, "0");
+    const hh = d.getHours().toString().padStart(2, "0");
+    const mm = d.getMinutes().toString().padStart(2, "0");
+    const ss = d.getSeconds().toString().padStart(2, "0");
+    return `${y}/${m}/${day} ${hh}:${mm}:${ss}`;
+  }
 
-    function setLoginStatus(msg, type) {
-      adminStatus.textContent = msg || "";
-      adminStatus.className = "login-status " + (type || "muted");
+  function setError(msg) {
+    if (!msg) {
+      errorBox.style.display = "none";
+      errorBox.textContent = "";
+      return;
     }
+    errorBox.style.display = "block";
+    errorBox.textContent = msg;
+  }
 
-    function formatTime(ts) {
-      if (!ts) return "-";
-      const d = new Date(ts * 1000);
-      return d.toLocaleString("zh-CN", { hour12: false });
+  async function apiPost(path, body) {
+    const res = await fetch(API_BASE + path, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(body || {})
+    });
+    return res;
+  }
+
+  async function apiGet(path) {
+    const headers = {
+      "Content-Type": "application/json",
+      "x-admin-password": adminPassword
+    };
+    const res = await fetch(API_BASE + path, {
+      method: "GET",
+      headers
+    });
+    return res;
+  }
+
+  async function handleLogin() {
+    const pwd = adminPwdInput.value.trim();
+    if (!pwd) {
+      loginStatus.textContent = "请输入管理员密码。";
+      loginStatus.style.color = "#fecaca";
+      return;
     }
+    loginStatus.textContent = "正在验证密码…";
+    loginStatus.style.color = "#9ca3af";
 
-    function formatDateKey(ts) {
-      const d = new Date(ts * 1000);
-      const y = d.getFullYear();
-      const m = String(d.getMonth() + 1).padStart(2, "0");
-      const day = String(d.getDate()).padStart(2, "0");
-      return `${y}-${m}-${day}`;
-    }
-
-    function enterDashboard() {
-      loginView.classList.add("hidden");
-      dashboardView.classList.remove("hidden");
-      dashSubtitle.textContent = "正在加载数据…";
-      loadAndRenderUsers();
-    }
-
-    async function loadAndRenderUsers() {
-      try {
-        dashSubtitle.textContent = "正在从 Worker 拉取用户数据…";
-
-        const res = await fetch(ADMIN_API_BASE + "/admin/users", {
-          method: "GET",
-          headers: {
-            "x-admin-password": adminPasswordMemory,
-          },
-        });
-
-        const data = await res.json().catch(() => ({}));
-
-        if (!res.ok || !data.ok) {
-          const msg =
-            (data && data.error) ||
-            (res.status === 401 ? "未授权，请重新登录后台。" : "加载失败，请稍后重试。");
-          dashSubtitle.textContent = msg;
-          usersSubtitle.textContent = msg;
-          if (res.status === 401) {
-            dashboardView.classList.add("hidden");
-            loginView.classList.remove("hidden");
-            setLoginStatus("登录已失效，请重新输入管理员密码。", "error");
-          }
-          return;
-        }
-
-        const users = data.users || [];
-        renderUsers(users);
-        renderMetrics(users);
-        renderCharts(users);
-      } catch (err) {
-        console.error(err);
-        dashSubtitle.textContent = "网络异常，无法获取用户数据。";
-        usersSubtitle.textContent = "网络异常，无法获取用户数据。";
-      }
-    }
-
-    function renderUsers(users) {
-      usersBody.innerHTML = "";
-      sideMiniUsers.innerHTML = "";
-
-      if (!users || users.length === 0) {
-        usersBody.innerHTML =
-          '<tr><td colspan="6" style="text-align:center; color:#6b7280;">暂无用户数据</td></tr>';
-        sideMiniUsers.innerHTML =
-          '<tr><td colspan="4" style="text-align:center; color:#6b7280;">暂无用户数据</td></tr>';
-        usersSubtitle.textContent = "暂无用户数据。";
-        dashSubtitle.textContent = "暂无用户数据。";
-        sideMiniSub.textContent = "暂无用户。";
+    try {
+      const res = await apiPost("/admin/login", { password: pwd });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data.ok) {
+        loginStatus.textContent = data.error || "密码验证失败。";
+        loginStatus.style.color = "#fecaca";
         return;
       }
+      adminPassword = pwd;
+      localStorage.setItem("aurum_admin_pw", pwd);
+      loginStatus.textContent = "登录成功，正在加载数据…";
+      loginStatus.style.color = "#a7f3d0";
 
-      users.forEach((u) => {
-        const tr = document.createElement("tr");
-        const plan = (u.plan || "free").toLowerCase();
+      loginView.style.display = "none";
+      dashboardView.style.display = "block";
 
-        const ip = u.ip || "-";
-        const country = (u.country || "").toUpperCase() || "-";
-        const ua = u.user_agent || "";
+      await loadAllData();
+    } catch (err) {
+      loginStatus.textContent = "网络异常，请检查 Worker 是否在线。";
+      loginStatus.style.color = "#fecaca";
+    }
+  }
 
-        tr.innerHTML = `
-          <td>${u.id ?? "-"}</td>
-          <td title="${u.email || ""}">${u.email || "-"}</td>
-          <td>
-            <span class="pill-plan ${plan === "free" ? "free" : "paid"}">
-              ${plan}
-            </span>
-          </td>
-          <td title="${ua.replace(/"/g, "&quot;")}">${ip}</td>
-          <td>${country}</td>
-          <td>${formatTime(u.created_at)}</td>
-        `;
-        usersBody.appendChild(tr);
-      });
+  async function loadUsers() {
+    const res = await apiGet("/admin/users");
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok || !data.ok) {
+      throw new Error(data.error || "加载用户列表失败");
+    }
+    usersCache = data.users || [];
+    renderUsers(usersCache);
+    return usersCache;
+  }
 
-      const mini = users.slice(0, 5);
-      mini.forEach((u, idx) => {
-        const plan = (u.plan || "free").toLowerCase();
-        const country = (u.country || "").toUpperCase() || "-";
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td>${idx + 1}</td>
-          <td title="${u.email || ""}">${u.email || "-"}</td>
-          <td>${plan}</td>
-          <td>${country}</td>
-        `;
-        sideMiniUsers.appendChild(tr);
-      });
+  async function loadLogs() {
+    const res = await apiGet("/admin/logs");
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok || !data.ok) {
+      throw new Error(data.error || "加载访问日志失败");
+    }
+    const logs = data.logs || [];
+    renderLogs(logs);
+    return logs;
+  }
 
-      usersSubtitle.textContent = `共 ${users.length} 个用户（按注册时间倒序，最多 200 条）。`;
-      dashSubtitle.textContent = "数据已更新。";
-      sideMiniSub.textContent = `最近 ${mini.length} 个用户（按注册时间倒序）。`;
+  async function loadAllData() {
+    setError("");
+    try {
+      await loadUsers();
+      await loadLogs();
+    } catch (e) {
+      setError(e.message || String(e));
+    }
+  }
+
+  function renderUsers(users) {
+    // KPI
+    const total = users.length;
+    totalUsersEl.textContent = total.toString();
+
+    if (total > 0) {
+      const latest = users[0];
+      latestUserTimeEl.textContent = formatTime(latest.created_at);
+      latestUserCountryEl.textContent = latest.country || "UNKNOWN";
+    } else {
+      latestUserTimeEl.textContent = "-";
+      latestUserCountryEl.textContent = "-";
     }
 
-    function renderMetrics(users) {
-      const total = users.length;
-      const now = Date.now() / 1000;
-      const sevenDaysAgo = now - 7 * 24 * 3600;
+    const nowSec = Math.floor(Date.now() / 1000);
+    const sevenDaysAgo = nowSec - 7 * 24 * 3600;
+    const last7 = users.filter(u => (u.created_at || 0) >= sevenDaysAgo).length;
+    recent7El.textContent = last7.toString();
 
-      let new7 = 0;
-      let paid = 0;
-      let free = 0;
-      let latestTs = 0;
+    let paid = 0;
+    let free = 0;
+    users.forEach(u => {
+      if (u.plan && u.plan !== "free") paid++;
+      else free++;
+    });
+    ratioEl.textContent = `${paid} / ${free}`;
 
-      const countryMap = {};
-
-      users.forEach((u) => {
-        const ts = u.created_at || 0;
-        if (ts > latestTs) latestTs = ts;
-        if (ts >= sevenDaysAgo) new7++;
-        const plan = (u.plan || "free").toLowerCase();
-        if (plan === "free") free++;
-        else paid++;
-
-        const c = (u.country || "Unknown").toUpperCase();
-        countryMap[c] = (countryMap[c] || 0) + 1;
-      });
-
-      const sortedCountries = Object.entries(countryMap)
-        .sort((a, b) => b[1] - a[1])
-        .slice(0, 3);
-      const countryText = sortedCountries
-        .map(([c, n]) => `${c} × ${n}`)
-        .join(" · ");
-
-      metricTotal.textContent = total.toString();
-      metricTotalSub.textContent = latestTs
-        ? `最近一位：${formatTime(latestTs)} · 前三国家：${countryText || "—"}`
-        : "时间戳缺失。";
-
-      metricNew7.textContent = new7.toString();
-      metricNew7Sub.textContent =
-        new7 > 0 ? "最近 7 天有新用户注册。" : "最近 7 天暂无新增。";
-
-      metricPaid.textContent = `${paid}/${free}`;
-      metricPaidSub.textContent =
-        paid > 0
-          ? `约 ${(paid / total * 100).toFixed(1)}% 为付费用户。`
-          : "暂时还没有付费用户。";
-
-      sideTotal.textContent = total.toString();
-      sideTotalSub.textContent = latestTs ? `最近：${formatTime(latestTs)}` : "—";
-      sideNew7.textContent = new7.toString();
-    }
-
-    function destroyCharts() {
-      if (chartSignups) {
-        chartSignups.destroy();
-        chartSignups = null;
-      }
-      if (chartPlans) {
-        chartPlans.destroy();
-        chartPlans = null;
-      }
-    }
-
-    function renderCharts(users) {
-      destroyCharts();
-      if (!users || users.length === 0) {
-        chartSignupsSub.textContent = "暂无数据。";
-        chartPlansSub.textContent = "暂无数据。";
-        return;
-      }
-
-      const now = Date.now() / 1000;
-      const fourteenDaysAgo = now - 13 * 24 * 3600;
-      const dayMap = new Map();
-
-      for (let i = 0; i < 14; i++) {
-        const ts = fourteenDaysAgo + i * 24 * 3600;
-        const key = formatDateKey(ts);
-        dayMap.set(key, 0);
-      }
-
-      users.forEach((u) => {
-        const ts = u.created_at || 0;
-        if (ts >= fourteenDaysAgo) {
-          const key = formatDateKey(ts);
-          if (dayMap.has(key)) {
-            dayMap.set(key, dayMap.get(key) + 1);
-          }
-        }
-      });
-
-      const labels = Array.from(dayMap.keys());
-      const values = Array.from(dayMap.values());
-
-      const ctxSignups = document.getElementById("chart-signups").getContext("2d");
-      chartSignups = new Chart(ctxSignups, {
-        type: "line",
-        data: {
-          labels,
-          datasets: [
-            {
-              label: "Signups",
-              data: values,
-              tension: 0.35,
-              fill: true,
-              borderWidth: 2,
-            },
-          ],
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: { display: false },
-          },
-          scales: {
-            x: {
-              ticks: { color: "#9ca3af", maxTicksLimit: 6 },
-              grid: { color: "rgba(31, 41, 55, 0.6)" },
-            },
-            y: {
-              beginAtZero: true,
-              ticks: { color: "#9ca3af", precision: 0 },
-              grid: { color: "rgba(31, 41, 55, 0.6)" },
-            },
-          },
-        },
-      });
-
-      const totalTrend = values.reduce((a, b) => a + b, 0);
-      chartSignupsSub.textContent =
-        totalTrend > 0 ? `14 天内共 ${totalTrend} 个注册。` : "14 天内暂无注册。";
-
-      const planCount = {};
-      users.forEach((u) => {
-        const plan = (u.plan || "free").toLowerCase();
-        planCount[plan] = (planCount[plan] || 0) + 1;
-      });
-
-      const planLabels = Object.keys(planCount);
-      const planValues = Object.values(planCount);
-      const ctxPlans = document.getElementById("chart-plans").getContext("2d");
-
-      chartPlans = new Chart(ctxPlans, {
-        type: "doughnut",
-        data: {
-          labels: planLabels,
-          datasets: [
-            {
-              data: planValues,
-            },
-          ],
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              position: "bottom",
-              labels: { color: "#e5e7eb", boxWidth: 10 },
-            },
-          },
-        },
-      });
-
-      chartPlansSub.textContent = `当前套餐：${planLabels
-        .map((label, i) => `${label} × ${planValues[i]}`)
-        .join(" · ")}`;
-    }
-
-    adminForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const password = adminPasswordInput.value.trim();
-      if (!password) {
-        setLoginStatus("请输入密码。", "error");
-        return;
-      }
-
-      adminBtn.disabled = true;
-      setLoginStatus("正在校验管理员密码…", "muted");
-
-      try {
-        const res = await fetch(ADMIN_API_BASE + "/admin/login", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ password }),
-        });
-        const data = await res.json().catch(() => ({}));
-
-        if (!res.ok || !data.ok) {
-          const msg =
-            (data && data.error) ||
-            (res.status === 401 ? "密码错误，请重试。" : "请求失败，请稍后再试。");
-          setLoginStatus(msg, "error");
-        } else {
-          adminPasswordMemory = password;
-          setLoginStatus("验证成功，正在加载后台数据…", "success");
-          enterDashboard();
-        }
-      } catch (err) {
-        console.error(err);
-        setLoginStatus("网络异常，请检查 Worker 是否在线。", "error");
-      } finally {
-        adminBtn.disabled = false;
-      }
+    // 最近 5 个用户（侧栏）
+    const recent5 = users.slice(0, 5);
+    recentUsersTableBody.innerHTML = "";
+    recent5.forEach((u, idx) => {
+      const tr = document.createElement("tr");
+      const planClass = u.plan && u.plan !== "free" ? "paid" : "free";
+      tr.innerHTML = `
+        <td>${idx + 1}</td>
+        <td title="${u.email}">${u.email}</td>
+        <td><span class="pill-plan ${planClass}">${(u.plan || "free").toUpperCase()}</span></td>
+        <td>${u.country || "-"}</td>
+      `;
+      recentUsersTableBody.appendChild(tr);
     });
 
-    refreshBtn.addEventListener("click", () => {
-      if (!adminPasswordMemory) return;
-      loadAndRenderUsers();
+    // 全量用户表
+    allUsersTableBody.innerHTML = "";
+    users.forEach(u => {
+      const planClass = u.plan && u.plan !== "free" ? "paid" : "free";
+      const created = formatTime(u.created_at);
+      const ip = u.ip || "-";
+      const country = u.country || "-";
+      const src = u.signup_source || "-";
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${u.id}</td>
+        <td title="${u.email}">${u.email}</td>
+        <td><span class="pill-plan ${planClass}">${(u.plan || "free").toUpperCase()}</span></td>
+        <td title="${ip}">${ip}</td>
+        <td>${country}</td>
+        <td title="${src}">${src}</td>
+        <td>${created}</td>
+      `;
+      allUsersTableBody.appendChild(tr);
     });
 
-    logoutBtn.addEventListener("click", async () => {
-      try {
-        await fetch(ADMIN_API_BASE + "/admin/logout", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-        });
-      } catch (_) {}
-      adminPasswordMemory = "";
-      dashboardView.classList.add("hidden");
-      loginView.classList.remove("hidden");
-      setLoginStatus("已登出后台。", "muted");
+    drawUsersLineChart(users);
+    drawPlanPieChart(free, paid);
+  }
+
+  function drawUsersLineChart(users) {
+    const canvas = document.getElementById("users-line-chart");
+    const ctx = canvas.getContext("2d");
+    const now = new Date();
+    const days = [];
+    const counts = [];
+
+    // 生成最近 14 天日期（从旧到新）
+    for (let i = 13; i >= 0; i--) {
+      const d = new Date(now.getTime() - i * 24 * 3600 * 1000);
+      const key = d.toISOString().slice(0, 10);
+      days.push(key);
+      counts.push(0);
+    }
+
+    const dayIndexMap = {};
+    days.forEach((d, idx) => (dayIndexMap[d] = idx));
+
+    users.forEach(u => {
+      if (!u.created_at) return;
+      const d = new Date(u.created_at * 1000);
+      const key = d.toISOString().slice(0, 10);
+      const idx = dayIndexMap[key];
+      if (idx !== undefined) counts[idx] += 1;
     });
-  </script>
+
+    const width = canvas.width = canvas.clientWidth * window.devicePixelRatio;
+    const height = canvas.height = canvas.clientHeight * window.devicePixelRatio;
+    ctx.clearRect(0, 0, width, height);
+
+    const paddingLeft = 30;
+    const paddingRight = 10;
+    const paddingTop = 10;
+    const paddingBottom = 20;
+
+    const maxVal = Math.max(...counts, 1);
+    const chartWidth = width - paddingLeft - paddingRight;
+    const chartHeight = height - paddingTop - paddingBottom;
+    const stepX = chartWidth / Math.max(days.length - 1, 1);
+
+    ctx.strokeStyle = "rgba(55, 65, 81, 0.9)";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(paddingLeft, paddingTop);
+    ctx.lineTo(paddingLeft, paddingTop + chartHeight);
+    ctx.lineTo(paddingLeft + chartWidth, paddingTop + chartHeight);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.strokeStyle = "rgba(56, 189, 248, 0.9)";
+    ctx.lineWidth = 2;
+
+    counts.forEach((val, idx) => {
+      const x = paddingLeft + stepX * idx;
+      const y = paddingTop + chartHeight * (1 - val / maxVal);
+      if (idx === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    });
+    ctx.stroke();
+
+    ctx.fillStyle = "rgba(56, 189, 248, 0.22)";
+    counts.forEach((val, idx) => {
+      const x = paddingLeft + stepX * idx;
+      const y = paddingTop + chartHeight * (1 - val / maxVal);
+      ctx.beginPath();
+      ctx.arc(x, y, 4, 0, Math.PI * 2);
+      ctx.fill();
+    });
+
+    ctx.fillStyle = "rgba(148,163,184,0.9)";
+    ctx.font = `${10 * window.devicePixelRatio}px system-ui, -apple-system`;
+    const labelStep = Math.max(1, Math.floor(days.length / 4));
+    days.forEach((d, idx) => {
+      if (idx % labelStep !== 0 && idx !== days.length - 1) return;
+      const x = paddingLeft + stepX * idx;
+      const y = paddingTop + chartHeight + 14 * window.devicePixelRatio;
+      const text = d.slice(5);
+      ctx.fillText(text, x - 10 * window.devicePixelRatio, y);
+    });
+  }
+
+  function drawPlanPieChart(freeCount, paidCount) {
+    const canvas = document.getElementById("plan-pie-chart");
+    const ctx = canvas.getContext("2d");
+    const width = canvas.width = canvas.clientWidth * window.devicePixelRatio;
+    const height = canvas.height = canvas.clientHeight * window.devicePixelRatio;
+    ctx.clearRect(0, 0, width, height);
+
+    const total = freeCount + paidCount;
+    if (total === 0) {
+      ctx.fillStyle = "rgba(55,65,81,0.9)";
+      ctx.beginPath();
+      ctx.arc(width / 2, height / 2, Math.min(width, height) / 4, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "rgba(156,163,175,0.9)";
+      ctx.font = `${12 * window.devicePixelRatio}px system-ui`;
+      ctx.fillText("暂无数据", width / 2 - 30 * window.devicePixelRatio, height / 2);
+      return;
+    }
+
+    const centerX = width / 2;
+    const centerY = height / 2;
+    const radius = Math.min(width, height) / 3.2;
+    let start = -Math.PI / 2;
+
+    const freeAngle = (freeCount / total) * Math.PI * 2;
+    const paidAngle = (paidCount / total) * Math.PI * 2;
+
+    ctx.beginPath();
+    ctx.moveTo(centerX, centerY);
+    ctx.fillStyle = "rgba(59,130,246,0.9)";
+    ctx.arc(centerX, centerY, radius, start, start + freeAngle);
+    ctx.closePath();
+    ctx.fill();
+
+    start += freeAngle;
+    ctx.beginPath();
+    ctx.moveTo(centerX, centerY);
+    ctx.fillStyle = "rgba(251,191,36,0.95)";
+    ctx.arc(centerX, centerY, radius, start, start + paidAngle);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.fillStyle = "#020617";
+    ctx.beginPath();
+    ctx.arc(centerX, centerY, radius * 0.55, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = "rgba(248,250,252,0.95)";
+    ctx.font = `${14 * window.devicePixelRatio}px system-ui`;
+    ctx.fillText(
+      `${paidCount}/${freeCount}`,
+      centerX - 26 * window.devicePixelRatio,
+      centerY + 4 * window.devicePixelRatio
+    );
+  }
+
+  function renderLogs(logs) {
+    logsTableBody.innerHTML = "";
+    logs.forEach(log => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${log.id}</td>
+        <td>${formatTime(log.created_at)}</td>
+        <td title="${log.path}">${log.path}</td>
+        <td>${log.method}</td>
+        <td title="${log.ip || ""}">${log.ip || "-"}</td>
+        <td>${log.country || "-"}</td>
+        <td title="${log.user_agent || ""}">${(log.user_agent || "").slice(0,80)}</td>
+      `;
+      logsTableBody.appendChild(tr);
+    });
+  }
+
+  // 事件绑定
+  loginBtn.addEventListener("click", handleLogin);
+  adminPwdInput.addEventListener("keydown", e => {
+    if (e.key === "Enter") handleLogin();
+  });
+
+  refreshBtn.addEventListener("click", () => {
+    if (!adminPassword) return;
+    loadAllData();
+  });
+
+  logoutBtn.addEventListener("click", () => {
+    adminPassword = "";
+    localStorage.removeItem("aurum_admin_pw");
+    loginView.style.display = "flex";
+    dashboardView.style.display = "none";
+  });
+
+  sectionTabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      sectionTabs.forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
+      const section = tab.getAttribute("data-section");
+      if (section === "users") {
+        sectionUsers.style.display = "";
+        sectionLogs.style.display = "none";
+      } else {
+        sectionUsers.style.display = "none";
+        sectionLogs.style.display = "";
+      }
+    });
+  });
+
+  // 尝试自动登录（本地保存过密码的话）
+  window.addEventListener("load", async () => {
+    const saved = localStorage.getItem("aurum_admin_pw") || "";
+    if (!saved) return;
+    adminPassword = saved;
+    loginView.style.display = "none";
+    dashboardView.style.display = "block";
+    try {
+      await loadAllData();
+    } catch (e) {
+      setError(e.message || String(e));
+    }
+  });
+</script>
 </body>
 </html>
