@@ -1159,10 +1159,12 @@
           return;
         }
 
-        const cx = w / 2;
-        const cy = h / 2;
-        const r = Math.min(w, h) / 2 - 14;
-        const innerR = r * 0.6;
+          // 让圆环稍微往左移一点，半径缩小一点，避免被卡片边缘切掉
+       const cx = w / 2 - 10;
+       const cy = h / 2;
+       const r = Math.min(w, h) / 2 - 24;
+       const innerR = r * 0.6;
+
 
         const startAngle = -Math.PI / 2;
         const freeAngle = (freeCount / total) * Math.PI * 2;
