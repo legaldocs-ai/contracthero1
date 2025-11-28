@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Aurum Task Desk — Task Desk & AI Preview</title>
+  <title>Aurum Task Desk — Task Desk & Preview</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- Favicon -->
@@ -388,7 +388,8 @@
     }
     .service-sub {
       font-size: 11px;
-      color: var(--text-soft);
+      color: #d5e1ff;        /* 调亮，方便看清 */
+      opacity: 0.96;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -401,8 +402,8 @@
       margin-left: 8px;
     }
 
-    /* 右侧 AI 面板 */
-    .ai-panel {
+    /* 右侧预览面板 */
+    .preview-panel {
       border-radius: var(--radius-lg);
       border: 1px solid rgba(148, 163, 184, 0.4);
       background:
@@ -416,8 +417,8 @@
       position: relative;
       overflow: hidden;
     }
-    .ai-panel::after {
-      content: "AI DESK";
+    .preview-panel::after {
+      content: "DESK";
       position: absolute;
       right: -20px;
       bottom: -10px;
@@ -427,18 +428,18 @@
       font-weight: 700;
       pointer-events: none;
     }
-    .ai-header-row {
+    .preview-header-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 8px;
     }
-    .ai-title-block {
+    .preview-title-block {
       display: flex;
       flex-direction: column;
       gap: 2px;
     }
-    .ai-title {
+    .preview-title {
       font-size: 14px;
       font-weight: 600;
       letter-spacing: 0.03em;
@@ -446,7 +447,7 @@
       align-items: center;
       gap: 6px;
     }
-    .ai-title-pill {
+    .preview-title-pill {
       font-size: 10px;
       padding: 1px 7px;
       border-radius: 999px;
@@ -454,18 +455,18 @@
       border: 1px solid rgba(148, 163, 184, 0.7);
       color: var(--text-soft);
     }
-    .ai-subtitle {
+    .preview-subtitle {
       font-size: 12px;
       color: var(--text-soft);
       max-width: 420px;
     }
-    .ai-hint-row {
+    .preview-hint-row {
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
       margin-bottom: 4px;
     }
-    .ai-hint-pill {
+    .preview-hint-pill {
       font-size: 10px;
       border-radius: 999px;
       border: 1px dashed rgba(148, 163, 184, 0.5);
@@ -474,16 +475,16 @@
       background: rgba(15, 23, 42, 0.9);
     }
 
-    .ai-form {
+    .preview-form {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 8px 10px;
       margin-top: 4px;
     }
-    .ai-form-full {
+    .preview-form-full {
       grid-column: 1 / -1;
     }
-    .ai-label {
+    .preview-label {
       font-size: 11px;
       color: var(--text-soft);
       margin-bottom: 3px;
@@ -491,15 +492,15 @@
       align-items: center;
       gap: 5px;
     }
-    .ai-label span.badge {
+    .preview-label span.badge {
       font-size: 9px;
       border-radius: 999px;
       padding: 0 6px;
       border: 1px solid rgba(148, 163, 184, 0.7);
     }
-    .ai-input,
-    .ai-select,
-    .ai-textarea {
+    .preview-input,
+    .preview-select,
+    .preview-textarea {
       width: 100%;
       border-radius: 10px;
       border: 1px solid rgba(148, 163, 184, 0.7);
@@ -512,34 +513,34 @@
       min-height: 0;
       transition: border-color 0.14s ease, box-shadow 0.14s ease, background 0.14s ease;
     }
-    .ai-input:focus,
-    .ai-select:focus,
-    .ai-textarea:focus {
+    .preview-input:focus,
+    .preview-select:focus,
+    .preview-textarea:focus {
       border-color: var(--accent-blue);
       box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.45);
       background: rgba(15, 23, 42, 0.96);
     }
-    .ai-select {
+    .preview-select {
       padding-right: 22px;
     }
-    .ai-textarea {
+    .preview-textarea {
       min-height: 80px;
       line-height: 1.4;
     }
 
-    .ai-footer-row {
+    .preview-footer-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 10px;
       margin-top: 4px;
     }
-    .ai-left-buttons {
+    .preview-left-buttons {
       display: flex;
       align-items: center;
       gap: 6px;
     }
-    .ai-secondary-btn {
+    .preview-secondary-btn {
       border-radius: 999px;
       border: 1px solid rgba(148, 163, 184, 0.7);
       background: rgba(15, 23, 42, 0.9);
@@ -552,12 +553,12 @@
       cursor: pointer;
       transition: all 0.14s ease;
     }
-    .ai-secondary-btn:hover {
+    .preview-secondary-btn:hover {
       background: rgba(15, 23, 42, 1);
       box-shadow: 0 10px 36px rgba(15, 23, 42, 0.9);
       transform: translateY(-0.5px);
     }
-    .ai-generate-btn {
+    .preview-generate-btn {
       border-radius: 999px;
       border: none;
       background: linear-gradient(120deg,#22c55e,#16a34a);
@@ -573,23 +574,23 @@
       transition: transform 0.14s ease, box-shadow 0.14s ease, filter 0.14s ease;
       white-space: nowrap;
     }
-    .ai-generate-btn:hover {
+    .preview-generate-btn:hover {
       transform: translateY(-1px);
       box-shadow: 0 22px 70px rgba(6, 95, 70, 0.9);
       filter: brightness(1.02);
     }
-    .ai-generate-btn[disabled] {
+    .preview-generate-btn[disabled] {
       opacity: 0.7;
       cursor: default;
       transform: none;
       box-shadow: 0 12px 32px rgba(6, 95, 70, 0.5);
     }
-    .ai-status {
+    .preview-status {
       font-size: 11px;
       color: var(--text-soft);
     }
 
-    .ai-preview-box {
+    .preview-box {
       margin-top: 8px;
       border-radius: 12px;
       border: 1px dashed rgba(148, 163, 184, 0.7);
@@ -602,7 +603,7 @@
       white-space: pre-wrap;
       color: #e5e7eb;
     }
-    .ai-preview-placeholder {
+    .preview-placeholder {
       color: rgba(148, 163, 184, 0.9);
       font-size: 11px;
     }
@@ -612,7 +613,7 @@
       .desk-layout {
         grid-template-columns: minmax(0, 1fr);
       }
-      .ai-panel::after {
+      .preview-panel::after {
         display: none;
       }
     }
@@ -626,14 +627,14 @@
       .flow-chips {
         grid-template-columns: minmax(0, 1fr);
       }
-      .ai-form {
+      .preview-form {
         grid-template-columns: minmax(0, 1fr);
       }
-      .ai-footer-row {
+      .preview-footer-row {
         flex-direction: column;
         align-items: flex-start;
       }
-      .ai-left-buttons {
+      .preview-left-buttons {
         width: 100%;
         justify-content: flex-start;
         flex-wrap: wrap;
@@ -652,7 +653,7 @@
         <div class="brand-text-block">
           <div class="brand-name">Aurum Task Desk</div>
           <div class="brand-sub" id="brandSubText">
-            Private AI Writing & Resolution Desk
+            Quiet writing & resolution desk
           </div>
         </div>
       </div>
@@ -719,7 +720,7 @@
         </div>
       </section>
 
-      <!-- 下半部分：左边服务 + 右边 AI 窗口 -->
+      <!-- 下半部分：左边服务 + 右边预览窗口 -->
       <section class="desk-layout">
         <!-- 左侧服务列表 -->
         <aside class="service-card">
@@ -835,64 +836,64 @@
           </div>
         </aside>
 
-        <!-- 右侧 AI 预览窗口 -->
-        <section class="ai-panel">
-          <div class="ai-header-row">
-            <div class="ai-title-block">
-              <div class="ai-title" id="aiTitle">
-                AI preview window
-                <span class="ai-title-pill" id="aiTitlePill">
-                  Cloudflare AI · 30% preview only
+        <!-- 右侧预览窗口 -->
+        <section class="preview-panel">
+          <div class="preview-header-row">
+            <div class="preview-title-block">
+              <div class="preview-title" id="previewTitle">
+                Preview draft window
+                <span class="preview-title-pill" id="previewTitlePill">
+                  Private preview · about 30% content
                 </span>
               </div>
-              <p class="ai-subtitle" id="aiSubtitle">
-                Let Aurum’s AI desk draft a 30% preview of your letter.
-                Nothing is sent or stored. You stay fully anonymous at this step.
+              <p class="preview-subtitle" id="previewSubtitle">
+                This is a quiet preview box. You can sketch 30% of the draft here,
+                adjust wording, and only submit formally later inside your own Desk.
               </p>
             </div>
           </div>
 
-          <div class="ai-hint-row">
-            <div class="ai-hint-pill" id="aiHint1">
+          <div class="preview-hint-row">
+            <div class="preview-hint-pill" id="previewHint1">
               ✓ No login required for preview
             </div>
-            <div class="ai-hint-pill" id="aiHint2">
-              ✓ Region-free (Cloudflare AI)
+            <div class="preview-hint-pill" id="previewHint2">
+              ✓ Nothing is sent until you confirm
             </div>
-            <div class="ai-hint-pill" id="aiHint3">
+            <div class="preview-hint-pill" id="previewHint3">
               ✓ You can still change everything later
             </div>
           </div>
 
-          <div class="ai-form">
+          <div class="preview-form">
             <div>
-              <div class="ai-label">
+              <div class="preview-label">
                 <span id="lblTaskType">Task type</span>
                 <span class="badge" id="lblTaskTypeBadge">Auto from left</span>
               </div>
               <input
                 id="taskTypeInput"
-                class="ai-input"
+                class="preview-input"
                 type="text"
                 value="Legal letters & contract drafts"
               />
             </div>
 
             <div>
-              <div class="ai-label">
+              <div class="preview-label">
                 <span id="lblLanguage">Language</span>
               </div>
-              <select id="languageSelect" class="ai-select">
+              <select id="languageSelect" class="preview-select">
                 <option value="English">English</option>
                 <option value="中文">中文</option>
               </select>
             </div>
 
             <div>
-              <div class="ai-label">
+              <div class="preview-label">
                 <span id="lblTone">Tone</span>
               </div>
-              <select id="toneSelect" class="ai-select">
+              <select id="toneSelect" class="preview-select">
                 <option value="calm, respectful">Calm, respectful</option>
                 <option value="firm, polite">Firm, polite</option>
                 <option value="urgent but respectful">Urgent but respectful</option>
@@ -900,58 +901,57 @@
             </div>
 
             <div>
-              <div class="ai-label">
+              <div class="preview-label">
                 <span id="lblRecipient">Recipient (optional)</span>
               </div>
               <input
                 id="recipientInput"
-                class="ai-input"
+                class="preview-input"
                 type="text"
                 placeholder="e.g. airline, landlord, lawyer, embassy"
               />
             </div>
 
-            <div class="ai-form-full">
-              <div class="ai-label">
+            <div class="preview-form-full">
+              <div class="preview-label">
                 <span id="lblDetails">What happened? (you can be brief)</span>
               </div>
               <textarea
                 id="detailsTextarea"
-                class="ai-textarea"
+                class="preview-textarea"
                 placeholder="Describe the situation in your own words. You can keep it short, we will expand it for you."
               ></textarea>
             </div>
           </div>
 
-          <div class="ai-footer-row">
-            <div class="ai-left-buttons">
-              <button type="button" class="ai-secondary-btn" id="btnClear">
+          <div class="preview-footer-row">
+            <div class="preview-left-buttons">
+              <button type="button" class="preview-secondary-btn" id="btnClear">
                 <span>Reset</span>
               </button>
-              <button type="button" class="ai-secondary-btn" id="btnPasteExample">
+              <button type="button" class="preview-secondary-btn" id="btnPasteExample">
                 <span id="btnPasteExampleText">Paste an example case</span>
               </button>
             </div>
-            <div class="ai-left-buttons">
-              <button type="button" class="ai-generate-btn" id="aiGenerateBtn">
-                <span id="aiGenerateBtnText">AI preview draft</span>
+            <div class="preview-left-buttons">
+              <button type="button" class="preview-generate-btn" id="previewGenerateBtn">
+                <span id="previewGenerateBtnText">Generate preview draft</span>
               </button>
-              <div class="ai-status" id="aiStatus">
-                <span id="aiStatusText">
-                  AI will generate ~30% of the letter as a preview only.
+              <div class="preview-status" id="previewStatus">
+                <span id="previewStatusText">
+                  The system will generate about 30% of a draft as a private preview only.
                 </span>
               </div>
             </div>
           </div>
 
-          <div class="ai-preview-box" id="aiPreviewBox">
-            <div class="ai-preview-placeholder" id="aiPreviewPlaceholder">
-              Your 30% AI preview will appear here. It is not saved, not sent
+          <div class="preview-box" id="previewBox">
+            <div class="preview-placeholder" id="previewPlaceholder">
+              Your preview draft will appear here. It is not saved, not sent
               to any company or person. When you are happy with the direction,
               you can open a full Desk and continue privately.
             </div>
-            <!-- 实际预览内容容器 -->
-            <div id="aiPreviewContent" style="display:none;"></div>
+            <div id="previewContent" style="display:none;"></div>
           </div>
         </section>
       </section>
@@ -974,30 +974,29 @@
       });
     });
 
-    // ========== AI 生成预览 ==========
-    const aiGenerateBtn = document.getElementById("aiGenerateBtn");
-    const aiStatusText = document.getElementById("aiStatusText");
-    const aiPreviewPlaceholder = document.getElementById("aiPreviewPlaceholder");
-    const aiPreviewContent = document.getElementById("aiPreviewContent");
+    // ========== 预览生成 ==========
+    const previewGenerateBtn = document.getElementById("previewGenerateBtn");
+    const previewStatusText = document.getElementById("previewStatusText");
+    const previewPlaceholder = document.getElementById("previewPlaceholder");
+    const previewContent = document.getElementById("previewContent");
     const toneSelect = document.getElementById("toneSelect");
     const languageSelect = document.getElementById("languageSelect");
     const recipientInput = document.getElementById("recipientInput");
     const detailsTextarea = document.getElementById("detailsTextarea");
 
-    async function callAIPreview() {
+    async function callPreview() {
       const taskType = (taskTypeInput.value || "").trim() || "写作任务";
       const tone = (toneSelect.value || "calm, respectful").toString();
       const language = (languageSelect.value || "English").toString();
       const recipient = (recipientInput.value || "").toString();
       const details = (detailsTextarea.value || "").toString();
 
-      aiGenerateBtn.disabled = true;
-      aiStatusText.textContent = language === "中文"
-        ? "AI 正在为你生成预览草稿…"
-        : "AI is generating a preview draft for you…";
+      previewGenerateBtn.disabled = true;
+      previewStatusText.textContent = language === "中文"
+        ? "正在为你生成预览草稿…"
+        : "The system is preparing a preview draft for you…";
 
       try {
-        // 这里改成 /api/generate，直接命中 Worker
         const res = await fetch("/api/generate", {
           method: "POST",
           headers: {
@@ -1018,40 +1017,40 @@
         const data = await res.json();
 
         if (!data.ok || !data.preview) {
-          throw new Error(data.error || "Empty AI response");
+          throw new Error(data.error || "Empty response");
         }
 
-        aiPreviewPlaceholder.style.display = "none";
-        aiPreviewContent.style.display = "block";
-        aiPreviewContent.textContent = data.preview;
+        previewPlaceholder.style.display = "none";
+        previewContent.style.display = "block";
+        previewContent.textContent = data.preview;
 
-        aiStatusText.textContent = language === "中文"
+        previewStatusText.textContent = language === "中文"
           ? "预览完成。你可以修改细节，再次生成，或稍后在正式任务中继续。"
           : "Preview ready. You can adjust details, generate again, or continue later inside a full Desk.";
       } catch (err) {
         console.error(err);
-        aiStatusText.textContent = languageSelect.value === "中文"
-          ? "抱歉，AI 预览暂时失败，请稍后再试。"
-          : "Sorry, the AI preview failed for now. Please try again in a moment.";
+        previewStatusText.textContent = languageSelect.value === "中文"
+          ? "抱歉，预览暂时失败，请稍后再试。"
+          : "Sorry, the preview failed for now. Please try again in a moment.";
       } finally {
-        aiGenerateBtn.disabled = false;
+        previewGenerateBtn.disabled = false;
       }
     }
 
-    aiGenerateBtn.addEventListener("click", () => {
-      callAIPreview();
+    previewGenerateBtn.addEventListener("click", () => {
+      callPreview();
     });
 
     // ========== 辅助按钮 ==========
     document.getElementById("btnClear").addEventListener("click", () => {
       recipientInput.value = "";
       detailsTextarea.value = "";
-      aiPreviewContent.textContent = "";
-      aiPreviewContent.style.display = "none";
-      aiPreviewPlaceholder.style.display = "block";
-      aiStatusText.textContent = languageSelect.value === "中文"
-        ? "AI 将生成约 30% 的预览草稿，不会保存也不会发送。"
-        : "AI will generate ~30% of the letter as a preview only.";
+      previewContent.textContent = "";
+      previewContent.style.display = "none";
+      previewPlaceholder.style.display = "block";
+      previewStatusText.textContent = languageSelect.value === "中文"
+        ? "系统会生成约 30% 的预览草稿，不会保存也不会发送。"
+        : "The system will generate about 30% of a draft as a private preview only.";
     });
 
     document.getElementById("btnPasteExample").addEventListener("click", () => {
@@ -1065,11 +1064,11 @@
       }
     });
 
-    // ========== 简单中英文切换（只切这个页面的文案） ==========
+    // ========== 中英文切换 ==========
     const langButtons = document.querySelectorAll(".lang-btn");
     const i18n = {
       en: {
-        brandSub: "Private AI Writing & Resolution Desk",
+        brandSub: "Quiet writing & resolution desk",
         navHome: "Home",
         navServices: "Services",
         navFlow: "Flow",
@@ -1091,13 +1090,13 @@
           "You review, add personal details if needed, and then send it on.",
         serviceCardTitle: "5 core services",
         serviceCardMini: "Pick one scenario to open a desk",
-        aiTitle: "AI preview window",
-        aiTitlePill: "Cloudflare AI · 30% preview only",
-        aiSubtitle:
-          "Let Aurum’s AI desk draft a 30% preview of your letter. Nothing is sent or stored.",
-        aiHint1: "✓ No login required for preview",
-        aiHint2: "✓ Region-free (Cloudflare AI)",
-        aiHint3: "✓ You can still change everything later",
+        previewTitle: "Preview draft window",
+        previewTitlePill: "Private preview · about 30% content",
+        previewSubtitle:
+          "This is a quiet preview box. You can sketch 30% of the draft here, adjust wording, and only submit formally later inside your own Desk.",
+        previewHint1: "✓ No login required for preview",
+        previewHint2: "✓ Nothing is sent until you confirm",
+        previewHint3: "✓ You can still change everything later",
         lblTaskType: "Task type",
         lblTaskTypeBadge: "Auto from left",
         lblLanguage: "Language",
@@ -1105,14 +1104,14 @@
         lblRecipient: "Recipient (optional)",
         lblDetails: "What happened? (you can be brief)",
         btnExample: "Paste an example case",
-        btnPreview: "AI preview draft",
+        btnPreview: "Generate preview draft",
         statusDefault:
-          "AI will generate ~30% of the letter as a preview only.",
+          "The system will generate about 30% of a draft as a private preview only.",
         previewPlaceholder:
-          "Your 30% AI preview will appear here. It is not saved, not sent to any company or person. When you are happy with the direction, you can open a full Desk and continue privately."
+          "Your preview draft will appear here. It is not saved, not sent to any company or person. When you are happy with the direction, you can open a full Desk and continue privately."
       },
       zh: {
-        brandSub: "安静而专业的 AI 写作与申诉任务台",
+        brandSub: "安静而专业的写作与申诉任务台",
         navHome: "首页",
         navServices: "服务",
         navFlow: "流程",
@@ -1134,13 +1133,13 @@
           "你可以再补充个人信息、删改语气，确认后再通过邮箱、系统或打印寄出。",
         serviceCardTitle: "5 个核心服务场景",
         serviceCardMini: "先选一个场景打开任务台",
-        aiTitle: "AI 预览小窗口",
-        aiTitlePill: "Cloudflare AI · 只生成约 30% 草稿",
-        aiSubtitle:
-          "先让 Aurum 的 AI 帮你起一段 30% 左右的预览草稿。此步骤不会保存、也不会发送给任何机构。",
-        aiHint1: "✓ 无需登录即可预览",
-        aiHint2: "✓ 无地区限制（Cloudflare AI）",
-        aiHint3: "✓ 后面可以随时全部修改",
+        previewTitle: "预览草稿小窗口",
+        previewTitlePill: "仅生成约 30% 预览内容",
+        previewSubtitle:
+          "这是一个安静的小预览框，你可以先起草大约 30% 的内容，调整语气和结构，真正提交会在你自己的任务台里完成。",
+        previewHint1: "✓ 无需登录即可预览",
+        previewHint2: "✓ 未确认前不会正式递交",
+        previewHint3: "✓ 后面可以随时全部修改",
         lblTaskType: "任务类型",
         lblTaskTypeBadge: "从左侧自动带入",
         lblLanguage: "写作语言",
@@ -1148,15 +1147,13 @@
         lblRecipient: "收件方（可选）",
         lblDetails: "简单讲讲发生了什么",
         btnExample: "粘贴一个示例案例",
-        btnPreview: "AI 生成预览",
+        btnPreview: "生成预览草稿",
         statusDefault:
-          "AI 将生成约 30% 的预览草稿，不会保存也不会发送。",
+          "系统会生成约 30% 的预览草稿，不会保存也不会发送。",
         previewPlaceholder:
-          "AI 生成的 30% 预览内容会显示在这里。它不会被保存，也不会发给任何人。确认方向后，你可以打开完整任务台，在更私密的环境中继续完善。"
+          "预览草稿会显示在这里。它不会被保存，也不会发给任何人。确认方向后，你可以在完整任务台中，在更私密的环境继续完善。"
       }
     };
-
-    const langButtons = document.querySelectorAll(".lang-btn");
 
     function applyLang(lang) {
       const t = i18n[lang] || i18n.en;
@@ -1183,13 +1180,13 @@
       document.getElementById("serviceCardMini").textContent =
         t.serviceCardMini;
 
-      document.getElementById("aiTitle").firstChild.textContent =
-        t.aiTitle + " ";
-      document.getElementById("aiTitlePill").textContent = t.aiTitlePill;
-      document.getElementById("aiSubtitle").textContent = t.aiSubtitle;
-      document.getElementById("aiHint1").textContent = t.aiHint1;
-      document.getElementById("aiHint2").textContent = t.aiHint2;
-      document.getElementById("aiHint3").textContent = t.aiHint3;
+      document.getElementById("previewTitle").firstChild.textContent =
+        t.previewTitle + " ";
+      document.getElementById("previewTitlePill").textContent = t.previewTitlePill;
+      document.getElementById("previewSubtitle").textContent = t.previewSubtitle;
+      document.getElementById("previewHint1").textContent = t.previewHint1;
+      document.getElementById("previewHint2").textContent = t.previewHint2;
+      document.getElementById("previewHint3").textContent = t.previewHint3;
 
       document.getElementById("lblTaskType").textContent = t.lblTaskType;
       document.getElementById("lblTaskTypeBadge").textContent =
@@ -1200,10 +1197,10 @@
       document.getElementById("lblDetails").textContent = t.lblDetails;
       document.getElementById("btnPasteExampleText").textContent =
         t.btnExample;
-      document.getElementById("aiGenerateBtnText").textContent =
+      document.getElementById("previewGenerateBtnText").textContent =
         t.btnPreview;
-      document.getElementById("aiStatusText").textContent = t.statusDefault;
-      document.getElementById("aiPreviewPlaceholder").textContent =
+      document.getElementById("previewStatusText").textContent = t.statusDefault;
+      document.getElementById("previewPlaceholder").textContent =
         t.previewPlaceholder;
 
       langButtons.forEach((b) => {
