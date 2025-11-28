@@ -5,7 +5,6 @@
   <title>Aurum Admin — Internal Desk</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Chart.js 用于图表 -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <style>
@@ -36,11 +35,8 @@
         radial-gradient(circle at top left, #020617 0%, #020617 45%, #000 100%);
       color: var(--text-main);
     }
-    .hidden {
-      display: none !important;
-    }
+    .hidden { display: none !important; }
 
-    /* 顶部环境标签 */
     .env-tag {
       position: fixed;
       top: 10px;
@@ -52,7 +48,7 @@
       z-index: 20;
     }
 
-    /* ========== 登录视图 ========== */
+    /* 登录视图 */
     #login-view {
       min-height: 100vh;
       display: flex;
@@ -143,9 +139,7 @@
       transition: border-color 0.16s ease, box-shadow 0.16s ease,
         background 0.16s ease, transform 0.05s ease;
     }
-    .input::placeholder {
-      color: #6b7280;
-    }
+    .input::placeholder { color: #6b7280; }
     .input:focus {
       border-color: rgba(251, 191, 36, 0.95);
       box-shadow:
@@ -205,15 +199,10 @@
       line-height: 1.6;
       min-height: 18px;
     }
-    .login-status.error {
-      color: #fecaca;
-    }
-    .login-status.success {
-      color: #bbf7d0;
-    }
-    .login-status.muted {
-      color: var(--text-sub);
-    }
+    .login-status.error { color: #fecaca; }
+    .login-status.success { color: #bbf7d0; }
+    .login-status.muted { color: var(--text-sub); }
+
     .login-hint {
       margin-top: 14px;
       padding-top: 11px;
@@ -233,7 +222,7 @@
       color: #eab308;
     }
 
-    /* ========== Dashboard 布局 ========== */
+    /* Dashboard 布局 */
     #dashboard-view {
       min-height: 100vh;
       display: flex;
@@ -582,40 +571,28 @@
       color: var(--accent-gold);
     }
 
-    .scroll-y {
-      overflow-y: auto;
-    }
+    .scroll-y { overflow-y: auto; }
 
     @media (max-width: 980px) {
-      .shell {
-        flex-direction: column;
-      }
+      .shell { flex-direction: column; }
       .sidebar {
         width: 100%;
         flex-direction: row;
         flex-wrap: wrap;
         min-height: 0;
       }
-      .side-table-wrapper {
-        max-height: 220px;
-      }
-      .charts-grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
+      .side-table-wrapper { max-height: 220px; }
+      .charts-grid { grid-template-columns: minmax(0, 1fr); }
     }
     @media (max-width: 720px) {
-      .metrics-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
+      .metrics-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
     @media (max-width: 580px) {
       .main-header {
         flex-direction: column;
         align-items: flex-start;
       }
-      .metrics-grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
+      .metrics-grid { grid-template-columns: minmax(0, 1fr); }
     }
   </style>
 </head>
@@ -635,7 +612,7 @@
 
       <div class="login-title">Aurum Task Desk 后台</div>
       <div class="login-subtitle">
-        输入你的 <strong>管理员密码</strong> 登录，然后查看站点用户总数、近 7 天新增、套餐分布等基础数据。
+        输入你的 <strong>管理员密码</strong> 登录，然后查看站点用户总数、近 7 天新增、套餐分布、IP 和国家等信息。
       </div>
 
       <form id="admin-form">
@@ -666,7 +643,7 @@
   <!-- Dashboard 视图 -->
   <div id="dashboard-view" class="hidden">
     <div class="shell">
-      <!-- 左侧侧边栏 -->
+      <!-- 侧边栏 -->
       <aside class="sidebar">
         <div>
           <div class="sidebar-header">
@@ -709,11 +686,12 @@
                   <th>#</th>
                   <th>Email</th>
                   <th>Plan</th>
+                  <th>Country</th>
                 </tr>
               </thead>
               <tbody id="side-mini-users">
                 <tr>
-                  <td colspan="3" style="text-align:center; color:#6b7280;">暂无数据</td>
+                  <td colspan="4" style="text-align:center; color:#6b7280;">暂无数据</td>
                 </tr>
               </tbody>
             </table>
@@ -721,14 +699,12 @@
         </div>
       </aside>
 
-      <!-- 右侧主内容 -->
+      <!-- 主内容 -->
       <main class="main">
         <div class="main-header">
           <div class="main-title-block">
             <h1>Aurum Task Desk 后台总览</h1>
-            <p id="dash-subtitle">
-              正在加载数据…
-            </p>
+            <p id="dash-subtitle">正在加载数据…</p>
           </div>
           <div class="main-header-actions">
             <button class="btn-ghost" id="refresh-btn">刷新数据</button>
@@ -777,7 +753,7 @@
           </div>
         </div>
 
-        <!-- 表格 -->
+        <!-- 用户表格 -->
         <div class="table-card">
           <div class="table-header">
             <div>
@@ -791,13 +767,15 @@
                 <tr>
                   <th style="width:40px;">ID</th>
                   <th>Email</th>
-                  <th style="width:80px;">Plan</th>
+                  <th style="width:70px;">Plan</th>
+                  <th style="width:120px;">IP</th>
+                  <th style="width:70px;">国家</th>
                   <th style="width:150px;">创建时间</th>
                 </tr>
               </thead>
               <tbody id="users-body">
                 <tr>
-                  <td colspan="4" style="text-align:center; color:#6b7280;">正在加载…</td>
+                  <td colspan="6" style="text-align:center; color:#6b7280;">正在加载…</td>
                 </tr>
               </tbody>
             </table>
@@ -808,10 +786,8 @@
   </div>
 
   <script>
-    // ✅ 你的 Worker API 根地址
     const ADMIN_API_BASE = "https://aurum-task-worker.sophieinbg.workers.dev";
 
-    // 登录 DOM
     const loginView = document.getElementById("login-view");
     const dashboardView = document.getElementById("dashboard-view");
     const adminForm = document.getElementById("admin-form");
@@ -819,7 +795,6 @@
     const adminBtn = document.getElementById("admin-btn");
     const adminStatus = document.getElementById("admin-status");
 
-    // Dashboard DOM
     const dashSubtitle = document.getElementById("dash-subtitle");
     const refreshBtn = document.getElementById("refresh-btn");
     const logoutBtn = document.getElementById("logout-btn");
@@ -917,9 +892,9 @@
 
       if (!users || users.length === 0) {
         usersBody.innerHTML =
-          '<tr><td colspan="4" style="text-align:center; color:#6b7280;">暂无用户数据</td></tr>';
+          '<tr><td colspan="6" style="text-align:center; color:#6b7280;">暂无用户数据</td></tr>';
         sideMiniUsers.innerHTML =
-          '<tr><td colspan="3" style="text-align:center; color:#6b7280;">暂无用户数据</td></tr>';
+          '<tr><td colspan="4" style="text-align:center; color:#6b7280;">暂无用户数据</td></tr>';
         usersSubtitle.textContent = "暂无用户数据。";
         dashSubtitle.textContent = "暂无用户数据。";
         sideMiniSub.textContent = "暂无用户。";
@@ -929,6 +904,11 @@
       users.forEach((u) => {
         const tr = document.createElement("tr");
         const plan = (u.plan || "free").toLowerCase();
+
+        const ip = u.ip || "-";
+        const country = (u.country || "").toUpperCase() || "-";
+        const ua = u.user_agent || "";
+
         tr.innerHTML = `
           <td>${u.id ?? "-"}</td>
           <td title="${u.email || ""}">${u.email || "-"}</td>
@@ -937,20 +917,23 @@
               ${plan}
             </span>
           </td>
+          <td title="${ua.replace(/"/g, "&quot;")}">${ip}</td>
+          <td>${country}</td>
           <td>${formatTime(u.created_at)}</td>
         `;
         usersBody.appendChild(tr);
       });
 
-      // 侧边栏 mini 列表（最新 5 个）
       const mini = users.slice(0, 5);
       mini.forEach((u, idx) => {
         const plan = (u.plan || "free").toLowerCase();
+        const country = (u.country || "").toUpperCase() || "-";
         const tr = document.createElement("tr");
         tr.innerHTML = `
           <td>${idx + 1}</td>
           <td title="${u.email || ""}">${u.email || "-"}</td>
           <td>${plan}</td>
+          <td>${country}</td>
         `;
         sideMiniUsers.appendChild(tr);
       });
@@ -970,6 +953,8 @@
       let free = 0;
       let latestTs = 0;
 
+      const countryMap = {};
+
       users.forEach((u) => {
         const ts = u.created_at || 0;
         if (ts > latestTs) latestTs = ts;
@@ -977,11 +962,21 @@
         const plan = (u.plan || "free").toLowerCase();
         if (plan === "free") free++;
         else paid++;
+
+        const c = (u.country || "Unknown").toUpperCase();
+        countryMap[c] = (countryMap[c] || 0) + 1;
       });
+
+      const sortedCountries = Object.entries(countryMap)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 3);
+      const countryText = sortedCountries
+        .map(([c, n]) => `${c} × ${n}`)
+        .join(" · ");
 
       metricTotal.textContent = total.toString();
       metricTotalSub.textContent = latestTs
-        ? `最近一位用户：${formatTime(latestTs)}`
+        ? `最近一位：${formatTime(latestTs)} · 前三国家：${countryText || "—"}`
         : "时间戳缺失。";
 
       metricNew7.textContent = new7.toString();
@@ -995,9 +990,7 @@
           : "暂时还没有付费用户。";
 
       sideTotal.textContent = total.toString();
-      sideTotalSub.textContent = latestTs
-        ? `最近：${formatTime(latestTs)}`
-        : "—";
+      sideTotalSub.textContent = latestTs ? `最近：${formatTime(latestTs)}` : "—";
       sideNew7.textContent = new7.toString();
     }
 
@@ -1020,7 +1013,6 @@
         return;
       }
 
-      // 注册趋势（14 天）
       const now = Date.now() / 1000;
       const fourteenDaysAgo = now - 13 * 24 * 3600;
       const dayMap = new Map();
@@ -1083,7 +1075,6 @@
       chartSignupsSub.textContent =
         totalTrend > 0 ? `14 天内共 ${totalTrend} 个注册。` : "14 天内暂无注册。";
 
-      // 套餐分布
       const planCount = {};
       users.forEach((u) => {
         const plan = (u.plan || "free").toLowerCase();
@@ -1121,7 +1112,6 @@
         .join(" · ")}`;
     }
 
-    // 登录事件
     adminForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       const password = adminPasswordInput.value.trim();
