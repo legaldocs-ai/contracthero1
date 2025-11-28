@@ -23,12 +23,13 @@
     }
     .card {
       width: 100%;
-      max-width: 420px;
-      padding: 32px 32px 26px;
+      max-width: 720px;
+      padding: 28px 28px 22px;
       border-radius: 24px;
       background: radial-gradient(circle at top left, #111827 0%, #020617 55%);
-      box-shadow: 0 22px 60px rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(148, 163, 184, 0.35);
+      box-shadow:
+        0 22px 80px rgba(15, 23, 42, 0.95),
+        0 0 0 1px rgba(148, 163, 184, 0.12);
       position: relative;
       overflow: hidden;
     }
@@ -36,267 +37,493 @@
       content: "";
       position: absolute;
       inset: -120px;
-      background: radial-gradient(circle at top left, rgba(250, 204, 21, 0.12), transparent 55%);
+      background:
+        radial-gradient(circle at 10% 0%, rgba(251, 191, 36, 0.12), transparent 60%),
+        radial-gradient(circle at 90% 0%, rgba(56, 189, 248, 0.12), transparent 60%);
       opacity: 0.9;
       pointer-events: none;
+      z-index: -1;
     }
-    .card-inner {
-      position: relative;
-      z-index: 1;
+    .badge-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
     }
-    .tag-row {
+    .badge {
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      color: #e5e7eb;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      margin-bottom: 12px;
+      gap: 6px;
     }
-    .tag-main {
-      padding: 6px 12px;
+    .badge-dot {
+      width: 6px;
+      height: 6px;
       border-radius: 999px;
-      border: 1px solid rgba(250, 204, 21, 0.5);
-      background: rgba(15, 23, 42, 0.9);
-      font-size: 11px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: #facc15;
+      background: radial-gradient(circle, #fbbf24, #f97316);
+      box-shadow: 0 0 8px rgba(251, 191, 36, 0.8);
     }
-    .tag-sub {
-      padding: 4px 8px;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.8);
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      font-size: 10px;
+    .badge.secondary {
+      border-color: rgba(148, 163, 184, 0.35);
       color: #9ca3af;
     }
     h1 {
       font-size: 22px;
-      font-weight: 650;
-      color: #f9fafb;
+      line-height: 1.3;
       margin-bottom: 4px;
     }
     .subtitle {
       font-size: 13px;
       color: #9ca3af;
-      margin-bottom: 18px;
-      line-height: 1.6;
+      line-height: 1.5;
+      margin-bottom: 20px;
     }
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 260px) minmax(0, 1fr);
+      gap: 20px;
+      align-items: flex-start;
+    }
+    @media (max-width: 720px) {
+      .card {
+        max-width: 100%;
+        margin: 0 12px;
+      }
+      .layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
     label {
-      font-size: 12px;
-      color: #9ca3af;
+      font-size: 13px;
+      color: #e5e7eb;
       margin-bottom: 6px;
-      display: block;
+      display: inline-block;
     }
-    input[type="password"] {
+    .input {
       width: 100%;
-      padding: 10px 12px;
+      padding: 11px 13px;
       border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.6);
+      border: 1px solid rgba(148, 163, 184, 0.5);
       background: rgba(15, 23, 42, 0.9);
       color: #e5e7eb;
       font-size: 14px;
       outline: none;
-      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease,
+        background 0.15s ease;
     }
-    input[type="password"]:focus {
-      border-color: rgba(250, 204, 21, 0.9);
-      box-shadow: 0 0 0 1px rgba(250, 204, 21, 0.6);
+    .input::placeholder {
+      color: #6b7280;
     }
+    .input:focus {
+      border-color: rgba(251, 191, 36, 0.95);
+      box-shadow:
+        0 0 0 1px rgba(251, 191, 36, 0.6),
+        0 0 24px rgba(251, 191, 36, 0.35);
+      background: rgba(15, 23, 42, 1);
+    }
+
     .btn {
-      margin-top: 14px;
       width: 100%;
-      border: none;
+      margin-top: 14px;
+      padding: 11px 16px;
       border-radius: 999px;
-      padding: 10px 18px;
+      border: none;
+      cursor: pointer;
       font-size: 14px;
       font-weight: 600;
-      cursor: pointer;
-      background: linear-gradient(135deg, #facc15, #d97706);
+      letter-spacing: 0.03em;
+      text-align: center;
       color: #111827;
-      box-shadow: 0 14px 35px rgba(202, 138, 4, 0.55);
-      transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;
+      background: radial-gradient(circle at 10% 0%, #fde68a, #f59e0b 45%, #ea580c 100%);
+      box-shadow:
+        0 16px 40px rgba(234, 179, 8, 0.55),
+        0 0 0 1px rgba(248, 250, 252, 0.12),
+        0 0 24px rgba(234, 179, 8, 0.65);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.08s ease-out, box-shadow 0.12s ease-out;
     }
     .btn:hover {
       transform: translateY(-1px);
-      filter: brightness(1.03);
-      box-shadow: 0 18px 45px rgba(202, 138, 4, 0.7);
+      box-shadow:
+        0 20px 48px rgba(234, 179, 8, 0.7),
+        0 0 0 1px rgba(248, 250, 252, 0.18);
     }
     .btn:active {
       transform: translateY(0);
-      box-shadow: 0 8px 20px rgba(202, 138, 4, 0.5);
+      box-shadow:
+        0 10px 30px rgba(234, 179, 8, 0.5),
+        0 0 0 1px rgba(248, 250, 252, 0.16);
     }
+    .btn[disabled] {
+      opacity: 0.6;
+      cursor: default;
+      transform: none;
+      box-shadow:
+        0 8px 20px rgba(15, 23, 42, 0.9),
+        0 0 0 1px rgba(148, 163, 184, 0.35);
+    }
+    .btn-secondary {
+      margin-top: 8px;
+      background: transparent;
+      color: #e5e7eb;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      box-shadow: none;
+    }
+    .btn-secondary:hover {
+      background: rgba(15, 23, 42, 0.9);
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.9);
+    }
+
     .status {
       margin-top: 10px;
       font-size: 12px;
+      line-height: 1.6;
       min-height: 18px;
     }
     .status.error {
       color: #f97373;
     }
-    .status.ok {
+    .status.success {
       color: #bbf7d0;
     }
+    .status.muted {
+      color: #6b7280;
+    }
+
     .hint {
-      margin-top: 10px;
-      padding-top: 8px;
-      border-top: 1px dashed rgba(55, 65, 81, 0.85);
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px dashed rgba(55, 65, 81, 0.9);
       font-size: 11px;
-      color: #9ca3af;
+      color: #6b7280;
       line-height: 1.6;
     }
-    .users-panel {
-      margin-top: 18px;
-      padding: 10px 12px;
-      border-radius: 14px;
-      background: radial-gradient(circle at top, rgba(15,23,42,0.95), rgba(15,23,42,0.85));
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      max-height: 260px;
-      overflow: auto;
-      font-size: 12px;
-    }
-    .users-panel h2 {
-      font-size: 12px;
-      font-weight: 600;
+    .hint strong {
       color: #e5e7eb;
-      margin-bottom: 6px;
+      font-weight: 500;
     }
-    .user-row {
+    .hint code {
+      font-family: "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono",
+        "Courier New", monospace;
+      font-size: 11px;
+      padding: 2px 4px;
+      border-radius: 4px;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      color: #eab308;
+    }
+
+    .panel {
+      padding: 10px 12px;
+      border-radius: 18px;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.9), #020617);
+    }
+    .panel-header {
       display: flex;
       justify-content: space-between;
-      gap: 8px;
-      padding: 4px 0;
-      border-bottom: 1px dashed rgba(55, 65, 81, 0.7);
+      align-items: center;
+      margin-bottom: 8px;
     }
-    .user-row:last-child {
-      border-bottom: none;
-    }
-    .user-email {
+    .panel-title {
+      font-size: 13px;
+      font-weight: 600;
       color: #e5e7eb;
     }
-    .user-time {
-      color: #9ca3af;
+    .panel-sub {
+      font-size: 11px;
+      color: #6b7280;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 6px;
+      font-size: 11px;
+    }
+    th, td {
+      padding: 6px 6px;
+      text-align: left;
+      border-bottom: 1px solid rgba(31, 41, 55, 0.9);
       white-space: nowrap;
+    }
+    th {
+      font-size: 11px;
+      color: #9ca3af;
+      font-weight: 500;
+    }
+    td {
+      color: #e5e7eb;
+      max-width: 220px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .pill-plan {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      color: #e5e7eb;
+    }
+    .pill-plan.free {
+      border-color: rgba(148, 163, 184, 0.5);
+      color: #9ca3af;
+    }
+    .pill-plan.paid {
+      border-color: rgba(234, 179, 8, 0.8);
+      color: #facc15;
+    }
+
+    .top-right-tag {
+      position: fixed;
+      top: 13px;
+      right: 16px;
+      font-size: 11px;
+      color: #6b7280;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
     }
   </style>
 </head>
 <body>
+  <div class="top-right-tag">INTERNAL USE ONLY</div>
+
   <div class="card">
-    <div class="card-inner">
-      <div class="tag-row">
-        <div class="tag-main">AURUM ADMIN</div>
-        <div class="tag-sub">Internal Desk</div>
+    <div class="badge-row">
+      <div class="badge">
+        <span class="badge-dot"></span>
+        AURUM ADMIN
+      </div>
+      <div class="badge secondary">Internal Desk</div>
+    </div>
+
+    <h1>Aurum Task Desk 后台</h1>
+    <div class="subtitle">
+      输入你的 <strong>管理员密码</strong> 登录，然后查看最近注册的用户和基础信息。
+    </div>
+
+    <div class="layout">
+      <!-- 登录区域 -->
+      <div>
+        <form id="admin-form">
+          <label for="admin-password">Admin password</label>
+          <input
+            id="admin-password"
+            class="input"
+            type="password"
+            placeholder="输入后台专用密码"
+            autocomplete="current-password"
+            required
+          />
+
+          <button type="submit" class="btn" id="admin-btn">
+            进入 Aurum Task Desk 后台
+          </button>
+
+          <button type="button" class="btn btn-secondary" id="logout-btn" style="display:none;">
+            登出后台
+          </button>
+
+          <div class="status muted" id="admin-status"></div>
+
+          <div class="hint">
+            提示：密码保存在 Cloudflare Worker 的
+            <code>ADMIN_PASSWORD</code> 环境变量中。<br />
+            只有你知道这个密码。登录成功后，系统会在浏览器里设置
+            <code>admin_session</code> Cookie，用来访问 <code>/admin/users</code>。
+          </div>
+        </form>
       </div>
 
-      <h1>Aurum Task Desk 后台</h1>
-      <div class="subtitle">
-        输入你的 <strong>管理员密码</strong> 来查看注册用户和最近活动。
-      </div>
+      <!-- 数据区域 -->
+      <div class="panel" id="users-panel" style="display:none;">
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">最近注册用户</div>
+            <div class="panel-sub" id="users-subtitle">
+              还没有加载数据。
+            </div>
+          </div>
+          <button type="button" class="btn btn-secondary" id="refresh-btn" style="width:auto; padding:6px 10px; font-size:11px;">
+            刷新数据
+          </button>
+        </div>
 
-      <form id="admin-form">
-        <label for="password">Admin password</label>
-        <input id="password" type="password" autocomplete="current-password" />
-
-        <button class="btn" type="submit">
-          进入 Aurum Task Desk 后台
-        </button>
-      </form>
-
-      <div id="status" class="status"></div>
-
-      <div class="hint">
-        提示：密码保存在 Cloudflare Worker 的 <code>ADMIN_PASSWORD</code> 变量里。
-        只有你知道这个密码。
-      </div>
-
-      <div id="users-panel" class="users-panel" style="display:none;">
-        <h2>注册用户</h2>
-        <div id="users-list"></div>
+        <div style="overflow-x:auto; max-height:260px;">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Email</th>
+                <th>Plan</th>
+                <th>创建时间</th>
+              </tr>
+            </thead>
+            <tbody id="users-body">
+              <!-- JS 填充 -->
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
 
   <script>
-    // 👇 非常关键：后台 API 就是你的 Cloudflare Worker 地址
-    const API_BASE = "https://aurum-task-worker.sophieinbg.workers.dev";
-
     const form = document.getElementById("admin-form");
-    const passwordInput = document.getElementById("password");
-    const statusEl = document.getElementById("status");
+    const passwordInput = document.getElementById("admin-password");
+    const statusEl = document.getElementById("admin-status");
+    const btn = document.getElementById("admin-btn");
+    const logoutBtn = document.getElementById("logout-btn");
     const usersPanel = document.getElementById("users-panel");
-    const usersList = document.getElementById("users-list");
+    const usersBody = document.getElementById("users-body");
+    const usersSubtitle = document.getElementById("users-subtitle");
+    const refreshBtn = document.getElementById("refresh-btn");
 
-    async function fetchUsers() {
+    function setStatus(msg, type) {
+      statusEl.textContent = msg || "";
+      statusEl.className = "status " + (type || "muted");
+    }
+
+    function formatTime(ts) {
+      if (!ts) return "-";
+      // 你的 created_at 是秒
+      const d = new Date(ts * 1000);
+      return d.toLocaleString("zh-CN", { hour12: false });
+    }
+
+    function renderUsers(users) {
+      usersBody.innerHTML = "";
+      if (!users || users.length === 0) {
+        usersBody.innerHTML =
+          '<tr><td colspan="4" style="text-align:center; color:#6b7280;">暂无用户数据</td></tr>';
+        usersSubtitle.textContent = "暂无用户数据。";
+        return;
+      }
+      users.forEach((u) => {
+        const tr = document.createElement("tr");
+        const plan = (u.plan || "free").toLowerCase();
+        tr.innerHTML = `
+          <td>${u.id ?? "-"}</td>
+          <td title="${u.email || ""}">${u.email || "-"}</td>
+          <td>
+            <span class="pill-plan ${plan === "free" ? "free" : "paid"}">
+              ${plan}
+            </span>
+          </td>
+          <td>${formatTime(u.created_at)}</td>
+        `;
+        usersBody.appendChild(tr);
+      });
+      usersSubtitle.textContent = `共 ${users.length} 个用户（按注册时间倒序，最多 200 条）。`;
+    }
+
+    async function loadUsers() {
       try {
-        const res = await fetch(API_BASE + "/admin/users", {
+        usersSubtitle.textContent = "正在加载用户数据…";
+        const res = await fetch("/admin/users", {
           method: "GET",
-          headers: { "Content-Type": "application/json" }
+          // 同域，不需要 credentials: "include"
         });
-        const data = await res.json();
-        if (!data.users) {
-          usersPanel.style.display = "none";
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) {
+          if (res.status === 401) {
+            usersSubtitle.textContent = "未授权，请先在左侧登录后台。";
+            usersPanel.style.display = "none";
+            logoutBtn.style.display = "none";
+            return;
+          }
+          usersSubtitle.textContent = (data && data.error) || "加载失败。";
           return;
         }
-        usersList.innerHTML = "";
-        data.users.forEach((u) => {
-          const row = document.createElement("div");
-          row.className = "user-row";
-          const email = document.createElement("div");
-          email.className = "user-email";
-          email.textContent = u.email;
-          const t = document.createElement("div");
-          t.className = "user-time";
-          const ts = u.created_at
-            ? new Date(u.created_at * 1000).toLocaleString()
-            : "";
-          t.textContent = ts;
-          row.appendChild(email);
-          row.appendChild(t);
-          usersList.appendChild(row);
-        });
+        // 你的后端返回 { users: [...] }
+        const users = data.users || [];
         usersPanel.style.display = "block";
+        logoutBtn.style.display = "inline-block";
+        renderUsers(users);
+        setStatus("已登录后台，可在右侧查看用户列表。", "success");
       } catch (err) {
         console.error(err);
+        usersSubtitle.textContent = "网络异常，无法获取用户数据。";
       }
     }
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
-      const pwd = passwordInput.value.trim();
-      statusEl.textContent = "";
-      statusEl.className = "status";
-
-      if (!pwd) {
-        statusEl.textContent = "请输入管理员密码。";
-        statusEl.classList.add("error");
+      const password = passwordInput.value.trim();
+      if (!password) {
+        setStatus("请输入密码。", "error");
         return;
       }
 
+      btn.disabled = true;
+      setStatus("正在校验管理员密码…", "muted");
+
       try {
-        const res = await fetch(API_BASE + "/admin/login", {
+        const res = await fetch("/admin/login", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ password: pwd })
+          body: JSON.stringify({ password }),
         });
 
-        const data = await res.json();
+        const data = await res.json().catch(() => ({}));
 
         if (!res.ok || !data.ok) {
-          statusEl.textContent = data.error || "登录失败，请检查密码。";
-          statusEl.classList.add("error");
+          const msg =
+            (data && data.error) ||
+            (res.status === 401 ? "密码错误，请重试。" : "请求失败，请稍后再试。");
+          setStatus(msg, "error");
           usersPanel.style.display = "none";
-          return;
+          logoutBtn.style.display = "none";
+        } else {
+          setStatus("验证成功，正在加载用户数据…", "success");
+          // 登录成功会在 Cookie 里写入 admin_session=ok
+          await loadUsers();
         }
-
-        statusEl.textContent = "登录成功，正在载入注册用户…";
-        statusEl.classList.add("ok");
-
-        // 登录成功以后拉取用户列表
-        await fetchUsers();
       } catch (err) {
         console.error(err);
-        statusEl.textContent = "请求失败，请稍后再试。";
-        statusEl.classList.add("error");
+        setStatus("网络异常，请检查 Worker 是否在线。", "error");
+      } finally {
+        btn.disabled = false;
       }
     });
+
+    logoutBtn.addEventListener("click", async () => {
+      try {
+        const res = await fetch("/admin/logout", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+        });
+        const data = await res.json().catch(() => ({}));
+        if (res.ok && data.ok) {
+          setStatus("已登出后台。", "muted");
+          usersPanel.style.display = "none";
+          logoutBtn.style.display = "none";
+        } else {
+          setStatus("登出失败，但不会影响安全。", "error");
+        }
+      } catch (err) {
+        console.error(err);
+        setStatus("网络异常，登出失败。", "error");
+      }
+    });
+
+    refreshBtn.addEventListener("click", () => {
+      loadUsers();
+    });
+
+    // 页面打开时，尝试直接加载一次（如果已有 admin_session=ok 会直接看到数据）
+    loadUsers();
   </script>
 </body>
 </html>
