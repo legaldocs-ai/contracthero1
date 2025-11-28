@@ -70,7 +70,7 @@
       background:
         radial-gradient(circle at top, rgba(56, 189, 248, 0.18), transparent 55%),
         radial-gradient(circle at right, rgba(251, 191, 36, 0.18), transparent 55%);
-      opacity: 0.9;
+      opacity: 0.5;
       pointer-events: none;
       z-index: -2;
     }
@@ -79,8 +79,8 @@
       position: fixed;
       inset: 0;
       background-image: linear-gradient(
-          rgba(15, 23, 42, 0.72),
-          rgba(15, 23, 42, 0.96)
+          rgba(15, 23, 42, 0.55),
+          rgba(15, 23, 42, 0.85)
         );
       mix-blend-mode: multiply;
       pointer-events: none;
@@ -262,7 +262,7 @@
       background:
         radial-gradient(circle at top left, rgba(56, 189, 248, 0.18), transparent 55%),
         radial-gradient(circle at bottom right, rgba(251, 191, 36, 0.16), transparent 55%),
-        linear-gradient(135deg, rgba(15, 23, 42, 0.92), rgba(15, 23, 42, 0.98));
+        linear-gradient(135deg, rgba(15, 23, 42, 0.88), rgba(15, 23, 42, 0.96));
       border: 1px solid rgba(148, 163, 184, 0.5);
       box-shadow: var(--shadow-soft);
       position: relative;
@@ -539,21 +539,6 @@
         0 0 0 1px rgba(15, 23, 42, 0.9);
     }
 
-    .avatar-badge {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      border-radius: 999px;
-      background: radial-gradient(circle at top, rgba(2, 6, 23, 0.96), rgba(15, 23, 42, 0.98));
-      border: 1px solid rgba(56, 189, 248, 0.9);
-      padding: 4px 8px;
-      font-size: 0.7rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      z-index: 3;
-      color: var(--text-main);
-    }
     .avatar-badge span.dot {
       width: 6px;
       height: 6px;
@@ -986,13 +971,9 @@
               <div class="avatar-main">
                 <img
                   id="avatar-img"
-                  src="https://images.pexels.com/photos/5668773/pexels-photo-5668773.jpeg?auto=compress&cs=tinysrgb&w=600"
+                  src="https://images.pexels.com/photos/3186554/pexels-photo-3186554.jpeg?auto=compress&cs=tinysrgb&w=600"
                   alt="Professional lawyer-style portrait"
                 />
-                <div class="avatar-badge">
-                  <span class="dot"></span>
-                  <span data-i18n-key="badge">Lawyer-style tone</span>
-                </div>
                 <div class="avatar-meta">
                   <div class="avatar-meta-name" id="avatar-name">Michael R., 52</div>
                   <div class="avatar-meta-role" id="avatar-role">
@@ -1351,19 +1332,19 @@
     // Avatar slider (simple auto-rotate)
     const avatars = [
       {
-        img: "https://images.pexels.com/photos/5668773/pexels-photo-5668773.jpeg?auto=compress&cs=tinysrgb&w=600",
+        img: "https://images.pexels.com/photos/3186554/pexels-photo-3186554.jpeg?auto=compress&cs=tinysrgb&w=600",
         name: "Michael R., 52",
         role: "US-based operations manager needing immigration & insurance letters.",
         note: "Uses Aurum Desk for immigration RFE explanation and airline delay refund letters."
       },
       {
-        img: "https://images.pexels.com/photos/5668517/pexels-photo-5668517.jpeg?auto=compress&cs=tinysrgb&w=600",
+        img: "https://images.pexels.com/photos/3760851/pexels-photo-3760851.jpeg?auto=compress&cs=tinysrgb&w=600",
         name: "David L., 58",
         role: "European small business owner dealing with contract disputes and unpaid invoices.",
         note: "Relies on the desk for legal-style contract notices and escalation letters to clients."
       },
       {
-        img: "https://images.pexels.com/photos/5225436/pexels-photo-5225436.jpeg?auto=compress&cs=tinysrgb&w=600",
+        img: "https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=600",
         name: "Thomas K., 61",
         role: "Retired engineer facing unfair insurance and airline decisions.",
         note: "Uses the desk for structured claim letters and complaint escalations."
@@ -1418,7 +1399,6 @@
         chip1: "上传截图或简单描述事情经过",
         chip2: "告诉我们写给谁、希望得到什么结果",
         chip3: "收到结构完整、可以直接提交的英文信件",
-        badge: "律师风格语气",
         whyLabel: "为什么需要这个 Desk？",
         whyTitle: "为有真实麻烦的 40+ 欧美用户准备",
         whyPill: "不是玩具型 AI",
