@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Aurum Task Desk — Private AI Writing & Resolution Desk</title>
+  <title>Aurum Task Desk — Preview & Full Letter Desk</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- Favicon -->
   <link rel="icon" href="favicon.png" />
   <link rel="icon" type="image/png" href="favicon.png" />
 
-  <!-- Google tag (gtag.js) — keep as in your original site if needed -->
+  <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-NEY7RNB5S"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -18,98 +18,45 @@
     gtag('config', 'G-NEY7RNB5S');
   </script>
 
-  <!-- Basic SEO -->
-  <meta
-    name="description"
-    content="Aurum Task Desk is a private AI writing & resolution desk for 40+ US & EU professionals — legal-style letters, immigration explanations, insurance claims, family crisis letters, and complaint escalation."
-  />
-
   <style>
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
-
     :root {
       --bg-deep: #020617;
-      --bg-soft: #020b2a;
-      --card: #020816;
-      --gold: #fbbf24;
-      --gold-soft: rgba(251, 191, 36, 0.18);
+      --bg-card: #020617;
       --border-subtle: rgba(148, 163, 184, 0.35);
       --text-main: #e5e7eb;
-      --text-muted: #9ca3af;
+      --text-soft: #cbd5f5;
+      --gold: #fbbf24;
       --accent-blue: #38bdf8;
-      --danger: #f97373;
-      --shadow-soft: 0 22px 60px rgba(15, 23, 42, 0.9);
+      --shadow-strong: 0 32px 120px rgba(0,0,0,0.9);
       --radius-xl: 24px;
-    }
-
-    html {
-      scroll-behavior: smooth;
+      --radius-lg: 16px;
+      --radius-pill: 999px;
+      --blur-strong: 40px;
     }
 
     body {
+      min-height: 100vh;
       font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui,
         "Segoe UI", sans-serif;
-      min-height: 100vh;
+      background:
+        radial-gradient(circle at top, #020617 0%, #020617 40%, #000 100%);
       color: var(--text-main);
-      background:
-        radial-gradient(circle at top left, #0b1120 0%, #020617 40%, #000 80%);
-      overflow-x: hidden;
+      display: flex;
+      justify-content: center;
+      padding: 24px 12px 48px;
     }
-
     .page-shell {
-      min-height: 100vh;
-      position: relative;
-      isolation: isolate;
-    }
-
-    /* Subtle gradient overlay + grid */
-    .page-shell::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background:
-        radial-gradient(circle at top, rgba(56, 189, 248, 0.18), transparent 55%),
-        radial-gradient(circle at right, rgba(251, 191, 36, 0.18), transparent 55%);
-      opacity: 0.5;
-      pointer-events: none;
-      z-index: -2;
-    }
-    .page-shell::after {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background-image: linear-gradient(
-          rgba(15, 23, 42, 0.55),
-          rgba(15, 23, 42, 0.85)
-        );
-      mix-blend-mode: multiply;
-      pointer-events: none;
-      z-index: -1;
-    }
-
-    .content {
+      width: 100%;
       max-width: 1120px;
       margin: 0 auto;
-      padding: 20px 16px 72px;
     }
 
-    /* Simple animations */
-    @keyframes softPulse {
-      0% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.4); }
-      100% { box-shadow: 0 0 0 10px rgba(56, 189, 248, 0); }
-    }
-
-    @keyframes floatUp {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-3px); }
-      100% { transform: translateY(0); }
-    }
-
-    /* Header */
+    /* === 顶部导航样式：和首页保持一致 === */
     header {
       display: flex;
       align-items: center;
@@ -153,7 +100,6 @@
       box-shadow:
         0 0 0 1px rgba(148, 163, 184, 0.9),
         0 0 40px rgba(14, 165, 233, 0.8);
-      animation: softPulse 2.8s ease-out infinite;
     }
 
     .brand-mark-inner {
@@ -185,7 +131,7 @@
 
     .brand-sub {
       font-size: 0.72rem;
-      color: var(--text-muted);
+      color: var(--text-soft);
       letter-spacing: 0.06em;
       text-transform: uppercase;
     }
@@ -200,12 +146,11 @@
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
+      gap: 12px;
     }
 
     .nav-link {
-      color: var(--text-muted);
+      color: var(--text-soft);
       text-decoration: none;
       padding: 4px 10px;
       border-radius: 999px;
@@ -220,7 +165,6 @@
       background: radial-gradient(circle at top, rgba(15, 23, 42, 0.9), rgba(2, 6, 23, 0.9));
     }
 
-    /* 当前页面高亮 */
     .nav-link--active {
       color: var(--gold);
       border-color: rgba(251, 191, 36, 0.8);
@@ -240,7 +184,7 @@
       padding: 4px 10px;
       border: none;
       background: transparent;
-      color: var(--text-muted);
+      color: var(--text-soft);
       cursor: pointer;
       transition: all 0.14s ease-out;
     }
@@ -275,671 +219,13 @@
         0 12px 30px rgba(8, 47, 73, 0.9);
     }
 
-    /* Layout: hero + main sections */
-    .hero-and-main {
-      display: grid;
-      grid-template-columns: minmax(0, 3fr);
-      gap: 22px;
-    }
-
-    .hero {
-      border-radius: var(--radius-xl);
-      padding: 24px 22px 22px;
-      background:
-        radial-gradient(circle at top left, rgba(56, 189, 248, 0.18), transparent 55%),
-        radial-gradient(circle at bottom right, rgba(251, 191, 36, 0.16), transparent 55%),
-        linear-gradient(135deg, rgba(15, 23, 42, 0.88), rgba(15, 23, 42, 0.96));
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      box-shadow: var(--shadow-soft);
-      position: relative;
-      overflow: hidden;
-      animation: floatUp 9s ease-in-out infinite;
-    }
-
-    .hero::before {
-      content: "";
-      position: absolute;
-      inset: -2px;
-      border-radius: inherit;
-      background-image: radial-gradient(circle at top, rgba(248, 250, 252, 0.05), transparent 55%);
-      opacity: 0.4;
-      pointer-events: none;
-    }
-
-    .hero-inner {
-      position: relative;
-      display: grid;
-      grid-template-columns: minmax(0, 3fr) minmax(0, 2.2fr);
-      gap: 24px;
-      z-index: 1;
-    }
-
-    .pill-row {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: radial-gradient(circle at left, rgba(56, 189, 248, 0.2), rgba(15, 23, 42, 0.95));
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      margin-bottom: 10px;
-      position: relative;
-      overflow: hidden;
-    }
-    .pill-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: #22c55e;
-      box-shadow: 0 0 12px rgba(34, 197, 94, 0.9);
-    }
-    .pill-highlight {
-      color: #e5e7eb;
-      font-weight: 500;
-    }
-
-    .urgent-strip {
-      margin-bottom: 10px;
-      border-radius: 999px;
-      padding: 5px 10px;
-      font-size: 0.76rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: radial-gradient(circle at left, rgba(250, 204, 21, 0.12), rgba(15, 23, 42, 0.96));
-      border: 1px dashed rgba(234, 179, 8, 0.7);
-    }
-    .urgent-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: #f97316;
-      box-shadow: 0 0 18px rgba(248, 113, 113, 0.9);
-    }
-
-    h1 {
-      font-size: clamp(1.7rem, 1.3rem + 1.4vw, 2.1rem);
-      line-height: 1.2;
-      margin-bottom: 10px;
-    }
-    h1 span.accent {
-      background: linear-gradient(135deg, #eab308, #fbbf24, #38bdf8);
-      -webkit-background-clip: text;
-      color: transparent;
-    }
-
-    .hero-sub {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      max-width: 32rem;
-      line-height: 1.6;
-      margin-bottom: 14px;
-    }
-
-    .trust-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      align-items: center;
-      font-size: 0.75rem;
-      margin-bottom: 18px;
-    }
-    .trust-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 9px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.98));
-      color: var(--text-muted);
-    }
-    .trust-tag .dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: var(--gold);
-      box-shadow: 0 0 12px rgba(251, 191, 36, 0.9);
-    }
-
-    .hero-cta-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 14px;
-    }
-
-    .btn-primary {
-      position: relative;
-      padding: 10px 18px;
-      border-radius: 999px;
-      border: none;
-      font-size: 0.9rem;
-      font-weight: 600;
-      cursor: pointer;
-      color: #020617;
-      background: linear-gradient(135deg, #fbbf24, #eab308);
-      box-shadow:
-        0 0 0 1px rgba(251, 191, 36, 0.75),
-        0 18px 40px rgba(8, 47, 73, 0.9);
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      text-decoration: none;
-    }
-    .btn-primary:hover {
-      transform: translateY(-1px);
-      box-shadow:
-        0 0 0 1px rgba(251, 191, 36, 0.9),
-        0 22px 50px rgba(8, 47, 73, 1);
-    }
-
-    .btn-ghost {
-      padding: 9px 16px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.94), rgba(15, 23, 42, 0.98));
-      color: var(--text-main);
-      font-size: 0.85rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      cursor: pointer;
-      text-decoration: none;
-      transition: all 0.18s ease-out;
-    }
-    .btn-ghost:hover {
-      border-color: rgba(251, 191, 36, 0.9);
-      color: #fefce8;
-      box-shadow: 0 14px 34px rgba(15, 23, 42, 0.9);
-    }
-
-    .hero-steps {
-      margin-top: 8px;
-      border-radius: 14px;
-      padding: 8px 10px;
-      background: radial-gradient(circle at left, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.98));
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      font-size: 0.74rem;
-      color: var(--text-muted);
-    }
-    .hero-step-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 8px;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(31, 41, 55, 0.9);
-    }
-    .hero-step-chip span.num {
-      width: 16px;
-      height: 16px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.7rem;
-      color: var(--gold);
-    }
-
-    /* Avatar / case list */
-    .hero-avatars {
-      position: relative;
-      border-radius: 22px;
-      background:
-        radial-gradient(circle at top left, rgba(15, 23, 42, 0.92), rgba(15, 23, 42, 0.98));
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      padding: 12px;
-      box-shadow:
-        0 18px 60px rgba(15, 23, 42, 0.9),
-        0 0 0 1px rgba(15, 23, 42, 0.9);
-      overflow: hidden;
-      min-height: 260px;
-    }
-
-    .hero-avatars::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      background:
-        radial-gradient(circle at top, rgba(56, 189, 248, 0.18), transparent 60%),
-        radial-gradient(circle at bottom, rgba(251, 191, 36, 0.22), transparent 55%);
-      mix-blend-mode: screen;
-      opacity: 0.6;
-      pointer-events: none;
-    }
-
-    .case-list {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      font-size: 0.78rem;
-    }
-    .case-item {
-      border-radius: 14px;
-      padding: 9px 10px;
-      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.98));
-      border: 1px solid rgba(148, 163, 184, 0.55);
-      transition: all 0.2s ease-out;
-    }
-    .case-item:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 18px 36px rgba(15, 23, 42, 0.9);
-      border-color: rgba(251, 191, 36, 0.8);
-    }
-    .case-tag {
-      font-size: 0.7rem;
-      color: var(--text-muted);
-      margin-bottom: 2px;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
-    .case-title {
-      font-weight: 600;
-      margin-bottom: 2px;
-    }
-    .case-desc {
-      font-size: 0.74rem;
-      color: var(--text-muted);
-      line-height: 1.5;
-    }
-
-    .avatar-strip {
-      margin-top: 10px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.72rem;
-      color: var(--text-muted);
-    }
-    .avatar-stack {
-      display: flex;
-      align-items: center;
-    }
-    .avatar-circle {
-      width: 24px;
-      height: 24px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      background: radial-gradient(circle at top, #0f172a, #020617);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.7rem;
-      color: #e5e7eb;
-      margin-left: -6px;
-    }
-    .avatar-circle:first-child {
-      margin-left: 0;
-    }
-
-    /* Sections below hero */
-    .sections-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-      margin-top: 18px;
-    }
-
-    .card {
-      border-radius: 20px;
-      background: radial-gradient(circle at top left, #020617, #020617 28%, #020617 100%);
-      border: 1px solid rgba(148, 163, 184, 0.45);
-      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.9);
-      padding: 16px 16px 14px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.75), transparent 60%);
-      opacity: 0.8;
-      pointer-events: none;
-    }
-    .card-inner {
-      position: relative;
-      z-index: 1;
-    }
-
-    .section-label {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      color: var(--text-muted);
-      margin-bottom: 6px;
-    }
-    .section-title-row {
-      display: flex;
-      align-items: baseline;
-      gap: 8px;
-      margin-bottom: 10px;
-    }
-    .section-title {
-      font-size: 0.95rem;
-      font-weight: 600;
-    }
-    .section-pill {
-      font-size: 0.7rem;
-      padding: 2px 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.55);
-      color: var(--text-muted);
-    }
-
-    .reason-list {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      gap: 8px 12px;
-      margin-top: 6px;
-      font-size: 0.78rem;
-    }
-    .reason-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 6px;
-      color: var(--text-muted);
-    }
-    .reason-item strong {
-      color: #e5e7eb;
-      font-weight: 500;
-    }
-    .reason-icon {
-      margin-top: 1px;
-      font-size: 0.85rem;
-    }
-
-    .why-compare {
-      margin-top: 14px;
-      padding-top: 10px;
-      border-top: 1px dashed rgba(148, 163, 184, 0.4);
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      gap: 12px;
-      font-size: 0.76rem;
-    }
-    .why-compare-col {
-      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 1));
-      border-radius: 14px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      padding: 10px 11px;
-    }
-    .why-compare-title {
-      font-weight: 600;
-      margin-bottom: 6px;
-    }
-    .why-compare-list {
-      list-style: disc;
-      padding-left: 18px;
-      color: var(--text-muted);
-      line-height: 1.5;
-    }
-    @media (max-width: 880px) {
-      .why-compare {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    /* Services grid */
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
-      margin-top: 6px;
-    }
-    .service-card {
-      position: relative;
-      border-radius: 16px;
-      padding: 10px 10px 9px;
-      background: radial-gradient(circle at top, #020617, #020617 50%, #020617 100%);
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      cursor: default;
-      overflow: hidden;
-      transition: all 0.2s ease-out;
-    }
-    .service-card:hover {
-      transform: translateY(-2px);
-      box-shadow:
-        0 0 0 1px rgba(251, 191, 36, 0.6),
-        0 18px 36px rgba(15, 23, 42, 0.95);
-      border-color: rgba(251, 191, 36, 0.8);
-    }
-    .service-icon {
-      width: 22px;
-      height: 22px;
-      border-radius: 999px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      background: radial-gradient(circle at top, rgba(248, 250, 252, 0.05), rgba(15, 23, 42, 1));
-      border: 1px solid rgba(148, 163, 184, 0.7);
-    }
-    .service-title {
-      font-size: 0.8rem;
-      font-weight: 600;
-    }
-    .service-desc {
-      font-size: 0.72rem;
-      color: var(--text-muted);
-    }
-    .service-meta-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 4px;
-      font-size: 0.72rem;
-    }
-    .service-price {
-      color: var(--gold);
-      font-weight: 600;
-    }
-    .service-cta {
-      font-size: 0.7rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      color: var(--text-muted);
-    }
-
-    /* Compare card */
-    .compare-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      gap: 8px;
-      font-size: 0.74rem;
-      margin-top: 4px;
-    }
-    .compare-card {
-      border-radius: 14px;
-      padding: 8px 9px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.98));
-    }
-    .compare-title {
-      font-size: 0.78rem;
-      font-weight: 600;
-      margin-bottom: 4px;
-    }
-    .compare-bad {
-      color: var(--danger);
-    }
-    .compare-good {
-      color: #22c55e;
-    }
-    .compare-list {
-      list-style: none;
-      padding-left: 0;
-    }
-    .compare-list li {
-      display: flex;
-      align-items: flex-start;
-      gap: 6px;
-      margin-bottom: 2px;
-      color: var(--text-muted);
-    }
-    .compare-list li span {
-      margin-top: 1px;
-    }
-
-    /* Steps card */
-    .steps-list {
-      margin-top: 6px;
-      font-size: 0.76rem;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-    .step-item {
-      display: flex;
-      gap: 8px;
-    }
-    .step-num {
-      width: 18px;
-      height: 18px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.75rem;
-      color: var(--gold);
-      flex-shrink: 0;
-    }
-    .step-body {
-      color: var(--text-muted);
-    }
-    .step-body strong {
-      color: #e5e7eb;
-      font-weight: 500;
-    }
-
-    /* Persona card */
-    .persona-list {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr);
-      gap: 6px;
-      margin-top: 6px;
-      font-size: 0.76rem;
-    }
-    .persona-item {
-      border-radius: 12px;
-      padding: 7px 8px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.98));
-      display: flex;
-      gap: 6px;
-      align-items: flex-start;
-      color: var(--text-muted);
-    }
-    .persona-badge {
-      font-size: 0.7rem;
-      color: #e5e7eb;
-    }
-
-    /* Privacy card */
-    .privacy-list {
-      margin-top: 6px;
-      font-size: 0.74rem;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      color: var(--text-muted);
-    }
-
-    /* Not for card */
-    .notfor-list {
-      margin-top: 6px;
-      font-size: 0.74rem;
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-      color: var(--text-muted);
-    }
-    .notfor-item {
-      display: flex;
-      gap: 8px;
-      align-items: flex-start;
-    }
-    .notfor-icon {
-      width: 18px;
-      height: 18px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.75rem;
-      color: var(--danger);
-      flex-shrink: 0;
-    }
-
-    /* Footer */
-    footer {
-      max-width: 1120px;
-      margin: 20px auto 0;
-      padding: 18px 16px 26px;
-      font-size: 0.74rem;
-      color: var(--text-muted);
-      border-top: 1px solid rgba(31, 41, 55, 0.9);
-    }
-    .footer-row {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-    }
-    .footer-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-    .footer-links a {
-      color: var(--text-muted);
-      text-decoration: none;
-    }
-    .footer-links a:hover {
-      color: #e5e7eb;
-    }
-
-    /* Responsive */
     @media (max-width: 900px) {
       header {
         border-radius: 18px;
         padding-inline: 14px;
       }
-      .hero-inner {
-        grid-template-columns: minmax(0, 1fr);
-      }
-      .hero-avatars {
-        max-width: 320px;
-        margin-inline: auto;
-      }
-      .services-grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
     }
-
     @media (max-width: 640px) {
-      .content {
-        padding-inline: 14px;
-      }
       header {
         flex-wrap: wrap;
         row-gap: 8px;
@@ -952,854 +238,1654 @@
       .nav-links {
         flex-wrap: wrap;
       }
-      .hero {
-        padding-inline: 16px;
+      body {
+        padding: 16px 8px 32px;
       }
-      .hero-cta-row {
-        flex-direction: column;
-        align-items: stretch;
-      }
-      .hero-steps {
-        flex-direction: column;
-      }
-      .compare-grid {
+    }
+
+    /* 主体布局 */
+    .desk-main-card {
+      margin-top: 6px;
+      border-radius: var(--radius-xl);
+      background:
+        radial-gradient(circle at top left, rgba(59, 130, 246, 0.16) 0%, transparent 60%),
+        radial-gradient(circle at bottom right, rgba(251, 191, 36, 0.06) 0%, transparent 55%),
+        rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(15, 23, 42, 0.95);
+      box-shadow: var(--shadow-strong);
+      padding: 20px 22px 22px;
+      backdrop-filter: blur(var(--blur-strong));
+    }
+
+    .flow-head {
+      border-radius: var(--radius-lg);
+      border: 1px dashed rgba(148, 163, 184, 0.6);
+      padding: 16px 16px 14px;
+      background:
+        radial-gradient(circle at top left, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.96));
+      margin-bottom: 16px;
+    }
+    .flow-head-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      gap: 8px;
+    }
+    .flow-pill {
+      font-size: 11px;
+      color: var(--text-soft);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .flow-pill-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 0%, #22c55e, #15803d);
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.16);
+    }
+    .flow-title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .flow-title {
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+    }
+    .flow-subtitle {
+      font-size: 12px;
+      color: var(--text-soft);
+      max-width: 680px;
+    }
+    .flow-chips {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .flow-chip {
+      border-radius: 999px;
+      padding: 8px 12px;
+      border: 1px dashed rgba(148, 163, 184, 0.5);
+      font-size: 11px;
+      color: var(--text-soft);
+      background: radial-gradient(circle at top,#020617,#020617);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .flow-chip span.label {
+      font-weight: 500;
+      color: #e5e7eb;
+    }
+    .flow-chip-badge {
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      color: var(--text-soft);
+    }
+
+    .desk-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 370px) minmax(0, 1fr);
+      gap: 16px;
+      align-items: stretch;
+    }
+
+    .service-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background:
+        radial-gradient(circle at top left, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.98));
+      padding: 14px 14px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .service-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+    .service-card-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-soft);
+    }
+    .service-card-mini {
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    .service-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .service-item {
+      position: relative;
+      border-radius: 999px;
+      padding: 10px 12px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background:
+        radial-gradient(circle at top left, rgba(15,23,42,0.95), rgba(15,23,42,0.98));
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      justify-content: space-between;
+      cursor: pointer;
+      overflow: hidden;
+      transition: border-color 0.14s ease, box-shadow 0.16s ease,
+                  transform 0.14s ease, background 0.16s ease;
+    }
+    .service-item::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      background: radial-gradient(circle at 0 0, rgba(59, 130, 246, 0.2), transparent 60%);
+      transition: opacity 0.18s ease;
+      pointer-events: none;
+    }
+    .service-item:hover::before {
+      opacity: 1;
+    }
+    .service-item:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 60px rgba(15, 23, 42, 0.9);
+    }
+    .service-item.active {
+      border-color: var(--gold);
+      box-shadow: 0 20px 70px rgba(15, 23, 42, 1);
+      background:
+        linear-gradient(120deg, rgba(251, 191, 36, 0.08), rgba(15, 23, 42, 0.98));
+    }
+
+    .service-item-main {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+      min-width: 0;
+    }
+    .service-icon-wrap {
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at 30% 0%, #020617,#020617);
+      box-shadow: 0 7px 20px rgba(15,23,42,0.9);
+      flex-shrink: 0;
+    }
+    .service-icon-inner {
+      width: 16px;
+      height: 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.9);
+      background: radial-gradient(circle at 30% 0%, #0f172a,#020617);
+    }
+    .service-text-block {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+    }
+    .service-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #e5e7eb;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .service-sub {
+      font-size: 11px;
+      color: rgba(148, 163, 184, 0.95);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .service-item.active .service-title {
+      color: #f9fafb;
+    }
+    .service-item.active .service-sub {
+      color: rgba(209, 213, 219, 0.95);
+    }
+    .service-price {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gold);
+      white-space: nowrap;
+      margin-left: 8px;
+    }
+
+    .ai-panel {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background:
+        radial-gradient(circle at top right, rgba(56, 189, 248, 0.16), transparent 55%),
+        radial-gradient(circle at bottom left, rgba(251, 191, 36, 0.12), transparent 60%),
+        rgba(15, 23, 42, 0.96);
+      padding: 14px 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: relative;
+      overflow: hidden;
+    }
+    .ai-panel::after {
+      content: "DRAFT DESK";
+      position: absolute;
+      right: -20px;
+      bottom: -10px;
+      font-size: 40px;
+      letter-spacing: 0.15em;
+      color: rgba(15, 23, 42, 0.8);
+      font-weight: 700;
+      pointer-events: none;
+    }
+    .ai-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .ai-title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .ai-title {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .ai-title-pill {
+      font-size: 10px;
+      padding: 1px 7px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      color: var(--text-soft);
+    }
+    .ai-subtitle {
+      font-size: 12px;
+      color: var(--text-soft);
+      max-width: 440px;
+    }
+    .ai-hint-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 4px;
+    }
+    .ai-hint-pill {
+      font-size: 10px;
+      border-radius: 999px;
+      border: 1px dashed rgba(148, 163, 184, 0.5);
+      padding: 2px 8px;
+      color: var(--text-soft);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .ai-form {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px 10px;
+      margin-top: 4px;
+    }
+    .ai-form-full {
+      grid-column: 1 / -1;
+    }
+    .ai-label {
+      font-size: 11px;
+      color: var(--text-soft);
+      margin-bottom: 3px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .ai-label span.badge {
+      font-size: 9px;
+      border-radius: 999px;
+      padding: 0 6px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+    }
+    .ai-input,
+    .ai-select,
+    .ai-textarea {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.9);
+      color: #e5e7eb;
+      font-size: 12px;
+      padding: 6px 8px;
+      outline: none;
+      resize: vertical;
+      min-height: 0;
+      transition: border-color 0.14s ease, box-shadow 0.14s ease, background 0.14s ease;
+    }
+    .ai-input:focus,
+    .ai-select:focus,
+    .ai-textarea:focus {
+      border-color: var(--accent-blue);
+      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.45);
+      background: rgba(15, 23, 42, 0.96);
+    }
+    .ai-select {
+      padding-right: 22px;
+    }
+    .ai-textarea {
+      min-height: 80px;
+      line-height: 1.4;
+    }
+
+    .ai-attachment-hint {
+      font-size: 10px;
+      color: var(--text-soft);
+      margin-top: 2px;
+    }
+
+    .ai-footer-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 4px;
+      flex-wrap: wrap;
+    }
+    .ai-left-buttons {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .ai-secondary-btn {
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text-main);
+      padding: 6px 11px;
+      font-size: 11px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+      transition: all 0.14s ease;
+    }
+    .ai-secondary-btn:hover {
+      background: rgba(15, 23, 42, 1);
+      box-shadow: 0 10px 36px rgba(15, 23, 42, 0.9);
+      transform: translateY(-0.5px);
+    }
+    .ai-generate-btn {
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(120deg,#22c55e,#16a34a);
+      color: #022c22;
+      padding: 7px 18px;
+      font-size: 12px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      box-shadow: 0 16px 55px rgba(6, 95, 70, 0.7);
+      transition: transform 0.14s ease, box-shadow 0.14s ease, filter 0.14s ease;
+      white-space: nowrap;
+    }
+    .ai-generate-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 22px 70px rgba(6, 95, 70, 0.9);
+      filter: brightness(1.02);
+    }
+    .ai-generate-btn[disabled] {
+      opacity: 0.7;
+      cursor: default;
+      transform: none;
+      box-shadow: 0 12px 32px rgba(6, 95, 70, 0.5);
+    }
+    .ai-status {
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    .ai-preview-wrapper {
+      position: relative;
+      margin-top: 8px;
+    }
+
+    .ai-preview-box {
+      border-radius: 12px;
+      border: 1px dashed rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.9);
+      padding: 8px 10px;
+      max-height: 180px;
+      overflow: auto;
+      font-size: 12px;
+      line-height: 1.45;
+      white-space: pre-wrap;
+      color: #e5e7eb;
+    }
+    .ai-preview-placeholder {
+      color: rgba(191, 219, 254, 0.95);
+      font-size: 11px;
+    }
+
+    /* 玻璃遮罩：只盖下面 60%，顶部约 40% 清晰 */
+    .ai-preview-overlay {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      top: 40%;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 10px;
+      background: linear-gradient(
+        to bottom,
+        rgba(15,23,42,0),
+        rgba(15,23,42,0.65),
+        rgba(15,23,42,0.92)
+      );
+      backdrop-filter: blur(6px);
+      border-radius: 12px;
+      pointer-events: none;
+    }
+    .ai-preview-overlay-inner {
+      pointer-events: auto;
+      max-width: 90%;
+    }
+    .ai-overlay-title {
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .ai-overlay-text {
+      font-size: 11px;
+      color: var(--text-soft);
+      margin-bottom: 8px;
+    }
+    .ai-overlay-btn {
+      border-radius: 999px;
+      border: 1px solid rgba(248, 250, 252, 0.7);
+      background: rgba(15, 23, 42, 0.95);
+      color: #f9fafb;
+      padding: 5px 12px;
+      font-size: 11px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.14s ease;
+    }
+    .ai-overlay-btn:hover {
+      background: #fbbf24;
+      color: #111827;
+    }
+
+    .step2-card {
+      margin-top: 18px;
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(148,163,184,0.5);
+      background:
+        radial-gradient(circle at top left, rgba(15,23,42,0.96), rgba(15,23,42,1));
+      padding: 16px 16px 18px;
+      display: grid;
+      grid-template-columns: minmax(0, 340px) minmax(0, 1fr);
+      gap: 18px;
+    }
+    .step2-left-title {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .step2-left-sub {
+      font-size: 11px;
+      color: var(--text-soft);
+      margin-bottom: 10px;
+    }
+    .step2-price-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-radius: 14px;
+      padding: 10px 12px;
+      border: 1px solid rgba(148,163,184,0.7);
+      margin-bottom: 8px;
+      font-size: 12px;
+    }
+    .step2-price-amount {
+      font-weight: 600;
+      color: var(--gold);
+    }
+    .step2-pay-btn {
+      margin-top: 4px;
+      width: 100%;
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(120deg,#22c55e,#16a34a);
+      color: #022c22;
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 14px 40px rgba(6,95,70,0.7);
+      transition: all 0.14s ease;
+    }
+    .step2-pay-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 55px rgba(6,95,70,0.9);
+    }
+    .step2-pay-note {
+      margin-top: 6px;
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+    .step2-check-row {
+      margin-top: 8px;
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+    .step2-check-row input {
+      margin-top: 2px;
+    }
+    .step2-generate-btn {
+      margin-top: 10px;
+      width: 100%;
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(120deg,#fbbf24,#f97316);
+      color: #111827;
+      padding: 8px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 16px 45px rgba(15,23,42,0.9);
+      transition: all 0.14s ease;
+    }
+    .step2-generate-btn[disabled] {
+      opacity: 0.6;
+      cursor: default;
+      box-shadow: 0 8px 18px rgba(15,23,42,0.7);
+    }
+    .step2-generate-btn:hover:not([disabled]) {
+      transform: translateY(-1px);
+      box-shadow: 0 20px 65px rgba(15,23,42,1);
+    }
+    .step2-status {
+      margin-top: 6px;
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    .full-output-box {
+      border-radius: 14px;
+      border: 1px dashed rgba(148, 163, 184, 0.7);
+      background: rgba(15,23,42,0.96);
+      padding: 10px 12px;
+      min-height: 160px;
+      max-height: 260px;
+      overflow: auto;
+      font-size: 12px;
+      line-height: 1.5;
+      white-space: pre-wrap;
+    }
+    .full-output-placeholder {
+      font-size: 11px;
+      color: rgba(191, 219, 254, 0.95);
+    }
+
+    @media (max-width: 920px) {
+      .desk-layout {
         grid-template-columns: minmax(0, 1fr);
+      }
+      .ai-panel::after {
+        display: none;
+      }
+      .step2-card {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+    @media (max-width: 640px) {
+      .desk-main-card {
+        padding: 14px 12px 16px;
+      }
+      .flow-chips {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .ai-form {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .ai-footer-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .ai-left-buttons {
+        width: 100%;
+        justify-content: flex-start;
+        flex-wrap: wrap;
       }
     }
   </style>
 </head>
 <body>
   <div class="page-shell">
-    <div class="content">
-      <header>
-        <div class="brand">
-          <div class="brand-mark">
-            <div class="brand-mark-inner">AU</div>
-          </div>
-          <div class="brand-text">
-            <div class="brand-title" data-i18n-key="brandTitle">
-              Aurum Task Desk
-            </div>
-            <div class="brand-sub" data-i18n-key="brandSub">
-              Private AI Writing & Resolution Desk
-            </div>
-          </div>
+    <!-- 顶部导航 -->
+    <header>
+      <div class="brand">
+        <div class="brand-mark">
+          <div class="brand-mark-inner">AU</div>
         </div>
-        <nav>
-          <!-- 顶部页面导航：首页 / Desk / 关于我们 / 联系我们 + 锚点导航 -->
-          <div class="nav-links">
-            <a href="index.html" class="nav-link" data-page="home" data-i18n-key="navHome">Home</a>
-            <a href="desk.html" class="nav-link" data-page="desk" data-i18n-key="navDesk">Desk</a>
-            <a href="about.html" class="nav-link" data-page="about" data-i18n-key="navAbout">About</a>
-            <a href="contact.html" class="nav-link" data-page="contact" data-i18n-key="navContact">Contact</a>
-            <a href="#services" class="nav-link" data-i18n-key="navServices">Services</a>
-            <a href="#how" class="nav-link" data-i18n-key="navHow">How</a>
-            <a href="#why-not" class="nav-link" data-i18n-key="navCompare">Why not ChatGPT?</a>
-            <a href="#pricing" class="nav-link" data-i18n-key="navPricing">Pricing</a>
+        <div class="brand-text">
+          <div class="brand-title">Aurum Task Desk</div>
+          <div class="brand-sub" id="brandSubText">
+            Private AI Writing & Resolution Desk
           </div>
-          <div class="lang-toggle" aria-label="Language">
-            <button class="lang-btn active" data-lang="en">EN</button>
-            <button class="lang-btn" data-lang="zh">中</button>
-          </div>
-          <!-- 登录 / 我的 Desk 按钮（带登录状态同步标记） -->
-          <button class="login-btn" type="button" data-auth-login>
-            <span class="icon">⭑</span>
-            <span data-i18n-key="login">Login / My Desk</span>
-          </button>
-          <!-- 退出按钮（默认隐藏，登录后显示） -->
-          <button
-            class="nav-link"
-            type="button"
-            data-auth-logout
-            data-i18n-key="logout"
-            style="display:none;"
-          >
-            Logout
-          </button>
-        </nav>
-      </header>
-
-      <main class="hero-and-main">
-        <section class="hero" aria-labelledby="hero-title">
-          <div class="hero-inner">
-            <div>
-              <div class="pill-row">
-                <div class="pill-dot"></div>
-                <span data-i18n-key="pillLeft">Quiet desk for serious letters</span>
-                <span class="pill-highlight" data-i18n-key="pillRight">Legal / immigration / insurance / complaints</span>
-              </div>
-
-              <div class="urgent-strip">
-                <div class="urgent-dot"></div>
-                <span data-i18n-key="urgentText">
-                  For real problems only: time-sensitive legal, immigration, insurance or crisis letters — from 29.9 USD per task.
-                </span>
-              </div>
-
-              <h1 id="hero-title">
-                <span class="accent" data-i18n-key="heroLine1">A private AI desk</span>
-                <br />
-                <span data-i18n-key="heroLine2">for 40+ US & EU clients</span>
-              </h1>
-
-              <p class="hero-sub" data-i18n-key="heroSub">
-                Professional, ready-to-submit letters for legal, immigration, insurance, complaint escalation and family crisis situations — designed for 40+ US & EU clients who do not want to fight with AI prompts.
-              </p>
-
-              <div class="trust-row">
-                <div class="trust-tag">
-                  <span class="dot"></span>
-                  <span data-i18n-key="trust1">No subscription, pay per task</span>
-                </div>
-                <div class="trust-tag">
-                  <span class="dot"></span>
-                  <span data-i18n-key="trust2">Optimised for lawyers, HR, case officers</span>
-                </div>
-              </div>
-
-              <div class="hero-cta-row">
-                <a href="desk.html" class="btn-primary">
-                  <span data-i18n-key="ctaPrimary">Start a task</span>
-                  <span>→</span>
-                </a>
-                <a href="#services" class="btn-ghost">
-                  <span>☲</span>
-                  <span data-i18n-key="ctaSecondary">View the 5 key services</span>
-                </a>
-              </div>
-
-              <div class="hero-steps">
-                <div class="hero-step-chip">
-                  <span class="num">1</span>
-                  <span data-i18n-key="chip1">Upload screenshots or describe the situation</span>
-                </div>
-                <div class="hero-step-chip">
-                  <span class="num">2</span>
-                  <span data-i18n-key="chip2">Tell us who you write to and your ideal outcome</span>
-                </div>
-                <div class="hero-step-chip">
-                  <span class="num">3</span>
-                  <span data-i18n-key="chip3">Receive a structured, ready-to-submit letter</span>
-                </div>
-              </div>
-            </div>
-
-            <aside class="hero-avatars" aria-label="Case examples">
-              <div class="case-list">
-                <div class="case-item">
-                  <div class="case-tag" data-i18n-key="case1Tag">CASE 1 · Serious letter</div>
-                  <div class="case-title" data-i18n-key="case1Title">Serious letter scenario</div>
-                  <div class="case-desc" data-i18n-key="case1Desc">
-                    For contract drafts, legal-style notices, and professional correspondence. Desk produces structured, ready-to-submit letters.
-                  </div>
-                </div>
-                <div class="case-item">
-                  <div class="case-tag" data-i18n-key="case2Tag">CASE 2 · Claims & escalation</div>
-                  <div class="case-title" data-i18n-key="case2Title">Claim & escalation scenario</div>
-                  <div class="case-desc" data-i18n-key="case2Desc">
-                    For airline refund claims, insurance disputes, and escalation letters to companies.
-                  </div>
-                </div>
-                <div class="case-item">
-                  <div class="case-tag" data-i18n-key="case3Tag">CASE 3 · Immigration & crisis</div>
-                  <div class="case-title" data-i18n-key="case3Title">Immigration & crisis scenario</div>
-                  <div class="case-desc" data-i18n-key="case3Desc">
-                    For visa RFE responses, refusal explanations, and family crisis letters.
-                  </div>
-                </div>
-              </div>
-
-              <div class="avatar-strip">
-                <div class="avatar-stack">
-                  <div class="avatar-circle">MK</div>
-                  <div class="avatar-circle">JR</div>
-                  <div class="avatar-circle">LS</div>
-                </div>
-                <div data-i18n-key="avatarStripText">
-                  Typical clients: 42–68 year old professionals, managers and small business owners.
-                </div>
-              </div>
-            </aside>
-          </div>
-        </section>
-
-        <section class="sections-grid">
-          <div class="card" id="why">
-            <div class="card-inner">
-              <div class="section-label" data-i18n-key="whyLabel">Why this desk?</div>
-              <div class="section-title-row">
-                <div class="section-title" data-i18n-key="whyTitle">
-                  Built for 40+ US & EU clients in real trouble
-                </div>
-                <div class="section-pill" data-i18n-key="whyPill">
-                  Not a generic AI toy
-                </div>
-              </div>
-              <div class="reason-list">
-                <div class="reason-item">
-                  <div class="reason-icon">◎</div>
-                  <div>
-                    <strong data-i18n-key="why1Title">Serious situations only.</strong>
-                    <span data-i18n-key="why1Body">
-                      Immigration, legal-style, insurance claim, complaint escalation, and family crisis letters.
-                    </span>
-                  </div>
-                </div>
-                <div class="reason-item">
-                  <div class="reason-icon">◎</div>
-                  <div>
-                    <strong data-i18n-key="why2Title">Ready to submit.</strong>
-                    <span data-i18n-key="why2Body">
-                      The output is structured for lawyers, HR, case officers and insurance handlers — not for social media.
-                    </span>
-                  </div>
-                </div>
-                <div class="reason-item">
-                  <div class="reason-icon">◎</div>
-                  <div>
-                    <strong data-i18n-key="why3Title">40+ friendly.</strong>
-                    <span data-i18n-key="why3Body">
-                      No prompt dancing or technical jargon. You answer questions; the desk prepares the letter.
-                    </span>
-                  </div>
-                </div>
-                <div class="reason-item">
-                  <div class="reason-icon">◎</div>
-                  <div>
-                    <strong data-i18n-key="why4Title">No subscription.</strong>
-                    <span data-i18n-key="why4Body">
-                      Each task is priced per letter. No hidden monthly plans that keep charging your card.
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="why-compare">
-                <div class="why-compare-col">
-                  <div class="why-compare-title" data-i18n-key="whyCompareLeftTitle">If you only use ChatGPT chat…</div>
-                  <ul class="why-compare-list">
-                    <li data-i18n-key="whyCompareLeft1">Need to design your own prompts and structure.</li>
-                    <li data-i18n-key="whyCompareLeft2">Output tone may be too casual or “AI-ish”.</li>
-                    <li data-i18n-key="whyCompareLeft3">No one checks if it fits legal, HR or claim style.</li>
-                  </ul>
-                </div>
-                <div class="why-compare-col">
-                  <div class="why-compare-title" data-i18n-key="whyCompareRightTitle">With Aurum Task Desk…</div>
-                  <ul class="why-compare-list">
-                    <li data-i18n-key="whyCompareRight1">We turn your notes into structured letters.</li>
-                    <li data-i18n-key="whyCompareRight2">Tone and length tuned for officers, HR and insurers.</li>
-                    <li data-i18n-key="whyCompareRight3">Clear English that 40+ professionals are comfortable sending.</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="card" id="pricing">
-            <div class="card-inner">
-              <div class="section-label" data-i18n-key="pricingLabel">Pricing snapshot</div>
-              <div class="section-title-row">
-                <div class="section-title" data-i18n-key="pricingTitle">
-                  Five specialised services, clear prices
-                </div>
-              </div>
-              <div class="services-grid" id="services">
-                <div class="service-card">
-                  <div class="service-icon">§</div>
-                  <div class="service-title" data-i18n-key="svc1Title">
-                    Legal letters & contract drafts
-                  </div>
-                  <div class="service-desc" data-i18n-key="svc1Desc">
-                    Contract wording, breach notices, formal legal-style letters for companies or individuals.
-                  </div>
-                  <div class="service-meta-row">
-                    <div class="service-price" data-i18n-key="svc1Price">USD 29.9</div>
-                    <a class="service-cta" data-i18n-key="svc1Cta" href="desk.html#legal">
-                      Open service →
-                    </a>
-                  </div>
-                </div>
-
-                <div class="service-card">
-                  <div class="service-icon">✈</div>
-                  <div class="service-title" data-i18n-key="svc3Title">
-                    Insurance & airline claim letters
-                  </div>
-                  <div class="service-desc" data-i18n-key="svc3Desc">
-                    Delay / cancellation refunds, lost luggage claims, rejected payouts rewritten in a stronger tone.
-                  </div>
-                  <div class="service-meta-row">
-                    <div class="service-price" data-i18n-key="svc3Price">USD 29.9</div>
-                    <a class="service-cta" data-i18n-key="svc3Cta" href="desk.html#claims">
-                      Open service →
-                    </a>
-                  </div>
-                </div>
-
-                <div class="service-card">
-                  <div class="service-icon">🛂</div>
-                  <div class="service-title" data-i18n-key="svc2Title">
-                    Immigration letters & RFE explanations
-                  </div>
-                  <div class="service-desc" data-i18n-key="svc2Desc">
-                    RFE response, refusal explanation, background statements for visas, residency and green card.
-                  </div>
-                  <div class="service-meta-row">
-                    <div class="service-price" data-i18n-key="svc2Price">USD 29.9</div>
-                    <a class="service-cta" data-i18n-key="svc2Cta" href="desk.html#immigration">
-                      Open service →
-                    </a>
-                  </div>
-                </div>
-
-                <div class="service-card">
-                  <div class="service-icon">❤</div>
-                  <div class="service-title" data-i18n-key="svc4Title">
-                    Family & emotional crisis letters
-                  </div>
-                  <div class="service-desc" data-i18n-key="svc4Desc">
-                    Calm, structured letters for serious relationship or family conflicts — without drama.
-                  </div>
-                  <div class="service-meta-row">
-                    <div class="service-price" data-i18n-key="svc4Price">USD 29.9</div>
-                    <a class="service-cta" data-i18n-key="svc4Cta" href="desk.html#family">
-                      Open service →
-                    </a>
-                  </div>
-                </div>
-
-                <div class="service-card">
-                  <div class="service-icon">⚠</div>
-                  <div class="service-title" data-i18n-key="svc5Title">
-                    Complaint & escalation services
-                  </div>
-                  <div class="service-desc" data-i18n-key="svc5Desc">
-                    Escalation letters to banks, airlines, employers, and regulators when “normal” emails are ignored.
-                  </div>
-                  <div class="service-meta-row">
-                    <div class="service-price" data-i18n-key="svc5Price">USD 29.9</div>
-                    <a class="service-cta" data-i18n-key="svc5Cta" href="desk.html#complaint">
-                      Open service →
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="card" id="why-not">
-            <div class="card-inner">
-              <div class="section-label" data-i18n-key="compareLabel">Why not just use ChatGPT?</div>
-              <div class="section-title-row">
-                <div class="section-title" data-i18n-key="compareTitle">
-                  Generic AI vs a quiet, specialised desk
-                </div>
-              </div>
-              <div class="compare-grid">
-                <div class="compare-card">
-                  <div class="compare-title compare-bad" data-i18n-key="compareLeftTitle">
-                    Generic AI tools
-                  </div>
-                  <ul class="compare-list">
-                    <li>
-                      <span>–</span>
-                      <span data-i18n-key="cmpL1">
-                        Long, academic paragraphs that do not match legal or case-officer style.
-                      </span>
-                    </li>
-                    <li>
-                      <span>–</span>
-                      <span data-i18n-key="cmpL2">
-                        No understanding of how immigration, insurance or complaint letters are actually read.
-                      </span>
-                    </li>
-                    <li>
-                      <span>–</span>
-                      <span data-i18n-key="cmpL3">
-                        You must prompt, tweak, and rewrite many times — exhausting for 40+ clients.
-                      </span>
-                    </li>
-                    <li>
-                      <span>–</span>
-                      <span data-i18n-key="cmpL4">
-                        Output often “feels like AI”, which some officers now reject instantly.
-                      </span>
-                    </li>
-                  </ul>
-                </div>
-                <div class="compare-card">
-                  <div class="compare-title compare-good" data-i18n-key="compareRightTitle">
-                    Aurum Task Desk
-                  </div>
-                  <ul class="compare-list">
-                    <li>
-                      <span>+</span>
-                      <span data-i18n-key="cmpR1">
-                        Structure, tone and length tuned for real-world reviewers (lawyers, HR, case officers).
-                      </span>
-                    </li>
-                    <li>
-                      <span>+</span>
-                      <span data-i18n-key="cmpR2">
-                        Focus only on legal-style, immigration, insurance, complaint and crisis situations.
-                      </span>
-                    </li>
-                    <li>
-                      <span>+</span>
-                      <span data-i18n-key="cmpR3">
-                        Clear questions instead of prompts — suitable for non-technical users.
-                      </span>
-                    </li>
-                    <li>
-                      <span>+</span>
-                      <span data-i18n-key="cmpR4">
-                        Pay per task, from 29.9 USD, no recurring subscription.
-                      </span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="card" id="how">
-            <div class="card-inner">
-              <div class="section-label" data-i18n-key="howLabel">How it works</div>
-              <div class="section-title-row">
-                <div class="section-title" data-i18n-key="howTitle">
-                  Starting a task is intentionally simple
-                </div>
-              </div>
-              <div class="steps-list">
-                <div class="step-item">
-                  <div class="step-num">1</div>
-                  <div class="step-body" data-i18n-key="step1">
-                    <strong>Share what happened.</strong>
-                    Upload screenshots, letters, or describe the situation in your own words. No need to be “perfect”.
-                  </div>
-                </div>
-                <div class="step-item">
-                  <div class="step-num">2</div>
-                  <div class="step-body" data-i18n-key="step2">
-                    <strong>Clarify who and what.</strong>
-                    Tell us who you are writing to (lawyer, embassy, insurer, employer, airline) and your ideal outcome.
-                  </div>
-                </div>
-                <div class="step-item">
-                  <div class="step-num">3</div>
-                  <div class="step-body" data-i18n-key="step3">
-                    <strong>Receive a ready-to-submit letter.</strong>
-                    You review, add personal details if needed, and then send it on — email, portal or print.
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="card" id="personas">
-            <div class="card-inner">
-              <div class="section-label" data-i18n-key="whoLabel">Who this desk is for</div>
-              <div class="section-title-row">
-                <div class="section-title" data-i18n-key="whoTitle">
-                  Three typical Aurum Desk clients
-                </div>
-              </div>
-              <div class="persona-list">
-                <div class="persona-item">
-                  <div class="persona-badge">①</div>
-                  <div data-i18n-key="persona1">
-                    Overseas Chinese or international workers living in the US/EU, English is not native, facing immigration or insurance problems.
-                  </div>
-                </div>
-                <div class="persona-item">
-                  <div class="persona-badge">②</div>
-                  <div data-i18n-key="persona2">
-                    40+ professionals, managers, or small business owners who dislike “prompt engineering” but need strong, serious letters.
-                  </div>
-                </div>
-                <div class="persona-item">
-                  <div class="persona-badge">③</div>
-                  <div data-i18n-key="persona3">
-                    People in real crisis: refusal letters, unfair treatment, sudden family or relationship breakdown, airlines or banks ignoring them.
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="card" id="privacy">
-            <div class="card-inner">
-              <div class="section-label" data-i18n-key="privacyLabel">Protection & privacy</div>
-              <div class="section-title-row">
-                <div class="section-title" data-i18n-key="privacyTitle">
-                  Quiet by design — your situation is not content
-                </div>
-              </div>
-              <div class="privacy-list">
-                <div data-i18n-key="pri1">
-                  We do not use your letters as “training data”. Your situation is never treated as marketing material.
-                </div>
-                <div data-i18n-key="pri2">
-                  Sensitive IDs (passport, visa numbers, medical files) can be redacted before upload if you prefer.
-                </div>
-                <div data-i18n-key="pri3">
-                  You can request deletion of past tasks after your situation is resolved.
-                </div>
-                <div data-i18n-key="pri4">
-                  The desk is built with a simple, auditable backend — not a giant ad platform.
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="card" id="not-for">
-            <div class="card-inner">
-              <div class="section-label" data-i18n-key="notForLabel">Who this desk is not for</div>
-              <div class="section-title-row">
-                <div class="section-title" data-i18n-key="notForTitle">
-                  To keep the desk quiet and serious
-                </div>
-              </div>
-              <div class="notfor-list">
-                <div class="notfor-item">
-                  <div class="notfor-icon">✕</div>
-                  <div data-i18n-key="nf1">
-                    People looking for entertainment content, social media posts, or general homework help. This desk is for real-world problems only.
-                  </div>
-                </div>
-                <div class="notfor-item">
-                  <div class="notfor-icon">✕</div>
-                  <div data-i18n-key="nf2">
-                    Users who want to generate dozens of letters per day or run bulk campaigns. Each task is meant to be specific and important.
-                  </div>
-                </div>
-                <div class="notfor-item">
-                  <div class="notfor-icon">✕</div>
-                  <div data-i18n-key="nf3">
-                    Situations that require licensed legal advice or representation in court. The desk focuses on writing support, not formal legal counsel.
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </section>
-      </main>
-    </div>
-
-    <footer>
-      <div class="footer-row">
-        <div>
-          <span>© <span id="year"></span> Aurum Task Desk.</span>
-          <span data-i18n-key="footerCopy">
-            A quiet AI desk for serious letters.
-          </span>
-        </div>
-        <div class="footer-links">
-          <a href="privacy.html" data-i18n-key="footerPrivacy">Privacy</a>
-          <a href="terms.html" data-i18n-key="footerTerms">Terms</a>
         </div>
       </div>
-    </footer>
+      <nav>
+        <div class="nav-links">
+          <a href="index.html" class="nav-link" id="navHome">Home</a>
+          <a href="desk.html" class="nav-link nav-link--active" id="navDesk">Desk</a>
+          <a href="about.html" class="nav-link" id="navAbout">About</a>
+          <a href="contact.html" class="nav-link" id="navContact">Contact</a>
+        </div>
+        <div class="lang-toggle" aria-label="Language">
+          <button class="lang-btn active" data-lang="en">EN</button>
+          <button class="lang-btn" data-lang="zh">中</button>
+        </div>
+        <a href="auth.html" class="login-btn">
+          <span class="icon">⭑</span>
+          <span id="loginBtnText">Login / My Desk</span>
+        </a>
+      </nav>
+    </header>
+
+    <!-- 主体卡片 -->
+    <main class="desk-main-card">
+      <!-- Flow 头部说明 -->
+      <section class="flow-head">
+        <div class="flow-head-title-row">
+          <div class="flow-title-block">
+            <div class="flow-pill">
+              <span class="flow-pill-dot"></span>
+              <span id="flowPillText">Flow</span>
+            </div>
+            <div class="flow-title" id="flowTitle">
+              Starting a task is intentionally simple
+            </div>
+            <p class="flow-subtitle" id="flowSubtitle">
+              This page lets you pick one serious scenario and open a focused task desk.
+              You can always change scenario later — nothing is submitted until you confirm inside your Desk.
+            </p>
+          </div>
+        </div>
+        <div class="flow-chips">
+          <div class="flow-chip">
+            <span class="flow-chip-badge">Step 1</span>
+            <span class="label" id="flowChip1Label">Share what happened.</span>
+            <span id="flowChip1Text">
+              Upload screenshots, letters, or describe the situation in your own words.
+            </span>
+          </div>
+          <div class="flow-chip">
+            <span class="flow-chip-badge">Step 2</span>
+            <span class="label" id="flowChip2Label">Clarify who and what.</span>
+            <span id="flowChip2Text">
+              Tell us who you are writing to and what outcome you hope for.
+            </span>
+          </div>
+          <div class="flow-chip">
+            <span class="flow-chip-badge">Step 3</span>
+            <span class="label" id="flowChip3Label">Receive a ready-to-submit letter.</span>
+            <span id="flowChip3Text">
+              You review, add personal details if needed, and then send it on.
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 下半部分：左边服务 + 右边 预览窗口 -->
+      <section class="desk-layout">
+        <!-- 左侧服务列表 -->
+        <aside class="service-card">
+          <div class="service-card-header">
+            <div class="service-card-title" id="serviceCardTitle">
+              5 core services
+            </div>
+            <div class="service-card-mini" id="serviceCardMini">
+              Pick one scenario to open a desk
+            </div>
+          </div>
+
+          <div class="service-list" id="serviceList">
+            <button
+              type="button"
+              class="service-item active"
+              data-task="Legal letters & contract drafts"
+              data-price="29.9">
+              <div class="service-item-main">
+                <div class="service-icon-wrap">
+                  <div class="service-icon-inner"></div>
+                </div>
+                <div class="service-text-block">
+                  <div class="service-title" id="svc1Title">
+                    Legal letters & contract drafts
+                  </div>
+                  <div class="service-sub" id="svc1Sub">
+                    Disputes, refunds, landlord, employer, vendor, partner…
+                  </div>
+                </div>
+              </div>
+              <div class="service-price" id="svc1Price">USD 29.9</div>
+            </button>
+
+            <button
+              type="button"
+              class="service-item"
+              data-task="Insurance & airline claim letters"
+              data-price="29.9">
+              <div class="service-item-main">
+                <div class="service-icon-wrap">
+                  <div class="service-icon-inner"></div>
+                </div>
+                <div class="service-text-block">
+                  <div class="service-title" id="svc2Title">
+                    Insurance & airline claim letters
+                  </div>
+                  <div class="service-sub" id="svc2Sub">
+                    Travel disruption, baggage loss, medical & policy claims.
+                  </div>
+                </div>
+              </div>
+              <div class="service-price" id="svc2Price">USD 29.9</div>
+            </button>
+
+            <button
+              type="button"
+              class="service-item"
+              data-task="Immigration letters & RFE explanations"
+              data-price="29.9">
+              <div class="service-item-main">
+                <div class="service-icon-wrap">
+                  <div class="service-icon-inner"></div>
+                </div>
+                <div class="service-text-block">
+                  <div class="service-title" id="svc3Title">
+                    Immigration letters & RFE explanations
+                  </div>
+                  <div class="service-sub" id="svc3Sub">
+                    Embassy, USCIS, appeal notes, employer support letters.
+                  </div>
+                </div>
+              </div>
+              <div class="service-price" id="svc3Price">USD 29.9</div>
+            </button>
+
+            <button
+              type="button"
+              class="service-item"
+              data-task="Family & emotional crisis letters"
+              data-price="29.9">
+              <div class="service-item-main">
+                <div class="service-icon-wrap">
+                  <div class="service-icon-inner"></div>
+                </div>
+                <div class="service-text-block">
+                  <div class="service-title" id="svc4Title">
+                    Family & emotional crisis letters
+                  </div>
+                  <div class="service-sub" id="svc4Sub">
+                    Calm letters to partners, children, parents & relatives.
+                  </div>
+                </div>
+              </div>
+              <div class="service-price" id="svc4Price">USD 29.9</div>
+            </button>
+
+            <button
+              type="button"
+              class="service-item"
+              data-task="Complaint & escalation services"
+              data-price="29.9">
+              <div class="service-item-main">
+                <div class="service-icon-wrap">
+                  <div class="service-icon-inner"></div>
+                </div>
+                <div class="service-text-block">
+                  <div class="service-title" id="svc5Title">
+                    Complaint & escalation services
+                  </div>
+                  <div class="service-sub" id="svc5Sub">
+                    Escalate politely to managers, ombudsman, regulator.
+                  </div>
+                </div>
+              </div>
+              <div class="service-price" id="svc5Price">USD 29.9</div>
+            </button>
+          </div>
+        </aside>
+
+        <!-- 右侧 预览窗口 -->
+        <section class="ai-panel">
+          <div class="ai-header-row">
+            <div class="ai-title-block">
+              <div class="ai-title" id="aiTitle">
+                Preview draft window
+                <span class="ai-title-pill" id="aiTitlePill">
+                  System only drafts ~30% preview
+                </span>
+              </div>
+              <p class="ai-subtitle" id="aiSubtitle">
+                Let the desk draft about 30% of the letter structure and opening for you.
+                Nothing is saved or sent. You stay in control of the final version.
+              </p>
+            </div>
+          </div>
+
+          <div class="ai-hint-row">
+            <div class="ai-hint-pill" id="aiHint1">
+              ✓ No login required for preview
+            </div>
+            <div class="ai-hint-pill" id="aiHint2">
+              ✓ Region-free preview
+            </div>
+            <div class="ai-hint-pill" id="aiHint3">
+              ✓ You can still change everything later
+            </div>
+          </div>
+
+          <div class="ai-form">
+            <div>
+              <div class="ai-label">
+                <span id="lblTaskType">Task type</span>
+                <span class="badge" id="lblTaskTypeBadge">Auto from left</span>
+              </div>
+              <input
+                id="taskTypeInput"
+                class="ai-input"
+                type="text"
+                value="Legal letters & contract drafts"
+              />
+            </div>
+
+            <div>
+              <div class="ai-label">
+                <span id="lblLanguage">Language</span>
+              </div>
+              <select id="languageSelect" class="ai-select">
+                <option value="English">English</option>
+                <option value="中文">中文</option>
+              </select>
+            </div>
+
+            <div>
+              <div class="ai-label">
+                <span id="lblTone">Tone</span>
+              </div>
+              <select id="toneSelect" class="ai-select">
+                <option value="calm, respectful">Calm, respectful</option>
+                <option value="firm, polite">Firm, polite</option>
+                <option value="urgent but respectful">Urgent but respectful</option>
+              </select>
+            </div>
+
+            <div>
+              <div class="ai-label">
+                <span id="lblRecipient">Recipient (optional)</span>
+              </div>
+              <input
+                id="recipientInput"
+                class="ai-input"
+                type="text"
+                placeholder="e.g. airline, landlord, lawyer, embassy"
+              />
+            </div>
+
+            <div class="ai-form-full">
+              <div class="ai-label">
+                <span id="lblDetails">What happened? (you can be brief)</span>
+              </div>
+              <textarea
+                id="detailsTextarea"
+                class="ai-textarea"
+                placeholder="Describe the situation in your own words. You can keep it short; the desk will expand it for you."
+              ></textarea>
+            </div>
+
+            <div class="ai-form-full">
+              <div class="ai-label">
+                <span id="lblAttachment">Attachments (optional)</span>
+                <span class="badge" id="lblAttachmentBadge">Screenshots, letters, PDF</span>
+              </div>
+              <input id="attachmentInput" class="ai-input" type="file" multiple />
+              <div class="ai-attachment-hint" id="attachmentHint">
+                You may upload images or PDF; the desk will read the key text only. Files are not stored.
+              </div>
+              <div class="ai-attachment-hint" id="uploadFileNameEl"></div>
+            </div>
+          </div>
+
+          <div class="ai-footer-row">
+            <div class="ai-left-buttons">
+              <button type="button" class="ai-secondary-btn" id="btnClear">
+                <span id="btnClearText">Reset</span>
+              </button>
+              <button type="button" class="ai-secondary-btn" id="btnPasteExample">
+                <span id="btnPasteExampleText">Paste an example case</span>
+              </button>
+            </div>
+            <div class="ai-left-buttons">
+              <button type="button" class="ai-generate-btn" id="aiGenerateBtn">
+                <span id="aiGenerateBtnText">Generate preview draft</span>
+              </button>
+              <div class="ai-status" id="aiStatus">
+                <span id="aiStatusText">
+                  System will draft about 30% of the letter as a preview only.
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 预览 + 模糊遮罩 -->
+          <div class="ai-preview-wrapper">
+            <div class="ai-preview-box" id="aiPreviewBox">
+              <div class="ai-preview-placeholder" id="aiPreviewPlaceholder">
+                Your 30% preview draft will appear here. It is not saved or sent
+                to any company or person. When you are happy with the direction,
+                you can open a full Desk and continue privately.
+              </div>
+            </div>
+            <div class="ai-preview-overlay" id="aiPreviewOverlay">
+              <div class="ai-preview-overlay-inner">
+                <div class="ai-overlay-title" id="overlayTitle">
+                  Preview only shows part of the letter
+                </div>
+                <div class="ai-overlay-text" id="overlayText">
+                  About 30% of the content is visible here. To unlock the full, ready-to-send letter,
+                  please scroll down to Step 2 and complete the one-time payment.
+                </div>
+                <button type="button" class="ai-overlay-btn" id="overlayUpgradeBtn">
+                  <span id="overlayBtnText">Go to Step 2 – Payment & full letter</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- Step 2：付款 + 完整信件 -->
+      <section class="step2-card" id="step2Card">
+        <div>
+          <div class="step2-left-title" id="step2Title">Step 2 – Payment & full letter</div>
+          <div class="step2-left-sub" id="step2Sub">
+            Please pay once to unlock a complete, ready-to-send letter. You can keep this page open
+            while paying, then confirm below and generate the full letter.
+          </div>
+          <div class="step2-price-row">
+            <div>
+              <div id="step2ScenarioLabel">
+                Scenario: <span id="fullScenarioLabel">Legal letters & contract drafts</span>
+              </div>
+            </div>
+            <div class="step2-price-amount" id="fullPriceLabel">USD 29.9</div>
+          </div>
+          <button type="button" class="step2-pay-btn" id="payBtn">
+            <span id="payBtnText">Pay now via Paddle / Wise / PayPal</span>
+          </button>
+          <div class="step2-pay-note" id="payNoteText">
+            Payment will open in a new tab. After completing payment, return to this page,
+            tick the confirmation box, then generate your full letter.
+          </div>
+          <label class="step2-check-row">
+            <input type="checkbox" id="payConfirmCheckbox" />
+            <span id="payConfirmLabel">
+              I confirm I have completed the payment for this full letter.
+            </span>
+          </label>
+          <button type="button" class="step2-generate-btn" id="fullGenerateBtn">
+            <span id="fullGenerateBtnText">Generate full letter</span>
+          </button>
+          <div class="step2-status" id="fullStatusText">
+            After payment is confirmed, the system will draft your full letter here.
+            Nothing is auto-sent; only you see it.
+          </div>
+        </div>
+
+        <div>
+          <div class="full-output-box" id="fullOutputBox">
+            <div class="full-output-placeholder" id="fullOutputPlaceholder">
+              Your complete, ready-to-send letter will appear here after Step 2.
+              You can copy it into email, PDF, or a system form. The desk never auto-sends on your behalf.
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
   </div>
 
   <script>
-    // Year
-    document.getElementById("year").textContent = new Date().getFullYear();
+    // ===== 支付链接（你只需要改这里） =====
+    const PADDLE_LINK = "https://your-paddle-checkout-link.com"; // TODO: 换成你的 Paddle / Wise / PayPal 链接
 
-    // Simple i18n
-    const translations = {
+    // ===== DOM 引用 =====
+    const serviceItems = document.querySelectorAll(".service-item");
+    const taskTypeInput = document.getElementById("taskTypeInput");
+
+    const aiGenerateBtn = document.getElementById("aiGenerateBtn");
+    const aiStatusText = document.getElementById("aiStatusText");
+    const aiPreviewBox = document.getElementById("aiPreviewBox");
+    const aiPreviewPlaceholder = document.getElementById("aiPreviewPlaceholder");
+    const aiPreviewOverlay = document.getElementById("aiPreviewOverlay");
+    const overlayUpgradeBtn = document.getElementById("overlayUpgradeBtn");
+    const overlayTitle = document.getElementById("overlayTitle");
+    const overlayText = document.getElementById("overlayText");
+    const overlayBtnText = document.getElementById("overlayBtnText");
+
+    const toneSelect = document.getElementById("toneSelect");
+    const languageSelect = document.getElementById("languageSelect");
+    const recipientInput = document.getElementById("recipientInput");
+    const detailsTextarea = document.getElementById("detailsTextarea");
+
+    const attachmentInput = document.getElementById("attachmentInput");
+    const uploadFileNameEl = document.getElementById("uploadFileNameEl");
+
+    const btnClear = document.getElementById("btnClear");
+    const btnPasteExample = document.getElementById("btnPasteExample");
+
+    // Step 2
+    const fullScenarioLabel = document.getElementById("fullScenarioLabel");
+    const fullPriceLabel = document.getElementById("fullPriceLabel");
+    const payBtn = document.getElementById("payBtn");
+    const payConfirmCheckbox = document.getElementById("payConfirmCheckbox");
+    const fullGenerateBtn = document.getElementById("fullGenerateBtn");
+    const fullOutputBox = document.getElementById("fullOutputBox");
+    const fullOutputPlaceholder = document.getElementById("fullOutputPlaceholder");
+    const fullStatusText = document.getElementById("fullStatusText");
+
+    let currentLang = "en";
+    let currentPrice = "29.9";
+
+    // 最近一次完整信件的缓存，用于“预览 30% + 解锁 100%”
+    let lastFullDraft = "";
+    let lastDraftMeta = null;
+
+    function syncScenarioAndPrice() {
+      fullScenarioLabel.textContent = taskTypeInput.value || "";
+      const priceText = "USD " + currentPrice;
+      fullPriceLabel.textContent = priceText;
+    }
+
+    serviceItems.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        serviceItems.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        const task = btn.getAttribute("data-task") || "";
+        const price = btn.getAttribute("data-price") || currentPrice;
+        currentPrice = price;
+        if (task) {
+          taskTypeInput.value = task;
+        }
+        syncScenarioAndPrice();
+      });
+    });
+    syncScenarioAndPrice();
+
+    attachmentInput.addEventListener("change", () => {
+      const files = attachmentInput.files;
+      if (!files || !files.length) {
+        uploadFileNameEl.textContent = "";
+        return;
+      }
+      const names = Array.from(files).map((f) => f.name);
+      uploadFileNameEl.textContent = names.join(" · ");
+    });
+
+    function fileToBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const result = reader.result || "";
+          const commaIndex = result.indexOf(",");
+          const base64 = commaIndex >= 0 ? result.slice(commaIndex + 1) : result;
+          resolve(base64);
+        };
+        reader.onerror = () => reject(reader.error || new Error("File read error"));
+        reader.readAsDataURL(file);
+      });
+    }
+
+    async function collectAttachments() {
+      const files = attachmentInput.files;
+      if (!files || !files.length) return [];
+      const out = [];
+      for (const file of files) {
+        const base64 = await fileToBase64(file);
+        out.push({
+          name: file.name || "attachment",
+          type: file.type || "attachment",
+          base64
+        });
+      }
+      return out;
+    }
+
+    // ========= 预览：向后端要整封信，只展示前 30–35% =========
+    async function callPreview() {
+      const taskType  = (taskTypeInput.value || "").trim() || "Writing task";
+      const tone      = (toneSelect.value || "calm, respectful").toString();
+      const language  = (languageSelect.value || "English").toString();
+      const recipient = (recipientInput.value || "").toString();
+      const details   = (detailsTextarea.value || "").toString();
+
+      aiGenerateBtn.disabled = true;
+      aiStatusText.textContent = language === "中文"
+        ? "系统正在生成预览草稿…"
+        : "The desk is drafting a preview for you…";
+
+      try {
+        const attachments = await collectAttachments();
+
+        const res = await fetch("https://aurum-task-worker.sophieinbg.workers.dev/api/generate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          // 这里使用 mode: "full" —— 直接要整封信
+          body: JSON.stringify({
+            taskType,
+            tone,
+            language,
+            recipient,
+            details,
+            attachments,
+            mode: "full"
+          })
+        });
+
+        let data = {};
+        try {
+          data = await res.json();
+        } catch (e) {
+          data = {};
+        }
+
+        if (!res.ok || !data.ok) {
+          const errMsg = (data && data.error) ? String(data.error) : ("HTTP " + res.status);
+          console.error("Backend error:", errMsg);
+          aiStatusText.textContent = language === "中文"
+            ? "后端报错：" + errMsg
+            : "Backend error: " + errMsg;
+          return;
+        }
+
+        const fullDraft = String(
+          data.full ||
+          data.content ||
+          data.draft ||
+          data.preview ||
+          ""
+        ).trim();
+
+        if (!fullDraft) {
+          aiStatusText.textContent = language === "中文"
+            ? "后端没有返回内容。"
+            : "Backend returned no content.";
+          return;
+        }
+
+        // 缓存整封信及其元信息，供“生成完整信件”使用
+        lastFullDraft = fullDraft;
+        lastDraftMeta = { taskType, tone, language, recipient, details };
+
+        // 只显示前 ~35% 作为预览
+        const maxChars = Math.max(400, Math.floor(fullDraft.length * 0.35));
+        const previewPart = fullDraft.slice(0, maxChars);
+
+        aiPreviewPlaceholder.style.display = "none";
+        aiPreviewBox.textContent = previewPart;
+
+        // 显示遮罩（下半部分）
+        aiPreviewOverlay.style.display = "flex";
+
+        aiStatusText.textContent = language === "中文"
+          ? "预览完成。这里只展示部分内容，完整信件请在下方完成付款后解锁。"
+          : "Preview ready. Only part of the letter is shown. After payment you can unlock the full letter below.";
+      } catch (err) {
+        console.error("Frontend error:", err);
+        aiStatusText.textContent = language === "中文"
+          ? "前端错误：" + (err && err.message ? err.message : String(err))
+          : "Frontend error: " + (err && err.message ? err.message : String(err));
+      } finally {
+        aiGenerateBtn.disabled = false;
+      }
+    }
+
+    aiGenerateBtn.addEventListener("click", () => {
+      callPreview();
+    });
+
+    overlayUpgradeBtn.addEventListener("click", () => {
+      document.getElementById("step2Card").scrollIntoView({ behavior: "smooth" });
+    });
+
+    // ========= 支付按钮：打开外部收款页面 =========
+    payBtn.addEventListener("click", () => {
+      if (PADDLE_LINK && PADDLE_LINK.startsWith("http")) {
+        window.open(PADDLE_LINK, "_blank");
+      } else {
+        alert("Please configure your payment link in desk.html (PADDLE_LINK).");
+      }
+    });
+
+    // ========= 生成完整信件：优先直接“解锁缓存的整封信” =========
+    async function callFullLetter() {
+      const language = (languageSelect.value || "English").toString();
+
+      if (!payConfirmCheckbox.checked) {
+        fullStatusText.textContent = language === "中文"
+          ? "请先勾选“我确认已经为本次完整信件完成付款”。"
+          : "Please tick the confirmation box to confirm you have completed the payment.";
+        return;
+      }
+
+      // 如果预览时已经拿到整封信且语言一致，直接解锁
+      if (lastFullDraft && lastDraftMeta && lastDraftMeta.language === language) {
+        fullOutputPlaceholder.style.display = "none";
+        fullOutputBox.textContent = lastFullDraft;
+        fullStatusText.textContent = language === "中文"
+          ? "已解锁刚才预览对应的完整信件。你可以复制到邮件、PDF 或系统表单中使用。"
+          : "Unlocked the full letter based on your preview. You can copy it into email, PDF, or a system form.";
+        return;
+      }
+
+      // 否则：退回到直接向后端要完整信件（用户可能没点击预览，直接付费）
+      const taskType  = (taskTypeInput.value || "").trim() || "Writing task";
+      const tone      = (toneSelect.value || "calm, respectful").toString();
+      const recipient = (recipientInput.value || "").toString();
+      const details   = (detailsTextarea.value || "").toString();
+
+      fullGenerateBtn.disabled = true;
+      fullStatusText.textContent = language === "中文"
+        ? "正在生成完整信件，请稍候…"
+        : "Generating your full letter. Please wait…";
+
+      try {
+        const attachments = await collectAttachments();
+
+        const res = await fetch("https://aurum-task-worker.sophieinbg.workers.dev/api/generate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            taskType,
+            tone,
+            language,
+            recipient,
+            details,
+            attachments,
+            mode: "full"
+          })
+        });
+
+        let data = {};
+        try {
+          data = await res.json();
+        } catch (e) {
+          data = {};
+        }
+
+        if (!res.ok || !data.ok) {
+          const errMsg = (data && data.error) ? String(data.error) : ("HTTP " + res.status);
+          console.error("Backend error:", errMsg);
+          fullStatusText.textContent = language === "中文"
+            ? "后端报错：" + errMsg
+            : "Backend error: " + errMsg;
+          return;
+        }
+
+        const fullDraft = String(
+          data.full ||
+          data.content ||
+          data.draft ||
+          data.preview ||
+          ""
+        ).trim();
+
+        if (!fullDraft) {
+          fullStatusText.textContent = language === "中文"
+            ? "后端没有返回完整信件内容。"
+            : "Backend returned no full letter content.";
+          return;
+        }
+
+        // 写入缓存（方便用户重复点击）
+        lastFullDraft = fullDraft;
+        lastDraftMeta = { taskType, tone, language, recipient, details };
+
+        fullOutputPlaceholder.style.display = "none";
+        fullOutputBox.textContent = fullDraft;
+        fullStatusText.textContent = language === "中文"
+          ? "完整信件已生成。你可以复制到邮件、PDF 或系统表单中使用。"
+          : "Full letter generated. You can copy it into email, PDF, or a system form.";
+      } catch (err) {
+        console.error("Frontend error:", err);
+        fullStatusText.textContent = language === "中文"
+          ? "前端错误：" + (err && err.message ? err.message : String(err))
+          : "Frontend error: " + (err && err.message ? err.message : String(err));
+      } finally {
+        fullGenerateBtn.disabled = false;
+      }
+    }
+
+    fullGenerateBtn.addEventListener("click", () => {
+      callFullLetter();
+    });
+
+    // Reset 按钮
+    btnClear.addEventListener("click", () => {
+      recipientInput.value = "";
+      detailsTextarea.value = "";
+      attachmentInput.value = "";
+      uploadFileNameEl.textContent = "";
+      aiPreviewBox.textContent = "";
+      aiPreviewPlaceholder.style.display = "block";
+      aiPreviewOverlay.style.display = "none";
+      lastFullDraft = "";
+      lastDraftMeta = null;
+      aiStatusText.textContent = languageSelect.value === "中文"
+        ? "系统只会生成约 30% 的预览草稿，不会保存也不会发送。"
+        : "System will draft about 30% of the letter as a preview only.";
+    });
+
+    // 示例粘贴
+    btnPasteExample.addEventListener("click", () => {
+      if (detailsTextarea.value.trim()) return;
+      if (languageSelect.value === "中文") {
+        detailsTextarea.value =
+          "我与贵公司就某项长期服务合同发生严重争议，多次催促未果，现在需要一封正式信件向贵司提出严肃的书面申诉，并保留进一步法律行动的权利。";
+      } else {
+        detailsTextarea.value =
+          "I need to raise a serious dispute regarding long-overdue payments. The other side has ignored reminders and I am now considering formal legal action.";
+      }
+    });
+
+    // ========= 多语言 & 登录状态 =========
+    const langButtons = document.querySelectorAll(".lang-btn");
+
+    const i18n = {
+      en: {
+        brandSub: "Private writing & resolution desk",
+        navHome: "Home",
+        navDesk: "Desk",
+        navAbout: "About",
+        navContact: "Contact",
+        loginBtn: "Login / My Desk",
+        flowPill: "Flow",
+        flowTitle: "Starting a task is intentionally simple",
+        flowSubtitle:
+          "This page lets you pick one serious scenario and open a focused task desk. You can always change scenario later — nothing is submitted until you confirm inside your Desk.",
+        chip1Label: "Share what happened.",
+        chip1Text:
+          "Upload screenshots, letters, or describe the situation in your own words.",
+        chip2Label: "Clarify who and what.",
+        chip2Text:
+          "Tell us who you are writing to and what outcome you hope for.",
+        chip3Label: "Receive a ready-to-submit letter.",
+        chip3Text:
+          "You review, add personal details if needed, and then send it on.",
+        serviceCardTitle: "5 core services",
+        serviceCardMini: "Pick one scenario to open a desk",
+        aiTitle: "Preview draft window",
+        aiTitlePill: "System only drafts ~30% preview",
+        aiSubtitle:
+          "Let the desk draft about 30% of the letter structure and opening for you. Nothing is saved or sent.",
+        aiHint1: "✓ No login required for preview",
+        aiHint2: "✓ Region-free preview",
+        aiHint3: "✓ You can still change everything later",
+        lblTaskType: "Task type",
+        lblTaskTypeBadge: "Auto from left",
+        lblLanguage: "Language",
+        lblTone: "Tone",
+        lblRecipient: "Recipient (optional)",
+        lblDetails: "What happened? (you can be brief)",
+        lblAttachment: "Attachments (optional)",
+        lblAttachmentBadge: "Screenshots, letters, PDF",
+        attachmentHint:
+          "You may upload images or PDF; the desk will read the key text only. Files are not stored.",
+        btnClear: "Reset",
+        btnExample: "Paste an example case",
+        btnPreview: "Generate preview draft",
+        statusDefault:
+          "System will draft about 30% of the letter as a preview only.",
+        previewPlaceholder:
+          "Your 30% preview draft will appear here. It is not saved or sent to anyone. When you are happy with the direction, you can open a full Desk and continue privately.",
+        overlayTitle: "Preview only shows part of the letter",
+        overlayText:
+          "About 30% of the content is visible here. To unlock the full, ready-to-send letter, please scroll down to Step 2 and complete the one-time payment.",
+        overlayBtnText: "Go to Step 2 – Payment & full letter",
+        step2Title: "Step 2 – Payment & full letter",
+        step2Sub:
+          "Please pay once to unlock a complete, ready-to-send letter. You can keep this page open while paying, then confirm below and generate the full letter.",
+        payBtnText: "Pay now via Paddle / Wise / PayPal",
+        payNoteText:
+          "Payment will open in a new tab. After completing payment, return to this page, tick the confirmation box, then generate your full letter.",
+        payConfirmLabel:
+          "I confirm I have completed the payment for this full letter.",
+        fullGenerateBtnText: "Generate full letter",
+        fullStatusDefault:
+          "After payment is confirmed, the system will draft your full letter here. Nothing is auto-sent; only you see it.",
+        fullOutputPlaceholder:
+          "Your complete, ready-to-send letter will appear here after Step 2. You can copy it into email, PDF, or a system form. The desk never auto-sends on your behalf."
+      },
       zh: {
-        brandTitle: "Aurum Task Desk",
-        brandSub: "您的私人 AI 写作与解决方案工作台",
+        brandSub: "安静而专业的写作与申诉任务台",
         navHome: "首页",
         navDesk: "Desk 任务台",
         navAbout: "关于我们",
         navContact: "联系我们",
-        navServices: "服务",
-        navHow: "流程",
-        navCompare: "为什么不用 ChatGPT？",
-        navPricing: "定价",
-        login: "登录 / 我的 Desk",
-        logout: "退出登录",
-        pillLeft: "安静、严肃场景专用的写作工作台",
-        pillRight: "法律 / 移民 / 保险 / 投诉",
-        urgentText:
-          "只接严肃问题：法律、移民、保险理赔或危机场景的英文信件 —— 单次服务从 29.9 美元起。",
-        heroLine1: "面向严肃问题的私人 AI 写作桌",
-        heroLine2: "专为 40+ 欧美客户设计",
-        heroSub:
-          "针对法律文书、移民补件说明、保险与航空理赔、投诉升级以及家庭危机沟通，提供可以直接提交的英文信件，特别适合 40+ 不想和 AI 较劲的用户。",
-        trust1: "无需订阅，每个任务单独计费",
-        trust2: "语气与结构专为律师、HR、审核官而优化",
-        ctaPrimary: "开始一个任务",
-        ctaSecondary: "查看 5 大核心服务",
-        chip1: "上传截图或简单描述事情经过",
-        chip2: "告诉我们写给谁、希望得到什么结果",
-        chip3: "收到结构完整、可以直接提交的英文信件",
-
-        case1Tag: "案例 1 · 严肃法律信",
-        case1Title: "严肃法律 / 合同场景",
-        case1Desc:
-          "用于合同草稿、违约通知、正式法律风格往来信件，由 Desk 生成可直接提交的结构化文本。",
-        case2Tag: "案例 2 · 理赔与升级",
-        case2Title: "理赔 / 投诉升级场景",
-        case2Desc:
-          "用于航空退款、保险纠纷、对公司或机构的升级投诉信，让对方重新认真审视你的情况。",
-        case3Tag: "案例 3 · 移民与危机",
-        case3Title: "移民 / 危机说明场景",
-        case3Desc:
-          "用于签证 RFE 回应、拒签解释、家庭或情感危机的冷静说明信件。",
-
-        avatarStripText:
-          "典型用户：42–68 岁的专业人士、管理者与小企业主。",
-
-        whyLabel: "为什么需要这个 Desk？",
-        whyTitle: "为有真实麻烦的 40+ 欧美用户准备",
-        whyPill: "不是玩具型 AI",
-        why1Title: "只做严肃场景。",
-        why1Body:
-          "移民、法律风格、保险索赔、投诉升级、家庭危机沟通等，不做娱乐文案。",
-        why2Title: "直接提交用。",
-        why2Body:
-          "输出结构、语气、长度都围绕律师、HR、审核官和理赔人员来设计。",
-        why3Title: "40+ 友好。",
-        why3Body:
-          "不用折腾 prompt，只需回答清晰的问题，再由 Desk 帮你组织信件。",
-        why4Title: "没有订阅。",
-        why4Body:
-          "每封信按次计费，没有隐藏月费，不会悄悄自动扣款。",
-
-        whyCompareLeftTitle: "如果你只用 ChatGPT 聊天……",
-        whyCompareLeft1: "需要自己设计 prompt 和结构，过程很折腾。",
-        whyCompareLeft2: "语气容易过于随意或“AI 味”太重。",
-        whyCompareLeft3: "没人帮你检查是否符合法律、HR 或理赔信的风格。",
-        whyCompareRightTitle: "使用 Aurum Task Desk……",
-        whyCompareRight1: "由 Desk 帮你把碎片信息整理成完整结构化信件。",
-        whyCompareRight2:
-          "语气和长度围绕审核官、HR 和理赔人员来调优，更贴近真实阅读习惯。",
-        whyCompareRight3:
-          "通过清晰的问题收集信息，而不是要求你写复杂指令。",
-
-        pricingLabel: "定价概览",
-        pricingTitle: "5 大专门服务，清晰价格",
-        svc1Title: "法律文书 / 合同草稿",
-        svc1Desc: "合同条款撰写、违约通知、正式法律风格信件，适用于公司与个人。",
-        svc1Price: "USD 29.9",
-        svc1Cta: "进入服务 →",
-        svc2Title: "移民申请信 / RFE / 拒签解释",
-        svc2Desc:
-          "针对 RFE 回复、拒签解释、背景说明等签证与永居场景的英文信件。",
-        svc2Price: "USD 29.9",
-        svc2Cta: "进入服务 →",
-        svc3Title: "保险理赔 / 航空延误退款",
-        svc3Desc:
-          "航班延误 / 取消退款、行李损坏、拒赔后重新申诉等英文信件。",
-        svc3Price: "USD 29.9",
-        svc3Cta: "进入服务 →",
-        svc4Title: "家庭与情感危机信",
-        svc4Desc:
-          "在严重关系冲突时，用冷静、尊重的结构化英文信表达立场与底线。",
-        svc4Price: "USD 29.9",
-        svc4Cta: "进入服务 →",
-        svc5Title: "投诉升级服务",
-        svc5Desc:
-          "升级写给银行、航空公司、雇主或监管机构，让对方认真对待你的问题。",
-        svc5Price: "USD 29.9",
-        svc5Cta: "进入服务 →",
-
-        compareLabel: "为什么不用 ChatGPT？",
-        compareTitle: "通用 AI vs. 安静的专门写作桌",
-        compareLeftTitle: "通用型 AI 工具",
-        cmpL1:
-          "输出内容偏学术、冗长，很难直接用在法律、移民或理赔场景里。",
-        cmpL2:
-          "不了解移民官、理赔人员或 HR 实际审材料的习惯和关注点。",
-        cmpL3:
-          "需要不断试 prompt、调语气、反复修改，对 40+ 来说非常耗精力。",
-        cmpL4:
-          "文字容易带有明显的“AI 味道”，在部分机构中甚至会被直接否掉。",
-        compareRightTitle: "Aurum Task Desk",
-        cmpR1:
-          "结构、语气与长度以“审核者视角”设计，更贴近真实阅读习惯。",
-        cmpR2:
-          "只专注于法律风格、移民、保险、投诉与危机沟通，不做杂项内容。",
-        cmpR3:
-          "用问答方式收集信息，不需要你懂技术或写复杂指令。",
-        cmpR4:
-          "按封计费，从 29.9 美元起，无需订阅，无自动续费。",
-
-        howLabel: "流程",
-        howTitle: "开始一个任务，其实很简单",
-        step1:
-          "【1】说明发生了什么：上传截图、原信件，或用自己的话简单描述经过，无需“写得很完美”。",
-        step2:
-          "【2】说明写给谁、想要什么：是律师、使馆、保险公司、雇主还是航空公司？你希望对方做什么？",
-        step3:
-          "【3】收到可直接提交的英文信件：你可以再补充细节，然后通过邮箱、在线表格或纸质形式发送。",
-
-        whoLabel: "适合人群",
-        whoTitle: "三类典型的 Aurum Desk 用户",
-        persona1:
-          "在欧美生活、工作或读书的华人 / 国际人士，英语一般，但正在处理移民、保险或合规问题。",
-        persona2:
-          "40+ 职场人士、经理或小企业主，不想学习 AI 技巧，但需要严肃、好用的英文信件。",
-        persona3:
-          "已经收到拒信、负面回复，或被长期忽视的人：需要通过严肃、礼貌但清晰的信件重新“被看见”。",
-
-        privacyLabel: "保护与隐私",
-        privacyTitle: "安静为先 —— 你的遭遇不是“素材”",
-        pri1:
-          "不会把你的信件当作“训练数据”或营销内容来使用，你的经历不是平台用来讲故事的素材。",
-        pri2:
-          "如有需要，你可以在上传前打码护照号、案件号等敏感信息，仅保留必要内容。",
-        pri3:
-          "在事情解决之后，你可以请求删除相关任务记录，不继续保留。",
-        pri4:
-          "Desk 采用简单、可审计的后台逻辑，而不是复杂难懂、到处串联广告的巨型平台。",
-
-        notForLabel: "不适合的人群",
-        notForTitle: "为了保持桌面安静、严肃",
-        nf1:
-          "只想要娱乐内容、社交媒体文案或一般作业辅导的用户。本桌面只服务真实的现实问题。",
-        nf2:
-          "希望每天批量生成大量信件、做群发活动的用户。每个任务都应该是具体而重要的。",
-        nf3:
-          "需要持牌律师提供正式法律意见或出庭代理的情况。Desk 只做写作支持，并非法律代理。",
-
-        footerCopy: "为严肃问题而生的安静写作工作台。",
-        footerPrivacy: "隐私政策",
-        footerTerms: "使用条款"
+        loginBtn: "登录 / 我的 Desk",
+        flowPill: "流程",
+        flowTitle: "开始一个任务，被刻意设计得很简单",
+        flowSubtitle:
+          "在这里，你只需先选一个最重要的场景，打开一个专注的任务台。后面随时可以调整场景，只有在你确认后才会正式提交。",
+        chip1Label: "先说清楚发生了什么。",
+        chip1Text:
+          "可以上传截图、信件，或者用你自己的话简单描述情况，不需要完美。",
+        chip2Label: "再说明对象和诉求。",
+        chip2Text:
+          "告诉我们你要写给谁（律师、领馆、保险公司、雇主、航空公司等）以及理想结果。",
+        chip3Label: "拿到一封可以直接递交的信。",
+        chip3Text:
+          "你可以再补充个人信息、删改语气，确认后再通过邮箱、系统或打印寄出。",
+        serviceCardTitle: "5 个核心服务场景",
+        serviceCardMini: "先选一个场景打开任务台",
+        aiTitle: "预览草稿小窗口",
+        aiTitlePill: "系统只会生成约 30% 预览草稿",
+        aiSubtitle:
+          "先让任务台替你起一段大约 30% 的结构和开头。此步骤不会保存，也不会发送给任何机构。",
+        aiHint1: "✓ 无需登录即可预览",
+        aiHint2: "✓ 无地区限制预览",
+        aiHint3: "✓ 后面可以随时全部修改",
+        lblTaskType: "任务类型",
+        lblTaskTypeBadge: "从左侧自动带入",
+        lblLanguage: "写作语言",
+        lblTone: "语气",
+        lblRecipient: "收件方（可选）",
+        lblDetails: "简单讲讲发生了什么",
+        lblAttachment: "上传附件（可选）",
+        lblAttachmentBadge: "截图、信件、PDF 文件",
+        attachmentHint:
+          "可以上传图片或 PDF，系统只会抽取关键信息，不会长期保存原文件。",
+        btnClear: "Reset",
+        btnExample: "粘贴一个示例案例",
+        btnPreview: "生成预览草稿",
+        statusDefault:
+          "系统只会生成约 30% 的预览草稿，不会保存也不会发送。",
+        previewPlaceholder:
+          "系统生成的大约 30% 预览内容会显示在这里。它不会被保存，也不会发给任何人。确认方向后，你可以在完整任务台中更私密地继续完善。",
+        overlayTitle: "这里只展示部分预览内容",
+        overlayText:
+          "目前你看到的大约是整封信的 30%。如需查看完整、可直接递交的正式信件，请下滑到第 2 步完成一次性付款，再生成完整信件。",
+        overlayBtnText: "前往第 2 步：付款并解锁完整信件",
+        step2Title: "第 2 步 – 付款并解锁完整信件",
+        step2Sub:
+          "为这一封正式信件支付一次费用后，你可以在这里一封一封地生成可以直接递交的完整信件。付款时可以保持此页面打开。",
+        payBtnText: "通过 Paddle / Wise / PayPal 立即付款",
+        payNoteText:
+          "付款会在新标签页中打开安全收款链接。支付完成后，请回到此页面勾选确认，然后生成完整信件。",
+        payConfirmLabel:
+          "我确认已经为本次完整信件完成付款。",
+        fullGenerateBtnText: "生成完整信件",
+        fullStatusDefault:
+          "确认付款后，系统会在此处生成一封完整信件。不会自动发送，只会展示给你。",
+        fullOutputPlaceholder:
+          "完成第 2 步后，系统生成的完整信件会显示在这里。你可以复制到邮件、PDF 或系统表单中使用，系统不会替你自动发送。"
       }
     };
 
-    const langButtons = document.querySelectorAll(".lang-btn");
-    const i18nElements = document.querySelectorAll("[data-i18n-key]");
+    // 登录信息 localStorage key
+    const USER_STORAGE_KEY = "aurum_user";
 
-    function setLanguage(lang) {
-      langButtons.forEach((btn) => {
-        btn.classList.toggle("active", btn.dataset.lang === lang);
+    function getCurrentUser() {
+      try {
+        const raw = localStorage.getItem(USER_STORAGE_KEY);
+        if (!raw) return null;
+        return JSON.parse(raw);
+      } catch {
+        return null;
+      }
+    }
+
+    function applyLoginState() {
+      const loginBtn = document.querySelector(".login-btn");
+      const loginTextEl = document.getElementById("loginBtnText");
+      if (!loginBtn || !loginTextEl) return;
+
+      const user = getCurrentUser();
+      const t = (i18n[currentLang] || i18n.en);
+
+      if (user && user.name) {
+        const name = String(user.name).slice(0, 18);
+        const hiText = "Hi, " + name;
+        loginTextEl.textContent = hiText;
+        loginBtn.href = "desk.html";
+      } else {
+        loginTextEl.textContent = t.loginBtn;
+        loginBtn.href = "auth.html";
+      }
+    }
+
+    function applyLang(lang) {
+      const t = i18n[lang] || i18n.en;
+      currentLang = lang;
+
+      document.getElementById("brandSubText").textContent = t.brandSub;
+      document.getElementById("navHome").textContent = t.navHome;
+      document.getElementById("navDesk").textContent = t.navDesk;
+      document.getElementById("navAbout").textContent = t.navAbout;
+      document.getElementById("navContact").textContent = t.navContact;
+      document.getElementById("loginBtnText").textContent = t.loginBtn;
+
+      document.getElementById("flowPillText").textContent = t.flowPill;
+      document.getElementById("flowTitle").textContent = t.flowTitle;
+      document.getElementById("flowSubtitle").textContent = t.flowSubtitle;
+      document.getElementById("flowChip1Label").textContent = t.chip1Label;
+      document.getElementById("flowChip1Text").textContent = t.chip1Text;
+      document.getElementById("flowChip2Label").textContent = t.chip2Label;
+      document.getElementById("flowChip2Text").textContent = t.chip2Text;
+      document.getElementById("flowChip3Label").textContent = t.chip3Label;
+      document.getElementById("flowChip3Text").textContent = t.chip3Text;
+
+      document.getElementById("serviceCardTitle").textContent = t.serviceCardTitle;
+      document.getElementById("serviceCardMini").textContent = t.serviceCardMini;
+
+      document.getElementById("aiTitle").firstChild.textContent = t.aiTitle + " ";
+      document.getElementById("aiTitlePill").textContent = t.aiTitlePill;
+      document.getElementById("aiSubtitle").textContent = t.aiSubtitle;
+      document.getElementById("aiHint1").textContent = t.aiHint1;
+      document.getElementById("aiHint2").textContent = t.aiHint2;
+      document.getElementById("aiHint3").textContent = t.aiHint3;
+
+      document.getElementById("lblTaskType").textContent = t.lblTaskType;
+      document.getElementById("lblTaskTypeBadge").textContent = t.lblTaskTypeBadge;
+      document.getElementById("lblLanguage").textContent = t.lblLanguage;
+      document.getElementById("lblTone").textContent = t.lblTone;
+      document.getElementById("lblRecipient").textContent = t.lblRecipient;
+      document.getElementById("lblDetails").textContent = t.lblDetails;
+      document.getElementById("lblAttachment").textContent = t.lblAttachment;
+      document.getElementById("lblAttachmentBadge").textContent = t.lblAttachmentBadge;
+      document.getElementById("attachmentHint").textContent = t.attachmentHint;
+
+      document.getElementById("btnClearText").textContent = t.btnClear;
+      document.getElementById("btnPasteExampleText").textContent = t.btnExample;
+      document.getElementById("aiGenerateBtnText").textContent = t.btnPreview;
+      document.getElementById("aiStatusText").textContent = t.statusDefault;
+      document.getElementById("aiPreviewPlaceholder").textContent = t.previewPlaceholder;
+
+      overlayTitle.textContent = t.overlayTitle;
+      overlayText.textContent = t.overlayText;
+      overlayBtnText.textContent = t.overlayBtnText;
+
+      document.getElementById("step2Title").textContent = t.step2Title;
+      document.getElementById("step2Sub").textContent = t.step2Sub;
+      document.getElementById("payBtnText").textContent = t.payBtnText;
+      document.getElementById("payNoteText").textContent = t.payNoteText;
+      document.getElementById("payConfirmLabel").textContent = t.payConfirmLabel;
+      document.getElementById("fullGenerateBtnText").textContent = t.fullGenerateBtnText;
+      document.getElementById("fullStatusText").textContent = t.fullStatusDefault;
+      document.getElementById("fullOutputPlaceholder").textContent = t.fullOutputPlaceholder;
+
+      langButtons.forEach((b) => {
+        b.classList.toggle("active", b.dataset.lang === lang);
       });
 
       if (lang === "zh") {
-        i18nElements.forEach((el) => {
-          const key = el.getAttribute("data-i18n-key");
-          if (translations.zh[key]) {
-            el.textContent = translations.zh[key];
-          }
-        });
+        languageSelect.value = "中文";
         document.documentElement.lang = "zh-CN";
       } else {
-        // Reset to default EN text (stored in HTML)
-        window.location.reload(); // simplest way to ensure all original EN text comes back clean
+        languageSelect.value = "English";
+        document.documentElement.lang = "en";
       }
 
+      syncScenarioAndPrice();
       try {
         localStorage.setItem("aurum_lang", lang);
-      } catch (_) {}
+      } catch {}
+
+      applyLoginState();
     }
 
     langButtons.forEach((btn) => {
       btn.addEventListener("click", () => {
-        const lang = btn.dataset.lang;
-        if (!btn.classList.contains("active")) {
-          setLanguage(lang);
-        }
+        const lang = btn.dataset.lang || "en";
+        applyLang(lang);
       });
     });
 
-    // Load saved language
-    try {
-      const saved = localStorage.getItem("aurum_lang");
-      if (saved === "zh") {
-        setLanguage("zh");
-      }
-    } catch (_) {}
-
-    // 顶部页面导航当前页高亮（index.html → 首页）
-    (function () {
-      const path = window.location.pathname.toLowerCase();
-      let currentKey = "home";
-      if (path.endsWith("desk.html") || path.endsWith("desk_full.html")) {
-        currentKey = "desk";
-      } else if (path.endsWith("about.html")) {
-        currentKey = "about";
-      } else if (path.endsWith("contact.html")) {
-        currentKey = "contact";
-      } else if (path.endsWith("index.html") || path === "/" || path === "") {
-        currentKey = "home";
-      }
-
-      document
-        .querySelectorAll('.nav-link[data-page="' + currentKey + '"]')
-        .forEach((el) => el.classList.add("nav-link--active"));
-    })();
-  </script>
-
-  <!-- 登录状态同步脚本：和 auth.html 共用 localStorage("aurum_user") -->
-  <script>
-    (function () {
-      const STORAGE_KEY = "aurum_user";
-
-      function getCurrentUser() {
-        try {
-          const raw = localStorage.getItem(STORAGE_KEY);
-          if (!raw) return null;
-          return JSON.parse(raw);
-        } catch (e) {
-          return null;
-        }
-      }
-
-      function logoutAndRedirect() {
-        try {
-          localStorage.removeItem(STORAGE_KEY);
-        } catch (_) {}
-        // 退出后回到首页；如果你想回任务台，可以改成 desk.html
-        window.location.href = "index.html";
-      }
-
-      function setupAuthUI() {
-        const loginEls = document.querySelectorAll("[data-auth-login]");
-        const logoutEls = document.querySelectorAll("[data-auth-logout]");
-        if (!loginEls.length && !logoutEls.length) return;
-
-        const user = getCurrentUser();
-
-        if (user && user.email) {
-          // 已登录：显示 Hi, Name，并启用退出按钮
-          const name =
-            user.name ||
-            (user.email.includes("@")
-              ? user.email.split("@")[0]
-              : user.email);
-
-          loginEls.forEach((el) => {
-            el.textContent = "Hi, " + name;
-            el.onclick = function () {
-              window.location.href = "desk.html";
-            };
-          });
-
-          logoutEls.forEach((el) => {
-            el.style.display = "";
-            el.onclick = logoutAndRedirect;
-          });
-        } else {
-          // 未登录：保持原文字，只负责跳到 auth.html，隐藏退出
-          loginEls.forEach((el) => {
-            el.onclick = function () {
-              window.location.href = "auth.html";
-            };
-          });
-
-          logoutEls.forEach((el) => {
-            el.style.display = "none";
-          });
-        }
-      }
-
-      document.addEventListener("DOMContentLoaded", setupAuthUI);
+    (function initLang() {
+      let saved = "en";
+      try {
+        const stored = localStorage.getItem("aurum_lang");
+        if (stored === "zh" || stored === "en") saved = stored;
+      } catch {}
+      applyLang(saved);
     })();
   </script>
 </body>
