@@ -263,19 +263,6 @@
       transform:translateY(-1px);
       box-shadow:0 20px 35px rgba(0,0,0,0.7);
     }
-    .btn.secondary {
-      margin-top:6px;
-      background:transparent;
-      color:#e5e7eb;
-      border:1px solid rgba(148,163,184,0.7);
-      box-shadow:none;
-      text-transform:none;
-      letter-spacing:0;
-      font-weight:500;
-    }
-    .btn.secondary:hover {
-      background:rgba(15,23,42,0.9);
-    }
 
     .helper-row {
       margin-top:8px;
@@ -463,6 +450,7 @@
 
   <script>
     const STORAGE_KEY = "aurum_user";
+    const API_BASE = "https://aurum-task-worker.sophieinbg.workers.dev"; // 直接走 Worker 子域名
     let registerToken = "";
     let resetToken = "";
 
@@ -487,11 +475,11 @@
       a.addEventListener("click", () => activateTab(a.getAttribute("data-switch-tab")));
     });
 
-    // 统一 POST：所有接口走 /api/auth/*
+    // 统一 POST：直接打到 Worker 的 /auth/*
     async function postJSON(path, data) {
       if (!path.startsWith("http")) {
         if (!path.startsWith("/")) path = "/" + path;
-        path = "/api/auth" + path; // 例如传入 "/login" → "/api/auth/login"
+        path = API_BASE + path;
       }
       const res = await fetch(path, {
         method: "POST",
@@ -530,7 +518,7 @@
         return;
       }
 
-      const { ok, data } = await postJSON("/login", { email, password });
+      const { ok, data } = await postJSON("/auth/login", { email, password });
       if (!ok || !data.ok) {
         statusEl.textContent = data.error || "登录失败，请检查邮箱和密码。";
         statusEl.classList.add("err");
@@ -577,7 +565,7 @@
       statusEl.textContent = "正在发送验证码…";
       statusEl.className = "status";
 
-      const { ok, data } = await postJSON("/send-code", { email });
+      const { ok, data } = await postJSON("/auth/send-code", { email });
       if (!ok || !data.ok) {
         statusEl.textContent = data.error || "验证码发送失败，请稍后重试。";
         statusEl.classList.add("err");
@@ -615,7 +603,7 @@
         return;
       }
 
-      const { ok, data } = await postJSON("/register", {
+      const { ok, data } = await postJSON("/auth/register", {
         name,
         email,
         password,
@@ -650,7 +638,7 @@
       statusEl.textContent = "正在发送验证码…";
       statusEl.className = "status";
 
-      const { ok, data } = await postJSON("/send-code", { email });
+      const { ok, data } = await postJSON("/auth/send-code", { email });
       if (!ok || !data.ok) {
         statusEl.textContent = data.error || "验证码发送失败，请稍后重试。";
         statusEl.classList.add("err");
@@ -688,7 +676,7 @@
         return;
       }
 
-      const { ok, data } = await postJSON("/reset-password", {
+      const { ok, data } = await postJSON("/auth/reset-password", {
         email,
         newPassword,
         code,
