@@ -55,12 +55,22 @@
       margin: 0 auto;
     }
 
-    /* 顶部导航（和首页/desk 同款） */
+    /* 顶部导航：改成和 desk 一致的“胶囊条 + 高亮”风格 */
     .top-nav {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 24px;
+      gap: 12px;
+      padding: 10px 18px;
+      margin-bottom: 20px;
+      border-radius: 999px;
+      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.9), rgba(2, 6, 23, 0.96));
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      box-shadow: 0 14px 40px rgba(15, 23, 42, 0.9);
+      backdrop-filter: blur(18px);
+      position: sticky;
+      top: 10px;
+      z-index: 30;
     }
     .brand-block {
       display: flex;
@@ -68,83 +78,86 @@
       gap: 10px;
     }
     .brand-avatar {
-      width: 40px;
-      height: 40px;
+      width: 30px;
+      height: 30px;
       border-radius: 999px;
       background: conic-gradient(
-        from 180deg,
+        from 210deg,
+        #0ea5e9,
+        #22d3ee,
         #fbbf24,
-        #38bdf8,
-        #4f46e5,
-        #fbbf24
+        #eab308,
+        #0ea5e9
       );
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 12px 40px rgba(15, 23, 42, 0.7);
+      box-shadow:
+        0 0 0 1px rgba(148, 163, 184, 0.9),
+        0 0 40px rgba(14, 165, 233, 0.8);
     }
     .brand-avatar-inner {
-      width: 32px;
-      height: 32px;
-      border-radius: 999px;
-      background: radial-gradient(circle at 30% 0%, #1f2937 0%, #020617 55%);
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+      background: radial-gradient(circle at 30% 20%, #0f172a, #020617);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 15px;
-      font-weight: 600;
-      color: #e5e7eb;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: #fefce8;
     }
     .brand-text-block {
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      gap: 1px;
     }
     .brand-name {
-      font-size: 16px;
+      font-size: 0.95rem;
       font-weight: 600;
-      letter-spacing: 0.02em;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
     .brand-sub {
-      font-size: 12px;
+      font-size: 0.72rem;
       color: var(--text-soft);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 24px;
-      font-size: 13px;
+      gap: 14px;
+      font-size: 0.8rem;
     }
     .nav-main-links {
       display: flex;
       align-items: center;
-      gap: 24px;
+      gap: 12px;
     }
     .nav-link {
-      color: #e5e7eb;
+      color: var(--text-soft);
       text-decoration: none;
-      opacity: 0.85;
-      transition: opacity 0.15s ease, transform 0.15s ease;
-      position: relative;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      transition: all 0.16s ease-out;
+      cursor: pointer;
+      white-space: nowrap;
     }
     .nav-link:hover {
-      opacity: 1;
-      transform: translateY(-1px);
+      color: #e5e7eb;
+      border-color: rgba(148, 163, 184, 0.6);
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.9), rgba(2, 6, 23, 0.9));
     }
-    .nav-link-pill {
-      padding: 6px 16px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.35);
-      background: transparent;
-    }
-    .nav-link-pill.active {
-      border-color: rgba(248, 250, 252, 0.9);
-      background: linear-gradient(135deg,#fbbf24,#f97316);
-      color: #111827;
-      box-shadow: 0 10px 40px rgba(15,23,42,0.9);
-      opacity: 1;
-      transform: none;
+    .nav-link--active {
+      color: var(--gold);
+      border-color: rgba(251, 191, 36, 0.8);
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.85), rgba(2, 6, 23, 0.95));
+      box-shadow: 0 0 0 1px rgba(251, 191, 36, 0.5);
     }
 
     .nav-right {
@@ -182,25 +195,42 @@
     .primary-btn {
       border-radius: 999px;
       border: 1px solid rgba(148, 163, 184, 0.6);
-      background: linear-gradient(120deg,#fbbf24,#f97316);
-      color: #111827;
-      padding: 8px 20px;
-      font-size: 12px;
-      font-weight: 600;
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.9), rgba(2, 6, 23, 0.96));
+      color: #e5e7eb;
+      padding: 6px 14px;
+      font-size: 0.8rem;
+      font-weight: 500;
       display: inline-flex;
       align-items: center;
       gap: 6px;
       cursor: pointer;
-      box-shadow: 0 16px 55px rgba(15,23,42,0.9);
-      transition: transform 0.14s ease, box-shadow 0.14s ease, filter 0.14s ease;
+      box-shadow: 0 14px 40px rgba(15,23,42,0.9);
+      transition: transform 0.14s ease, box-shadow 0.14s ease, filter 0.14s ease, border-color 0.14s ease, color 0.14s ease;
+      white-space: nowrap;
+    }
+    .primary-btn span.icon {
+      font-size: 0.9rem;
     }
     .primary-btn:hover {
       transform: translateY(-1px);
-      box-shadow: 0 22px 80px rgba(15,23,42,1);
-      filter: brightness(1.03);
+      box-shadow: 0 20px 70px rgba(15,23,42,1);
+      border-color: var(--gold);
+      color: #fefce8;
     }
-    .primary-btn span.icon {
-      font-size: 14px;
+
+    @media (max-width: 900px) {
+      .top-nav {
+        border-radius: 18px;
+        padding-inline: 14px;
+      }
+    }
+    @media (max-width: 720px) {
+      body {
+        padding: 18px 8px 32px;
+      }
+      .nav-main-links {
+        display: none; /* 小屏只保留语言+登录 */
+      }
     }
 
     /* 主体布局 */
@@ -483,7 +513,6 @@
       color: rgba(15,23,42,0.85);
     }
 
-    /* 响应式 */
     @media (max-width: 960px) {
       .about-grid {
         grid-template-columns: minmax(0, 1fr);
@@ -491,22 +520,13 @@
       .trust-section {
         grid-template-columns: minmax(0, 1fr);
       }
-      .nav-main-links {
-        gap: 18px;
-      }
     }
     @media (max-width: 720px) {
-      body {
-        padding: 18px 8px 32px;
-      }
       .about-main {
         padding: 18px 14px 20px;
       }
       .do-grid {
         grid-template-columns: minmax(0, 1fr);
-      }
-      .nav-main-links {
-        display: none; /* 小屏只保留语言+登录 */
       }
     }
   </style>
@@ -529,9 +549,9 @@
 
       <nav class="nav-links">
         <div class="nav-main-links">
-          <a href="index.html" class="nav-link nav-link-pill" id="navHome">Home</a>
-          <a href="desk.html" class="nav-link nav-link-pill" id="navDesk">Desk</a>
-          <a href="about.html" class="nav-link nav-link-pill active" id="navAbout">About</a>
+          <a href="index.html" class="nav-link" id="navHome">Home</a>
+          <a href="desk.html" class="nav-link" id="navDesk">Desk</a>
+          <a href="about.html" class="nav-link nav-link--active" id="navAbout">About</a>
           <a href="index.html#contact" class="nav-link" id="navContact">Contact</a>
         </div>
         <div class="nav-right">
@@ -540,7 +560,7 @@
             <button class="lang-btn" data-lang="zh" id="btnLangZh">中</button>
           </div>
           <button class="primary-btn" onclick="window.location.href='auth.html'">
-            <span class="icon">★</span>
+            <span class="icon">⭑</span>
             <span id="loginBtnText">Login / My Desk</span>
           </button>
         </div>
@@ -739,7 +759,7 @@
   </div>
 
   <script>
-    // ===== 语言 & 导航同步逻辑（和 desk / index 用同一个 aurum_lang） =====
+    // ===== 语言 & 导航同步逻辑（和 index / desk 共用 aurum_lang） =====
     const langButtons = document.querySelectorAll(".lang-btn");
     const loginBtnTextEl = document.getElementById("loginBtnText");
     const brandSubText = document.getElementById("brandSubText");
