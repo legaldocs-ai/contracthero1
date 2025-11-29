@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Aurum Task Desk — Service & Use Terms</title>
+  <title>Aurum Task Desk — Terms of Use</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- Favicon -->
@@ -19,11 +19,7 @@
   </script>
 
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
       --bg-deep: #020617;
       --bg-card: #020617;
@@ -33,8 +29,8 @@
       --gold: #fbbf24;
       --accent-blue: #38bdf8;
       --shadow-strong: 0 32px 120px rgba(0,0,0,0.9);
-      --radius-xl: 24px;
-      --radius-lg: 16px;
+      --radius-xl: 28px;
+      --radius-lg: 18px;
       --radius-pill: 999px;
       --blur-strong: 40px;
     }
@@ -42,8 +38,7 @@
       min-height: 100vh;
       font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui,
         "Segoe UI", sans-serif;
-      background:
-        radial-gradient(circle at top, #020617 0%, #020617 40%, #000 100%);
+      background: radial-gradient(circle at top, #020617 0%, #020617 40%, #000 100%);
       color: var(--text-main);
       display: flex;
       justify-content: center;
@@ -55,18 +50,18 @@
       margin: 0 auto;
     }
 
-    /* 顶部导航：和 index / desk / about / contact 统一 */
+    /* 顶部导航，同上 */
     .top-nav {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
       padding: 10px 18px;
-      margin-bottom: 22px;
+      margin-bottom: 20px;
       border-radius: 999px;
-      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.9), rgba(2, 6, 23, 0.96));
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      box-shadow: 0 14px 40px rgba(15, 23, 42, 0.9);
+      background: radial-gradient(circle at top left, rgba(15,23,42,0.9), rgba(2,6,23,0.96));
+      border: 1px solid rgba(148,163,184,0.4);
+      box-shadow: 0 14px 40px rgba(15,23,42,0.9);
       backdrop-filter: blur(18px);
       position: sticky;
       top: 10px;
@@ -93,8 +88,8 @@
       align-items: center;
       justify-content: center;
       box-shadow:
-        0 0 0 1px rgba(148, 163, 184, 0.9),
-        0 0 40px rgba(14, 165, 233, 0.8);
+        0 0 0 1px rgba(148,163,184,0.9),
+        0 0 40px rgba(14,165,233,0.8);
     }
     .brand-avatar-inner {
       width: 100%;
@@ -126,7 +121,6 @@
       letter-spacing: 0.06em;
       text-transform: uppercase;
     }
-
     .nav-links {
       display: flex;
       align-items: center;
@@ -150,22 +144,25 @@
     }
     .nav-link:hover {
       color: #e5e7eb;
-      border-color: rgba(148, 163, 184, 0.6);
-      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.9), rgba(2, 6, 23, 0.9));
+      border-color: rgba(148,163,184,0.6);
+      background: radial-gradient(circle at top, rgba(15,23,42,0.9), rgba(2,6,23,0.9));
     }
-    /* 这里没有 Terms tab，所以不高亮任何主链接，也可以按需要自己加 */
-
+    .nav-link--active {
+      color: var(--gold);
+      border-color: rgba(251,191,36,0.8);
+      background: radial-gradient(circle at top, rgba(15,23,42,0.85), rgba(2,6,23,0.95));
+      box-shadow: 0 0 0 1px rgba(251,191,36,0.5);
+    }
     .nav-right {
       display: flex;
       align-items: center;
       gap: 14px;
     }
-
     .lang-toggle {
       display: inline-flex;
       align-items: center;
       border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.6);
+      border: 1px solid rgba(148,163,184,0.6);
       padding: 2px;
       background: radial-gradient(circle at top left,#020617,#020617);
     }
@@ -184,13 +181,12 @@
     .lang-btn.active {
       background: linear-gradient(135deg,#fbbf24,#f97316);
       color: #111827;
-      box-shadow: 0 0 0 1px rgba(248, 250, 252, 0.9);
+      box-shadow: 0 0 0 1px rgba(248,250,252,0.9);
     }
-
     .primary-btn {
       border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.9), rgba(2, 6, 23, 0.96));
+      border: 1px solid rgba(148,163,184,0.6);
+      background: radial-gradient(circle at top, rgba(15,23,42,0.9), rgba(2,6,23,0.96));
       color: #e5e7eb;
       padding: 6px 14px;
       font-size: 0.8rem;
@@ -200,12 +196,10 @@
       gap: 6px;
       cursor: pointer;
       box-shadow: 0 14px 40px rgba(15,23,42,0.9);
-      transition: transform 0.14s ease, box-shadow 0.14s ease, filter 0.14s ease, border-color 0.14s ease, color 0.14s ease;
+      transition: transform 0.14s ease, box-shadow 0.14s ease, border-color 0.14s ease, color 0.14s ease;
       white-space: nowrap;
     }
-    .primary-btn span.icon {
-      font-size: 0.9rem;
-    }
+    .primary-btn span.icon { font-size: 0.9rem; }
     .primary-btn:hover {
       transform: translateY(-1px);
       box-shadow: 0 20px 70px rgba(15,23,42,1);
@@ -214,176 +208,95 @@
     }
 
     @media (max-width: 900px) {
-      .top-nav {
-        border-radius: 18px;
-        padding-inline: 14px;
-      }
+      .top-nav { border-radius: 18px; padding-inline: 14px; }
     }
     @media (max-width: 720px) {
-      body {
-        padding: 18px 8px 32px;
-      }
-      .nav-main-links {
-        display: none; /* 小屏只保留语言 + 登录 */
-      }
+      body { padding: 18px 8px 32px; }
+      .nav-main-links { display: none; }
     }
 
-    /* 主体卡片 */
     .terms-card {
-      margin-top: 6px;
       border-radius: var(--radius-xl);
       background:
-        radial-gradient(circle at top left, rgba(59, 130, 246, 0.16) 0%, transparent 60%),
-        radial-gradient(circle at bottom right, rgba(251, 191, 36, 0.06) 0%, transparent 55%),
-        rgba(15, 23, 42, 0.96);
-      border: 1px solid rgba(15, 23, 42, 0.95);
+        radial-gradient(circle at top left, rgba(56,189,248,0.16) 0%, transparent 60%),
+        radial-gradient(circle at bottom right, rgba(251,191,36,0.12) 0%, transparent 55%),
+        rgba(15,23,42,0.97);
+      border: 1px solid rgba(15,23,42,0.96);
       box-shadow: var(--shadow-strong);
-      padding: 22px 22px 26px;
+      padding: 26px 24px 28px;
       backdrop-filter: blur(var(--blur-strong));
     }
-
-    .terms-header-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 11px;
-      color: var(--text-soft);
-      margin-bottom: 8px;
-    }
-    .terms-pill-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: radial-gradient(circle at 30% 0%, #fbbf24, #f97316);
-      box-shadow: 0 0 0 4px rgba(251,191,36,0.12);
+    .terms-heading-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 18px;
     }
     .terms-title {
-      font-size: 20px;
-      font-weight: 600;
+      font-size: 24px;
+      font-weight: 650;
       letter-spacing: 0.03em;
-      margin-bottom: 6px;
     }
-    .terms-subtitle {
+    .terms-tag {
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.7);
+      color: var(--text-soft);
+      background: rgba(15,23,42,0.98);
+    }
+    .terms-intro {
       font-size: 13px;
       color: var(--text-soft);
-      max-width: 720px;
-      margin-bottom: 14px;
+      line-height: 1.7;
+      margin-bottom: 18px;
     }
-
-    .terms-meta-note {
+    .terms-updated {
       font-size: 11px;
       color: rgba(148,163,184,0.9);
-      border-radius: 12px;
-      border: 1px dashed rgba(148,163,184,0.7);
-      padding: 8px 10px;
-      background: radial-gradient(circle at top left,rgba(15,23,42,0.98),rgba(15,23,42,1));
-      margin-bottom: 18px;
-      line-height: 1.6;
-    }
-
-    .terms-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.9fr);
-      gap: 18px;
-      align-items: flex-start;
-    }
-    @media (max-width: 900px) {
-      .terms-grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
+      margin-bottom: 16px;
     }
 
     .terms-section {
       border-radius: var(--radius-lg);
-      border: 1px solid rgba(148,163,184,0.6);
-      padding: 12px 13px 12px;
-      background:
-        radial-gradient(circle at top left,#020617,#020617);
-      font-size: 12px;
-      line-height: 1.7;
-      color: var(--text-soft);
-      margin-bottom: 10px;
+      border: 1px solid rgba(148,163,184,0.45);
+      background: radial-gradient(circle at top left,#020617,#020617);
+      padding: 12px 13px 10px;
+      margin-bottom: 12px;
     }
     .terms-section-title {
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 600;
       margin-bottom: 6px;
-      color: #e5e7eb;
     }
-    .terms-section p + p {
-      margin-top: 6px;
+    .terms-section-body {
+      font-size: 12px;
+      color: var(--text-soft);
+      line-height: 1.7;
     }
     .terms-list {
-      list-style: none;
-      padding-left: 0;
-      margin: 6px 0 0;
-      display: grid;
-      gap: 4px;
-    }
-    .terms-list li {
-      display: flex;
-      align-items: flex-start;
-      gap: 6px;
-      font-size: 12px;
-    }
-    .terms-bullet {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
       margin-top: 6px;
-      background: radial-gradient(circle at 30% 0%, #38bdf8,#0ea5e9);
-    }
-
-    .terms-side-card {
-      border-radius: var(--radius-lg);
-      border: 1px dashed rgba(148,163,184,0.7);
-      padding: 12px 13px;
-      background:
-        radial-gradient(circle at top right, rgba(56,189,248,0.16), transparent 55%),
-        rgba(15,23,42,0.98);
-      font-size: 11px;
+      padding-left: 16px;
+      font-size: 12px;
       color: var(--text-soft);
       line-height: 1.6;
     }
-    .terms-side-title {
-      font-size: 12px;
-      font-weight: 600;
-      margin-bottom: 6px;
-      color: #e5e7eb;
-    }
-    .terms-side-small {
-      font-size: 10px;
-      color: rgba(148,163,184,0.95);
-      margin-bottom: 8px;
-    }
-    .terms-side-list {
-      list-style: none;
-      padding: 0;
-      display: grid;
-      gap: 4px;
-    }
-    .terms-side-list li {
-      display: flex;
-      align-items: flex-start;
-      gap: 6px;
-    }
-    .terms-side-bullet {
-      font-size: 11px;
-      color: var(--gold);
-      margin-top: 1px;
-    }
+    .terms-list li { margin-bottom: 4px; }
 
     .terms-footer-note {
-      margin-top: 16px;
+      margin-top: 14px;
       font-size: 11px;
       color: rgba(148,163,184,0.9);
       line-height: 1.6;
+      border-top: 1px dashed rgba(55,65,81,0.9);
+      padding-top: 10px;
     }
   </style>
 </head>
 <body>
   <div class="page-shell">
-    <!-- 顶部导航 -->
     <header class="top-nav">
       <div class="brand-block">
         <div class="brand-avatar">
@@ -402,14 +315,14 @@
           <a href="index.html" class="nav-link" id="navHome">Home</a>
           <a href="desk.html" class="nav-link" id="navDesk">Desk</a>
           <a href="about.html" class="nav-link" id="navAbout">About</a>
-          <a href="contact.html" class="nav-link" id="navContact">Contact</a>
+          <a href="index.html#contact" class="nav-link" id="navContact">Contact</a>
         </div>
         <div class="nav-right">
           <div class="lang-toggle">
             <button class="lang-btn active" data-lang="en" id="btnLangEn">EN</button>
             <button class="lang-btn" data-lang="zh" id="btnLangZh">中</button>
           </div>
-          <button class="primary-btn" onclick="window.location.href='auth.html'">
+          <button class="primary-btn">
             <span class="icon">⭑</span>
             <span id="loginBtnText">Login / My Desk</span>
           </button>
@@ -417,254 +330,173 @@
       </nav>
     </header>
 
-    <!-- 服务条款 / 使用条款 主体 -->
     <main class="terms-card">
-      <div class="terms-header-pill">
-        <span class="terms-pill-dot"></span>
-        <span id="termsPillText">Service & use terms</span>
+      <div class="terms-heading-row">
+        <h1 class="terms-title" id="termsTitle">Terms of Use</h1>
+        <span class="terms-tag" id="termsTag">Please read with calm attention</span>
       </div>
-      <h1 class="terms-title" id="termsTitle">
-        Aurum Task Desk — service & use terms
-      </h1>
-      <p class="terms-subtitle" id="termsSubtitle">
-        These terms explain how you may use Aurum Task Desk (“the desk”, “we”, “us”) and what you
-        can reasonably expect from this writing service. By using the website or generating letters,
-        you accept these terms.
+      <p class="terms-intro" id="termsIntro">
+        By accessing or using Aurum Task Desk, you agree to these terms. They are written to be readable for
+        older professionals, not as aggressive legalese.
       </p>
+      <p class="terms-updated" id="termsUpdated">Last updated: 2025-11-01</p>
 
-      <div class="terms-meta-note" id="termsMetaNote">
-        This page is a plain-language summary for mature users. Local laws in your country may add
-        rights and obligations that are not fully listed here. This text is not legal advice.
-      </div>
-
-      <section class="terms-grid">
-        <!-- 左侧：主要条款区块 -->
-        <div>
-          <article class="terms-section">
-            <h2 class="terms-section-title" id="sec1Title">1. Nature of the service</h2>
-            <p id="sec1P1">
-              Aurum Task Desk is a private AI-assisted writing desk. It helps you structure and draft
-              letters for situations such as disputes, insurance claims, travel issues, immigration
-              communication or family matters.
-            </p>
-            <p id="sec1P2">
-              The desk is a writing and organisation tool only. It does not represent you, contact
-              companies on your behalf, or make decisions for you. You always choose what to send,
-              to whom, and when.
-            </p>
-          </article>
-
-          <article class="terms-section">
-            <h2 class="terms-section-title" id="sec2Title">
-              2. Not a law firm, immigration agent, or medical provider
-            </h2>
-            <ul class="terms-list">
-              <li>
-                <span class="terms-bullet"></span>
-                <span id="sec2L1">
-                  The desk does not provide legal advice, immigration advice, medical advice, or
-                  any regulated professional service.
-                </span>
-              </li>
-              <li>
-                <span class="terms-bullet"></span>
-                <span id="sec2L2">
-                  No lawyer–client, doctor–patient, or similar professional relationship is
-                  created by using the desk.
-                </span>
-              </li>
-              <li>
-                <span class="terms-bullet"></span>
-                <span id="sec2L3">
-                  You are responsible for checking whether any draft letter is suitable for your
-                  situation and for seeking qualified human professionals when needed.
-                </span>
-              </li>
-            </ul>
-          </article>
-
-          <article class="terms-section">
-            <h2 class="terms-section-title" id="sec3Title">3. Who may use the desk</h2>
-            <p id="sec3P1">
-              The desk is designed mainly for mature adults (often 40+) who handle their own
-              affairs. By using this site, you confirm that:
-            </p>
-            <ul class="terms-list">
-              <li>
-                <span class="terms-bullet"></span>
-                <span id="sec3L1">
-                  You are at least the minimum age required to enter into contracts in your
-                  jurisdiction.
-                </span>
-              </li>
-              <li>
-                <span class="terms-bullet"></span>
-                <span id="sec3L2">
-                  You will not use the desk for fraudulent, abusive, hateful, or illegal purposes.
-                </span>
-              </li>
-              <li>
-                <span class="terms-bullet"></span>
-                <span id="sec3L3">
-                  You will only provide information that you are allowed to share and that does
-                  not violate the privacy or rights of others without permission.
-                </span>
-              </li>
-            </ul>
-          </article>
-
-          <article class="terms-section">
-            <h2 class="terms-section-title" id="sec4Title">4. Payments and refunds</h2>
-            <p id="sec4P1">
-              Aurum Task Desk may charge per letter, per task pack, or per subscription, depending
-              on the product you choose. Payments are processed by third-party providers (for
-              example, online payment platforms) and are subject to their own terms.
-            </p>
-            <p id="sec4P2">
-              Unless a specific refund policy is clearly stated on the purchase page, all completed
-              letter generation fees are typically non-refundable, because computing resources and
-              time have already been consumed.
-            </p>
-            <p id="sec4P3">
-              If you believe there has been a billing error or technical fault that prevented you
-              from receiving a usable draft, you may contact the desk team via the Contact page so
-              we can review the situation.
-            </p>
-          </article>
-
-          <article class="terms-section">
-            <h2 class="terms-section-title" id="sec5Title">5. Privacy and data handling</h2>
-            <p id="sec5P1">
-              The desk aims to minimise drama and exposure. In general, your information is used
-              only to generate the drafts you request and to operate the service.
-            </p>
-            <p id="sec5P2">
-              Details of how data is collected, stored and protected are described in the
-              <strong>Privacy Policy</strong> page of this site. In any conflict between this
-              summary and the Privacy Policy, the Privacy Policy controls.
-            </p>
-            <p id="sec5P3">
-              You should avoid sending highly sensitive identifiers (such as full bank card
-              numbers or passwords) through the prompt fields. If needed, you may add those
-              manually in your final document before sending it to any third party.
-            </p>
-          </article>
-
-          <article class="terms-section">
-            <h2 class="terms-section-title" id="sec6Title">6. AI limitations and responsibility</h2>
-            <ul class="terms-list">
-              <li>
-                <span class="terms-bullet"></span>
-                <span id="sec6L1">
-                  Draft letters are generated using AI models and may sometimes contain mistakes,
-                  missing facts, or unsuitable wording for your specific legal or cultural context.
-                </span>
-              </li>
-              <li>
-                <span class="terms-bullet"></span>
-                <span id="sec6L2">
-                  You must carefully review, edit, and approve any draft before sending it. You
-                  remain responsible for the final text you sign or submit.
-                </span>
-              </li>
-              <li>
-                <span class="terms-bullet"></span>
-                <span id="sec6L3">
-                  The desk is not liable for indirect or consequential losses (such as loss of
-                  opportunity or emotional distress) arising from the use of a draft.
-                </span>
-              </li>
-            </ul>
-          </article>
-
-          <article class="terms-section">
-            <h2 class="terms-section-title" id="sec7Title">7. Changes, suspension, and updates</h2>
-            <p id="sec7P1">
-              The desk may update these terms, adjust pricing, or change features from time to
-              time, especially during early stages of the service. Updated terms will be posted on
-              this page with a revised date.
-            </p>
-            <p id="sec7P2">
-              The desk may suspend or restrict access for users who abuse the service, attempt
-              fraud, or repeatedly ignore fair-use boundaries.
-            </p>
-          </article>
-
-          <article class="terms-section">
-            <h2 class="terms-section-title" id="sec8Title">8. Contact and questions</h2>
-            <p id="sec8P1">
-              If you have questions about these terms, or feel that a draft or charge was not
-              handled fairly, you can contact the Aurum Task Desk team through the Contact page or
-              by email at <strong>support@aurumdesks.com</strong>.
-            </p>
-            <p id="sec8P2">
-              We prefer calm, factual descriptions of what happened so we can respond clearly and
-              respectfully.
-            </p>
-          </article>
-        </div>
-
-        <!-- 右侧：简明提示 / 风险说明 -->
-        <aside class="terms-side-card">
-          <h2 class="terms-side-title" id="sideTitle">
-            Plain-language summary (not legal advice)
-          </h2>
-          <div class="terms-side-small" id="sideSmall">
-            For older professionals who dislike drama, here is the short version of what this
-            page means for you:
-          </div>
-          <ul class="terms-side-list">
-            <li>
-              <span class="terms-side-bullet">●</span>
-              <span id="sideL1">
-                The desk helps you write and organise letters; it does not act as your lawyer or
-                official representative.
-              </span>
+      <section class="terms-section">
+        <h2 class="terms-section-title" id="t1Title">1. Nature of the service</h2>
+        <div class="terms-section-body" id="t1Body">
+          <ul class="terms-list">
+            <li id="t1Item1">
+              Aurum Task Desk is a writing and drafting tool. It helps you prepare letters and documents
+              based on the information you provide.
             </li>
-            <li>
-              <span class="terms-side-bullet">●</span>
-              <span id="sideL2">
-                You stay in full control of what you send. Always read and edit drafts before
-                using them.
-              </span>
-            </li>
-            <li>
-              <span class="terms-side-bullet">●</span>
-              <span id="sideL3">
-                If something serious is on the line (lawsuit, visa, surgery, large money), also
-                consult a qualified human professional.
-              </span>
-            </li>
-            <li>
-              <span class="terms-side-bullet">●</span>
-              <span id="sideL4">
-                If you feel something was unfair in billing or a draft was clearly unusable, you
-                can calmly write to the support inbox and we will review.
-              </span>
+            <li id="t1Item2">
+              The desk does not replace a lawyer, immigration advisor, doctor or any licensed professional.
+              It provides structured text, not legal or medical advice.
             </li>
           </ul>
-        </aside>
+        </div>
       </section>
 
-      <div class="terms-footer-note" id="footerNote">
-        Last updated: 2025. These terms are written in simple language for ease of understanding.
-        If any part of these terms is found invalid under local law, the remaining parts will
-        stay in effect as far as allowed.
-      </div>
+      <section class="terms-section">
+        <h2 class="terms-section-title" id="t2Title">2. Your responsibilities</h2>
+        <div class="terms-section-body" id="t2Body">
+          <ul class="terms-list">
+            <li id="t2Item1">
+              You are responsible for checking all drafts and deciding whether they are suitable for your situation
+              before sending them to any third party.
+            </li>
+            <li id="t2Item2">
+              You are responsible for complying with the laws of your country, including what you may or may not send
+              to companies, authorities or individuals.
+            </li>
+            <li id="t2Item3">
+              You agree not to use the desk to create illegal content, threats, harassment or spam.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="terms-section">
+        <h2 class="terms-section-title" id="t3Title">3. Accounts, access and security</h2>
+        <div class="terms-section-body" id="t3Body">
+          <ul class="terms-list">
+            <li id="t3Item1">
+              If you choose to create an account, you must keep your login details private and notify us if you
+              suspect misuse.
+            </li>
+            <li id="t3Item2">
+              The desk owner may suspend or close accounts that abuse the system, attempt to hack it or cause
+              harm to other users.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="terms-section">
+        <h2 class="terms-section-title" id="t4Title">4. Payments and refunds</h2>
+        <div class="terms-section-body" id="t4Body">
+          <ul class="terms-list">
+            <li id="t4Item1">
+              Fees are charged per letter or per plan, as clearly shown on the pricing or payment page.
+            </li>
+            <li id="t4Item2">
+              Because the service is digital and delivered immediately, refunds may be limited or unavailable,
+              except where required by law or where clearly stated on the site.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="terms-section">
+        <h2 class="terms-section-title" id="t5Title">5. No guarantee of outcome</h2>
+        <div class="terms-section-body" id="t5Body">
+          <ul class="terms-list">
+            <li id="t5Item1">
+              A well-written letter can help present your case, but it cannot guarantee that a company,
+              authority or person will agree with you.
+            </li>
+            <li id="t5Item2">
+              Aurum Task Desk is not responsible for decisions made by airlines, insurers, landlords, embassies,
+              employers or family members after they receive your letter.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="terms-section">
+        <h2 class="terms-section-title" id="t6Title">6. Acceptable use</h2>
+        <div class="terms-section-body" id="t6Body">
+          <ul class="terms-list">
+            <li id="t6Item1">
+              You agree not to reverse engineer, scrape or copy the service in order to build a competing product.
+            </li>
+            <li id="t6Item2">
+              You agree not to attempt to bypass security measures or access other users' data.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="terms-section">
+        <h2 class="terms-section-title" id="t7Title">7. Changes to the service or these terms</h2>
+        <div class="terms-section-body" id="t7Body">
+          <ul class="terms-list">
+            <li id="t7Item1">
+              The desk owner may adjust features, pricing or limits from time to time, especially while the project
+              is young and improving.
+            </li>
+            <li id="t7Item2">
+              If the terms change in a material way, a notice will be posted on the site. Continued use means
+              you accept the new version.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="terms-section">
+        <h2 class="terms-section-title" id="t8Title">8. Limitation of liability</h2>
+        <div class="terms-section-body" id="t8Body">
+          <ul class="terms-list">
+            <li id="t8Item1">
+              To the maximum extent permitted by law, Aurum Task Desk is provided “as is” without warranty.
+              We do not promise that it will be available 100% of the time or free from all errors.
+            </li>
+            <li id="t8Item2">
+              The desk owner will not be liable for indirect or consequential losses, such as lost profits,
+              missed flights or denied claims, even if the letter was drafted using the desk.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="terms-section">
+        <h2 class="terms-section-title" id="t9Title">9. Governing law</h2>
+        <div class="terms-section-body" id="t9Body">
+          <p id="t9P1">
+            These terms are governed by the laws of the jurisdiction where the desk owner is based, unless
+            local consumer law gives you stronger protection in your own country.
+          </p>
+        </div>
+      </section>
+
+      <p class="terms-footer-note" id="termsFooterNote">
+        If any part of these terms is found invalid under local law, the remaining parts stay in effect.
+        If you do not agree to these terms, please do not use Aurum Task Desk.
+      </p>
     </main>
   </div>
 
   <script>
-    // ===== 语言 & 文案 =====
     const langButtons = document.querySelectorAll(".lang-btn");
+    const loginBtnTextEl = document.getElementById("loginBtnText");
     const brandSubText = document.getElementById("brandSubText");
     const navHome = document.getElementById("navHome");
     const navDesk = document.getElementById("navDesk");
     const navAbout = document.getElementById("navAbout");
     const navContact = document.getElementById("navContact");
-    const loginBtnTextEl = document.getElementById("loginBtnText");
 
     let currentLang = "en";
+    let currentUser = null;
 
     const i18n = {
       en: {
@@ -675,87 +507,68 @@
         navContact: "Contact",
         loginBtn: "Login / My Desk",
 
-        termsPill: "Service & use terms",
-        termsTitle: "Aurum Task Desk — service & use terms",
-        termsSubtitle:
-          "These terms explain how you may use Aurum Task Desk (“the desk”, “we”, “us”) and what you can reasonably expect from this writing service. By using the website or generating letters, you accept these terms.",
-        termsMetaNote:
-          "This page is a plain-language summary for mature users. Local laws in your country may add rights and obligations that are not fully listed here. This text is not legal advice.",
+        termsTitle: "Terms of Use",
+        termsTag: "Please read with calm attention",
+        termsIntro:
+          "By accessing or using Aurum Task Desk, you agree to these terms. They are written to be readable for older professionals, not as aggressive legalese.",
+        termsUpdated: "Last updated: 2025-11-01",
 
-        sec1Title: "1. Nature of the service",
-        sec1P1:
-          "Aurum Task Desk is a private AI-assisted writing desk. It helps you structure and draft letters for situations such as disputes, insurance claims, travel issues, immigration communication or family matters.",
-        sec1P2:
-          "The desk is a writing and organisation tool only. It does not represent you, contact companies on your behalf, or make decisions for you. You always choose what to send, to whom, and when.",
+        t1Title: "1. Nature of the service",
+        t1Item1:
+          "Aurum Task Desk is a writing and drafting tool. It helps you prepare letters and documents based on the information you provide.",
+        t1Item2:
+          "The desk does not replace a lawyer, immigration advisor, doctor or any licensed professional. It provides structured text, not legal or medical advice.",
 
-        sec2Title: "2. Not a law firm, immigration agent, or medical provider",
-        sec2L1:
-          "The desk does not provide legal advice, immigration advice, medical advice, or any regulated professional service.",
-        sec2L2:
-          "No lawyer–client, doctor–patient, or similar professional relationship is created by using the desk.",
-        sec2L3:
-          "You are responsible for checking whether any draft letter is suitable for your situation and for seeking qualified human professionals when needed.",
+        t2Title: "2. Your responsibilities",
+        t2Item1:
+          "You are responsible for checking all drafts and deciding whether they are suitable for your situation before sending them to any third party.",
+        t2Item2:
+          "You are responsible for complying with the laws of your country, including what you may or may not send to companies, authorities or individuals.",
+        t2Item3:
+          "You agree not to use the desk to create illegal content, threats, harassment or spam.",
 
-        sec3Title: "3. Who may use the desk",
-        sec3P1:
-          "The desk is designed mainly for mature adults (often 40+) who handle their own affairs. By using this site, you confirm that:",
-        sec3L1:
-          "You are at least the minimum age required to enter into contracts in your jurisdiction.",
-        sec3L2:
-          "You will not use the desk for fraudulent, abusive, hateful, or illegal purposes.",
-        sec3L3:
-          "You will only provide information that you are allowed to share and that does not violate the privacy or rights of others without permission.",
+        t3Title: "3. Accounts, access and security",
+        t3Item1:
+          "If you choose to create an account, you must keep your login details private and notify us if you suspect misuse.",
+        t3Item2:
+          "The desk owner may suspend or close accounts that abuse the system, attempt to hack it or cause harm to other users.",
 
-        sec4Title: "4. Payments and refunds",
-        sec4P1:
-          "Aurum Task Desk may charge per letter, per task pack, or per subscription, depending on the product you choose. Payments are processed by third-party providers (for example, online payment platforms) and are subject to their own terms.",
-        sec4P2:
-          "Unless a specific refund policy is clearly stated on the purchase page, all completed letter generation fees are typically non-refundable, because computing resources and time have already been consumed.",
-        sec4P3:
-          "If you believe there has been a billing error or technical fault that prevented you from receiving a usable draft, you may contact the desk team via the Contact page so we can review the situation.",
+        t4Title: "4. Payments and refunds",
+        t4Item1:
+          "Fees are charged per letter or per plan, as clearly shown on the pricing or payment page.",
+        t4Item2:
+          "Because the service is digital and delivered immediately, refunds may be limited or unavailable, except where required by law or where clearly stated on the site.",
 
-        sec5Title: "5. Privacy and data handling",
-        sec5P1:
-          "The desk aims to minimise drama and exposure. In general, your information is used only to generate the drafts you request and to operate the service.",
-        sec5P2:
-          "Details of how data is collected, stored and protected are described in the Privacy Policy page of this site. In any conflict between this summary and the Privacy Policy, the Privacy Policy controls.",
-        sec5P3:
-          "You should avoid sending highly sensitive identifiers (such as full bank card numbers or passwords) through the prompt fields. If needed, you may add those manually in your final document before sending it to any third party.",
+        t5Title: "5. No guarantee of outcome",
+        t5Item1:
+          "A well-written letter can help present your case, but it cannot guarantee that a company, authority or person will agree with you.",
+        t5Item2:
+          "Aurum Task Desk is not responsible for decisions made by airlines, insurers, landlords, embassies, employers or family members after they receive your letter.",
 
-        sec6Title: "6. AI limitations and responsibility",
-        sec6L1:
-          "Draft letters are generated using AI models and may sometimes contain mistakes, missing facts, or unsuitable wording for your specific legal or cultural context.",
-        sec6L2:
-          "You must carefully review, edit, and approve any draft before sending it. You remain responsible for the final text you sign or submit.",
-        sec6L3:
-          "The desk is not liable for indirect or consequential losses (such as loss of opportunity or emotional distress) arising from the use of a draft.",
+        t6Title: "6. Acceptable use",
+        t6Item1:
+          "You agree not to reverse engineer, scrape or copy the service in order to build a competing product.",
+        t6Item2:
+          "You agree not to attempt to bypass security measures or access other users' data.",
 
-        sec7Title: "7. Changes, suspension, and updates",
-        sec7P1:
-          "The desk may update these terms, adjust pricing, or change features from time to time, especially during early stages of the service. Updated terms will be posted on this page with a revised date.",
-        sec7P2:
-          "The desk may suspend or restrict access for users who abuse the service, attempt fraud, or repeatedly ignore fair-use boundaries.",
+        t7Title: "7. Changes to the service or these terms",
+        t7Item1:
+          "The desk owner may adjust features, pricing or limits from time to time, especially while the project is young and improving.",
+        t7Item2:
+          "If the terms change in a material way, a notice will be posted on the site. Continued use means you accept the new version.",
 
-        sec8Title: "8. Contact and questions",
-        sec8P1:
-          "If you have questions about these terms, or feel that a draft or charge was not handled fairly, you can contact the Aurum Task Desk team through the Contact page or by email at support@aurumdesks.com.",
-        sec8P2:
-          "We prefer calm, factual descriptions of what happened so we can respond clearly and respectfully.",
+        t8Title: "8. Limitation of liability",
+        t8Item1:
+          "To the maximum extent permitted by law, Aurum Task Desk is provided “as is” without warranty. We do not promise that it will be available 100% of the time or free from all errors.",
+        t8Item2:
+          "The desk owner will not be liable for indirect or consequential losses, such as lost profits, missed flights or denied claims, even if the letter was drafted using the desk.",
 
-        sideTitle: "Plain-language summary (not legal advice)",
-        sideSmall:
-          "For older professionals who dislike drama, here is the short version of what this page means for you:",
-        sideL1:
-          "The desk helps you write and organise letters; it does not act as your lawyer or official representative.",
-        sideL2:
-          "You stay in full control of what you send. Always read and edit drafts before using them.",
-        sideL3:
-          "If something serious is on the line (lawsuit, visa, surgery, large money), also consult a qualified human professional.",
-        sideL4:
-          "If you feel something was unfair in billing or a draft was clearly unusable, you can calmly write to the support inbox and we will review.",
+        t9Title: "9. Governing law",
+        t9P1:
+          "These terms are governed by the laws of the jurisdiction where the desk owner is based, unless local consumer law gives you stronger protection in your own country.",
 
-        footerNote:
-          "Last updated: 2025. These terms are written in simple language for ease of understanding. If any part of these terms is found invalid under local law, the remaining parts will stay in effect as far as allowed."
+        termsFooterNote:
+          "If any part of these terms is found invalid under local law, the remaining parts stay in effect. If you do not agree to these terms, please do not use Aurum Task Desk."
       },
       zh: {
         brandSub: "安静而专业的写作与申诉任务台",
@@ -763,89 +576,70 @@
         navDesk: "Desk 任务台",
         navAbout: "关于我们",
         navContact: "联系我们",
-        loginBtn: "登录 / 我的任务台",
+        loginBtn: "登录 / 我的 Desk",
 
-        termsPill: "服务条款 / 使用条款",
-        termsTitle: "Aurum Task Desk — 服务与使用条款",
-        termsSubtitle:
-          "本页面说明你在什么前提下可以使用 Aurum Task Desk（下称“本任务台”），以及你可以合理期待到什么服务。一旦你访问本网站、使用任务台或生成信件，即视为同意这些条款。",
-        termsMetaNote:
-          "本页面用尽量通俗的语言写给成熟用户阅读。你所在国家 / 地区的法律，可能赋予你更多权利或义务，这里不会全部列出。此文本本身不构成法律意见。",
+        termsTitle: "使用条款",
+        termsTag: "请在冷静状态下阅读完",
+        termsIntro:
+          "你访问或使用 Aurum Task Desk，即表示同意本使用条款。我们尽量用成熟用户易懂的方式来写，而不是充满敌意的法律黑话。",
+        termsUpdated: "最近更新日期：2025-11-01",
 
-        sec1Title: "1. 服务性质",
-        sec1P1:
-          "Aurum Task Desk 是一张“带有 AI 辅助的私人写字台”。它帮你梳理和起草各种正式信件，例如纠纷说明、保险索赔、航班问题、移民沟通或家庭长信等。",
-        sec1P2:
-          "本任务台只提供写作与整理的协助，不会代表你做决定，不会代你联系任何公司或机构。最终寄给谁、什么时候寄、寄出内容是什么，完全由你自己决定。",
+        t1Title: "1. 服务的性质",
+        t1Item1:
+          "Aurum Task Desk 是一款写作与信件草稿工具，根据你提供的信息帮助你起草各类正式文书。",
+        t1Item2:
+          "本服务不能替代律师、移民顾问、医生或任何持牌专业人士，只提供结构化文字，不构成法律或医疗意见。",
 
-        sec2Title: "2. 不是律师事务所、移民中介或医疗机构",
-        sec2L1:
-          "本任务台不提供法律意见、移民意见、医疗意见，也不是任何受监管的专业服务机构。",
-        sec2L2:
-          "使用本任务台不会在你与我们之间建立律师—委托人、医生—病人等专业法律关系。",
-        sec2L3:
-          "你需要自行判断草稿是否适合你的具体情形，并在必要时咨询持牌律师、移民顾问或医生等专业人士。",
+        t2Title: "2. 你的责任",
+        t2Item1:
+          "你需要在发送前自行审核所有草稿，判断是否适合用于你的具体场景。",
+        t2Item2:
+          "你有责任遵守所在国家/地区的法律，包括你可以向公司、机构或个人发送什么样的内容。",
+        t2Item3:
+          "你同意不利用本服务生成违法内容、威胁、骚扰性信息或垃圾邮件。",
 
-        sec3Title: "3. 谁可以使用本任务台",
-        sec3P1:
-          "本任务台主要面向已经独立处理自己事务的成年人（很多用户在 40 岁以上）。当你使用本网站时，即表示：",
-        sec3L1:
-          "你已达到所在辖区法律规定的、可以签订合同的最低年龄。",
-        sec3L2:
-          "你不会将本任务台用于欺诈、辱骂、仇恨、违法或其他滥用目的。",
-        sec3L3:
-          "你只会提供自己有权分享的信息，不会在未经同意的情况下侵犯他人的隐私或权利。",
+        t3Title: "3. 账号、访问与安全",
+        t3Item1:
+          "如果你选择注册账号，你需要妥善保管登录信息，如有异常应及时通知我们。",
+        t3Item2:
+          "如发现账号被用于攻击系统、滥用服务或伤害其他用户，站长有权暂停或关闭相关账号。",
 
-        sec4Title: "4. 付款与退款",
-        sec4P1:
-          "Aurum Task Desk 可能按单封信件、任务包、或订阅方式收费，具体以你当时选择的产品为准。付款通常通过第三方支付平台完成，并同时受这些平台的条款约束。",
-        sec4P2:
-          "除非购买页面明确写有专门的退款政策，一旦信件已经生成成功，相应费用通常不予退还，因为计算与服务时间已经发生。",
-        sec4P3:
-          "如果你认为在扣费或技术上存在明显错误，导致未能获得可用草稿，可以通过“联系我们”页面向任务台团队说明情况，我们会进行核查。",
+        t4Title: "4. 付费与退款",
+        t4Item1:
+          "费用按单封信件或按方案收取，具体金额以定价页面或付款页面为准。",
+        t4Item2:
+          "由于服务为即时交付的数字内容，除非法律强制或页面另有明确说明，通常不提供退款。",
 
-        sec5Title: "5. 隐私与数据处理",
-        sec5P1:
-          "本任务台的理念是“减少戏剧性与暴露感”。通常情况下，你提供的信息只用于为你生成草稿，并维持服务运行。",
-        sec5P2:
-          "关于数据如何收集、存储与保护的更详细说明，请以本网站的《隐私政策》页面为准。如本页面与隐私政策内容有冲突，以隐私政策为准。",
-        sec5P3:
-          "请尽量避免在输入框中填写完整银行卡号、密码等极度敏感的信息。如确有需要，可在你最终本地文档中自行补充后再发送给第三方。",
+        t5Title: "5. 结果不作保证",
+        t5Item1:
+          "一封好的信件可以帮助你清晰表达立场，但不能保证对方公司、机构或个人一定会同意你的请求。",
+        t5Item2:
+          "即便你使用任务台生成了信件，Aurum Task Desk 也不对航空公司、保险公司、房东、使馆、雇主或家人做出的决定承担责任。",
 
-        sec6Title: "6. AI 的局限与责任归属",
-        sec6L1:
-          "本任务台生成的信件依赖于 AI 模型，可能存在信息不完整、措辞不当、或不完全适合某些法律 / 文化环境的情况。",
-        sec6L2:
-          "在寄出任何信件前，你都应当仔细阅读、修改与确认内容。最终签字、递交的文字，由你本人负责。",
-        sec6L3:
-          "因使用草稿而产生的间接或结果性损失（例如机会损失、名誉损失或情绪压力等），本任务台原则上不承担赔偿责任。",
+        t6Title: "6. 合理使用",
+        t6Item1:
+          "你同意不对本服务进行反向工程、抓取或复制，以开发竞争产品。",
+        t6Item2:
+          "你同意不尝试绕过安全措施，也不试图访问他人数据。",
 
-        sec7Title: "7. 条款变更、服务调整与中止",
-        sec7P1:
-          "在服务早期迭代阶段，本任务台可能会不时更新本条款、调整价格或变更功能。更新后的条款会以新日期发布在本页面。",
-        sec7P2:
-          "如发现用户存在明显滥用、诈骗尝试或严重违反公平使用边界的行为，本任务台有权限制或中止其使用。",
+        t7Title: "7. 服务与条款的变更",
+        t7Item1:
+          "随着项目早期不断改进，站长可能会调整功能、价格或使用限制。",
+        t7Item2:
+          "如条款发生重要变化，我们会在站内发布提示。继续使用即视为接受新版条款。",
 
-        sec8Title: "8. 联系方式与问题反馈",
-        sec8P1:
-          "如果你对本条款有疑问，或者认为某次草稿 / 扣费处理明显不公，可以通过“联系我们”页面，或直接发邮件至 support@aurumdesks.com 与任务台团队沟通。",
-        sec8P2:
-          "我们更欢迎冷静、具体地描述事情经过，这样更容易给出清晰、尊重的回复。",
+        t8Title: "8. 责任限制",
+        t8Item1:
+          "在法律允许的最大范围内，Aurum Task Desk 按“现状”提供，不保证百分之百可用，也不保证完全无错误。",
+        t8Item2:
+          "即便你的信件在本服务中起草，对于利润损失、航班误机、理赔被拒等间接或后果性损失，站长概不负责。",
 
-        sideTitle: "一句话说明（不构成法律意见）",
-        sideSmall:
-          "给已经见过很多世面的你，一个更容易理解的版本：",
-        sideL1:
-          "本任务台只帮你写和整理信件，不是你的律师或官方代理人。",
-        sideL2:
-          "任何信件在寄出前都要自己看一遍、改一改，最终内容由你自己决定。",
-        sideL3:
-          "如果关系到官司、签证、大额资金或医疗等重大事项，请务必同时咨询线下专业人士。",
-        sideL4:
-          "若你认为某次扣费明显不合理，或生成的内容严重不可用，可以冷静发邮件说明，我们会进行查看。",
+        t9Title: "9. 适用法律",
+        t9P1:
+          "本条款受任务台所有者所在司法辖区的法律管辖，但如果你所在国家的消费者保护法给予你更强保护，则以当地法律为准。",
 
-        footerNote:
-          "最近更新：2025 年。本页以通俗语言编写，方便阅读与理解。如其中部分条款在你所在法域被认定无效，其余部分在法律允许范围内继续有效。"
+        termsFooterNote:
+          "如本条款的某一部分在当地法律下被判无效，其余部分仍然有效。如你不同意本条款，请不要使用 Aurum Task Desk。"
       }
     };
 
@@ -853,76 +647,64 @@
       const t = i18n[lang] || i18n.en;
       currentLang = lang;
 
-      // 顶部导航
       brandSubText.textContent = t.brandSub;
       navHome.textContent = t.navHome;
       navDesk.textContent = t.navDesk;
       navAbout.textContent = t.navAbout;
       navContact.textContent = t.navContact;
-      loginBtnTextEl.textContent = t.loginBtn;
 
-      // 主体文案
-      document.getElementById("termsPillText").textContent = t.termsPill;
+      if (!currentUser || !currentUser.email) {
+        loginBtnTextEl.textContent = t.loginBtn;
+      }
+
       document.getElementById("termsTitle").textContent = t.termsTitle;
-      document.getElementById("termsSubtitle").textContent = t.termsSubtitle;
-      document.getElementById("termsMetaNote").textContent = t.termsMetaNote;
+      document.getElementById("termsTag").textContent = t.termsTag;
+      document.getElementById("termsIntro").textContent = t.termsIntro;
+      document.getElementById("termsUpdated").textContent = t.termsUpdated;
 
-      document.getElementById("sec1Title").textContent = t.sec1Title;
-      document.getElementById("sec1P1").textContent = t.sec1P1;
-      document.getElementById("sec1P2").textContent = t.sec1P2;
+      document.getElementById("t1Title").textContent = t.t1Title;
+      document.getElementById("t1Item1").textContent = t.t1Item1;
+      document.getElementById("t1Item2").textContent = t.t1Item2;
 
-      document.getElementById("sec2Title").textContent = t.sec2Title;
-      document.getElementById("sec2L1").textContent = t.sec2L1;
-      document.getElementById("sec2L2").textContent = t.sec2L2;
-      document.getElementById("sec2L3").textContent = t.sec2L3;
+      document.getElementById("t2Title").textContent = t.t2Title;
+      document.getElementById("t2Item1").textContent = t.t2Item1;
+      document.getElementById("t2Item2").textContent = t.t2Item2;
+      document.getElementById("t2Item3").textContent = t.t2Item3;
 
-      document.getElementById("sec3Title").textContent = t.sec3Title;
-      document.getElementById("sec3P1").textContent = t.sec3P1;
-      document.getElementById("sec3L1").textContent = t.sec3L1;
-      document.getElementById("sec3L2").textContent = t.sec3L2;
-      document.getElementById("sec3L3").textContent = t.sec3L3;
+      document.getElementById("t3Title").textContent = t.t3Title;
+      document.getElementById("t3Item1").textContent = t.t3Item1;
+      document.getElementById("t3Item2").textContent = t.t3Item2;
 
-      document.getElementById("sec4Title").textContent = t.sec4Title;
-      document.getElementById("sec4P1").textContent = t.sec4P1;
-      document.getElementById("sec4P2").textContent = t.sec4P2;
-      document.getElementById("sec4P3").textContent = t.sec4P3;
+      document.getElementById("t4Title").textContent = t.t4Title;
+      document.getElementById("t4Item1").textContent = t.t4Item1;
+      document.getElementById("t4Item2").textContent = t.t4Item2;
 
-      document.getElementById("sec5Title").textContent = t.sec5Title;
-      document.getElementById("sec5P1").textContent = t.sec5P1;
-      document.getElementById("sec5P2").textContent = t.sec5P2;
-      document.getElementById("sec5P3").textContent = t.sec5P3;
+      document.getElementById("t5Title").textContent = t.t5Title;
+      document.getElementById("t5Item1").textContent = t.t5Item1;
+      document.getElementById("t5Item2").textContent = t.t5Item2;
 
-      document.getElementById("sec6Title").textContent = t.sec6Title;
-      document.getElementById("sec6L1").textContent = t.sec6L1;
-      document.getElementById("sec6L2").textContent = t.sec6L2;
-      document.getElementById("sec6L3").textContent = t.sec6L3;
+      document.getElementById("t6Title").textContent = t.t6Title;
+      document.getElementById("t6Item1").textContent = t.t6Item1;
+      document.getElementById("t6Item2").textContent = t.t6Item2;
 
-      document.getElementById("sec7Title").textContent = t.sec7Title;
-      document.getElementById("sec7P1").textContent = t.sec7P1;
-      document.getElementById("sec7P2").textContent = t.sec7P2;
+      document.getElementById("t7Title").textContent = t.t7Title;
+      document.getElementById("t7Item1").textContent = t.t7Item1;
+      document.getElementById("t7Item2").textContent = t.t7Item2;
 
-      document.getElementById("sec8Title").textContent = t.sec8Title;
-      document.getElementById("sec8P1").textContent = t.sec8P1;
-      document.getElementById("sec8P2").textContent = t.sec8P2;
+      document.getElementById("t8Title").textContent = t.t8Title;
+      document.getElementById("t8Item1").textContent = t.t8Item1;
+      document.getElementById("t8Item2").textContent = t.t8Item2;
 
-      document.getElementById("sideTitle").textContent = t.sideTitle;
-      document.getElementById("sideSmall").textContent = t.sideSmall;
-      document.getElementById("sideL1").textContent = t.sideL1;
-      document.getElementById("sideL2").textContent = t.sideL2;
-      document.getElementById("sideL3").textContent = t.sideL3;
-      document.getElementById("sideL4").textContent = t.sideL4;
+      document.getElementById("t9Title").textContent = t.t9Title;
+      document.getElementById("t9P1").textContent = t.t9P1;
 
-      document.getElementById("footerNote").textContent = t.footerNote;
+      document.getElementById("termsFooterNote").textContent = t.termsFooterNote;
 
-      // 按钮高亮
       langButtons.forEach((b) => {
         b.classList.toggle("active", b.dataset.lang === lang);
       });
 
-      // html lang
-      document.documentElement.lang = (lang === "zh" ? "zh-CN" : "en");
-
-      // 保存语言，和 index / desk / about / contact 同步
+      document.documentElement.lang = (lang === "zh") ? "zh-CN" : "en";
       localStorage.setItem("aurum_lang", lang);
     }
 
@@ -939,6 +721,35 @@
         applyLang(saved);
       } else {
         applyLang("en");
+      }
+    })();
+
+    (function syncLoginState() {
+      let user = null;
+      try {
+        const raw = localStorage.getItem("aurum_user");
+        if (raw) user = JSON.parse(raw);
+      } catch (e) {
+        console.warn("aurum_user parse error", e);
+      }
+
+      const loginBtn = document.querySelector(".primary-btn");
+      if (!loginBtn || !loginBtnTextEl) return;
+
+      currentUser = user;
+
+      if (user && user.email) {
+        const displayName =
+          (user.name && user.name.trim()) ||
+          (user.email && user.email.split("@")[0]) ||
+          "My Desk";
+
+        loginBtnTextEl.textContent = `Hi, ${displayName}`;
+        loginBtn.onclick = () => (window.location.href = "desk.html");
+      } else {
+        const t = i18n[currentLang] || i18n.en;
+        loginBtnTextEl.textContent = t.loginBtn;
+        loginBtn.onclick = () => (window.location.href = "auth.html");
       }
     })();
   </script>
