@@ -608,10 +608,53 @@
       line-height: 1.45;
       white-space: pre-wrap;
       color: #e5e7eb;
+      position: relative;
     }
     .ai-preview-placeholder {
       color: rgba(191, 219, 254, 0.95);
       font-size: 11px;
+    }
+
+    /* 新增：预览 skeleton 与信息条 */
+    .skeleton-line {
+      height: 9px;
+      border-radius: 999px;
+      margin-bottom: 5px;
+      background: linear-gradient(
+        90deg,
+        rgba(31, 41, 55, 0.9) 0%,
+        rgba(55, 65, 81, 0.9) 50%,
+        rgba(31, 41, 55, 0.9) 100%
+      );
+      background-size: 180% 100%;
+      animation: shimmer 1.1s infinite;
+    }
+    .skeleton-line.short { width: 40%; }
+    .skeleton-line.mid { width: 70%; }
+    .skeleton-line.full { width: 100%; }
+
+    @keyframes shimmer {
+      0% { background-position: 180% 0; }
+      100% { background-position: -20% 0; }
+    }
+
+    .info-bar {
+      margin-top: 10px;
+      border-radius: 14px;
+      border: 1px solid rgba(251, 191, 36, 0.8);
+      background: radial-gradient(circle at top left, rgba(251, 191, 36, 0.14), rgba(15, 23, 42, 0.98));
+      padding: 8px 10px;
+      display: flex;
+      gap: 8px;
+      font-size: 11px;
+      color: #f9fafb;
+    }
+    .info-bar-icon {
+      font-size: 14px;
+      margin-top: 1px;
+    }
+    .info-bar-text strong {
+      color: var(--gold);
     }
 
     /* 响应式 */
@@ -950,12 +993,25 @@
             </div>
           </div>
 
+          <!-- 新增：安全提示条 -->
+          <div class="info-bar">
+            <div class="info-bar-icon">ⓘ</div>
+            <div class="info-bar-text">
+              <strong>Nothing here is auto-sent or auto-charged · 此处内容不会自动发送，也不会自动扣费。</strong>
+              <div>
+                You can close this page anytime before confirming a task. / 在你正式确认任务前，随时可以关闭本页，一切不会被递交。
+              </div>
+            </div>
+          </div>
+
           <div class="ai-preview-box" id="aiPreviewBox">
             <div class="ai-preview-placeholder" id="aiPreviewPlaceholder">
               Your 30% preview draft will appear here. It is not saved, not sent
               to any company or person. When you are happy with the direction,
               you can open a full Desk and continue privately.
             </div>
+            <!-- 新增：实际预览内容容器 -->
+            <div id="aiPreviewContent"></div>
           </div>
         </section>
       </section>
@@ -980,79 +1036,94 @@
 
     // ========== 预览生成 ==========
     const aiGenerateBtn = document.getElementById("aiGenerateBtn");
+    const aiGenerateBtnTextEl = document.getElementById("aiGenerateBtnText");
     const aiStatusText = document.getElementById("aiStatusText");
     const aiPreviewBox = document.getElementById("aiPreviewBox");
     const aiPreviewPlaceholder = document.getElementById("aiPreviewPlaceholder");
+    const aiPreviewContent = document.getElementById("aiPreviewContent");
     const toneSelect = document.getElementById("toneSelect");
     const languageSelect = document.getElementById("languageSelect");
     const recipientInput = document.getElementById("recipientInput");
     const detailsTextarea = document.getElementById("detailsTextarea");
 
     async function callPreview() {
-  const taskType  = (taskTypeInput.value || "").trim() || "写作任务";
-  const tone      = (toneSelect.value || "calm, respectful").toString();
-  const language  = (languageSelect.value || "English").toString();
-  const recipient = (recipientInput.value || "").toString();
-  const details   = (detailsTextarea.value || "").toString();
+      const taskType  = (taskTypeInput.value || "").trim() || "写作任务";
+      const tone      = (toneSelect.value || "calm, respectful").toString();
+      const language  = (languageSelect.value || "English").toString();
+      const recipient = (recipientInput.value || "").toString();
+      const details   = (detailsTextarea.value || "").toString();
 
-  aiGenerateBtn.disabled = true;
-  aiStatusText.textContent = language === "中文"
-    ? "系统正在生成预览草稿…"
-    : "The desk is drafting a preview for you…";
+      aiGenerateBtn.disabled = true;
+      const originalBtnLabel = aiGenerateBtnTextEl.textContent;
 
-  try {
-    const res = await fetch("https://aurum-task-worker.sophieinbg.workers.dev/api/generate", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        taskType,
-        tone,
-        language,
-        recipient,
-        details
-      })
-    });
-
-    // 尝试把后端返回的 JSON 都解析出来
-    let data = {};
-    try {
-      data = await res.json();
-    } catch (e) {
-      data = {};
-    }
-
-    // 后端 500 / 404 等情况，把后端的 error 原文拿出来
-    if (!res.ok || !data.ok) {
-      const errMsg = (data && data.error) ? String(data.error) : ("HTTP " + res.status);
-      console.error("Backend error:", errMsg);
+      aiGenerateBtnTextEl.textContent = language === "中文"
+        ? "正在生成预览..."
+        : "Generating preview...";
 
       aiStatusText.textContent = language === "中文"
-        ? "后端报错：" + errMsg
-        : "Backend error: " + errMsg;
-      return;
-    }
+        ? "系统正在生成预览草稿…"
+        : "The desk is drafting a preview for you…";
 
-    if (!data.preview) {
-      aiStatusText.textContent = language === "中文"
-        ? "后端没有返回预览内容。"
-        : "Backend returned no preview content.";
-      return;
-    }
+      // skeleton loading
+      aiPreviewPlaceholder.style.display = "none";
+      aiPreviewContent.innerHTML =
+        '<div class="skeleton-line full"></div>' +
+        '<div class="skeleton-line mid"></div>' +
+        '<div class="skeleton-line full"></div>' +
+        '<div class="skeleton-line mid"></div>' +
+        '<div class="skeleton-line short"></div>';
 
-    aiPreviewPlaceholder.style.display = "none";
-    aiPreviewBox.textContent = data.preview;
-    aiStatusText.textContent = language === "中文"
-      ? "预览完成。你可以先在这里修改，再在正式任务台中继续。"
-      : "Preview ready. You can adjust it here, then continue inside your Desk.";
-  } catch (err) {
-    console.error("Frontend error:", err);
-    aiStatusText.textContent = language === "中文"
-      ? "前端错误：" + (err && err.message ? err.message : String(err))
-      : "Frontend error: " + (err && err.message ? err.message : String(err));
-  } finally {
-    aiGenerateBtn.disabled = false;
-  }
-}
+      try {
+        const res = await fetch("https://aurum-task-worker.sophieinbg.workers.dev/api/generate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            taskType,
+            tone,
+            language,
+            recipient,
+            details
+          })
+        });
+
+        let data = {};
+        try {
+          data = await res.json();
+        } catch (e) {
+          data = {};
+        }
+
+        if (!res.ok || !data.ok) {
+          const errMsg = (data && data.error) ? String(data.error) : ("HTTP " + res.status);
+          console.error("Backend error:", errMsg);
+
+          aiStatusText.textContent = language === "中文"
+            ? "后端报错：" + errMsg
+            : "Backend error: " + errMsg;
+          return;
+        }
+
+        if (!data.preview) {
+          aiStatusText.textContent = language === "中文"
+            ? "后端没有返回预览内容。"
+            : "Backend returned no preview content.";
+          return;
+        }
+
+        aiPreviewContent.textContent = data.preview;
+        aiStatusText.textContent = language === "中文"
+          ? "预览完成。你可以先在这里修改，再在正式任务台中继续。"
+          : "Preview ready. You can adjust it here, then continue inside your Desk.";
+      } catch (err) {
+        console.error("Frontend error:", err);
+        aiStatusText.textContent = language === "中文"
+          ? "前端错误：" + (err && err.message ? err.message : String(err))
+          : "Frontend error: " + (err && err.message ? err.message : String(err));
+      } finally {
+        aiGenerateBtn.disabled = false;
+        aiGenerateBtnTextEl.textContent = originalBtnLabel;
+      }
+    }
 
     aiGenerateBtn.addEventListener("click", () => {
       callPreview();
@@ -1062,7 +1133,7 @@
     document.getElementById("btnClear").addEventListener("click", () => {
       recipientInput.value = "";
       detailsTextarea.value = "";
-      aiPreviewBox.textContent = "";
+      aiPreviewContent.textContent = "";
       aiPreviewPlaceholder.style.display = "block";
       aiStatusText.textContent = languageSelect.value === "中文"
         ? "系统只会生成约 30% 的预览草稿，不会保存也不会发送。"
