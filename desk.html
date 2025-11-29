@@ -685,13 +685,13 @@
       font-size: 11px;
     }
 
-    /* 关键修复：遮罩只覆盖底部 60%，顶部约 40% 预览内容是清晰可见的 */
+    /* 玻璃遮罩：只盖下面 60%，顶部约 40% 清晰 */
     .ai-preview-overlay {
       position: absolute;
       left: 0;
       right: 0;
       bottom: 0;
-      top: 40%; /* 顶部 40% 留给可见内容，下面 60% 玻璃模糊 */
+      top: 40%;
       display: none;
       align-items: center;
       justify-content: center;
@@ -1718,6 +1718,39 @@
       }
     };
 
+    // ==== 登录状态：从 auth.html 写入的 aurum_user 里读取 ====
+    const USER_STORAGE_KEY = "aurum_user";
+
+    function getCurrentUser() {
+      try {
+        const raw = localStorage.getItem(USER_STORAGE_KEY);
+        if (!raw) return null;
+        return JSON.parse(raw);
+      } catch {
+        return null;
+      }
+    }
+
+    function applyLoginState() {
+      const loginBtn = document.querySelector(".login-btn");
+      const loginTextEl = document.getElementById("loginBtnText");
+      if (!loginBtn || !loginTextEl) return;
+
+      const user = getCurrentUser();
+      const t = (i18n[currentLang] || i18n.en);
+
+      if (user && user.name) {
+        const name = String(user.name).slice(0, 18);
+        const hiText = currentLang === "zh" ? "Hi, " + name : "Hi, " + name;
+        loginTextEl.textContent = hiText;
+        loginBtn.href = "desk.html"; // 已登录时直接进 Desk
+      } else {
+        loginTextEl.textContent = t.loginBtn;
+        loginBtn.href = "auth.html"; // 未登录时去登录页
+      }
+    }
+    // ==== 登录状态 END ====
+
     function applyLang(lang) {
       const t = i18n[lang] || i18n.en;
       currentLang = lang;
@@ -1792,6 +1825,9 @@
 
       syncScenarioAndPrice();
       localStorage.setItem("aurum_lang", lang);
+
+      // 语言切换时同步更新登录按钮文字
+      applyLoginState();
     }
 
     langButtons.forEach((btn) => {
