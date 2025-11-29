@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Aurum Task Desk — Contact</title>
+  <title>Aurum Task Desk — Contact / Feedback</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- Favicon -->
@@ -55,7 +55,7 @@
       margin: 0 auto;
     }
 
-    /* 顶部导航（和首页统一风格） */
+    /* 顶部导航：对齐首页 / 任务台 */
     .top-nav {
       display: flex;
       align-items: center;
@@ -121,16 +121,17 @@
       text-decoration: none;
       opacity: 0.85;
       transition: opacity 0.15s ease, transform 0.15s ease, border-color 0.15s ease;
-      padding-bottom: 3px;
-      border-bottom: 1px solid transparent;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid transparent;
     }
     .nav-links a:hover {
       opacity: 1;
       transform: translateY(-1px);
     }
     .nav-links a.active {
-      border-bottom-color: rgba(248, 250, 252, 0.8);
-      opacity: 1;
+      border-color: rgba(234, 179, 8, 0.85);
+      box-shadow: 0 0 0 1px rgba(234, 179, 8, 0.3);
     }
     .nav-links span.sep {
       color: var(--text-soft);
@@ -228,7 +229,7 @@
     .contact-subtitle {
       font-size: 13px;
       color: var(--text-soft);
-      max-width: 640px;
+      max-width: 680px;
     }
 
     .contact-layout {
@@ -411,7 +412,7 @@
 </head>
 <body>
   <div class="page-shell">
-    <!-- 顶部导航（和首页保持一致，Contact 高亮） -->
+    <!-- 顶部导航：和首页一致，Contact 高亮 -->
     <header class="top-nav">
       <div class="brand-block">
         <div class="brand-avatar">
@@ -427,9 +428,7 @@
 
       <nav class="nav-links">
         <a href="index.html" id="navHome">Home</a>
-        <a href="index.html#services" id="navServices">Services</a>
-        <a href="index.html#flow" id="navFlow">Flow</a>
-        <a href="pricing.html" id="navPricing">Pricing</a>
+        <a href="desk.html" id="navDesk">Desk</a>
         <a href="about.html" id="navAbout">About</a>
         <a href="contact.html" id="navContact" class="active">Contact</a>
         <span class="sep">|</span>
@@ -444,31 +443,33 @@
       </nav>
     </header>
 
-    <!-- 联系我们卡片 -->
+    <!-- 联系 / 反馈卡片 -->
     <main class="contact-card">
       <section class="contact-header">
         <div class="contact-pill">
           <span class="contact-pill-dot"></span>
-          <span id="contactPillText">Contact</span>
+          <span id="contactPillText">Aurum Desk feedback</span>
         </div>
         <h1 class="contact-title" id="contactTitle">
-          A quiet inbox for serious matters
+          Talk directly to the Aurum Desk team
         </h1>
         <p class="contact-subtitle" id="contactSubtitle">
-          Send a calm, clear email directly to the desk. We mainly serve older US &amp; EU professionals
-          dealing with disputes, immigration, insurance, and family-related letters.
+          This page is only for feedback, complaints, or suggestions about Aurum Task Desk itself
+          (billing, bugs, letter quality, product ideas). For your own legal / immigration /
+          insurance letters, please use the Desk page instead.
         </p>
       </section>
 
       <section class="contact-layout">
-        <!-- 左侧：联系说明 -->
+        <!-- 左侧：说明 -->
         <aside class="contact-info-card">
           <div class="contact-info-title" id="infoTitle">
             Before you send
           </div>
           <p class="contact-info-text" id="infoText">
-            This form does not send data to any server. It simply opens your own email app with a
-            pre-filled message, so you stay in full control. You can add attachments privately before sending.
+            The form on the right does not send data to any server. It only opens your own email app
+            with a pre-filled draft to the Aurum team. You stay in full control and can attach
+            screenshots privately before sending.
           </p>
           <div class="contact-badge-row">
             <div class="contact-badge" id="badge1">
@@ -484,7 +485,7 @@
 
           <div class="contact-email-box">
             <div>
-              <div id="directEmailLabel">Direct email inbox</div>
+              <div id="directEmailLabel">Feedback inbox</div>
               <div class="contact-email-highlight">support@aurumdesks.com</div>
             </div>
             <button
@@ -495,12 +496,12 @@
             </button>
           </div>
           <p class="contact-mail-note" id="mailNote">
-            If the form on the right does not work on your device, you can always copy this email address
-            and write to us directly from your own mailbox.
+            If the form on the right does not work on your device, you can always copy this email
+            address and write to us directly from your own mailbox.
           </p>
         </aside>
 
-        <!-- 右侧：表单 -->
+        <!-- 右侧：投诉 / 建议表单 -->
         <section class="contact-form-card">
           <form id="contactForm">
             <div class="form-grid">
@@ -531,17 +532,15 @@
 
               <div class="form-full">
                 <label class="field-label" for="contactTopic">
-                  <span id="lblTopic">Which area best describes your case?</span>
+                  <span id="lblTopic">What is this about?</span>
                 </label>
                 <select id="contactTopic" class="field-select">
-                  <option value="" selected>
-                    — select —
-                  </option>
-                  <option value="legal">Legal letter / contract / dispute</option>
-                  <option value="insurance">Insurance / airline claim</option>
-                  <option value="immigration">Immigration / visa / RFE</option>
-                  <option value="family">Family / relationship / emotional letter</option>
-                  <option value="complaint">Complaint / escalation</option>
+                  <option value="" selected>— select —</option>
+                  <option value="billing">Billing / payment issue</option>
+                  <option value="bug">Bug / technical problem</option>
+                  <option value="quality">Letter quality / content issue</option>
+                  <option value="feature">Feature request / product idea</option>
+                  <option value="feedback">General complaint or feedback</option>
                   <option value="other">Other</option>
                 </select>
               </div>
@@ -559,7 +558,7 @@
 
               <div class="form-full">
                 <label class="field-label" for="contactMessage">
-                  <span id="lblMessage">Briefly describe what happened</span>
+                  <span id="lblMessage">Tell us briefly what happened</span>
                   <span class="badge" id="lblMessageBadge">Required</span>
                 </label>
                 <textarea
@@ -586,34 +585,31 @@
   </div>
 
   <script>
-    // ===== 全局语言状态 =====
+    // ===== 语言 & 文案 =====
     let currentLang = "en";
-
     const langButtons = document.querySelectorAll(".lang-btn");
 
     const i18n = {
       en: {
         brandSub: "Private writing & resolution desk",
         navHome: "Home",
-        navServices: "Services",
-        navFlow: "Flow",
-        navPricing: "Pricing",
+        navDesk: "Desk",
         navAbout: "About",
         navContact: "Contact",
         loginBtn: "Login / My Desk",
 
-        contactPill: "Contact",
-        contactTitle: "A quiet inbox for serious matters",
+        contactPill: "Aurum Desk feedback",
+        contactTitle: "Talk directly to the Aurum Desk team",
         contactSubtitle:
-          "Send a calm, clear email directly to the desk. We mainly serve older US & EU professionals dealing with disputes, immigration, insurance, and family-related letters.",
+          "This page is only for feedback, complaints, or suggestions about Aurum Task Desk itself (billing, bugs, letter quality, product ideas). For your own legal / immigration / insurance letters, please use the Desk page instead.",
 
         infoTitle: "Before you send",
         infoText:
-          "This form does not send data to any server. It simply opens your own email app with a pre-filled message, so you stay in full control. You can add attachments privately before sending.",
+          "The form on the right does not send data to any server. It only opens your own email app with a pre-filled draft to the Aurum team. You stay in full control and can attach screenshots privately before sending.",
         badge1: "✓ Uses your own email app",
         badge2: "✓ You can edit everything before sending",
         badge3: "✓ No auto-send, no account needed",
-        directEmailLabel: "Direct email inbox",
+        directEmailLabel: "Feedback inbox",
         openEmailBtnText: "Open email",
         mailNote:
           "If the form on the right does not work on your device, you can always copy this email address and write to us directly from your own mailbox.",
@@ -622,51 +618,49 @@
         lblNameBadge: "Optional",
         lblEmail: "Your email",
         lblEmailBadge: "Required",
-        lblTopic: "Which area best describes your case?",
+        lblTopic: "What is this about?",
         lblSubject: "Email subject (optional)",
-        lblMessage: "Briefly describe what happened",
+        lblMessage: "Tell us briefly what happened",
         lblMessageBadge: "Required",
 
         topicPlaceholder: "— select —",
-        topicLegal: "Legal letter / contract / dispute",
-        topicInsurance: "Insurance / airline claim",
-        topicImmigration: "Immigration / visa / RFE",
-        topicFamily: "Family / relationship / emotional letter",
-        topicComplaint: "Complaint / escalation",
+        topicBilling: "Billing / payment issue",
+        topicBug: "Bug / technical problem",
+        topicQuality: "Letter quality / content issue",
+        topicFeature: "Feature request / product idea",
+        topicFeedback: "General complaint or feedback",
         topicOther: "Other",
 
         submitBtnText: "Open my email app & draft",
         statusDefault:
-          "After you click, your phone or computer will open a new email window to support@aurumdesks.com. You can still change everything before sending.",
+          "After you click, your device will open a draft email to support@aurumdesks.com. You can still change everything before sending.",
         statusMissingMessage:
-          "Please briefly describe what happened so the email is not empty.",
+          "Please describe briefly what happened so the email is not empty.",
         statusMissingEmail:
           "Please enter your email so we can reply properly.",
         statusMailOpened:
-          "We have opened your email app with a draft. You can add attachments and send when ready."
+          "We have opened your email app with a draft. You can add screenshots and send when ready."
       },
       zh: {
         brandSub: "安静而专业的写作与申诉任务台",
         navHome: "首页",
-        navServices: "服务",
-        navFlow: "流程",
-        navPricing: "价格",
+        navDesk: "Desk 任务台",
         navAbout: "关于我们",
         navContact: "联系我们",
         loginBtn: "登录 / 我的任务台",
 
-        contactPill: "联系任务台",
-        contactTitle: "给一封安静、认真的邮件入口",
+        contactPill: "给 Aurum 任务台的反馈",
+        contactTitle: "直接和任务台团队说一说",
         contactSubtitle:
-          "通过邮箱和任务台沟通，适合处理法律纠纷、移民材料、保险理赔、家庭矛盾等需要冷静书面的事项。",
+          "这个页面专门用于对 Aurum Task Desk 本身的投诉、反馈或建议，例如付款问题、技术故障、信件质量、功能想法等。如果是你个人的法律、移民、保险等正式信件，请前往 Desk 任务台页面。",
 
         infoTitle: "发送前先了解一下",
         infoText:
-          "右侧表单不会把内容提交到服务器，而是帮你在本机打开邮件应用，并预填一封草稿邮件。你可以在发送前自行添加附件、修改任何内容。",
+          "右侧表单不会把内容提交到服务器，而是帮你在本机打开一封发往任务台团队的邮件草稿。你可以在发送前自由添加截图和附件，所有内容都在你自己的邮箱里。",
         badge1: "✓ 使用你自己的邮箱应用",
         badge2: "✓ 发送前所有内容都可修改",
         badge3: "✓ 不会自动代发，无需账号",
-        directEmailLabel: "直接邮箱入口",
+        directEmailLabel: "反馈专用邮箱",
         openEmailBtnText: "打开邮箱",
         mailNote:
           "如果右侧表单在你的设备上不好用，你也可以直接复制这个邮箱地址，在自己的邮箱里新建邮件。",
@@ -675,22 +669,22 @@
         lblNameBadge: "可选",
         lblEmail: "你的邮箱",
         lblEmailBadge: "必填",
-        lblTopic: "你的情况大致属于哪一类？",
+        lblTopic: "这封邮件主要想说什么？",
         lblSubject: "邮件主题（可选）",
-        lblMessage: "请简单描述发生了什么",
+        lblMessage: "请简单讲讲发生了什么",
         lblMessageBadge: "必填",
 
         topicPlaceholder: "— 请选择 —",
-        topicLegal: "法律信件 / 合同 / 纠纷",
-        topicInsurance: "保险 / 航空理赔",
-        topicImmigration: "移民 / 签证 / RFE",
-        topicFamily: "家庭 / 关系 / 情绪类来信",
-        topicComplaint: "投诉 / 升级申诉",
+        topicBilling: "付款 / 账单问题",
+        topicBug: "技术故障 / 页面打不开",
+        topicQuality: "信件质量 / 内容问题",
+        topicFeature: "功能建议 / 产品想法",
+        topicFeedback: "综合投诉或整体反馈",
         topicOther: "其他",
 
         submitBtnText: "打开邮箱草稿并预填内容",
         statusDefault:
-          "点击后，你的手机或电脑会打开一封发往 support@aurumdesks.com 的邮件草稿。你可以在发送前自由增删内容和附件。",
+          "点击后，你的设备会打开一封发往 support@aurumdesks.com 的邮件草稿。你可以在发送前自由增删内容和附件。",
         statusMissingMessage:
           "请至少用几句话简单描述一下情况，避免邮件内容是空的。",
         statusMissingEmail:
@@ -706,9 +700,7 @@
 
       document.getElementById("brandSubText").textContent = t.brandSub;
       document.getElementById("navHome").textContent = t.navHome;
-      document.getElementById("navServices").textContent = t.navServices;
-      document.getElementById("navFlow").textContent = t.navFlow;
-      document.getElementById("navPricing").textContent = t.navPricing;
+      document.getElementById("navDesk").textContent = t.navDesk;
       document.getElementById("navAbout").textContent = t.navAbout;
       document.getElementById("navContact").textContent = t.navContact;
       document.getElementById("loginBtnText").textContent = t.loginBtn;
@@ -735,14 +727,13 @@
       document.getElementById("lblMessage").textContent = t.lblMessage;
       document.getElementById("lblMessageBadge").textContent = t.lblMessageBadge;
 
-      // 下拉选项
       const topicSelect = document.getElementById("contactTopic");
       topicSelect.options[0].textContent = t.topicPlaceholder;
-      topicSelect.options[1].textContent = t.topicLegal;
-      topicSelect.options[2].textContent = t.topicInsurance;
-      topicSelect.options[3].textContent = t.topicImmigration;
-      topicSelect.options[4].textContent = t.topicFamily;
-      topicSelect.options[5].textContent = t.topicComplaint;
+      topicSelect.options[1].textContent = t.topicBilling;
+      topicSelect.options[2].textContent = t.topicBug;
+      topicSelect.options[3].textContent = t.topicQuality;
+      topicSelect.options[4].textContent = t.topicFeature;
+      topicSelect.options[5].textContent = t.topicFeedback;
       topicSelect.options[6].textContent = t.topicOther;
 
       document.getElementById("submitBtnText").textContent = t.submitBtnText;
@@ -752,7 +743,6 @@
         b.classList.toggle("active", b.dataset.lang === lang);
       });
 
-      // 记住语言
       localStorage.setItem("aurum_lang", lang);
     }
 
@@ -763,7 +753,6 @@
       });
     });
 
-    // 初始化语言（和其他页面保持一致）
     (function initLang() {
       const saved = localStorage.getItem("aurum_lang");
       if (saved === "zh" || saved === "en") {
@@ -773,7 +762,7 @@
       }
     })();
 
-    // ===== 表单：打开本机邮箱，预填邮件 =====
+    // ===== 表单：打开本机邮箱，预填投诉 / 建议信件 =====
     const contactForm = document.getElementById("contactForm");
     const contactStatus = document.getElementById("contactStatus");
 
@@ -797,33 +786,30 @@
         return;
       }
 
-      // 主题
       let subject = subjectInput;
       if (!subject) {
-        if (currentLang === "zh") {
-          subject = "来自网站的咨询 — Aurum Task Desk";
-        } else {
-          subject = "New enquiry from Aurum Task Desk website";
-        }
+        subject =
+          currentLang === "zh"
+            ? "关于 Aurum Task Desk 的反馈 / 投诉"
+            : "Feedback / complaint about Aurum Task Desk";
       }
 
-      // 话题文本
       let topicText = "";
       switch (topic) {
-        case "legal":
-          topicText = t.topicLegal;
+        case "billing":
+          topicText = t.topicBilling;
           break;
-        case "insurance":
-          topicText = t.topicInsurance;
+        case "bug":
+          topicText = t.topicBug;
           break;
-        case "immigration":
-          topicText = t.topicImmigration;
+        case "quality":
+          topicText = t.topicQuality;
           break;
-        case "family":
-          topicText = t.topicFamily;
+        case "feature":
+          topicText = t.topicFeature;
           break;
-        case "complaint":
-          topicText = t.topicComplaint;
+        case "feedback":
+          topicText = t.topicFeedback;
           break;
         case "other":
           topicText = t.topicOther;
@@ -832,26 +818,25 @@
           topicText = "";
       }
 
-      // 邮件正文
       let bodyLines = [];
       if (currentLang === "zh") {
-        bodyLines.push("客户称呼: " + (name || "(未填写)"));
-        bodyLines.push("客户邮箱: " + email);
-        bodyLines.push("大致类型: " + (topicText || "(未选择)"));
+        bodyLines.push("发件人称呼: " + (name || "(未填写)"));
+        bodyLines.push("发件人邮箱: " + email);
+        bodyLines.push("反馈主题类型: " + (topicText || "(未选择)"));
         bodyLines.push("");
-        bodyLines.push("—— 客户的情况描述 ——");
+        bodyLines.push("—— 具体情况 / 建议 ——");
         bodyLines.push(message);
         bodyLines.push("");
-        bodyLines.push("（此邮件由 Aurum Task Desk 网站表单生成，你可以直接回复此邮箱与客户沟通。）");
+        bodyLines.push("（此邮件由 Aurum Task Desk 网站“联系我们 / 反馈”页面生成，你可以直接回复此邮箱与用户沟通。）");
       } else {
         bodyLines.push("Name: " + (name || "(not provided)"));
         bodyLines.push("Client email: " + email);
-        bodyLines.push("Rough area: " + (topicText || "(not selected)"));
+        bodyLines.push("Topic: " + (topicText || "(not selected)"));
         bodyLines.push("");
-        bodyLines.push("—— Client's description ——");
+        bodyLines.push("—— Details / feedback ——");
         bodyLines.push(message);
         bodyLines.push("");
-        bodyLines.push("(This email was drafted via the Aurum Task Desk contact form. You can reply directly to this email address.)");
+        bodyLines.push("(This email was drafted via the Aurum Task Desk contact / feedback page. You can reply directly to this email address.)");
       }
 
       const body = bodyLines.join("\n");
@@ -860,9 +845,7 @@
         "?subject=" + encodeURIComponent(subject) +
         "&body=" + encodeURIComponent(body);
 
-      // 打开本机邮箱应用
       window.location.href = mailto;
-
       contactStatus.textContent = t.statusMailOpened;
     });
   </script>
