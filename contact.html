@@ -55,12 +55,22 @@
       margin: 0 auto;
     }
 
-    /* 顶部导航：对齐首页 / 任务台 */
+    /* 顶部导航：和首页 / desk / about 统一 */
     .top-nav {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 24px;
+      gap: 12px;
+      padding: 10px 18px;
+      margin-bottom: 22px;
+      border-radius: 999px;
+      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.9), rgba(2, 6, 23, 0.96));
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      box-shadow: 0 14px 40px rgba(15, 23, 42, 0.9);
+      backdrop-filter: blur(18px);
+      position: sticky;
+      top: 10px;
+      z-index: 30;
     }
     .brand-block {
       display: flex;
@@ -68,123 +78,159 @@
       gap: 10px;
     }
     .brand-avatar {
-      width: 40px;
-      height: 40px;
+      width: 30px;
+      height: 30px;
       border-radius: 999px;
       background: conic-gradient(
-        from 180deg,
+        from 210deg,
+        #0ea5e9,
+        #22d3ee,
         #fbbf24,
-        #38bdf8,
-        #4f46e5,
-        #fbbf24
+        #eab308,
+        #0ea5e9
       );
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 12px 40px rgba(15, 23, 42, 0.7);
+      box-shadow:
+        0 0 0 1px rgba(148, 163, 184, 0.9),
+        0 0 40px rgba(14, 165, 233, 0.8);
     }
     .brand-avatar-inner {
-      width: 32px;
-      height: 32px;
-      border-radius: 999px;
-      background: radial-gradient(circle at 30% 0%, #1f2937 0%, #020617 55%);
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+      background: radial-gradient(circle at 30% 20%, #0f172a, #020617);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 15px;
-      font-weight: 600;
-      color: #e5e7eb;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: #fefce8;
     }
     .brand-text-block {
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      gap: 1px;
     }
     .brand-name {
-      font-size: 16px;
+      font-size: 0.95rem;
       font-weight: 600;
-      letter-spacing: 0.02em;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
     .brand-sub {
-      font-size: 12px;
+      font-size: 0.72rem;
       color: var(--text-soft);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 18px;
-      font-size: 13px;
+      gap: 14px;
+      font-size: 0.8rem;
     }
-    .nav-links a {
-      color: #e5e7eb;
+    .nav-main-links {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .nav-link {
+      color: var(--text-soft);
       text-decoration: none;
-      opacity: 0.85;
-      transition: opacity 0.15s ease, transform 0.15s ease, border-color 0.15s ease;
-      padding: 6px 10px;
+      padding: 4px 10px;
       border-radius: 999px;
       border: 1px solid transparent;
+      transition: all 0.16s ease-out;
+      cursor: pointer;
+      white-space: nowrap;
     }
-    .nav-links a:hover {
-      opacity: 1;
-      transform: translateY(-1px);
+    .nav-link:hover {
+      color: #e5e7eb;
+      border-color: rgba(148, 163, 184, 0.6);
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.9), rgba(2, 6, 23, 0.9));
     }
-    .nav-links a.active {
-      border-color: rgba(234, 179, 8, 0.85);
-      box-shadow: 0 0 0 1px rgba(234, 179, 8, 0.3);
+    .nav-link--active {
+      color: var(--gold);
+      border-color: rgba(251, 191, 36, 0.8);
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.85), rgba(2, 6, 23, 0.95));
+      box-shadow: 0 0 0 1px rgba(251, 191, 36, 0.5);
     }
-    .nav-links span.sep {
-      color: var(--text-soft);
-      font-size: 12px;
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
     }
 
     .lang-toggle {
       display: inline-flex;
       align-items: center;
       border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.4);
+      border: 1px solid rgba(148, 163, 184, 0.6);
       padding: 2px;
-      background: radial-gradient(circle at top left,#111827,#020617);
+      background: radial-gradient(circle at top left,#020617,#020617);
     }
     .lang-btn {
       border: none;
       outline: none;
-      padding: 4px 10px;
+      padding: 4px 12px;
       font-size: 11px;
       border-radius: 999px;
       background: transparent;
       color: var(--text-soft);
       cursor: pointer;
       transition: all 0.18s ease;
+      min-width: 38px;
     }
     .lang-btn.active {
-      background: rgba(15, 23, 42, 0.9);
-      color: #f9fafb;
-      box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.4);
+      background: linear-gradient(135deg,#fbbf24,#f97316);
+      color: #111827;
+      box-shadow: 0 0 0 1px rgba(248, 250, 252, 0.9);
     }
 
     .primary-btn {
       border-radius: 999px;
-      border: none;
-      background: linear-gradient(120deg,#fbbf24,#f97316);
-      color: #111827;
-      padding: 8px 16px;
-      font-size: 12px;
-      font-weight: 600;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.9), rgba(2, 6, 23, 0.96));
+      color: #e5e7eb;
+      padding: 6px 14px;
+      font-size: 0.8rem;
+      font-weight: 500;
       display: inline-flex;
       align-items: center;
       gap: 6px;
       cursor: pointer;
-      box-shadow: 0 12px 45px rgba(15,23,42,0.9);
-      transition: transform 0.14s ease, box-shadow 0.14s ease, filter 0.14s ease;
+      box-shadow: 0 14px 40px rgba(15,23,42,0.9);
+      transition: transform 0.14s ease, box-shadow 0.14s ease, filter 0.14s ease, border-color 0.14s ease, color 0.14s ease;
+      white-space: nowrap;
+    }
+    .primary-btn span.icon {
+      font-size: 0.9rem;
     }
     .primary-btn:hover {
       transform: translateY(-1px);
-      box-shadow: 0 18px 70px rgba(15,23,42,1);
-      filter: brightness(1.03);
+      box-shadow: 0 20px 70px rgba(15,23,42,1);
+      border-color: var(--gold);
+      color: #fefce8;
     }
-    .primary-btn span.icon {
-      font-size: 14px;
+
+    @media (max-width: 900px) {
+      .top-nav {
+        border-radius: 18px;
+        padding-inline: 14px;
+      }
+    }
+    @media (max-width: 720px) {
+      body {
+        padding: 18px 8px 32px;
+      }
+      .nav-main-links {
+        display: none; /* 小屏只保留语言 + 登录 */
+      }
     }
 
     /* 主体卡片 */
@@ -392,27 +438,15 @@
       }
     }
     @media (max-width: 640px) {
-      body {
-        padding: 16px 8px 32px;
-      }
       .contact-card {
         padding: 16px 12px 18px;
-      }
-      .top-nav {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-      }
-      .nav-links {
-        flex-wrap: wrap;
-        row-gap: 6px;
       }
     }
   </style>
 </head>
 <body>
   <div class="page-shell">
-    <!-- 顶部导航：和首页一致，Contact 高亮 -->
+    <!-- 顶部导航：Contact 高亮 -->
     <header class="top-nav">
       <div class="brand-block">
         <div class="brand-avatar">
@@ -427,19 +461,22 @@
       </div>
 
       <nav class="nav-links">
-        <a href="index.html" id="navHome">Home</a>
-        <a href="desk.html" id="navDesk">Desk</a>
-        <a href="about.html" id="navAbout">About</a>
-        <a href="contact.html" id="navContact" class="active">Contact</a>
-        <span class="sep">|</span>
-        <div class="lang-toggle">
-          <button class="lang-btn active" data-lang="en" id="btnLangEn">EN</button>
-          <button class="lang-btn" data-lang="zh" id="btnLangZh">中</button>
+        <div class="nav-main-links">
+          <a href="index.html" class="nav-link" id="navHome">Home</a>
+          <a href="desk.html" class="nav-link" id="navDesk">Desk</a>
+          <a href="about.html" class="nav-link" id="navAbout">About</a>
+          <a href="contact.html" class="nav-link nav-link--active" id="navContact">Contact</a>
         </div>
-        <button class="primary-btn" onclick="window.location.href='auth.html'">
-          <span class="icon">★</span>
-          <span id="loginBtnText">Login / My Desk</span>
-        </button>
+        <div class="nav-right">
+          <div class="lang-toggle">
+            <button class="lang-btn active" data-lang="en" id="btnLangEn">EN</button>
+            <button class="lang-btn" data-lang="zh" id="btnLangZh">中</button>
+          </div>
+          <button class="primary-btn" onclick="window.location.href='auth.html'">
+            <span class="icon">⭑</span>
+            <span id="loginBtnText">Login / My Desk</span>
+          </button>
+        </div>
       </nav>
     </header>
 
@@ -698,6 +735,7 @@
       const t = i18n[lang] || i18n.en;
       currentLang = lang;
 
+      // 顶部导航
       document.getElementById("brandSubText").textContent = t.brandSub;
       document.getElementById("navHome").textContent = t.navHome;
       document.getElementById("navDesk").textContent = t.navDesk;
@@ -705,6 +743,7 @@
       document.getElementById("navContact").textContent = t.navContact;
       document.getElementById("loginBtnText").textContent = t.loginBtn;
 
+      // 主体文案
       document.getElementById("contactPillText").textContent = t.contactPill;
       document.getElementById("contactTitle").textContent = t.contactTitle;
       document.getElementById("contactSubtitle").textContent = t.contactSubtitle;
@@ -739,10 +778,15 @@
       document.getElementById("submitBtnText").textContent = t.submitBtnText;
       document.getElementById("contactStatus").textContent = t.statusDefault;
 
+      // 按钮高亮
       langButtons.forEach((b) => {
         b.classList.toggle("active", b.dataset.lang === lang);
       });
 
+      // html lang
+      document.documentElement.lang = (lang === "zh" ? "zh-CN" : "en");
+
+      // 保存语言，和 index / desk / about 同步
       localStorage.setItem("aurum_lang", lang);
     }
 
