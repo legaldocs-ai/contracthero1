@@ -1060,14 +1060,35 @@
     let attachmentsState = []; // { name,type,base64 }
 
     // ===== 左侧服务可点击 =====
-    serviceItems.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        serviceItems.forEach((b) => b.classList.remove("active"));
-        btn.classList.add("active");
-        const task = btn.getAttribute("data-task") || "";
-        if (task) taskTypeInput.value = task;
-      });
-    });
+    // ====== Step 1 服务选择 + 价格联动 ======
+const serviceItems = document.querySelectorAll(".service-item");
+const taskTypeInput = document.getElementById("taskTypeInput");
+const fullPriceValueEl = document.getElementById("fullPriceValue");
+
+// 从上方选中的卡片同步价格到 Step 2
+function syncPriceFromActive() {
+  const activePriceEl = document.querySelector(".service-item.active .service-price");
+  if (activePriceEl && fullPriceValueEl) {
+    fullPriceValueEl.textContent = activePriceEl.textContent.trim();
+  }
+}
+
+// 页面加载时执行一次
+syncPriceFromActive();
+
+// 点击服务卡片时，切换 active 并同步价格
+serviceItems.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    serviceItems.forEach((b) => b.classList.remove("active"));
+    btn.classList.add("active");
+
+    const task = btn.getAttribute("data-task") || "";
+    if (task) taskTypeInput.value = task;
+
+    syncPriceFromActive();
+  });
+});
+
 
     // ===== 处理附件，转 base64 =====
     attachmentInput.addEventListener("change", () => {
