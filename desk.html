@@ -989,57 +989,70 @@
     const detailsTextarea = document.getElementById("detailsTextarea");
 
     async function callPreview() {
-      const taskType = (taskTypeInput.value || "").trim() || "写作任务";
-      const tone = (toneSelect.value || "calm, respectful").toString();
-      const language = (languageSelect.value || "English").toString();
-      const recipient = (recipientInput.value || "").toString();
-      const details = (detailsTextarea.value || "").toString();
+  const taskType  = (taskTypeInput.value || "").trim() || "写作任务";
+  const tone      = (toneSelect.value || "calm, respectful").toString();
+  const language  = (languageSelect.value || "English").toString();
+  const recipient = (recipientInput.value || "").toString();
+  const details   = (detailsTextarea.value || "").toString();
 
-      aiGenerateBtn.disabled = true;
-      aiStatusText.textContent = language === "中文"
-        ? "系统正在生成预览草稿…"
-        : "The desk is drafting a preview for you…";
+  aiGenerateBtn.disabled = true;
+  aiStatusText.textContent = language === "中文"
+    ? "系统正在生成预览草稿…"
+    : "The desk is drafting a preview for you…";
 
-      try {
-        // 只调用 Worker 的 /ai/preview，返回的一定是 Cloudflare AI 真正生成的文本
-        const res = await fetch("/ai/preview", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            taskType,
-            tone,
-            language,
-            recipient,
-            details
-          })
-        });
+  try {
+    const res = await fetch("/api/generate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        taskType,
+        tone,
+        language,
+        recipient,
+        details
+      })
+    });
 
-        if (!res.ok) {
-          throw new Error("HTTP " + res.status);
-        }
-        const data = await res.json();
-
-        // 如果后端没有明确 ok:true 或没有 preview，一律当失败处理
-        if (!data.ok || !data.preview) {
-          throw new Error(data.error || "Empty preview");
-        }
-
-        aiPreviewPlaceholder.style.display = "none";
-        aiPreviewBox.textContent = data.preview;
-        aiStatusText.textContent = language === "中文"
-          ? "预览完成。你可以先在这里修改，再在正式任务台中继续。"
-          : "Preview ready. You can adjust it here, then continue inside your Desk.";
-      } catch (err) {
-        console.error(err);
-        aiStatusText.textContent = languageSelect.value === "中文"
-          ? "抱歉，预览暂时生成失败，请稍后再试。"
-          : "Sorry, the preview failed for now. Please try again shortly.";
-      } finally {
-        aiGenerateBtn.disabled = false;
-      }
+    // 尝试把后端返回的 JSON 都解析出来
+    let data = {};
+    try {
+      data = await res.json();
+    } catch (e) {
+      data = {};
     }
+
+    // 后端 500 / 404 等情况，把后端的 error 原文拿出来
+    if (!res.ok || !data.ok) {
+      const errMsg = (data && data.error) ? String(data.error) : ("HTTP " + res.status);
+      console.error("Backend error:", errMsg);
+
+      aiStatusText.textContent = language === "中文"
+        ? "后端报错：" + errMsg
+        : "Backend error: " + errMsg;
+      return;
+    }
+
+    if (!data.preview) {
+      aiStatusText.textContent = language === "中文"
+        ? "后端没有返回预览内容。"
+        : "Backend returned no preview content.";
+      return;
+    }
+
+    aiPreviewPlaceholder.style.display = "none";
+    aiPreviewBox.textContent = data.preview;
+    aiStatusText.textContent = language === "中文"
+      ? "预览完成。你可以先在这里修改，再在正式任务台中继续。"
+      : "Preview ready. You can adjust it here, then continue inside your Desk.";
+  } catch (err) {
+    console.error("Frontend error:", err);
+    aiStatusText.textContent = language === "中文"
+      ? "前端错误：" + (err && err.message ? err.message : String(err))
+      : "Frontend error: " + (err && err.message ? err.message : String(err));
+  } finally {
+    aiGenerateBtn.disabled = false;
+  }
+}
 
     aiGenerateBtn.addEventListener("click", () => {
       callPreview();
