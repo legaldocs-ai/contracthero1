@@ -1001,7 +1001,7 @@
     : "The desk is drafting a preview for you…";
 
   try {
-    const res = await fetch("/api/generate", {
+    const res = await fetch("https://aurum-task-worker.sophieinbg.workers.dev/api/generate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
