@@ -19,11 +19,7 @@
   </script>
 
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
       --bg-deep: #020617;
       --bg-card: #020617;
@@ -42,10 +38,8 @@
     }
     body {
       min-height: 100vh;
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui,
-        "Segoe UI", sans-serif;
-      background:
-        radial-gradient(circle at top, #020617 0%, #020617 40%, #000 100%);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui,"Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #020617 0%, #020617 40%, #000 100%);
       color: var(--text-main);
       display: flex;
       justify-content: center;
@@ -73,13 +67,7 @@
       width: 40px;
       height: 40px;
       border-radius: 999px;
-      background: conic-gradient(
-        from 180deg,
-        #fbbf24,
-        #38bdf8,
-        #4f46e5,
-        #fbbf24
-      );
+      background: conic-gradient(from 180deg,#fbbf24,#38bdf8,#4f46e5,#fbbf24);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -97,20 +85,9 @@
       font-weight: 600;
       color: #e5e7eb;
     }
-    .brand-text-block {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-    .brand-name {
-      font-size: 16px;
-      font-weight: 600;
-      letter-spacing: 0.02em;
-    }
-    .brand-sub {
-      font-size: 12px;
-      color: var(--text-soft);
-    }
+    .brand-text-block { display: flex; flex-direction: column; gap: 2px; }
+    .brand-name { font-size: 16px; font-weight: 600; letter-spacing: 0.02em; }
+    .brand-sub { font-size: 12px; color: var(--text-soft); }
 
     .nav-links {
       display: flex;
@@ -124,14 +101,8 @@
       opacity: 0.85;
       transition: opacity 0.15s ease, transform 0.15s ease;
     }
-    .nav-links a:hover {
-      opacity: 1;
-      transform: translateY(-1px);
-    }
-    .nav-links span {
-      color: var(--text-soft);
-      font-size: 12px;
-    }
+    .nav-links a:hover { opacity: 1; transform: translateY(-1px); }
+    .nav-links span { color: var(--text-soft); font-size: 12px; }
 
     .lang-toggle {
       display: inline-flex;
@@ -178,9 +149,7 @@
       box-shadow: 0 18px 70px rgba(15,23,42,1);
       filter: brightness(1.03);
     }
-    .primary-btn span.icon {
-      font-size: 14px;
-    }
+    .primary-btn span.icon { font-size: 14px; }
 
     /* 主体布局 */
     .desk-main-card {
@@ -200,8 +169,7 @@
       border-radius: var(--radius-lg);
       border: 1px dashed rgba(148, 163, 184, 0.6);
       padding: 16px 16px 14px;
-      background:
-        radial-gradient(circle at top left, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.96));
+      background: radial-gradient(circle at top left, rgba(15,23,42,0.95),rgba(15,23,42,0.96));
       margin-bottom: 16px;
     }
     .flow-head-title-row {
@@ -225,21 +193,9 @@
       background: radial-gradient(circle at 30% 0%, #22c55e, #15803d);
       box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.16);
     }
-    .flow-title-block {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-    .flow-title {
-      font-size: 17px;
-      font-weight: 600;
-      letter-spacing: 0.01em;
-    }
-    .flow-subtitle {
-      font-size: 12px;
-      color: var(--text-soft);
-      max-width: 620px;
-    }
+    .flow-title-block { display: flex; flex-direction: column; gap: 4px; }
+    .flow-title { font-size: 17px; font-weight: 600; letter-spacing: 0.01em; }
+    .flow-subtitle { font-size: 12px; color: var(--text-soft); max-width: 620px; }
     .flow-chips {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -257,10 +213,7 @@
       align-items: center;
       gap: 8px;
     }
-    .flow-chip span.label {
-      font-weight: 500;
-      color: #e5e7eb;
-    }
+    .flow-chip span.label { font-weight: 500; color: #e5e7eb; }
     .flow-chip-badge {
       font-size: 10px;
       padding: 2px 6px;
@@ -280,8 +233,7 @@
     .service-card {
       border-radius: var(--radius-lg);
       border: 1px solid rgba(148, 163, 184, 0.4);
-      background:
-        radial-gradient(circle at top left, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.98));
+      background: radial-gradient(circle at top left, rgba(15,23,42,0.9),rgba(15,23,42,0.98));
       padding: 14px 14px 10px;
       display: flex;
       flex-direction: column;
@@ -293,58 +245,39 @@
       justify-content: space-between;
       margin-bottom: 4px;
     }
-    .service-card-title {
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--text-soft);
-    }
-    .service-card-mini {
-      font-size: 11px;
-      color: var(--text-soft);
-    }
+    .service-card-title { font-size: 13px; font-weight: 500; color: var(--text-soft); }
+    .service-card-mini { font-size: 11px; color: var(--text-soft); }
 
-    .service-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
+    .service-list { display: flex; flex-direction: column; gap: 8px; }
     .service-item {
       position: relative;
       border-radius: 999px;
       padding: 10px 12px;
       border: 1px solid rgba(148, 163, 184, 0.5);
-      background:
-        radial-gradient(circle at top left, rgba(15,23,42,0.95), rgba(15,23,42,0.98));
+      background: radial-gradient(circle at top left, rgba(15,23,42,0.95),rgba(15,23,42,0.98));
       display: flex;
       align-items: center;
       gap: 10px;
       justify-content: space-between;
       cursor: pointer;
       overflow: hidden;
-      transition: border-color 0.14s ease, box-shadow 0.16s ease,
-                  transform 0.14s ease, background 0.16s ease;
+      transition: border-color 0.14s ease, box-shadow 0.16s ease, transform 0.14s ease, background 0.16s ease;
     }
     .service-item::before {
       content: "";
       position: absolute;
       inset: 0;
       opacity: 0;
-      background: radial-gradient(circle at 0 0, rgba(59, 130, 246, 0.2), transparent 60%);
+      background: radial-gradient(circle at 0 0, rgba(59,130,246,0.2), transparent 60%);
       transition: opacity 0.18s ease;
       pointer-events: none;
     }
-    .service-item:hover::before {
-      opacity: 1;
-    }
-    .service-item:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 18px 60px rgba(15, 23, 42, 0.9);
-    }
+    .service-item:hover::before { opacity: 1; }
+    .service-item:hover { transform: translateY(-1px); box-shadow: 0 18px 60px rgba(15,23,42,0.9); }
     .service-item.active {
       border-color: var(--gold);
-      box-shadow: 0 20px 70px rgba(15, 23, 42, 1);
-      background:
-        linear-gradient(120deg, rgba(251, 191, 36, 0.08), rgba(15, 23, 42, 0.98));
+      box-shadow: 0 20px 70px rgba(15,23,42,1);
+      background: linear-gradient(120deg, rgba(251,191,36,0.08),rgba(15,23,42,0.98));
     }
 
     .service-item-main {
@@ -373,12 +306,7 @@
       border: 1px solid rgba(148, 163, 184, 0.9);
       background: radial-gradient(circle at 30% 0%, #0f172a,#020617);
     }
-    .service-text-block {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      min-width: 0;
-    }
+    .service-text-block { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
     .service-title {
       font-size: 13px;
       font-weight: 600;
@@ -394,28 +322,18 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
-    .service-item.active .service-title {
-      color: #f9fafb;
-    }
-    .service-item.active .service-sub {
-      color: rgba(209, 213, 219, 0.95);
-    }
-    .service-price {
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--gold);
-      white-space: nowrap;
-      margin-left: 8px;
-    }
+    .service-item.active .service-title { color: #f9fafb; }
+    .service-item.active .service-sub { color: rgba(209, 213, 219, 0.95); }
+    .service-price { font-size: 12px; font-weight: 600; color: var(--gold); white-space: nowrap; margin-left: 8px; }
 
     /* 右侧 预览面板 */
     .ai-panel {
       border-radius: var(--radius-lg);
       border: 1px solid rgba(148, 163, 184, 0.4);
       background:
-        radial-gradient(circle at top right, rgba(56, 189, 248, 0.16), transparent 55%),
-        radial-gradient(circle at bottom left, rgba(251, 191, 36, 0.12), transparent 60%),
-        rgba(15, 23, 42, 0.96);
+        radial-gradient(circle at top right, rgba(56,189,248,0.16), transparent 55%),
+        radial-gradient(circle at bottom left, rgba(251,191,36,0.12), transparent 60%),
+        rgba(15,23,42,0.96);
       padding: 14px 14px 16px;
       display: flex;
       flex-direction: column;
@@ -440,11 +358,7 @@
       justify-content: space-between;
       gap: 8px;
     }
-    .ai-title-block {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
+    .ai-title-block { display: flex; flex-direction: column; gap: 2px; }
     .ai-title {
       font-size: 14px;
       font-weight: 600;
@@ -461,17 +375,8 @@
       border: 1px solid rgba(148, 163, 184, 0.7);
       color: var(--text-soft);
     }
-    .ai-subtitle {
-      font-size: 12px;
-      color: var(--text-soft);
-      max-width: 420px;
-    }
-    .ai-hint-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 4px;
-    }
+    .ai-subtitle { font-size: 12px; color: var(--text-soft); max-width: 420px; }
+    .ai-hint-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 4px; }
     .ai-hint-pill {
       font-size: 10px;
       border-radius: 999px;
@@ -487,9 +392,7 @@
       gap: 8px 10px;
       margin-top: 4px;
     }
-    .ai-form-full {
-      grid-column: 1 / -1;
-    }
+    .ai-form-full { grid-column: 1 / -1; }
     .ai-label {
       font-size: 11px;
       color: var(--text-soft);
@@ -523,41 +426,47 @@
     .ai-select:focus,
     .ai-textarea:focus {
       border-color: var(--accent-blue);
-      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.45);
+      box-shadow: 0 0 0 1px rgba(56,189,248,0.45);
       background: rgba(15, 23, 42, 0.96);
     }
-    .ai-select {
-      padding-right: 22px;
-    }
-    .ai-textarea {
-      min-height: 80px;
-      line-height: 1.4;
-    }
+    .ai-select { padding-right: 22px; }
+    .ai-textarea { min-height: 80px; line-height: 1.4; }
 
-    .ai-attachments-note {
-      margin-top: 4px;
-      font-size: 10px;
-      color: var(--text-soft);
-      opacity: 0.9;
-    }
-    .ai-attachments-list {
-      margin-top: 6px;
+    /* 自定义上传按钮 */
+    .upload-wrapper {
       display: flex;
-      flex-wrap: wrap;
+      flex-direction: column;
       gap: 4px;
     }
-    .ai-attachment-pill {
-      font-size: 10px;
-      padding: 3px 8px;
+    .upload-label {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
       border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      background: rgba(15, 23, 42, 0.95);
+      border: 1px dashed rgba(148,163,184,0.7);
+      background: rgba(15,23,42,0.9);
+      font-size: 11px;
+      cursor: pointer;
+      width: fit-content;
+    }
+    .upload-label span.icon { font-size: 13px; }
+    .upload-label input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+    }
+    .upload-filename {
+      font-size: 11px;
       color: var(--text-soft);
       max-width: 100%;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
+    .ai-attach-note { font-size: 10px; color: rgba(191,219,254,0.9); }
 
     .ai-footer-row {
       display: flex;
@@ -617,13 +526,13 @@
       transform: none;
       box-shadow: 0 12px 32px rgba(6, 95, 70, 0.5);
     }
-    .ai-status {
-      font-size: 11px;
-      color: var(--text-soft);
-    }
+    .ai-status { font-size: 11px; color: var(--text-soft); }
 
-    .ai-preview-box {
+    .ai-preview-container {
+      position: relative;
       margin-top: 8px;
+    }
+    .ai-preview-box {
       border-radius: 12px;
       border: 1px dashed rgba(148, 163, 184, 0.7);
       background: rgba(15, 23, 42, 0.9);
@@ -635,90 +544,145 @@
       white-space: pre-wrap;
       color: #e5e7eb;
     }
-    .ai-preview-placeholder {
-      color: rgba(191, 219, 254, 0.95);
-      font-size: 11px;
-    }
+    .ai-preview-placeholder { color: rgba(191, 219, 254, 0.95); font-size: 11px; }
 
-    /* 升级弹窗 */
-    .upgrade-modal-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(15,23,42,0.75);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 40;
-    }
-    .upgrade-modal {
-      width: 100%;
-      max-width: 380px;
-      border-radius: 18px;
-      background: radial-gradient(circle at top left,#020617,#020617 55%);
-      border: 1px solid rgba(251,191,36,0.5);
-      box-shadow: 0 30px 120px rgba(0,0,0,0.9);
-      padding: 14px 16px 12px;
-    }
-    .upgrade-modal-header {
-      display: flex;
+    /* 玻璃模糊遮罩 */
+    .ai-preview-overlay {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 10px 10px 8px;
+      display: none;
       align-items: center;
       justify-content: space-between;
       gap: 8px;
-      margin-bottom: 6px;
+      background: linear-gradient(to top, rgba(15,23,42,0.96), rgba(15,23,42,0.85), transparent);
+      backdrop-filter: blur(10px);
+      border-radius: 0 0 12px 12px;
     }
-    .upgrade-modal-title {
-      font-size: 14px;
-      font-weight: 600;
+    .ai-preview-overlay-text {
+      font-size: 10px;
+      color: rgba(226, 232, 240, 0.96);
+      max-width: 70%;
     }
-    .upgrade-close {
-      border: none;
-      background: transparent;
-      color: var(--text-soft);
-      font-size: 16px;
+    .ai-preview-overlay-btn {
+      border-radius: 999px;
+      border: 1px solid rgba(251,191,36,0.7);
+      background: rgba(15,23,42,0.9);
+      color: #fbbf24;
+      font-size: 11px;
+      padding: 5px 10px;
       cursor: pointer;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
     }
-    .upgrade-modal-body {
-      font-size: 12px;
-      color: var(--text-soft);
-      line-height: 1.5;
+
+    /* Step 2 付款 + 完整信件 */
+    .full-card {
+      margin-top: 18px;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148,163,184,0.6);
+      background: radial-gradient(circle at top left,rgba(15,23,42,0.96),rgba(15,23,42,0.98));
+      padding: 14px 16px 16px;
+      box-shadow: 0 18px 70px rgba(15,23,42,1);
+    }
+    .full-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 360px) minmax(0, 1fr);
+      gap: 16px;
+    }
+    .full-step-title {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #e5e7eb;
+    }
+    .full-step-sub { font-size: 11px; color: var(--text-soft); margin-bottom: 10px; }
+
+    .full-pay-card {
+      border-radius: 14px;
+      border: 1px solid rgba(161, 161, 170, 0.8);
+      background: radial-gradient(circle at top, #0b1120, #020617 60%);
+      padding: 10px 12px 10px;
       margin-bottom: 10px;
     }
-    .upgrade-modal-footer {
+    .full-price-row {
       display: flex;
-      justify-content: flex-end;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      margin-bottom: 8px;
     }
+    .full-price-label { color: var(--text-soft); }
+    .full-price-value { color: var(--gold); font-weight: 600; }
+
+    .pay-btn {
+      width: 100%;
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(120deg,#22c55e,#16a34a);
+      color: #022c22;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 8px 12px;
+      cursor: pointer;
+      box-shadow: 0 14px 50px rgba(6,95,70,0.7);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      text-decoration: none;
+    }
+    .pay-btn:hover { filter: brightness(1.02); transform: translateY(-1px); }
+
+    .full-confirm-row {
+      margin-top: 8px;
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    .full-generate-row {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .full-status { font-size: 11px; color: var(--text-soft); }
+
+    .full-output-box {
+      border-radius: 12px;
+      border: 1px dashed rgba(148,163,184,0.8);
+      background: rgba(15,23,42,0.95);
+      padding: 10px 12px;
+      min-height: 160px;
+      max-height: 260px;
+      overflow: auto;
+      font-size: 12px;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      color: #e5e7eb;
+    }
+    .full-output-placeholder { font-size: 11px; color: rgba(191,219,254,0.95); }
 
     /* 响应式 */
     @media (max-width: 920px) {
-      .desk-layout {
-        grid-template-columns: minmax(0, 1fr);
-      }
-      .ai-panel::after {
-        display: none;
-      }
+      .desk-layout { grid-template-columns: minmax(0, 1fr); }
+      .ai-panel::after { display: none; }
+      .full-grid { grid-template-columns: minmax(0,1fr); }
     }
     @media (max-width: 640px) {
-      body {
-        padding: 16px 8px 32px;
-      }
-      .desk-main-card {
-        padding: 14px 12px 16px;
-      }
-      .flow-chips {
-        grid-template-columns: minmax(0, 1fr);
-      }
-      .ai-form {
-        grid-template-columns: minmax(0, 1fr);
-      }
-      .ai-footer-row {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      .ai-left-buttons {
-        width: 100%;
-        justify-content: flex-start;
-        flex-wrap: wrap;
-      }
+      body { padding: 16px 8px 32px; }
+      .desk-main-card { padding: 14px 12px 16px; }
+      .flow-chips { grid-template-columns: minmax(0, 1fr); }
+      .ai-form { grid-template-columns: minmax(0, 1fr); }
+      .ai-footer-row { flex-direction: column; align-items: flex-start; }
     }
   </style>
 </head>
@@ -732,9 +696,7 @@
         </div>
         <div class="brand-text-block">
           <div class="brand-name">Aurum Task Desk</div>
-          <div class="brand-sub" id="brandSubText">
-            Private writing & resolution desk
-          </div>
+          <div class="brand-sub" id="brandSubText">Private writing & resolution desk</div>
         </div>
       </div>
 
@@ -745,7 +707,7 @@
         <a href="pricing.html" id="navPricing">Pricing</a>
         <span>|</span>
         <div class="lang-toggle">
-          <button class="lang-btn active" data-lang="en" id="btnLangEn">EN</button>
+          <button class="lang-btn" data-lang="en" id="btnLangEn">EN</button>
           <button class="lang-btn" data-lang="zh" id="btnLangZh">中</button>
         </div>
         <button class="primary-btn" onclick="window.location.href='auth.html'">
@@ -813,18 +775,11 @@
           </div>
 
           <div class="service-list" id="serviceList">
-            <button
-              type="button"
-              class="service-item active"
-              data-task="Legal letters & contract drafts">
+            <button type="button" class="service-item active" data-task="Legal letters & contract drafts">
               <div class="service-item-main">
-                <div class="service-icon-wrap">
-                  <div class="service-icon-inner"></div>
-                </div>
+                <div class="service-icon-wrap"><div class="service-icon-inner"></div></div>
                 <div class="service-text-block">
-                  <div class="service-title" id="svc1Title">
-                    Legal letters & contract drafts
-                  </div>
+                  <div class="service-title" id="svc1Title">Legal letters & contract drafts</div>
                   <div class="service-sub" id="svc1Sub">
                     Disputes, refunds, landlord, employer, vendor, partner…
                   </div>
@@ -833,18 +788,11 @@
               <div class="service-price">USD 29.9</div>
             </button>
 
-            <button
-              type="button"
-              class="service-item"
-              data-task="Insurance & airline claim letters">
+            <button type="button" class="service-item" data-task="Insurance & airline claim letters">
               <div class="service-item-main">
-                <div class="service-icon-wrap">
-                  <div class="service-icon-inner"></div>
-                </div>
+                <div class="service-icon-wrap"><div class="service-icon-inner"></div></div>
                 <div class="service-text-block">
-                  <div class="service-title" id="svc2Title">
-                    Insurance & airline claim letters
-                  </div>
+                  <div class="service-title" id="svc2Title">Insurance & airline claim letters</div>
                   <div class="service-sub" id="svc2Sub">
                     Travel disruption, baggage loss, medical & policy claims.
                   </div>
@@ -853,18 +801,11 @@
               <div class="service-price">USD 24.9</div>
             </button>
 
-            <button
-              type="button"
-              class="service-item"
-              data-task="Immigration letters & RFE explanations">
+            <button type="button" class="service-item" data-task="Immigration letters & RFE explanations">
               <div class="service-item-main">
-                <div class="service-icon-wrap">
-                  <div class="service-icon-inner"></div>
-                </div>
+                <div class="service-icon-wrap"><div class="service-icon-inner"></div></div>
                 <div class="service-text-block">
-                  <div class="service-title" id="svc3Title">
-                    Immigration letters & RFE explanations
-                  </div>
+                  <div class="service-title" id="svc3Title">Immigration letters & RFE explanations</div>
                   <div class="service-sub" id="svc3Sub">
                     Embassy, USCIS, appeal notes, employer support letters.
                   </div>
@@ -873,18 +814,11 @@
               <div class="service-price">USD 39.9</div>
             </button>
 
-            <button
-              type="button"
-              class="service-item"
-              data-task="Family & emotional crisis letters">
+            <button type="button" class="service-item" data-task="Family & emotional crisis letters">
               <div class="service-item-main">
-                <div class="service-icon-wrap">
-                  <div class="service-icon-inner"></div>
-                </div>
+                <div class="service-icon-wrap"><div class="service-icon-inner"></div></div>
                 <div class="service-text-block">
-                  <div class="service-title" id="svc4Title">
-                    Family & emotional crisis letters
-                  </div>
+                  <div class="service-title" id="svc4Title">Family & emotional crisis letters</div>
                   <div class="service-sub" id="svc4Sub">
                     Calm letters to partners, children, parents & relatives.
                   </div>
@@ -893,18 +827,11 @@
               <div class="service-price">USD 19.9</div>
             </button>
 
-            <button
-              type="button"
-              class="service-item"
-              data-task="Complaint & escalation services">
+            <button type="button" class="service-item" data-task="Complaint & escalation services">
               <div class="service-item-main">
-                <div class="service-icon-wrap">
-                  <div class="service-icon-inner"></div>
-                </div>
+                <div class="service-icon-wrap"><div class="service-icon-inner"></div></div>
                 <div class="service-text-block">
-                  <div class="service-title" id="svc5Title">
-                    Complaint & escalation services
-                  </div>
+                  <div class="service-title" id="svc5Title">Complaint & escalation services</div>
                   <div class="service-sub" id="svc5Sub">
                     Escalate politely to managers, ombudsman, regulator.
                   </div>
@@ -933,15 +860,9 @@
           </div>
 
           <div class="ai-hint-row">
-            <div class="ai-hint-pill" id="aiHint1">
-              ✓ No login required for preview
-            </div>
-            <div class="ai-hint-pill" id="aiHint2">
-              ✓ Region-free preview
-            </div>
-            <div class="ai-hint-pill" id="aiHint3">
-              ✓ You can still change everything later
-            </div>
+            <div class="ai-hint-pill" id="aiHint1">✓ No login required for preview</div>
+            <div class="ai-hint-pill" id="aiHint2">✓ Region-free preview</div>
+            <div class="ai-hint-pill" id="aiHint3">✓ You can still change everything later</div>
           </div>
 
           <div class="ai-form">
@@ -950,18 +871,11 @@
                 <span id="lblTaskType">Task type</span>
                 <span class="badge" id="lblTaskTypeBadge">Auto from left</span>
               </div>
-              <input
-                id="taskTypeInput"
-                class="ai-input"
-                type="text"
-                value="Legal letters & contract drafts"
-              />
+              <input id="taskTypeInput" class="ai-input" type="text" value="Legal letters & contract drafts" />
             </div>
 
             <div>
-              <div class="ai-label">
-                <span id="lblLanguage">Language</span>
-              </div>
+              <div class="ai-label"><span id="lblLanguage">Language</span></div>
               <select id="languageSelect" class="ai-select">
                 <option value="English">English</option>
                 <option value="中文">中文</option>
@@ -969,9 +883,7 @@
             </div>
 
             <div>
-              <div class="ai-label">
-                <span id="lblTone">Tone</span>
-              </div>
+              <div class="ai-label"><span id="lblTone">Tone</span></div>
               <select id="toneSelect" class="ai-select">
                 <option value="calm, respectful">Calm, respectful</option>
                 <option value="firm, polite">Firm, polite</option>
@@ -980,21 +892,12 @@
             </div>
 
             <div>
-              <div class="ai-label">
-                <span id="lblRecipient">Recipient (optional)</span>
-              </div>
-              <input
-                id="recipientInput"
-                class="ai-input"
-                type="text"
-                placeholder="e.g. airline, landlord, lawyer, embassy"
-              />
+              <div class="ai-label"><span id="lblRecipient">Recipient (optional)</span></div>
+              <input id="recipientInput" class="ai-input" type="text" placeholder="e.g. airline, landlord, lawyer, embassy" />
             </div>
 
             <div class="ai-form-full">
-              <div class="ai-label">
-                <span id="lblDetails">What happened? (you can be brief)</span>
-              </div>
+              <div class="ai-label"><span id="lblDetails">What happened? (you can be brief)</span></div>
               <textarea
                 id="detailsTextarea"
                 class="ai-textarea"
@@ -1004,28 +907,29 @@
 
             <!-- 上传附件 -->
             <div class="ai-form-full">
-              <div class="ai-label">
-                <span id="lblAttachments">Attachments (optional)</span>
-                <span class="badge" id="lblAttachmentsBadge">Screenshots, letters, PDFs</span>
+              <div class="ai-label"><span id="lblAttachments">Attachments (optional)</span></div>
+              <div class="upload-wrapper">
+                <label class="upload-label">
+                  <span class="icon">📎</span>
+                  <span id="uploadBtnText">Upload screenshots / PDFs</span>
+                  <input
+                    id="attachmentInput"
+                    type="file"
+                    multiple
+                    accept=".pdf,.jpg,.jpeg,.png,.heic,.txt,.doc,.docx"
+                  />
+                </label>
+                <div class="upload-filename" id="uploadFileName">No file selected</div>
+                <div class="ai-attach-note" id="attachNote">
+                  The desk can read simple screenshots, scans and PDFs for preview only. Nothing is stored.
+                </div>
               </div>
-              <input
-                id="attachmentsInput"
-                class="ai-input"
-                type="file"
-                multiple
-              />
-              <div class="ai-attachments-note" id="attachmentsNote">
-                You can upload up to 5 files. The desk will read text from images and PDFs to help draft.
-              </div>
-              <div class="ai-attachments-list" id="attachmentsList"></div>
             </div>
           </div>
 
           <div class="ai-footer-row">
             <div class="ai-left-buttons">
-              <button type="button" class="ai-secondary-btn" id="btnClear">
-                <span>Reset</span>
-              </button>
+              <button type="button" class="ai-secondary-btn" id="btnClear"><span>Reset</span></button>
               <button type="button" class="ai-secondary-btn" id="btnPasteExample">
                 <span id="btnPasteExampleText">Paste an example case</span>
               </button>
@@ -1033,14 +937,6 @@
             <div class="ai-left-buttons">
               <button type="button" class="ai-generate-btn" id="aiGenerateBtn">
                 <span id="aiGenerateBtnText">Generate preview draft</span>
-              </button>
-              <button
-                type="button"
-                class="ai-secondary-btn ai-upgrade-btn"
-                id="btnUpgradeFull"
-                style="display:none;"
-              >
-                <span id="btnUpgradeFullText">Upgrade to full letter</span>
               </button>
               <div class="ai-status" id="aiStatus">
                 <span id="aiStatusText">
@@ -1050,122 +946,193 @@
             </div>
           </div>
 
-          <div class="ai-preview-box" id="aiPreviewBox">
-            <div class="ai-preview-placeholder" id="aiPreviewPlaceholder">
-              Your 30% preview draft will appear here. It is not saved, not sent
-              to any company or person. When you are happy with the direction,
-              you can open a full Desk and continue privately.
+          <!-- 预览 + 玻璃模糊遮罩 -->
+          <div class="ai-preview-container">
+            <div class="ai-preview-box" id="aiPreviewBox">
+              <div class="ai-preview-placeholder" id="aiPreviewPlaceholder">
+                Your 30% preview draft will appear here. It is not saved, not sent
+                to any company or person. When you are happy with the direction,
+                you can open a full Desk and continue privately.
+              </div>
             </div>
-          </div>
-
-          <!-- 升级完整信件弹窗 -->
-          <div class="upgrade-modal-backdrop" id="upgradeModal" style="display:none;">
-            <div class="upgrade-modal">
-              <div class="upgrade-modal-header">
-                <div class="upgrade-modal-title" id="upgradeTitle">
-                  Happy with the direction?
-                </div>
-                <button type="button" class="upgrade-close" id="upgradeClose">×</button>
+            <div class="ai-preview-overlay" id="aiPreviewOverlay">
+              <div class="ai-preview-overlay-text" id="overlayText">
+                Preview only — about 30% of the full letter. Upgrade below to unlock the complete version.
               </div>
-              <div class="upgrade-modal-body" id="upgradeBody">
-                You can now upgrade this preview into a full, ready-to-send letter on the paid desk.
-              </div>
-              <div class="upgrade-modal-footer">
-                <button type="button" class="ai-secondary-btn ai-upgrade-btn" id="upgradeGoBtn">
-                  <span id="upgradeGoBtnText">Go to full letter desk</span>
-                </button>
-              </div>
+              <button type="button" class="ai-preview-overlay-btn" id="overlayUpgradeBtn">
+                <span id="overlayBtnText">Upgrade to full letter</span> →
+              </button>
             </div>
           </div>
         </section>
+      </section>
+
+      <!-- Step 2：付款 + 完整信件 -->
+      <section class="full-card" id="fullLetterSection">
+        <div class="full-grid">
+          <div>
+            <div class="full-step-title" id="fullStepTitle">Step 2 — Payment & full letter</div>
+            <div class="full-step-sub" id="fullStepSub">
+              After you pay once for this main letter, you can unlock the complete, ready-to-send version here.
+            </div>
+
+            <div class="full-pay-card">
+              <div class="full-price-row">
+                <div class="full-price-label" id="fullPriceLabel">Full letter service</div>
+                <div class="full-price-value" id="fullPriceValue">USD 29.9</div>
+              </div>
+              <a
+                href="#"
+                target="_blank"
+                rel="noopener"
+                class="pay-btn"
+                id="paddlePayLink"
+              >
+                <span id="payBtnText">Pay now via Paddle</span>
+              </a>
+              <div class="full-step-sub" style="margin-top:8px;" id="fullPayNote">
+                Payment opens in a new secure tab. After payment, return to this page and confirm.
+              </div>
+              <label class="full-confirm-row">
+                <input type="checkbox" id="paymentConfirmCheckbox" style="margin-top:2px;" />
+                <span id="paymentConfirmLabel">
+                  I confirm that I have completed the payment for this full letter.
+                </span>
+              </label>
+            </div>
+
+            <div class="full-generate-row">
+              <button type="button" class="ai-generate-btn" id="generateFullBtn">
+                <span id="generateFullBtnText">Generate full letter</span>
+              </button>
+              <div class="full-status" id="fullStatusText">
+                Please generate a preview first, then pay and confirm before unlocking the full letter.
+              </div>
+            </div>
+          </div>
+
+          <div class="full-output-box" id="fullOutputBox">
+            <div class="full-output-placeholder" id="fullOutputPlaceholder">
+              After you pay and click “Generate full letter”, your complete letter will appear here.
+              It is not saved or sent to any company — only you see it.
+            </div>
+          </div>
+        </div>
       </section>
     </main>
   </div>
 
   <script>
-    // ========== 左侧服务可点击 ==========
+    // ===== 全局状态 =====
     const serviceItems = document.querySelectorAll(".service-item");
     const taskTypeInput = document.getElementById("taskTypeInput");
 
-    serviceItems.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        serviceItems.forEach((b) => b.classList.remove("active"));
-        btn.classList.add("active");
-        const task = btn.getAttribute("data-task") || "";
-        if (task) {
-          taskTypeInput.value = task;
-        }
-      });
-    });
-
-    // ========== 预览生成 ==========
     const aiGenerateBtn = document.getElementById("aiGenerateBtn");
     const aiStatusText = document.getElementById("aiStatusText");
     const aiPreviewBox = document.getElementById("aiPreviewBox");
     const aiPreviewPlaceholder = document.getElementById("aiPreviewPlaceholder");
+    const aiPreviewOverlay = document.getElementById("aiPreviewOverlay");
+    const overlayUpgradeBtn = document.getElementById("overlayUpgradeBtn");
+    const overlayTextEl = document.getElementById("overlayText");
+    const overlayBtnTextEl = document.getElementById("overlayBtnText");
+
     const toneSelect = document.getElementById("toneSelect");
     const languageSelect = document.getElementById("languageSelect");
     const recipientInput = document.getElementById("recipientInput");
     const detailsTextarea = document.getElementById("detailsTextarea");
 
-    // 上传附件
-    const attachmentsInput = document.getElementById("attachmentsInput");
-    const attachmentsList = document.getElementById("attachmentsList");
-    let selectedAttachments = [];
+    const attachmentInput = document.getElementById("attachmentInput");
+    const uploadFileNameEl = document.getElementById("uploadFileName");
 
-    function renderAttachmentsList() {
-      if (!attachmentsList) return;
-      attachmentsList.innerHTML = "";
-      if (!selectedAttachments.length) return;
-      selectedAttachments.forEach((att) => {
-        const div = document.createElement("div");
-        div.className = "ai-attachment-pill";
-        div.textContent = att.name;
-        attachmentsList.appendChild(div);
+    const btnClear = document.getElementById("btnClear");
+    const btnPasteExample = document.getElementById("btnPasteExample");
+
+    // Step 2
+    const fullOutputBox = document.getElementById("fullOutputBox");
+    const fullOutputPlaceholder = document.getElementById("fullOutputPlaceholder");
+    const generateFullBtn = document.getElementById("generateFullBtn");
+    const fullStatusText = document.getElementById("fullStatusText");
+    const paymentConfirmCheckbox = document.getElementById("paymentConfirmCheckbox");
+    const fullLetterSection = document.getElementById("fullLetterSection");
+
+    let fullDraft = "";
+    let currentLang = "en";
+    let attachmentsState = []; // { name,type,base64 }
+
+    // ===== 左侧服务可点击 =====
+    serviceItems.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        serviceItems.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        const task = btn.getAttribute("data-task") || "";
+        if (task) taskTypeInput.value = task;
       });
+    });
+
+    // ===== 处理附件，转 base64 =====
+    attachmentInput.addEventListener("change", () => {
+      const files = Array.from(attachmentInput.files || []);
+      attachmentsState = [];
+      if (!files.length) {
+        uploadFileNameEl.textContent =
+          currentLang === "zh" ? "未选择任何文件" : "No file selected";
+        return;
+      }
+
+      uploadFileNameEl.textContent =
+        files.length === 1
+          ? files[0].name
+          : (currentLang === "zh"
+              ? `${files.length} 个文件已选择`
+              : `${files.length} files selected`);
+
+      // 这里简单读取为 base64，预览时发给后端
+      files.forEach((file) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const base64 = String(reader.result || "").split(",")[1] || "";
+          attachmentsState.push({
+            name: file.name,
+            type: file.type || "attachment",
+            base64,
+          });
+        };
+        reader.readAsDataURL(file);
+      });
+    });
+
+    // ===== 预览显示逻辑：只展示 ~30% =====
+    function renderPreviewOnly() {
+      if (!fullDraft) {
+        aiPreviewPlaceholder.style.display = "block";
+        aiPreviewBox.textContent = "";
+        aiPreviewOverlay.style.display = "none";
+        return;
+      }
+      aiPreviewPlaceholder.style.display = "none";
+
+      const len = fullDraft.length;
+      const cut = Math.max(200, Math.floor(len * 0.3));
+      let visible = fullDraft.slice(0, cut);
+      if (cut < len) {
+        visible += currentLang === "zh"
+          ? "\n\n[…… 预览到此结束，下面内容仅在升级后解锁 ……]"
+          : "\n\n[... preview stops here, the rest is unlocked after upgrade ...]";
+      }
+      aiPreviewBox.textContent = visible;
+      aiPreviewOverlay.style.display = "flex";
     }
 
-    if (attachmentsInput) {
-      attachmentsInput.addEventListener("change", () => {
-        const files = Array.from(attachmentsInput.files || []);
-        selectedAttachments = [];
-        attachmentsList.innerHTML = "";
-        if (!files.length) return;
-
-        const maxFiles = 5;
-        const slice = files.slice(0, maxFiles);
-        let remaining = slice.length;
-
-        slice.forEach((file) => {
-          const reader = new FileReader();
-          reader.onload = (e) => {
-            const result = e.target.result || "";
-            const base64 =
-              typeof result === "string" ? (result.split(",")[1] || "") : "";
-            selectedAttachments.push({
-              name: file.name,
-              type: file.type || "attachment",
-              base64,
-            });
-            remaining--;
-            if (remaining === 0) {
-              renderAttachmentsList();
-            }
-          };
-          reader.readAsDataURL(file);
-        });
-      });
-    }
-
+    // ===== 调用后台生成预览 =====
     async function callPreview() {
-      const taskType  = (taskTypeInput.value || "").trim() || "写作任务";
+      const taskType  = (taskTypeInput.value || "").trim() || (currentLang === "zh" ? "写作任务" : "Writing task");
       const tone      = (toneSelect.value || "calm, respectful").toString();
       const language  = (languageSelect.value || "English").toString();
       const recipient = (recipientInput.value || "").toString();
       const details   = (detailsTextarea.value || "").toString();
 
       aiGenerateBtn.disabled = true;
-      aiStatusText.textContent = language === "中文"
+      aiStatusText.textContent = currentLang === "zh"
         ? "系统正在生成预览草稿…"
         : "The desk is drafting a preview for you…";
 
@@ -1179,48 +1146,38 @@
             language,
             recipient,
             details,
-            attachments: selectedAttachments
+            attachments: attachmentsState || []
           })
         });
 
         let data = {};
-        try {
-          data = await res.json();
-        } catch (e) {
-          data = {};
-        }
+        try { data = await res.json(); } catch (e) { data = {}; }
 
         if (!res.ok || !data.ok) {
           const errMsg = (data && data.error) ? String(data.error) : ("HTTP " + res.status);
           console.error("Backend error:", errMsg);
-
-          aiStatusText.textContent = language === "中文"
+          aiStatusText.textContent = currentLang === "zh"
             ? "后端报错：" + errMsg
             : "Backend error: " + errMsg;
           return;
         }
 
         if (!data.preview) {
-          aiStatusText.textContent = language === "中文"
+          aiStatusText.textContent = currentLang === "zh"
             ? "后端没有返回预览内容。"
             : "Backend returned no preview content.";
           return;
         }
 
-        aiPreviewPlaceholder.style.display = "none";
-        aiPreviewBox.textContent = data.preview;
-        aiStatusText.textContent = language === "中文"
-          ? "预览完成。你可以先在这里修改，再在正式任务台中继续。"
-          : "Preview ready. You can adjust it here, then continue inside your Desk.";
+        fullDraft = String(data.preview || "").trim();
+        renderPreviewOnly();
 
-        // 预览成功：显示升级按钮 + 弹窗
-        if (btnUpgradeFull) {
-          btnUpgradeFull.style.display = "inline-flex";
-        }
-        showUpgradeModal(language);
+        aiStatusText.textContent = currentLang === "zh"
+          ? "预览完成。你可以先在这里确认方向，然后在下方升级为完整信件。"
+          : "Preview ready. Check the direction here, then upgrade below to unlock the full letter.";
       } catch (err) {
         console.error("Frontend error:", err);
-        aiStatusText.textContent = language === "中文"
+        aiStatusText.textContent = currentLang === "zh"
           ? "前端错误：" + (err && err.message ? err.message : String(err))
           : "Frontend error: " + (err && err.message ? err.message : String(err));
       } finally {
@@ -1228,82 +1185,28 @@
       }
     }
 
-    aiGenerateBtn.addEventListener("click", () => {
-      callPreview();
-    });
+    aiGenerateBtn.addEventListener("click", callPreview);
 
-    // ========== 升级完整信件：按钮 + 弹窗 ==========
-    const btnUpgradeFull = document.getElementById("btnUpgradeFull");
-    const upgradeModal = document.getElementById("upgradeModal");
-    const upgradeClose = document.getElementById("upgradeClose");
-    const upgradeGoBtn = document.getElementById("upgradeGoBtn");
-
-    function showUpgradeModal(language) {
-      if (!upgradeModal) return;
-      const isZh = language === "中文";
-
-      document.getElementById("upgradeTitle").textContent = isZh
-        ? "对方向满意了吗？"
-        : "Happy with the direction?";
-
-      document.getElementById("upgradeBody").textContent = isZh
-        ? "现在可以将这份预览升级为一封完整、可以直接递交的正式信件。升级会在新的付费任务台中完成。"
-        : "You can now upgrade this preview into a full, ready-to-send letter on the paid desk.";
-
-      document.getElementById("upgradeGoBtnText").textContent = isZh
-        ? "前往完整信件任务台"
-        : "Go to full letter desk";
-
-      upgradeModal.style.display = "flex";
-    }
-
-    function hideUpgradeModal() {
-      if (upgradeModal) {
-        upgradeModal.style.display = "none";
-      }
-    }
-
-    if (upgradeClose) {
-      upgradeClose.addEventListener("click", hideUpgradeModal);
-    }
-    if (upgradeModal) {
-      upgradeModal.addEventListener("click", (e) => {
-        if (e.target === upgradeModal) hideUpgradeModal();
-      });
-    }
-
-    function goToFullDesk() {
-      try {
-        localStorage.setItem("aurum_last_task_type", taskTypeInput.value || "");
-      } catch (e) {}
-      window.location.href = "desk_full.html";
-    }
-    if (upgradeGoBtn) {
-      upgradeGoBtn.addEventListener("click", goToFullDesk);
-    }
-    if (btnUpgradeFull) {
-      btnUpgradeFull.addEventListener("click", goToFullDesk);
-    }
-
-    // ========== 辅助按钮 ==========
-    document.getElementById("btnClear").addEventListener("click", () => {
+    // ===== 辅助按钮 =====
+    btnClear.addEventListener("click", () => {
       recipientInput.value = "";
       detailsTextarea.value = "";
+      attachmentInput.value = "";
+      attachmentsState = [];
+      uploadFileNameEl.textContent =
+        currentLang === "zh" ? "未选择任何文件" : "No file selected";
+      fullDraft = "";
       aiPreviewBox.textContent = "";
       aiPreviewPlaceholder.style.display = "block";
-      aiStatusText.textContent = languageSelect.value === "中文"
+      aiPreviewOverlay.style.display = "none";
+      aiStatusText.textContent = currentLang === "zh"
         ? "系统只会生成约 30% 的预览草稿，不会保存也不会发送。"
         : "System will draft about 30% of the letter as a preview only.";
-
-      // 清空附件
-      selectedAttachments = [];
-      if (attachmentsInput) attachmentsInput.value = "";
-      if (attachmentsList) attachmentsList.innerHTML = "";
     });
 
-    document.getElementById("btnPasteExample").addEventListener("click", () => {
+    btnPasteExample.addEventListener("click", () => {
       if (detailsTextarea.value.trim()) return;
-      if (languageSelect.value === "中文") {
+      if (languageSelect.value === "中文" || currentLang === "zh") {
         detailsTextarea.value =
           "我在回国旅途中遇到航班大面积延误，导致我无法按时转机并错过后续行程，航空公司只提供了很少的餐食券，也没有给出明确的赔偿方案。";
       } else {
@@ -1312,8 +1215,38 @@
       }
     });
 
-    // ========== 简单中英文切换 ==========
+    // ===== 升级按钮：滚动到 Step 2 =====
+    overlayUpgradeBtn.addEventListener("click", () => {
+      fullLetterSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    // ===== Step 2：生成完整信件（前端解锁） =====
+    generateFullBtn.addEventListener("click", () => {
+      if (!fullDraft) {
+        fullStatusText.textContent = currentLang === "zh"
+          ? "请先在上方生成一次预览草稿。"
+          : "Please generate a preview first above.";
+        return;
+      }
+      if (!paymentConfirmCheckbox.checked) {
+        fullStatusText.textContent = currentLang === "zh"
+          ? "请先完成支付，并勾选“我已完成付款”。"
+          : "Please complete the payment and tick the confirmation box first.";
+        return;
+      }
+
+      fullOutputPlaceholder.style.display = "none";
+      fullOutputBox.textContent = fullDraft;
+      fullStatusText.textContent = currentLang === "zh"
+        ? "完整信件已生成。你可以复制、微调，然后自行发送。系统不会自动代你发送。"
+        : "Full letter generated. You can copy and adjust it, then send in your own channel. Nothing is auto-sent.";
+      // 同时让页面稍微往下滚一点，确保用户看到
+      fullLetterSection.scrollIntoView({ behavior: "smooth", block: "center" });
+    });
+
+    // ===== 简单中英文切换 =====
     const langButtons = document.querySelectorAll(".lang-btn");
+
     const i18n = {
       en: {
         brandSub: "Private writing & resolution desk",
@@ -1322,6 +1255,7 @@
         navFlow: "Flow",
         navPricing: "Pricing",
         loginBtn: "Login / My Desk",
+
         flowPill: "Flow",
         flowTitle: "Starting a task is intentionally simple",
         flowSubtitle:
@@ -1335,8 +1269,10 @@
         chip3Label: "Receive a ready-to-submit letter.",
         chip3Text:
           "You review, add personal details if needed, and then send it on.",
+
         serviceCardTitle: "5 core services",
         serviceCardMini: "Pick one scenario to open a desk",
+
         aiTitle: "Preview draft window",
         aiTitlePill: "System only drafts ~30% preview",
         aiSubtitle:
@@ -1344,27 +1280,47 @@
         aiHint1: "✓ No login required for preview",
         aiHint2: "✓ Region-free preview",
         aiHint3: "✓ You can still change everything later",
+
         lblTaskType: "Task type",
         lblTaskTypeBadge: "Auto from left",
         lblLanguage: "Language",
         lblTone: "Tone",
         lblRecipient: "Recipient (optional)",
         lblDetails: "What happened? (you can be brief)",
+
         lblAttachments: "Attachments (optional)",
-        lblAttachmentsBadge: "Screenshots, letters, PDFs",
-        attachmentsNote:
-          "You can upload up to 5 files. The desk will read text from images and PDFs to help draft.",
+        uploadBtnText: "Upload screenshots / PDFs",
+        uploadNone: "No file selected",
+        uploadMulti: n => `${n} files selected`,
+        attachNote:
+          "The desk can read simple screenshots, scans and PDFs for preview only. Nothing is stored.",
+
         btnExample: "Paste an example case",
         btnPreview: "Generate preview draft",
-        btnUpgradeFull: "Upgrade to full letter",
-        upgradeTitle: "Happy with the direction?",
-        upgradeBody:
-          "You can now upgrade this preview into a full, ready-to-send letter on the paid desk.",
-        upgradeGoBtnText: "Go to full letter desk",
         statusDefault:
           "System will draft about 30% of the letter as a preview only.",
         previewPlaceholder:
-          "Your 30% preview draft will appear here. It is not saved or sent to anyone. When you are happy with the direction, you can open a full Desk and continue privately."
+          "Your 30% preview draft will appear here. It is not saved or sent to anyone. When you are happy with the direction, you can upgrade below to unlock the full letter.",
+
+        overlayText:
+          "Preview only — about 30% of the full letter. Upgrade below to unlock the complete version.",
+        overlayBtn: "Upgrade to full letter",
+
+        fullStepTitle: "Step 2 — Payment & full letter",
+        fullStepSub:
+          "After you pay once for this main letter, you can unlock the complete, ready-to-send version here.",
+        fullPriceLabel: "Full letter service",
+        fullPriceValue: "USD 29.9",
+        payBtnText: "Pay now via Paddle",
+        fullPayNote:
+          "Payment opens in a new secure tab. After payment, return to this page and confirm.",
+        paymentConfirmLabel:
+          "I confirm that I have completed the payment for this full letter.",
+        generateFullBtnText: "Generate full letter",
+        fullStatusInit:
+          "Please generate a preview first, then pay and confirm before unlocking the full letter.",
+        fullOutputPlaceholder:
+          "After you pay and click “Generate full letter”, your complete letter will appear here. It is not saved or sent to any company — only you see it."
       },
       zh: {
         brandSub: "安静而专业的写作与申诉任务台",
@@ -1373,6 +1329,7 @@
         navFlow: "流程",
         navPricing: "价格",
         loginBtn: "登录 / 我的任务台",
+
         flowPill: "流程",
         flowTitle: "开始一个任务，被刻意设计得很简单",
         flowSubtitle:
@@ -1386,8 +1343,10 @@
         chip3Label: "拿到一封可以直接递交的信。",
         chip3Text:
           "你可以再补充个人信息、删改语气，确认后再通过邮箱、系统或打印寄出。",
+
         serviceCardTitle: "5 个核心服务场景",
         serviceCardMini: "先选一个场景打开任务台",
+
         aiTitle: "预览草稿小窗口",
         aiTitlePill: "系统只会生成约 30% 预览草稿",
         aiSubtitle:
@@ -1395,32 +1354,53 @@
         aiHint1: "✓ 无需登录即可预览",
         aiHint2: "✓ 无地区限制预览",
         aiHint3: "✓ 后面可以随时全部修改",
+
         lblTaskType: "任务类型",
         lblTaskTypeBadge: "从左侧自动带入",
         lblLanguage: "写作语言",
         lblTone: "语气",
         lblRecipient: "收件方（可选）",
         lblDetails: "简单讲讲发生了什么",
+
         lblAttachments: "上传附件（可选）",
-        lblAttachmentsBadge: "截图、信件、PDF 文件",
-        attachmentsNote:
-          "最多上传 5 个文件。系统会尝试读取图片和 PDF 中的文字，帮助生成草稿。",
+        uploadBtnText: "上传截图、信件、PDF 文件",
+        uploadNone: "未选择任何文件",
+        uploadMulti: n => `${n} 个文件已选择`,
+        attachNote:
+          "支持简单的截图、照片和 PDF，仅用于本次预览，不会长期保存。",
+
         btnExample: "粘贴一个示例案例",
         btnPreview: "生成预览草稿",
-        btnUpgradeFull: "升级为完整信件",
-        upgradeTitle: "对方向满意了吗？",
-        upgradeBody:
-          "现在可以将这份预览升级为一封完整、可以直接递交的正式信件。升级会在新的付费任务台中完成。",
-        upgradeGoBtnText: "前往完整信件任务台",
         statusDefault:
           "系统只会生成约 30% 的预览草稿，不会保存也不会发送。",
         previewPlaceholder:
-          "系统生成的大约 30% 预览内容会显示在这里。它不会被保存，也不会发给任何人。确认方向后，你可以在完整任务台中更私密地继续完善。"
+          "系统生成的大约 30% 预览内容会显示在这里。它不会被保存，也不会发给任何人。确认方向后，你可以在下方升级为完整信件。",
+
+        overlayText:
+          "当前仅为约 30% 的预览草稿，付款后可解锁完整信件。",
+        overlayBtn: "升级为完整信件",
+
+        fullStepTitle: "步骤 2 — 付款并解锁完整信件",
+        fullStepSub:
+          "为这一封主信件支付一次费用后，你可以在这里解锁一封可以直接递交的完整版本。",
+        fullPriceLabel: "完整信件服务",
+        fullPriceValue: "USD 29.9",
+        payBtnText: "通过 Paddle 立即付款",
+        fullPayNote:
+          "付款会在新标签页中打开安全收银台。支付完成后，请回到此页面勾选确认。",
+        paymentConfirmLabel: "我确认已经为本次完整信件完成付款。",
+        generateFullBtnText: "生成完整信件",
+        fullStatusInit:
+          "建议先在上方生成预览，然后付款并勾选确认，再解锁完整信件。",
+        fullOutputPlaceholder:
+          "完成付款并点击「生成完整信件」后，系统会在这里生成一封完整可用的信件。不会自动发送，只有你自己可以看到。"
       }
     };
 
     function applyLang(lang) {
       const t = i18n[lang] || i18n.en;
+      currentLang = lang;
+
       document.getElementById("brandSubText").textContent = t.brandSub;
       document.getElementById("navHome").textContent = t.navHome;
       document.getElementById("navServices").textContent = t.navServices;
@@ -1438,13 +1418,10 @@
       document.getElementById("flowChip3Label").textContent = t.chip3Label;
       document.getElementById("flowChip3Text").textContent = t.chip3Text;
 
-      document.getElementById("serviceCardTitle").textContent =
-        t.serviceCardTitle;
-      document.getElementById("serviceCardMini").textContent =
-        t.serviceCardMini;
+      document.getElementById("serviceCardTitle").textContent = t.serviceCardTitle;
+      document.getElementById("serviceCardMini").textContent = t.serviceCardMini;
 
-      document.getElementById("aiTitle").firstChild.textContent =
-        t.aiTitle + " ";
+      document.getElementById("aiTitle").firstChild.textContent = t.aiTitle + " ";
       document.getElementById("aiTitlePill").textContent = t.aiTitlePill;
       document.getElementById("aiSubtitle").textContent = t.aiSubtitle;
       document.getElementById("aiHint1").textContent = t.aiHint1;
@@ -1452,44 +1429,56 @@
       document.getElementById("aiHint3").textContent = t.aiHint3;
 
       document.getElementById("lblTaskType").textContent = t.lblTaskType;
-      document.getElementById("lblTaskTypeBadge").textContent =
-        t.lblTaskTypeBadge;
+      document.getElementById("lblTaskTypeBadge").textContent = t.lblTaskTypeBadge;
       document.getElementById("lblLanguage").textContent = t.lblLanguage;
       document.getElementById("lblTone").textContent = t.lblTone;
       document.getElementById("lblRecipient").textContent = t.lblRecipient;
       document.getElementById("lblDetails").textContent = t.lblDetails;
 
       document.getElementById("lblAttachments").textContent = t.lblAttachments;
-      document.getElementById("lblAttachmentsBadge").textContent =
-        t.lblAttachmentsBadge;
-      document.getElementById("attachmentsNote").textContent =
-        t.attachmentsNote;
+      document.getElementById("uploadBtnText").textContent = t.uploadBtnText;
+      document.getElementById("attachNote").textContent = t.attachNote;
 
-      document.getElementById("btnPasteExampleText").textContent =
-        t.btnExample;
-      document.getElementById("aiGenerateBtnText").textContent =
-        t.btnPreview;
-      document.getElementById("aiStatusText").textContent = t.statusDefault;
-      document.getElementById("aiPreviewPlaceholder").textContent =
-        t.previewPlaceholder;
+      // 文件名文案
+      const files = attachmentInput.files || [];
+      if (!files.length) {
+        uploadFileNameEl.textContent = t.uploadNone;
+      } else if (files.length === 1) {
+        uploadFileNameEl.textContent = files[0].name;
+      } else {
+        uploadFileNameEl.textContent = t.uploadMulti(files.length);
+      }
 
-      // 升级按钮和弹窗文案
-      document.getElementById("btnUpgradeFullText").textContent =
-        t.btnUpgradeFull;
-      document.getElementById("upgradeTitle").textContent = t.upgradeTitle;
-      document.getElementById("upgradeBody").textContent = t.upgradeBody;
-      document.getElementById("upgradeGoBtnText").textContent =
-        t.upgradeGoBtnText;
+      document.getElementById("btnPasteExampleText").textContent = t.btnExample;
+      document.getElementById("aiGenerateBtnText").textContent = t.btnPreview;
+      aiStatusText.textContent = t.statusDefault;
+      document.getElementById("aiPreviewPlaceholder").textContent = t.previewPlaceholder;
 
-      langButtons.forEach((b) => {
-        b.classList.toggle("active", b.dataset.lang === lang);
-      });
+      overlayTextEl.textContent = t.overlayText;
+      overlayBtnTextEl.textContent = t.overlayBtn;
 
+      document.getElementById("fullStepTitle").textContent = t.fullStepTitle;
+      document.getElementById("fullStepSub").textContent = t.fullStepSub;
+      document.getElementById("fullPriceLabel").textContent = t.fullPriceLabel;
+      document.getElementById("fullPriceValue").textContent = t.fullPriceValue;
+      document.getElementById("payBtnText").textContent = t.payBtnText;
+      document.getElementById("fullPayNote").textContent = t.fullPayNote;
+      document.getElementById("paymentConfirmLabel").textContent = t.paymentConfirmLabel;
+      document.getElementById("generateFullBtnText").textContent = t.generateFullBtnText;
+      fullStatusText.textContent = t.fullStatusInit;
+      fullOutputPlaceholder.textContent = t.fullOutputPlaceholder;
+
+      // 切换写作语言下拉
       if (lang === "zh") {
         languageSelect.value = "中文";
       } else {
         languageSelect.value = "English";
       }
+
+      // 顶部语言按钮样式
+      langButtons.forEach((b) => {
+        b.classList.toggle("active", b.dataset.lang === lang);
+      });
 
       localStorage.setItem("aurum_lang", lang);
     }
@@ -1501,14 +1490,11 @@
       });
     });
 
-    // 初始语言
+    // 初始语言：跟首页同步（localStorage）
     (function initLang() {
       const saved = localStorage.getItem("aurum_lang");
-      if (saved === "zh" || saved === "en") {
-        applyLang(saved);
-      } else {
-        applyLang("en");
-      }
+      if (saved === "zh" || saved === "en") applyLang(saved);
+      else applyLang("en");
     })();
   </script>
 </body>
