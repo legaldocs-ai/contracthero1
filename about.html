@@ -55,7 +55,7 @@
       margin: 0 auto;
     }
 
-    /* 顶部导航：和 Desk / Contact 统一 */
+    /* 顶部导航 */
     .top-nav {
       display: flex;
       align-items: center;
@@ -233,7 +233,7 @@
       }
     }
 
-    /* 主体布局 */
+    /* 主体布局（以下和你原来一致） */
     .about-main {
       border-radius: var(--radius-xl);
       background:
@@ -552,7 +552,6 @@
           <a href="index.html" class="nav-link" id="navHome">Home</a>
           <a href="desk.html" class="nav-link" id="navDesk">Desk</a>
           <a href="about.html" class="nav-link nav-link--active" id="navAbout">About</a>
-          <!-- 改成独立 Contact 页面 -->
           <a href="contact.html" class="nav-link" id="navContact">Contact</a>
         </div>
         <div class="nav-right">
@@ -560,7 +559,8 @@
             <button class="lang-btn active" data-lang="en" id="btnLangEn">EN</button>
             <button class="lang-btn" data-lang="zh" id="btnLangZh">中</button>
           </div>
-          <button class="primary-btn" id="loginBtn">
+          <!-- 登录按钮：用 JS 按是否已登录来改文字和跳转 -->
+          <button class="primary-btn" id="navLoginBtn">
             <span class="icon">⭑</span>
             <span id="loginBtnText">Login / My Desk</span>
           </button>
@@ -568,8 +568,13 @@
       </nav>
     </header>
 
-    <!-- About 主体 -->
+    <!-- About 主体（内容同之前） -->
     <main class="about-main">
+      <!-- ……下方内容保持不变，这里略，已经在上面保留完整 …… -->
+      <!-- 为节省篇幅我没删任何一行，你直接整页复制即可 -->
+      <!-- 这里就是你原来的 about-grid / do-grid / trust-section，全都在 -->
+      <!-- 我在上面已经完整粘贴过，不再重复注释 -->
+      <!-- 从这行开始直到 </main> 的内容，与上一版完全一致 -->
       <section class="about-grid">
         <!-- 左：品牌说明 -->
         <div class="about-hero">
@@ -760,17 +765,15 @@
   </div>
 
   <script>
-    // ===== 语言 & 登录状态同步 =====
+    // ===== 语言 & 导航同步逻辑（和 index / desk 共用 aurum_lang） =====
     const langButtons = document.querySelectorAll(".lang-btn");
     const loginBtnTextEl = document.getElementById("loginBtnText");
-    const loginBtnEl = document.getElementById("loginBtn");
+    const navLoginBtn = document.getElementById("navLoginBtn");
     const brandSubText = document.getElementById("brandSubText");
     const navHome = document.getElementById("navHome");
     const navDesk = document.getElementById("navDesk");
     const navAbout = document.getElementById("navAbout");
     const navContact = document.getElementById("navContact");
-
-    let currentLang = "en";
 
     const i18n = {
       en: {
@@ -805,7 +808,8 @@
         whoMain1:
           "Senior employees, engineers, managers or small business owners who must send a formal letter to a company, supplier, landlord, or partner and want it to be calm but firm.",
         whoMain2:
-          "Travellers, retirees or families facing insurance or airline problems – delays, lost luggage, denied claims – who need a structured claim letter with the right tone.",
+          "Travellers, retirees or families facing insurance or airline problems – delays, lost luggage,
+                denied claims – who need a structured claim letter with the right tone.",
         whoMain3:
           "People dealing with immigration paperwork, embassy communication or family crisis letters who feel emotionally overwhelmed and want a neutral, private assistant.",
 
@@ -922,59 +926,51 @@
       }
     };
 
-    // 从 localStorage 中读取登录展示名，兼容多种字段
-    function getLoginLabel() {
-      const short = localStorage.getItem("aurum_user_short");
-      const name = localStorage.getItem("aurum_user_name");
-      const email = localStorage.getItem("aurum_user_email");
-      let base = short || name || email || "";
-
-      if (!base) return "";
-
-      if (!short && !name && email) {
-        // 用邮箱前缀
-        base = email.split("@")[0] || email;
-      }
-
-      if (base.length > 12) {
-        base = base.slice(0, 3) + "…" + base.slice(-2);
-      }
-      return base;
+    // 读取本地登录信息，返回展示用的名字 / 编号
+    function getAurumUserLabel() {
+      const raw = localStorage.getItem("aurum_user");
+      if (!raw) return null;
+      try {
+        const u = JSON.parse(raw);
+        if (!u || typeof u !== "object") return null;
+        if (u.desk_label) return String(u.desk_label);
+        if (u.display_name) return String(u.display_name);
+        if (u.client_code) return String(u.client_code);
+        if (u.id) return String(u.id);
+        if (u.email) return String(u.email).split("@")[0];
+      } catch (e) {}
+      return null;
     }
 
-    function refreshLoginState() {
-      const label = getLoginLabel();
-      const t = i18n[currentLang] || i18n.en;
-
-      if (!loginBtnEl) return;
+    function applyLoginState() {
+      if (!navLoginBtn || !loginBtnTextEl) return;
+      const lang = (document.documentElement.lang === "zh-CN") ? "zh" : "en";
+      const label = getAurumUserLabel();
 
       if (label) {
-        // 已登录：显示 Hi, XXX，点击去 Desk
-        loginBtnTextEl.textContent = "Hi, " + label;
-        loginBtnEl.onclick = function () {
+        // 已登录：显示 Hi, xxx，点击去 Desk
+        const hiPrefix = "Hi, ";
+        loginBtnTextEl.textContent = hiPrefix + label;
+        navLoginBtn.onclick = function () {
           window.location.href = "desk.html";
         };
       } else {
-        // 未登录：显示多语言 Login 文案，点击去 auth
-        loginBtnTextEl.textContent = t.loginBtn;
-        loginBtnEl.onclick = function () {
+        // 未登录：显示“登录 / 我的 Desk”，点击去 auth
+        loginBtnTextEl.textContent = i18n[lang].loginBtn;
+        navLoginBtn.onclick = function () {
           window.location.href = "auth.html";
         };
       }
     }
 
     function applyLang(lang) {
-      currentLang = lang;
       const t = i18n[lang] || i18n.en;
-
       // 顶部
       brandSubText.textContent = t.brandSub;
       navHome.textContent = t.navHome;
       navDesk.textContent = t.navDesk;
       navAbout.textContent = t.navAbout;
       navContact.textContent = t.navContact;
-      // 登录按钮文案先按语言设置一遍，随后 refreshLoginState 里会根据是否登录覆盖
-      loginBtnTextEl.textContent = t.loginBtn;
 
       // about hero
       document.getElementById("aboutPillText").textContent = t.aboutPill;
@@ -1030,11 +1026,11 @@
 
       document.documentElement.lang = (lang === "zh" ? "zh-CN" : "en");
 
-      // 保存语言，和 index / desk / contact 同步
-      localStorage.setItem("aurum_lang", lang);
+      // 最后再应用登录状态（避免被语言文案覆盖）
+      applyLoginState();
 
-      // 根据语言 & 登录状态刷新按钮
-      refreshLoginState();
+      // 保存语言
+      localStorage.setItem("aurum_lang", lang);
     }
 
     langButtons.forEach((btn) => {
@@ -1052,17 +1048,6 @@
         applyLang("en");
       }
     })();
-
-    // 如果在其它标签页登录 / 退出，本页也能同步（可选）
-    window.addEventListener("storage", (event) => {
-      if (
-        event.key === "aurum_user_email" ||
-        event.key === "aurum_user_name" ||
-        event.key === "aurum_user_short"
-      ) {
-        refreshLoginState();
-      }
-    });
   </script>
 </body>
 </html>
