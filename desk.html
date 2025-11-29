@@ -663,78 +663,7 @@
       color: var(--text-soft);
     }
 
-    .ai-preview-wrapper {
-      position: relative;
-      margin-top: 8px;
-    }
-
-    .ai-preview-box {
-      border-radius: 12px;
-      border: 1px dashed rgba(148, 163, 184, 0.7);
-      background: rgba(15, 23, 42, 0.9);
-      padding: 8px 10px;
-      max-height: 180px;
-      overflow: auto;
-      font-size: 12px;
-      line-height: 1.45;
-      white-space: pre-wrap;
-      color: #e5e7eb;
-    }
-    .ai-preview-placeholder {
-      color: rgba(191, 219, 254, 0.95);
-      font-size: 11px;
-    }
-
-    .ai-preview-overlay {
-      position: absolute;
-      inset: 0;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 10px;
-      background: linear-gradient(
-        to bottom,
-        rgba(15,23,42,0),
-        rgba(15,23,42,0.5),
-        rgba(15,23,42,0.88)
-      );
-      backdrop-filter: blur(6px);
-      border-radius: 12px;
-      pointer-events: none;
-    }
-    .ai-preview-overlay-inner {
-      pointer-events: auto;
-      max-width: 90%;
-    }
-    .ai-overlay-title {
-      font-size: 12px;
-      font-weight: 600;
-      margin-bottom: 4px;
-    }
-    .ai-overlay-text {
-      font-size: 11px;
-      color: var(--text-soft);
-      margin-bottom: 8px;
-    }
-    .ai-overlay-btn {
-      border-radius: 999px;
-      border: 1px solid rgba(248, 250, 252, 0.7);
-      background: rgba(15, 23, 42, 0.95);
-      color: #f9fafb;
-      padding: 5px 12px;
-      font-size: 11px;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.14s ease;
-    }
-    .ai-overlay-btn:hover {
-      background: #fbbf24;
-      color: #111827;
-    }
-
+    /* Step 2 */
     .step2-card {
       margin-top: 18px;
       border-radius: var(--radius-xl);
@@ -880,6 +809,98 @@
         justify-content: flex-start;
         flex-wrap: wrap;
       }
+    }
+
+    /* === 预览区域：上 30% 可见 + 下 70% 玻璃遮罩 === */
+    .ai-preview-wrapper {
+      position: relative;
+      margin-top: 8px;
+    }
+
+    .ai-preview-box {
+      border-radius: 12px;
+      border: 1px dashed rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.9);
+      padding: 10px 12px;
+      max-height: 220px;
+      overflow: hidden;
+      font-size: 12px;
+      line-height: 1.45;
+      color: #e5e7eb;
+    }
+
+    /* 上半部分：真正展示的预览文字 */
+    .preview-visible-text {
+      max-height: 120px;
+      overflow: hidden;
+      white-space: pre-wrap;
+    }
+
+    /* 下半部分：被玻璃遮住的文字块 */
+    .preview-hidden-block {
+      position: relative;
+      margin-top: 8px;
+      max-height: 90px;
+      overflow: hidden;
+    }
+
+    .preview-hidden-text {
+      white-space: pre-wrap;
+      opacity: 0.2; /* 让用户隐约看到下面还有内容 */
+    }
+
+    /* 玻璃遮罩层 */
+    .preview-glass-cover {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(15,23,42,0) 0%,
+        rgba(15,23,42,0.45) 40%,
+        rgba(15,23,42,0.9) 100%
+      );
+      backdrop-filter: blur(8px);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+      text-align: center;
+      padding: 10px;
+    }
+
+    .preview-lock-title {
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .preview-lock-sub {
+      font-size: 11px;
+      color: var(--text-soft);
+      margin-bottom: 8px;
+    }
+
+    .preview-step2-btn {
+      border-radius: 999px;
+      border: 1px solid rgba(248, 250, 252, 0.7);
+      background: rgba(15, 23, 42, 0.95);
+      color: #f9fafb;
+      padding: 5px 12px;
+      font-size: 11px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.14s ease;
+    }
+    .preview-step2-btn:hover {
+      background: #fbbf24;
+      color: #111827;
+    }
+
+    .ai-preview-placeholder {
+      color: rgba(191, 219, 254, 0.95);
+      font-size: 11px;
     }
   </style>
 </head>
@@ -1204,27 +1225,38 @@
             </div>
           </div>
 
-          <!-- 预览 + 模糊遮罩 -->
+          <!-- 预览 + 30% 可见 + 玻璃遮罩 -->
           <div class="ai-preview-wrapper">
-            <div class="ai-preview-box" id="aiPreviewBox">
-              <div class="ai-preview-placeholder" id="aiPreviewPlaceholder">
-                Your 30% preview draft will appear here. It is not saved or sent
-                to any company or person. When you are happy with the direction,
-                you can open a full Desk and continue privately.
+            <div class="ai-preview-box">
+              <!-- 上半部分：真正显示的 30% 文本 / 占位文案 -->
+              <div id="previewVisibleText" class="preview-visible-text">
+                <span id="aiPreviewPlaceholder" class="ai-preview-placeholder">
+                  Your 30% preview draft will appear here. It is not saved or sent
+                  to any company or person. When you are happy with the direction,
+                  you can open a full Desk and continue privately.
+                </span>
               </div>
-            </div>
-            <div class="ai-preview-overlay" id="aiPreviewOverlay">
-              <div class="ai-preview-overlay-inner">
-                <div class="ai-overlay-title" id="overlayTitle">
-                  Preview only shows part of the letter
+
+              <!-- 下半部分：被玻璃遮住的剩余内容 -->
+              <div id="previewHiddenBlock" class="preview-hidden-block" style="display:none;">
+                <div id="previewHiddenText" class="preview-hidden-text"></div>
+
+                <div class="preview-glass-cover">
+                  <div class="preview-lock-title" id="overlayTitle">
+                    Preview only shows part of the letter
+                  </div>
+                  <div class="preview-lock-sub" id="overlayText">
+                    About 30% of the content is visible here. To unlock the full, ready-to-send letter,
+                    please scroll down to Step 2 and complete the one-time payment.
+                  </div>
+                  <button
+                    type="button"
+                    class="preview-step2-btn"
+                    id="overlayUpgradeBtn"
+                  >
+                    <span id="overlayBtnText">Go to Step 2 – Payment &amp; full letter</span>
+                  </button>
                 </div>
-                <div class="ai-overlay-text" id="overlayText">
-                  About 30% of the content is visible here. To unlock the full, ready-to-send letter,
-                  please scroll down to Step 2 and complete the one-time payment.
-                </div>
-                <button type="button" class="ai-overlay-btn" id="overlayUpgradeBtn">
-                  <span id="overlayBtnText">Go to Step 2 – Payment & full letter</span>
-                </button>
               </div>
             </div>
           </div>
@@ -1289,9 +1321,12 @@
 
     const aiGenerateBtn = document.getElementById("aiGenerateBtn");
     const aiStatusText = document.getElementById("aiStatusText");
-    const aiPreviewBox = document.getElementById("aiPreviewBox");
+
+    const previewVisibleText = document.getElementById("previewVisibleText");
+    const previewHiddenBlock = document.getElementById("previewHiddenBlock");
+    const previewHiddenText  = document.getElementById("previewHiddenText");
     const aiPreviewPlaceholder = document.getElementById("aiPreviewPlaceholder");
-    const aiPreviewOverlay = document.getElementById("aiPreviewOverlay");
+
     const overlayUpgradeBtn = document.getElementById("overlayUpgradeBtn");
     const overlayTitle = document.getElementById("overlayTitle");
     const overlayText = document.getElementById("overlayText");
@@ -1381,6 +1416,30 @@
       return out;
     }
 
+    function renderPreview(fullText) {
+      const text = (fullText || "").trim();
+      if (!text) {
+        previewVisibleText.textContent = "";
+        previewHiddenText.textContent = "";
+        previewHiddenBlock.style.display = "none";
+        aiPreviewPlaceholder.style.display = "block";
+        return;
+      }
+
+      const minVisible = 180;
+      const maxVisible = 480;
+      let cutIndex = Math.floor(text.length * 0.3);
+      cutIndex = Math.max(minVisible, Math.min(cutIndex, maxVisible));
+
+      const visible = text.slice(0, cutIndex);
+      const hidden  = text.slice(cutIndex);
+
+      previewVisibleText.textContent = visible + (hidden ? " ..." : "");
+      previewHiddenText.textContent  = hidden;
+      previewHiddenBlock.style.display = hidden ? "block" : "none";
+      aiPreviewPlaceholder.style.display = "none";
+    }
+
     async function callPreview() {
       const taskType  = (taskTypeInput.value || "").trim() || "Writing task";
       const tone      = (toneSelect.value || "calm, respectful").toString();
@@ -1434,13 +1493,7 @@
           return;
         }
 
-        const maxChars = Math.max(400, Math.floor(fullDraft.length * 0.35));
-        const previewPart = fullDraft.slice(0, maxChars);
-
-        aiPreviewPlaceholder.style.display = "none";
-        aiPreviewBox.textContent = previewPart;
-
-        aiPreviewOverlay.style.display = "flex";
+        renderPreview(fullDraft);
 
         aiStatusText.textContent = language === "中文"
           ? "预览完成。这里只展示部分内容，完整信件请在下方完成付款后生成。"
@@ -1563,9 +1616,12 @@
       detailsTextarea.value = "";
       attachmentInput.value = "";
       uploadFileNameEl.textContent = "";
-      aiPreviewBox.textContent = "";
+
+      previewVisibleText.textContent = "";
+      previewHiddenText.textContent = "";
+      previewHiddenBlock.style.display = "none";
       aiPreviewPlaceholder.style.display = "block";
-      aiPreviewOverlay.style.display = "none";
+
       aiStatusText.textContent = languageSelect.value === "中文"
         ? "系统只会生成约 30% 的预览草稿，不会保存也不会发送。"
         : "System will draft about 30% of the letter as a preview only.";
@@ -1659,7 +1715,7 @@
         flowTitle: "开始一个任务，被刻意设计得很简单",
         flowSubtitle:
           "在这里，你只需先选一个最重要的场景，打开一个专注的任务台。后面随时可以调整场景，只有在你确认后才会正式提交。",
-        chip1Label: "先说清楚发生了什么。",
+        chip1Label: "先说清楚发现了什么。",
         chip1Text:
           "可以上传截图、信件，或者用你自己的话简单描述情况，不需要完美。",
         chip2Label: "再说明对象和诉求。",
