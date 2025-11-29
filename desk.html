@@ -534,67 +534,43 @@
       line-height: 1.4;
     }
 
-    /* 上传区域样式 */
-    .ai-upload-row {
+    /* 上传附件块 */
+    .upload-block {
+      border-radius: 10px;
+      border: 1px dashed rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.8);
+      padding: 8px 8px 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .upload-actions {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       flex-wrap: wrap;
     }
-    .ai-upload-btn {
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 6px 14px;
-      border-radius: 999px;
-      border: 1px dashed rgba(148, 163, 184, 0.7);
-      background: radial-gradient(circle at top left,#020617,#020617);
-      font-size: 11px;
+    .upload-tip {
+      font-size: 10px;
       color: var(--text-soft);
-      cursor: pointer;
-      transition: all 0.16s ease;
-      white-space: nowrap;
     }
-    .ai-upload-btn:hover {
-      border-style: solid;
-      box-shadow: 0 10px 32px rgba(15, 23, 42, 0.9);
-      transform: translateY(-0.5px);
-    }
-    .ai-upload-btn input {
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-      cursor: pointer;
-    }
-    .ai-upload-hint {
-      font-size: 10px;
-      color: rgba(148, 163, 184, 0.9);
-    }
-    .ai-upload-list {
-      margin-top: 6px;
-      list-style: none;
-      max-height: 72px;
-      overflow-y: auto;
-      padding-left: 2px;
-    }
-    .ai-upload-item {
-      font-size: 10px;
-      color: rgba(199, 210, 254, 0.95);
+    .upload-list {
       display: flex;
-      align-items: center;
+      flex-wrap: wrap;
       gap: 6px;
-      padding: 2px 0;
+      margin-top: 2px;
     }
-    .ai-upload-dot {
-      width: 4px;
-      height: 4px;
+    .upload-file-pill {
+      padding: 4px 8px;
       border-radius: 999px;
-      background: rgba(148, 163, 184, 0.9);
-      flex-shrink: 0;
-    }
-    .ai-upload-size {
-      opacity: 0.7;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      font-size: 10px;
+      color: var(--text-soft);
+      background: rgba(15, 23, 42, 0.95);
+      max-width: 100%;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
     }
 
     .ai-footer-row {
@@ -608,6 +584,7 @@
       display: flex;
       align-items: center;
       gap: 6px;
+      flex-wrap: wrap;
     }
     .ai-secondary-btn {
       border-radius: 999px;
@@ -626,6 +603,9 @@
       background: rgba(15, 23, 42, 1);
       box-shadow: 0 10px 36px rgba(15, 23, 42, 0.9);
       transform: translateY(-0.5px);
+    }
+    .ai-upgrade-btn {
+      border-color: rgba(251, 191, 36, 0.7);
     }
     .ai-generate-btn {
       border-radius: 999px;
@@ -991,26 +971,29 @@
               ></textarea>
             </div>
 
-            <!-- 上传附件区域 -->
+            <!-- 上传附件，真正给 AI 用 -->
             <div class="ai-form-full">
               <div class="ai-label">
-                <span id="lblAttachments">Upload screenshots or letters (optional)</span>
+                <span id="lblUpload">Upload screenshots or letters (optional)</span>
               </div>
-              <div class="ai-upload-row">
-                <label class="ai-upload-btn">
-                  <span id="aiUploadBtnText">Upload files</span>
-                  <input
-                    id="fileInput"
-                    type="file"
-                    multiple
-                    accept=".png,.jpg,.jpeg,.webp,.txt,.pdf"
-                  />
-                </label>
-                <div class="ai-upload-hint" id="aiUploadHint">
-                  Up to 5 files. Images or .txt are best for preview.
+              <div class="upload-block">
+                <div class="upload-actions">
+                  <button type="button" class="ai-secondary-btn" id="btnChooseFiles">
+                    <span id="btnChooseFilesText">Upload files</span>
+                  </button>
+                  <span class="upload-tip" id="uploadTipText">
+                    Up to 3 files. Clear photos or PDFs work best.
+                  </span>
                 </div>
+                <input
+                  id="fileInput"
+                  type="file"
+                  multiple
+                  accept=".png,.jpg,.jpeg,.pdf,.txt,.doc,.docx,.eml"
+                  style="display:none"
+                />
+                <div class="upload-list" id="uploadList"></div>
               </div>
-              <ul class="ai-upload-list" id="aiUploadList"></ul>
             </div>
           </div>
 
@@ -1024,6 +1007,9 @@
               </button>
             </div>
             <div class="ai-left-buttons">
+              <button type="button" class="ai-secondary-btn ai-upgrade-btn" id="btnUpgradeFull">
+                <span id="btnUpgradeFullText">Upgrade to full letter</span>
+              </button>
               <button type="button" class="ai-generate-btn" id="aiGenerateBtn">
                 <span id="aiGenerateBtnText">Generate preview draft</span>
               </button>
@@ -1063,79 +1049,7 @@
       });
     });
 
-    // ========== 上传附件（前端收集，发给 Worker） ==========
-    const fileInput = document.getElementById("fileInput");
-    const aiUploadList = document.getElementById("aiUploadList");
-    const MAX_FILES = 5;
-    let attachments = [];
-
-    function formatBytes(bytes) {
-      if (!bytes && bytes !== 0) return "";
-      if (bytes < 1024) return bytes + " B";
-      const kb = bytes / 1024;
-      if (kb < 1024) return kb.toFixed(1) + " KB";
-      const mb = kb / 1024;
-      return mb.toFixed(1) + " MB";
-    }
-
-    function renderAttachmentList() {
-      aiUploadList.innerHTML = "";
-      if (!attachments.length) return;
-      attachments.forEach((att) => {
-        const li = document.createElement("li");
-        li.className = "ai-upload-item";
-        const dot = document.createElement("span");
-        dot.className = "ai-upload-dot";
-        const nameSpan = document.createElement("span");
-        nameSpan.textContent = att.name || "file";
-        const sizeSpan = document.createElement("span");
-        sizeSpan.className = "ai-upload-size";
-        sizeSpan.textContent = "· " + formatBytes(att.size || 0);
-        li.appendChild(dot);
-        li.appendChild(nameSpan);
-        li.appendChild(sizeSpan);
-        aiUploadList.appendChild(li);
-      });
-    }
-
-    function fileToBase64(file) {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = () => resolve(reader.result || "");
-        reader.onerror = (err) => reject(err);
-        reader.readAsDataURL(file);
-      });
-    }
-
-    if (fileInput) {
-      fileInput.addEventListener("change", async (e) => {
-        const files = Array.from(e.target.files || []);
-        if (!files.length) {
-          attachments = [];
-          renderAttachmentList();
-          return;
-        }
-        const selected = files.slice(0, MAX_FILES);
-        const newAttachments = [];
-        for (const f of selected) {
-          try {
-            const base64 = await fileToBase64(f);
-            newAttachments.push({
-              name: f.name,
-              type: f.type,
-              size: f.size,
-              base64,
-            });
-          } catch (err) {
-            console.error("fileToBase64 error:", err);
-          }
-        }
-        attachments = newAttachments;
-        renderAttachmentList();
-      });
-    }
-
-    // ========== 预览生成 ==========
+    // ========== 预览生成 & 上传附件 ==========
     const aiGenerateBtn = document.getElementById("aiGenerateBtn");
     const aiStatusText = document.getElementById("aiStatusText");
     const aiPreviewBox = document.getElementById("aiPreviewBox");
@@ -1144,6 +1058,42 @@
     const languageSelect = document.getElementById("languageSelect");
     const recipientInput = document.getElementById("recipientInput");
     const detailsTextarea = document.getElementById("detailsTextarea");
+
+    const fileInput = document.getElementById("fileInput");
+    const btnChooseFiles = document.getElementById("btnChooseFiles");
+    const uploadList = document.getElementById("uploadList");
+    let attachments = [];
+
+    btnChooseFiles.addEventListener("click", () => {
+      fileInput.click();
+    });
+
+    fileInput.addEventListener("change", () => {
+      const files = Array.from(fileInput.files || []);
+      attachments = [];
+      uploadList.innerHTML = "";
+      const maxFiles = 3;
+
+      files.slice(0, maxFiles).forEach((file) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const base64 = reader.result || "";
+          attachments.push({
+            name: file.name || "attachment",
+            type: file.type || "application/octet-stream",
+            size: file.size || 0,
+            base64: String(base64)
+          });
+
+          const pill = document.createElement("div");
+          pill.className = "upload-file-pill";
+          pill.textContent =
+            file.name + " (" + Math.round((file.size || 0) / 1024) + " KB)";
+          uploadList.appendChild(pill);
+        };
+        reader.readAsDataURL(file);
+      });
+    });
 
     async function callPreview() {
       const taskType  = (taskTypeInput.value || "").trim() || "写作任务";
@@ -1167,11 +1117,10 @@
             language,
             recipient,
             details,
-            attachments, // 把前端收集的附件一起发给 Worker
+            attachments
           })
         });
 
-        // 尝试把后端返回的 JSON 都解析出来
         let data = {};
         try {
           data = await res.json();
@@ -1179,7 +1128,6 @@
           data = {};
         }
 
-        // 后端 500 / 404 等情况，把后端的 error 原文拿出来
         if (!res.ok || !data.ok) {
           const errMsg = (data && data.error) ? String(data.error) : ("HTTP " + res.status);
           console.error("Backend error:", errMsg);
@@ -1223,8 +1171,8 @@
       aiPreviewBox.textContent = "";
       aiPreviewPlaceholder.style.display = "block";
       attachments = [];
-      if (fileInput) fileInput.value = "";
-      renderAttachmentList();
+      uploadList.innerHTML = "";
+      fileInput.value = "";
       aiStatusText.textContent = languageSelect.value === "中文"
         ? "系统只会生成约 30% 的预览草稿，不会保存也不会发送。"
         : "System will draft about 30% of the letter as a preview only.";
@@ -1239,6 +1187,18 @@
         detailsTextarea.value =
           "During my return trip, my flight was heavily delayed which made me miss my connection and important meetings. The airline only gave a small meal voucher and has not offered a clear compensation plan.";
       }
+    });
+
+    // ========== 升级为完整信件：跳转到 desk_full.html ==========
+    const btnUpgradeFull = document.getElementById("btnUpgradeFull");
+    btnUpgradeFull.addEventListener("click", () => {
+      try {
+        localStorage.setItem(
+          "aurum_last_task_type",
+          taskTypeInput.value || ""
+        );
+      } catch (e) {}
+      window.location.href = "desk_full.html";
     });
 
     // ========== 简单中英文切换 ==========
@@ -1279,11 +1239,12 @@
         lblTone: "Tone",
         lblRecipient: "Recipient (optional)",
         lblDetails: "What happened? (you can be brief)",
-        lblAttachments: "Upload screenshots or letters (optional)",
-        uploadBtn: "Upload files",
-        uploadHint: "Up to 5 files. Images or .txt are best for preview.",
+        lblUpload: "Upload screenshots or letters (optional)",
+        btnChooseFiles: "Upload files",
+        uploadTip: "Up to 3 files. Clear photos or PDFs work best.",
         btnExample: "Paste an example case",
         btnPreview: "Generate preview draft",
+        btnUpgradeFull: "Upgrade to full letter",
         statusDefault:
           "System will draft about 30% of the letter as a preview only.",
         previewPlaceholder:
@@ -1324,11 +1285,12 @@
         lblTone: "语气",
         lblRecipient: "收件方（可选）",
         lblDetails: "简单讲讲发生了什么",
-        lblAttachments: "上传截图或信件（可选）",
-        uploadBtn: "上传附件",
-        uploadHint: "最多 5 个文件，截图 / 照片 / 文本都可以用于预览。",
+        lblUpload: "上传截图或信件（可选）",
+        btnChooseFiles: "上传附件",
+        uploadTip: "最多 3 个文件，清晰的截图或 PDF 效果更好。",
         btnExample: "粘贴一个示例案例",
         btnPreview: "生成预览草稿",
+        btnUpgradeFull: "升级为完整信件",
         statusDefault:
           "系统只会生成约 30% 的预览草稿，不会保存也不会发送。",
         previewPlaceholder:
@@ -1375,14 +1337,16 @@
       document.getElementById("lblTone").textContent = t.lblTone;
       document.getElementById("lblRecipient").textContent = t.lblRecipient;
       document.getElementById("lblDetails").textContent = t.lblDetails;
-      document.getElementById("lblAttachments").textContent = t.lblAttachments;
-      document.getElementById("aiUploadBtnText").textContent = t.uploadBtn;
-      document.getElementById("aiUploadHint").textContent = t.uploadHint;
+      document.getElementById("lblUpload").textContent = t.lblUpload;
+      document.getElementById("btnChooseFilesText").textContent = t.btnChooseFiles;
+      document.getElementById("uploadTipText").textContent = t.uploadTip;
 
       document.getElementById("btnPasteExampleText").textContent =
         t.btnExample;
       document.getElementById("aiGenerateBtnText").textContent =
         t.btnPreview;
+      document.getElementById("btnUpgradeFullText").textContent =
+        t.btnUpgradeFull;
       document.getElementById("aiStatusText").textContent = t.statusDefault;
       document.getElementById("aiPreviewPlaceholder").textContent =
         t.previewPlaceholder;
