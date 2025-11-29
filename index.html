@@ -877,38 +877,49 @@
 <body>
   <div class="page-shell">
     <div class="content">
-     <header>
-  <div class="brand">
-    <div class="brand-mark">
-      <div class="brand-mark-inner">AU</div>
-    </div>
-    <div class="brand-text">
-      <div class="brand-title" data-i18n-key="brandTitle">
-        Aurum Task Desk
-      </div>
-      <div class="brand-sub" data-i18n-key="brandSub">
-        Private AI Writing & Resolution Desk
-      </div>
-    </div>
-  </div>
-  <nav>
-    <!-- 顶部页面导航：首页 / Desk / 关于我们 / 联系我们 -->
-    <div class="nav-links">
-      <a href="index.html" class="nav-link" data-page="home" data-i18n-key="navHome">Home</a>
-      <a href="desk.html" class="nav-link" data-page="desk" data-i18n-key="navDesk">Desk</a>
-      <a href="about.html" class="nav-link" id="navAbout">About</a>
-      <a href="contact.html" class="nav-link" id="navContact">Contact</a>
-    </div>
-    <div class="lang-toggle" aria-label="Language">
-      <button class="lang-btn active" data-lang="en">EN</button>
-      <button class="lang-btn" data-lang="zh">中</button>
-    </div>
-    <a href="auth.html" class="login-btn">
-      <span class="icon">⭑</span>
-      <span data-i18n-key="login">Login / My Desk</span>
-    </a>
-  </nav>
-</header>
+      <header>
+        <div class="brand">
+          <div class="brand-mark">
+            <div class="brand-mark-inner">AU</div>
+          </div>
+          <div class="brand-text">
+            <div class="brand-title" data-i18n-key="brandTitle">
+              Aurum Task Desk
+            </div>
+            <div class="brand-sub" data-i18n-key="brandSub">
+              Private AI Writing & Resolution Desk
+            </div>
+          </div>
+        </div>
+        <nav>
+          <!-- 顶部页面导航：首页 / Desk / 关于我们 / 联系我们 -->
+          <div class="nav-links">
+            <a href="index.html" class="nav-link" data-page="home" data-i18n-key="navHome">Home</a>
+            <a href="desk.html" class="nav-link" data-page="desk" data-i18n-key="navDesk">Desk</a>
+            <a href="about.html" class="nav-link" id="navAbout">About</a>
+            <a href="contact.html" class="nav-link" id="navContact">Contact</a>
+          </div>
+          <div class="lang-toggle" aria-label="Language">
+            <button class="lang-btn active" data-lang="en">EN</button>
+            <button class="lang-btn" data-lang="zh">中</button>
+          </div>
+          <!-- 登录 / 我的 Desk 按钮（带登录状态同步标记） -->
+          <button class="login-btn" type="button" data-auth-login>
+            <span class="icon">⭑</span>
+            <span data-i18n-key="login">Login / My Desk</span>
+          </button>
+          <!-- 退出按钮（默认隐藏，登录后显示） -->
+          <button
+            class="nav-link"
+            type="button"
+            data-auth-logout
+            data-i18n-key="logout"
+            style="display:none;"
+          >
+            Logout
+          </button>
+        </nav>
+      </header>
 
       <main class="hero-and-main">
         <section class="hero" aria-labelledby="hero-title">
@@ -1337,7 +1348,6 @@
           </span>
         </div>
         <div class="footer-links">
-          
           <a href="privacy.html" data-i18n-key="footerPrivacy">Privacy</a>
           <a href="terms.html" data-i18n-key="footerTerms">Terms</a>
         </div>
@@ -1363,6 +1373,7 @@
         navCompare: "为什么不用 ChatGPT？",
         navPricing: "定价",
         login: "登录 / 我的 Desk",
+        logout: "退出登录",
         pillLeft: "安静、严肃场景专用的写作工作台",
         pillRight: "法律 / 移民 / 保险 / 投诉",
         heroLine1: "面向严肃问题的私人 AI 写作桌",
@@ -1464,7 +1475,6 @@
         pri4:
           "Desk 采用简单、可审计的后台逻辑，而不是复杂难懂、到处串联广告的巨型平台。",
         footerCopy: "为严肃问题而生的安静写作工作台。",
-    
         footerPrivacy: "隐私政策",
         footerTerms: "使用条款"
       }
@@ -1530,6 +1540,73 @@
       document
         .querySelectorAll('.nav-link[data-page="' + currentKey + '"]')
         .forEach((el) => el.classList.add("nav-link--active"));
+    })();
+  </script>
+
+  <!-- 登录状态同步脚本：和 auth.html 共用 localStorage("aurum_user") -->
+  <script>
+    (function () {
+      const STORAGE_KEY = "aurum_user";
+
+      function getCurrentUser() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) return null;
+          return JSON.parse(raw);
+        } catch (e) {
+          return null;
+        }
+      }
+
+      function logoutAndRedirect() {
+        try {
+          localStorage.removeItem(STORAGE_KEY);
+        } catch (_) {}
+        // 退出后回到首页；如果你想回任务台，可以改成 desk.html
+        window.location.href = "index.html";
+      }
+
+      function setupAuthUI() {
+        const loginEls = document.querySelectorAll("[data-auth-login]");
+        const logoutEls = document.querySelectorAll("[data-auth-logout]");
+        if (!loginEls.length && !logoutEls.length) return;
+
+        const user = getCurrentUser();
+
+        if (user && user.email) {
+          // 已登录：显示 Hi, Name，并启用退出按钮
+          const name =
+            user.name ||
+            (user.email.includes("@")
+              ? user.email.split("@")[0]
+              : user.email);
+
+          loginEls.forEach((el) => {
+            el.textContent = "Hi, " + name;
+            el.onclick = function () {
+              window.location.href = "desk.html";
+            };
+          });
+
+          logoutEls.forEach((el) => {
+            el.style.display = "";
+            el.onclick = logoutAndRedirect;
+          });
+        } else {
+          // 未登录：保持原文字，只负责跳到 auth.html，隐藏退出
+          loginEls.forEach((el) => {
+            el.onclick = function () {
+              window.location.href = "auth.html";
+            };
+          });
+
+          logoutEls.forEach((el) => {
+            el.style.display = "none";
+          });
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", setupAuthUI);
     })();
   </script>
 </body>
