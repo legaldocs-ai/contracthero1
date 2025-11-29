@@ -1,4 +1,3 @@
-\
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -854,7 +853,7 @@
           <button class="lang-btn active" data-lang="en" id="btnLangEn">EN</button>
           <button class="lang-btn" data-lang="zh" id="btnLangZh">中</button>
         </div>
-        <button class="primary-btn" onclick="window.location.href='auth.html'">
+        <button class="primary-btn" type="button">
           <span class="icon">★</span>
           <span id="loginBtnText">Login / My Desk</span>
         </button>
@@ -1162,8 +1161,8 @@
                   Preview only shows part of the letter
                 </div>
                 <div class="ai-overlay-text" id="overlayText">
-                  About 30% of the content is visible here. To unlock the full, ready‑to‑send letter,
-                  please scroll down to Step 2 and complete the one‑time payment.
+                  About 30% of the content is visible here. To unlock the full, ready-to-send letter,
+                  please scroll down to Step 2 and complete the one-time payment.
                 </div>
                 <button type="button" class="ai-overlay-btn" id="overlayUpgradeBtn">
                   <span id="overlayBtnText">Go to Step 2 – Payment & full letter</span>
@@ -1179,7 +1178,7 @@
         <div>
           <div class="step2-left-title" id="step2Title">Step 2 – Payment & full letter</div>
           <div class="step2-left-sub" id="step2Sub">
-            Please pay once to unlock a complete, ready‑to‑send letter. You can keep this page open
+            Please pay once to unlock a complete, ready-to-send letter. You can keep this page open
             while paying, then confirm below and generate the full letter.
           </div>
           <div class="step2-price-row">
@@ -1208,15 +1207,15 @@
           </button>
           <div class="step2-status" id="fullStatusText">
             After payment is confirmed, the system will draft your full letter here.
-            Nothing is auto‑sent; only you see it.
+            Nothing is auto-sent; only you see it.
           </div>
         </div>
 
         <div>
           <div class="full-output-box" id="fullOutputBox">
             <div class="full-output-placeholder" id="fullOutputPlaceholder">
-              Your complete, ready‑to‑send letter will appear here after Step 2.
-              You can copy it into email, PDF, or a system form. The desk never auto‑sends on your behalf.
+              Your complete, ready-to-send letter will appear here after Step 2.
+              You can copy it into email, PDF, or a system form. The desk never auto-sends on your behalf.
             </div>
           </div>
         </div>
@@ -1265,10 +1264,56 @@
     let currentLang = "en";
     let currentPrice = "29.9";
 
+    // ===== 登录按钮状态（和首页一致）=====
+    const loginBtn = document.querySelector(".primary-btn");
+    const loginBtnTextEl = document.getElementById("loginBtnText");
+
+    function applyLoginState() {
+      if (!loginBtn || !loginBtnTextEl) return;
+      try {
+        const raw =
+          localStorage.getItem("aurum_user") ||
+          localStorage.getItem("aurumdesk_user");
+        if (!raw) {
+          loginBtnTextEl.textContent =
+            currentLang === "zh" ? "登录 / 我的任务台" : "Login / My Desk";
+          loginBtn.onclick = () => {
+            window.location.href = "auth.html";
+          };
+          return;
+        }
+        const user = JSON.parse(raw);
+        const name = user && (user.name || user.email || "");
+        if (name) {
+          const displayName =
+            name.length > 16 ? name.slice(0, 16) + "…" : name;
+          loginBtnTextEl.textContent =
+            currentLang === "zh"
+              ? "您好，" + displayName
+              : "Hi, " + displayName;
+          loginBtn.onclick = () => {
+            window.location.href = "desk.html";
+          };
+        } else {
+          loginBtnTextEl.textContent =
+            currentLang === "zh" ? "登录 / 我的任务台" : "Login / My Desk";
+          loginBtn.onclick = () => {
+            window.location.href = "auth.html";
+          };
+        }
+      } catch (e) {
+        loginBtnTextEl.textContent =
+          currentLang === "zh" ? "登录 / 我的任务台" : "Login / My Desk";
+        loginBtn.onclick = () => {
+          window.location.href = "auth.html";
+        };
+      }
+    }
+
     // ========== 左侧服务可点击 =========
     function syncScenarioAndPrice() {
       fullScenarioLabel.textContent = taskTypeInput.value || "";
-      const priceText = (currentLang === "zh" ? "USD " : "USD ") + currentPrice;
+      const priceText = "USD " + currentPrice;
       fullPriceLabel.textContent = priceText;
     }
 
@@ -1530,7 +1575,7 @@
           "我要起诉某某某（以下简称“原告”）向您提起诉讼，要求对方（以下简称“被告”）支付未偿还的金额，具体情况如下：";
       } else {
         detailsTextarea.value =
-          "I need to raise a serious dispute regarding long‑overdue payments. The other side has ignored reminders and I am now considering formal legal action.";
+          "I need to raise a serious dispute regarding long-overdue payments. The other side has ignored reminders and I am now considering formal legal action.";
       }
     });
 
@@ -1585,11 +1630,11 @@
           "Your 30% preview draft will appear here. It is not saved or sent to anyone. When you are happy with the direction, you can open a full Desk and continue privately.",
         overlayTitle: "Preview only shows part of the letter",
         overlayText:
-          "About 30% of the content is visible here. To unlock the full, ready‑to‑send letter, please scroll down to Step 2 and complete the one‑time payment.",
+          "About 30% of the content is visible here. To unlock the full, ready-to-send letter, please scroll down to Step 2 and complete the one-time payment.",
         overlayBtnText: "Go to Step 2 – Payment & full letter",
         step2Title: "Step 2 – Payment & full letter",
         step2Sub:
-          "Please pay once to unlock a complete, ready‑to‑send letter. You can keep this page open while paying, then confirm below and generate the full letter.",
+          "Please pay once to unlock a complete, ready-to-send letter. You can keep this page open while paying, then confirm below and generate the full letter.",
         payBtnText: "Pay now via Paddle / Wise / PayPal",
         payNoteText:
           "Payment will open in a new tab. After completing payment, return to this page, tick the confirmation box, then generate your full letter.",
@@ -1597,9 +1642,9 @@
           "I confirm I have completed the payment for this full letter.",
         fullGenerateBtnText: "Generate full letter",
         fullStatusDefault:
-          "After payment is confirmed, the system will draft your full letter here. Nothing is auto‑sent; only you see it.",
+          "After payment is confirmed, the system will draft your full letter here. Nothing is auto-sent; only you see it.",
         fullOutputPlaceholder:
-          "Your complete, ready‑to‑send letter will appear here after Step 2. You can copy it into email, PDF, or a system form. The desk never auto‑sends on your behalf."
+          "Your complete, ready-to-send letter will appear here after Step 2. You can copy it into email, PDF, or a system form. The desk never auto-sends on your behalf."
       },
       zh: {
         brandSub: "安静而专业的写作与申诉任务台",
@@ -1671,12 +1716,14 @@
       const t = i18n[lang] || i18n.en;
       currentLang = lang;
 
+      // <html lang="...">
+      document.documentElement.lang = lang === "zh" ? "zh-CN" : "en";
+
       document.getElementById("brandSubText").textContent = t.brandSub;
       document.getElementById("navHome").textContent = t.navHome;
       document.getElementById("navServices").textContent = t.navServices;
       document.getElementById("navFlow").textContent = t.navFlow;
       document.getElementById("navPricing").textContent = t.navPricing;
-      document.getElementById("loginBtnText").textContent = t.loginBtn;
 
       document.getElementById("flowPillText").textContent = t.flowPill;
       document.getElementById("flowTitle").textContent = t.flowTitle;
@@ -1739,6 +1786,9 @@
 
       syncScenarioAndPrice();
       localStorage.setItem("aurum_lang", lang);
+
+      // 根据语言刷新登录按钮文案
+      applyLoginState();
     }
 
     langButtons.forEach((btn) => {
