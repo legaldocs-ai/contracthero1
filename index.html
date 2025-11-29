@@ -202,6 +202,14 @@
       background: radial-gradient(circle at top, rgba(15, 23, 42, 0.9), rgba(2, 6, 23, 0.9));
     }
 
+    /* 当前页面高亮 */
+    .nav-link--active {
+      color: var(--gold);
+      border-color: rgba(251, 191, 36, 0.8);
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.85), rgba(2, 6, 23, 0.95));
+      box-shadow: 0 0 0 1px rgba(251, 191, 36, 0.5);
+    }
+
     .lang-toggle {
       display: inline-flex;
       border-radius: 999px;
@@ -443,7 +451,7 @@
       color: var(--gold);
     }
 
-    /* Avatar slider */
+    /* Avatar / case list */
     .hero-avatars {
       position: relative;
       border-radius: 22px;
@@ -470,83 +478,6 @@
       opacity: 0.6;
       pointer-events: none;
     }
-
-    .avatar-main {
-      position: relative;
-      border-radius: 18px;
-      overflow: hidden;
-      aspect-ratio: 4 / 5;
-      background: radial-gradient(circle at top, #020617, #020617);
-      border: 1px solid rgba(148, 163, 184, 0.7);
-    }
-
-    .avatar-main img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transform: scale(1.02);
-      transition: opacity 0.5s ease-out, transform 0.7s ease-out;
-    }
-
-    .avatar-meta {
-      position: absolute;
-      left: 10px;
-      bottom: 10px;
-      border-radius: 14px;
-      padding: 7px 9px;
-      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.98));
-      border: 1px solid rgba(148, 163, 184, 0.65);
-      backdrop-filter: blur(12px);
-      max-width: 80%;
-      z-index: 2;
-    }
-    .avatar-meta-name {
-      font-size: 0.78rem;
-      font-weight: 600;
-    }
-    .avatar-meta-role {
-      font-size: 0.7rem;
-      color: var(--text-muted);
-      margin-bottom: 4px;
-    }
-    .avatar-meta-note {
-      font-size: 0.7rem;
-      color: #e5e7eb;
-    }
-
-    .avatar-indicators {
-      position: absolute;
-      right: 10px;
-      bottom: 10px;
-      display: flex;
-      gap: 4px;
-      z-index: 3;
-    }
-    .avatar-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.8);
-      background: rgba(15, 23, 42, 0.8);
-      box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.9);
-    }
-    .avatar-dot.active {
-      border-color: rgba(251, 191, 36, 0.9);
-      background: #fbbf24;
-      box-shadow:
-        0 0 10px rgba(251, 191, 36, 0.8),
-        0 0 0 1px rgba(15, 23, 42, 0.9);
-    }
-
-    .avatar-badge span.dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: #22c55e;
-      box-shadow: 0 0 10px rgba(34, 197, 94, 0.9);
-    }
-
 
     .case-list {
       position: relative;
@@ -642,6 +573,21 @@
       margin-top: 6px;
       font-size: 0.78rem;
     }
+    .reason-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      color: var(--text-muted);
+    }
+    .reason-item strong {
+      color: #e5e7eb;
+      font-weight: 500;
+    }
+    .reason-icon {
+      margin-top: 1px;
+      font-size: 0.85rem;
+    }
+
     .why-compare {
       margin-top: 14px;
       padding-top: 10px;
@@ -671,22 +617,6 @@
       .why-compare {
         grid-template-columns: minmax(0, 1fr);
       }
-    }
-
-
-    .reason-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 6px;
-      color: var(--text-muted);
-    }
-    .reason-item strong {
-      color: #e5e7eb;
-      font-weight: 500;
-    }
-    .reason-icon {
-      margin-top: 1px;
-      font-size: 0.85rem;
     }
 
     /* Services grid */
@@ -920,9 +850,10 @@
       nav {
         width: 100%;
         justify-content: flex-end;
+        flex-wrap: wrap;
       }
       .nav-links {
-        display: none;
+        flex-wrap: wrap;
       }
       .hero {
         padding-inline: 16px;
@@ -935,13 +866,13 @@
         flex-direction: column;
       }
     }
-  
+
     @media (max-width: 640px) {
       .compare-grid {
         grid-template-columns: minmax(0, 1fr);
       }
     }
-</style>
+  </style>
 </head>
 <body>
   <div class="page-shell">
@@ -961,6 +892,14 @@
           </div>
         </div>
         <nav>
+          <!-- 顶部页面导航：首页 / Desk / 关于我们 / 联系我们 -->
+          <div class="nav-links">
+            <a href="index.html" class="nav-link" data-page="home" data-i18n-key="navHome">Home</a>
+            <a href="desk.html" class="nav-link" data-page="desk" data-i18n-key="navDesk">Desk</a>
+            <a href="about.html" class="nav-link" data-page="about" data-i18n-key="navAbout">About</a>
+            <a href="contact.html" class="nav-link" data-page="contact" data-i18n-key="navContact">Contact</a>
+          </div>
+          <!-- 本页内部锚点导航：服务 / 流程 / 对比 / 定价 -->
           <div class="nav-links">
             <a href="#services" class="nav-link" data-i18n-key="navServices">Services</a>
             <a href="#how" class="nav-link" data-i18n-key="navHow">How it works</a>
@@ -1036,7 +975,7 @@
               </div>
             </div>
 
-                        <aside class="hero-avatars" aria-label="Case examples">
+            <aside class="hero-avatars" aria-label="Case examples">
               <div class="case-list">
                 <div class="case-item">
                   <div class="case-tag">CASE 1 · Serious letter</div>
@@ -1113,7 +1052,8 @@
                     </span>
                   </div>
                 </div>
-              
+              </div>
+
               <div class="why-compare">
                 <div class="why-compare-col">
                   <div class="why-compare-title">If you only use ChatGPT chat…</div>
@@ -1132,6 +1072,8 @@
                   </ul>
                 </div>
               </div>
+            </div>
+          </div>
 
           <div class="card" id="pricing">
             <div class="card-inner">
@@ -1416,12 +1358,15 @@
     // Year
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // Avatar slider (simple auto-rotate)
     // Simple i18n
     const translations = {
       zh: {
         brandTitle: "Aurum Task Desk",
         brandSub: "您的私人 AI 写作与解决方案工作台",
+        navHome: "首页",
+        navDesk: "Desk 任务台",
+        navAbout: "关于我们",
+        navContact: "联系我们",
         navServices: "服务",
         navHow: "流程",
         navCompare: "为什么不用 ChatGPT？",
@@ -1578,6 +1523,25 @@
         setLanguage("zh");
       }
     } catch (_) {}
+
+    // 顶部页面导航当前页高亮（index.html → 首页）
+    (function () {
+      const path = window.location.pathname.toLowerCase();
+      let currentKey = "home";
+      if (path.endsWith("desk.html") || path.endsWith("desk_full.html")) {
+        currentKey = "desk";
+      } else if (path.endsWith("about.html")) {
+        currentKey = "about";
+      } else if (path.endsWith("contact.html")) {
+        currentKey = "contact";
+      } else if (path.endsWith("index.html") || path === "/" || path === "") {
+        currentKey = "home";
+      }
+
+      document
+        .querySelectorAll('.nav-link[data-page="' + currentKey + '"]')
+        .forEach((el) => el.classList.add("nav-link--active"));
+    })();
   </script>
 </body>
 </html>
