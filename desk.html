@@ -534,6 +534,18 @@
       line-height: 1.4;
     }
 
+    /* 附件区样式 */
+    .ai-input-file {
+      padding: 4px 6px;
+      font-size: 11px;
+      background: rgba(15, 23, 42, 0.9);
+    }
+    .ai-attachments-hint {
+      margin-top: 3px;
+      font-size: 10px;
+      color: rgba(148, 163, 184, 0.95);
+    }
+
     .ai-footer-row {
       display: flex;
       align-items: center;
@@ -615,7 +627,7 @@
       font-size: 11px;
     }
 
-    /* 新增：预览 skeleton 与信息条 */
+    /* skeleton loading */
     .skeleton-line {
       height: 9px;
       border-radius: 999px;
@@ -970,6 +982,24 @@
                 placeholder="Describe the situation in your own words. You can keep it short; the desk will expand it for you."
               ></textarea>
             </div>
+
+            <!-- 新增：附件上传区 -->
+            <div class="ai-form-full">
+              <div class="ai-label">
+                <span id="lblAttachments">Attachments (optional)</span>
+                <span class="badge" id="lblAttachmentsBadge">Screenshots, letters, PDFs</span>
+              </div>
+              <input
+                id="attachmentInput"
+                class="ai-input ai-input-file"
+                type="file"
+                multiple
+                accept=".png,.jpg,.jpeg,.heic,.pdf,.txt,.doc,.docx"
+              />
+              <div class="ai-attachments-hint" id="attachmentsHint">
+                Up to 3 files, about 5MB each. The desk will only read the text it can detect for preview.
+              </div>
+            </div>
           </div>
 
           <div class="ai-footer-row">
@@ -993,7 +1023,7 @@
             </div>
           </div>
 
-          <!-- 新增：安全提示条 -->
+          <!-- 安全提示条 -->
           <div class="info-bar">
             <div class="info-bar-icon">ⓘ</div>
             <div class="info-bar-text">
@@ -1010,7 +1040,6 @@
               to any company or person. When you are happy with the direction,
               you can open a full Desk and continue privately.
             </div>
-            <!-- 新增：实际预览内容容器 -->
             <div id="aiPreviewContent"></div>
           </div>
         </section>
@@ -1038,13 +1067,42 @@
     const aiGenerateBtn = document.getElementById("aiGenerateBtn");
     const aiGenerateBtnTextEl = document.getElementById("aiGenerateBtnText");
     const aiStatusText = document.getElementById("aiStatusText");
-    const aiPreviewBox = document.getElementById("aiPreviewBox");
     const aiPreviewPlaceholder = document.getElementById("aiPreviewPlaceholder");
     const aiPreviewContent = document.getElementById("aiPreviewContent");
     const toneSelect = document.getElementById("toneSelect");
     const languageSelect = document.getElementById("languageSelect");
     const recipientInput = document.getElementById("recipientInput");
     const detailsTextarea = document.getElementById("detailsTextarea");
+    const attachmentInput = document.getElementById("attachmentInput");
+
+    // 把附件转成 base64，限制最多 3 个、约 5MB
+    async function collectAttachments() {
+      const files = Array.from(attachmentInput.files || []).slice(0, 3);
+      const out = [];
+
+      for (const file of files) {
+        if (file.size > 5 * 1024 * 1024) {
+          continue; // 太大就忽略
+        }
+        const base64 = await new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => {
+            const result = reader.result || "";
+            const parts = String(result).split(",");
+            resolve(parts.length > 1 ? parts[1] : "");
+          };
+          reader.onerror = reject;
+          reader.readAsDataURL(file);
+        });
+        out.push({
+          name: file.name,
+          type: file.type || "application/octet-stream",
+          size: file.size,
+          base64
+        });
+      }
+      return out;
+    }
 
     async function callPreview() {
       const taskType  = (taskTypeInput.value || "").trim() || "写作任务";
@@ -1073,6 +1131,24 @@
         '<div class="skeleton-line mid"></div>' +
         '<div class="skeleton-line short"></div>';
 
+      // 收集附件
+      let attachments = [];
+      try {
+        attachments = await collectAttachments();
+      } catch (e) {
+        console.warn("Attachment read error:", e);
+      }
+
+      // 即使后端暂时没用 attachments 字段，也在 details 里提一下文件名
+      let detailsToSend = details;
+      if (attachments.length) {
+        const names = attachments.map(a => a.name).join(", ");
+        const note = language === "中文"
+          ? `【附件说明】我还上传了这些文件供你参考：${names}`
+          : `[Attachments] I also uploaded these files for you to reference: ${names}`;
+        detailsToSend = details + "\n\n" + note;
+      }
+
       try {
         const res = await fetch("https://aurum-task-worker.sophieinbg.workers.dev/api/generate", {
           method: "POST",
@@ -1082,7 +1158,8 @@
             tone,
             language,
             recipient,
-            details
+            details: detailsToSend,
+            attachments   // 后端若支持，可以真正读取这些文件
           })
         });
 
@@ -1097,6 +1174,9 @@
           const errMsg = (data && data.error) ? String(data.error) : ("HTTP " + res.status);
           console.error("Backend error:", errMsg);
 
+          aiPreviewContent.textContent = "";
+          aiPreviewPlaceholder.style.display = "block";
+
           aiStatusText.textContent = language === "中文"
             ? "后端报错：" + errMsg
             : "Backend error: " + errMsg;
@@ -1104,6 +1184,9 @@
         }
 
         if (!data.preview) {
+          aiPreviewContent.textContent = "";
+          aiPreviewPlaceholder.style.display = "block";
+
           aiStatusText.textContent = language === "中文"
             ? "后端没有返回预览内容。"
             : "Backend returned no preview content.";
@@ -1116,6 +1199,9 @@
           : "Preview ready. You can adjust it here, then continue inside your Desk.";
       } catch (err) {
         console.error("Frontend error:", err);
+        aiPreviewContent.textContent = "";
+        aiPreviewPlaceholder.style.display = "block";
+
         aiStatusText.textContent = language === "中文"
           ? "前端错误：" + (err && err.message ? err.message : String(err))
           : "Frontend error: " + (err && err.message ? err.message : String(err));
@@ -1133,6 +1219,7 @@
     document.getElementById("btnClear").addEventListener("click", () => {
       recipientInput.value = "";
       detailsTextarea.value = "";
+      attachmentInput.value = "";
       aiPreviewContent.textContent = "";
       aiPreviewPlaceholder.style.display = "block";
       aiStatusText.textContent = languageSelect.value === "中文"
@@ -1144,10 +1231,10 @@
       if (detailsTextarea.value.trim()) return;
       if (languageSelect.value === "中文") {
         detailsTextarea.value =
-          "我在回国旅途中遇到航班大面积延误，导致我无法按时转机并错过后续行程，航空公司只提供了很少的餐食券，也没有给出明确的赔偿方案。";
+          "我希望向客户解释长期欠款的事实，并提出一个分期还款的方案，同时保持语气平和、尊重，不激化矛盾。";
       } else {
         detailsTextarea.value =
-          "During my return trip, my flight was heavily delayed which made me miss my connection and important meetings. The airline only gave a small meal voucher and has not offered a clear compensation plan.";
+          "I need to inform my client about the long overdue payment and propose a structured repayment plan, while staying calm and respectful to avoid escalating the conflict.";
       }
     });
 
@@ -1189,6 +1276,10 @@
         lblTone: "Tone",
         lblRecipient: "Recipient (optional)",
         lblDetails: "What happened? (you can be brief)",
+        lblAttachments: "Attachments (optional)",
+        lblAttachmentsBadge: "Screenshots, letters, PDFs",
+        attachmentsHint:
+          "Up to 3 files, about 5MB each. The desk will only read the text it can detect for preview.",
         btnExample: "Paste an example case",
         btnPreview: "Generate preview draft",
         statusDefault:
@@ -1231,6 +1322,10 @@
         lblTone: "语气",
         lblRecipient: "收件方（可选）",
         lblDetails: "简单讲讲发生了什么",
+        lblAttachments: "附件（可选）",
+        lblAttachmentsBadge: "截图、信件、票据 PDF",
+        attachmentsHint:
+          "最多上传 3 个文件，单个约 5MB。系统只会读取能识别到的文字用于预览，不会外传。",
         btnExample: "粘贴一个示例案例",
         btnPreview: "生成预览草稿",
         statusDefault:
@@ -1279,6 +1374,12 @@
       document.getElementById("lblTone").textContent = t.lblTone;
       document.getElementById("lblRecipient").textContent = t.lblRecipient;
       document.getElementById("lblDetails").textContent = t.lblDetails;
+      document.getElementById("lblAttachments").textContent = t.lblAttachments;
+      document.getElementById("lblAttachmentsBadge").textContent =
+        t.lblAttachmentsBadge;
+      document.getElementById("attachmentsHint").textContent =
+        t.attachmentsHint;
+
       document.getElementById("btnPasteExampleText").textContent =
         t.btnExample;
       document.getElementById("aiGenerateBtnText").textContent =
@@ -1300,6 +1401,7 @@
       localStorage.setItem("aurum_lang", lang);
     }
 
+    const langButtons = document.querySelectorAll(".lang-btn");
     langButtons.forEach((btn) => {
       btn.addEventListener("click", () => {
         const lang = btn.dataset.lang || "en";
