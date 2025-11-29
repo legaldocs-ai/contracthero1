@@ -10,7 +10,7 @@
   <link rel="icon" type="image/png" href="favicon.png" />
 
   <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletmanager.com/gtag/js?id=G-NEY7RNB5S"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NEY7RNB5S"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){ dataLayer.push(arguments); }
@@ -56,7 +56,7 @@
       margin: 0 auto;
     }
 
-    /* === 顶部导航：与首页风格统一 === */
+    /* 顶部导航，与首页一致 */
     header {
       display: flex;
       align-items: center;
@@ -243,7 +243,6 @@
       }
     }
 
-    /* 主体布局 */
     .desk-main-card {
       margin-top: 6px;
       border-radius: var(--radius-xl);
@@ -355,7 +354,7 @@
     }
     .service-card-title {
       font-size: 13px;
-      font-weight: 600;
+      font-weight: 500;
       color: var(--text-soft);
     }
     .service-card-mini {
@@ -739,7 +738,6 @@
       color: #111827;
     }
 
-    /* Step 2: 付款 + 完整信件 */
     .step2-card {
       margin-top: 18px;
       border-radius: var(--radius-xl);
@@ -1285,9 +1283,10 @@
   </div>
 
   <script>
-    // 替换成你的收款链接（可以是 Paddle 单价链接、Wise 固定金额收款页、PayPal.Me 等）
-    const PADDLE_LINK = "https://your-paddle-checkout-link.com";
+    // ===== 支付链接（你只需要改这里） =====
+    const PADDLE_LINK = "https://your-paddle-checkout-link.com"; // TODO: 换成你的 Paddle/Wise/PayPal 链接
 
+    // ===== DOM 引用 =====
     const serviceItems = document.querySelectorAll(".service-item");
     const taskTypeInput = document.getElementById("taskTypeInput");
 
@@ -1314,16 +1313,20 @@
 
     // Step 2
     const fullScenarioLabel = document.getElementById("fullScenarioLabel");
-    const fullPriceLabel = document.getElementById("fullPriceLabel");
-    const payBtn = document.getElementById("payBtn");
+    const fullPriceLabel   = document.getElementById("fullPriceLabel");
+    const payBtn           = document.getElementById("payBtn");
     const payConfirmCheckbox = document.getElementById("payConfirmCheckbox");
-    const fullGenerateBtn = document.getElementById("fullGenerateBtn");
-    const fullOutputBox = document.getElementById("fullOutputBox");
+    const fullGenerateBtn  = document.getElementById("fullGenerateBtn");
+    const fullOutputBox    = document.getElementById("fullOutputBox");
     const fullOutputPlaceholder = document.getElementById("fullOutputPlaceholder");
-    const fullStatusText = document.getElementById("fullStatusText");
+    const fullStatusText   = document.getElementById("fullStatusText");
 
     let currentLang = "en";
     let currentPrice = "29.9";
+
+    // 最近一次完整信件的缓存，用于“预览 30% + 解锁 100%”
+    let lastFullDraft = "";
+    let lastDraftMeta = null;
 
     function syncScenarioAndPrice() {
       fullScenarioLabel.textContent = taskTypeInput.value || "";
@@ -1385,6 +1388,7 @@
       return out;
     }
 
+    // ========= 预览：向后端要整封信，只展示前 30–35% =========
     async function callPreview() {
       const taskType  = (taskTypeInput.value || "").trim() || "Writing task";
       const tone      = (toneSelect.value || "calm, respectful").toString();
@@ -1410,7 +1414,7 @@
             recipient,
             details,
             attachments,
-            mode: "preview"
+            mode: "full" // 要整封信
           })
         });
 
@@ -1430,27 +1434,38 @@
           return;
         }
 
-        const fullDraft = String(data.preview || data.draft || data.content || "").trim();
+        const fullDraft = String(
+          data.full ||
+          data.content ||
+          data.draft ||
+          data.preview ||
+          ""
+        ).trim();
+
         if (!fullDraft) {
           aiStatusText.textContent = language === "中文"
-            ? "后端没有返回预览内容。"
-            : "Backend returned no preview content.";
+            ? "后端没有返回内容。"
+            : "Backend returned no content.";
           return;
         }
 
-        // 截断约 35%，保证预览长度适中
+        // 缓存整封信及其元信息，供“生成完整信件”使用
+        lastFullDraft = fullDraft;
+        lastDraftMeta = { taskType, tone, language, recipient, details };
+
+        // 只显示前 ~35% 作为预览
         const maxChars = Math.max(400, Math.floor(fullDraft.length * 0.35));
         const previewPart = fullDraft.slice(0, maxChars);
 
         aiPreviewPlaceholder.style.display = "none";
         aiPreviewBox.textContent = previewPart;
 
-        // 显示遮罩，只盖住下半段
+        // 显示遮罩（下半部分）
         aiPreviewOverlay.style.display = "flex";
 
         aiStatusText.textContent = language === "中文"
-          ? "预览完成。这里只展示部分内容，完整信件请在下方完成付款后生成。"
-          : "Preview ready. Only part of the letter is shown here. Please go to Step 2 below to unlock the full letter.";
+          ? "预览完成。这里只展示部分内容，完整信件请在下方完成付款后解锁。"
+          : "Preview ready. Only part of the letter is shown. After payment you can unlock the full letter below.";
       } catch (err) {
         console.error("Frontend error:", err);
         aiStatusText.textContent = language === "中文"
@@ -1469,6 +1484,7 @@
       document.getElementById("step2Card").scrollIntoView({ behavior: "smooth" });
     });
 
+    // ========= 支付按钮：打开外部收款页面 =========
     payBtn.addEventListener("click", () => {
       if (PADDLE_LINK && PADDLE_LINK.startsWith("http")) {
         window.open(PADDLE_LINK, "_blank");
@@ -1477,6 +1493,7 @@
       }
     });
 
+    // ========= 生成完整信件：只要有 lastFullDraft 就直接用，不再向后端请求 =========
     async function callFullLetter() {
       const language = (languageSelect.value || "English").toString();
 
@@ -1487,6 +1504,17 @@
         return;
       }
 
+      // 只要预览生成过一次，就直接解锁同一封
+      if (lastFullDraft) {
+        fullOutputPlaceholder.style.display = "none";
+        fullOutputBox.textContent = lastFullDraft;
+        fullStatusText.textContent = language === "中文"
+          ? "已解锁刚才预览对应的完整信件。你可以复制到邮件、PDF 或系统表单中使用。"
+          : "Unlocked the full letter based on your preview. You can copy it into email, PDF, or a system form.";
+        return;
+      }
+
+      // 如果没有预览就直接付款：才会走一次后端
       const taskType  = (taskTypeInput.value || "").trim() || "Writing task";
       const tone      = (toneSelect.value || "calm, respectful").toString();
       const recipient = (recipientInput.value || "").toString();
@@ -1545,6 +1573,9 @@
           return;
         }
 
+        lastFullDraft = fullDraft;
+        lastDraftMeta = { taskType, tone, language, recipient, details };
+
         fullOutputPlaceholder.style.display = "none";
         fullOutputBox.textContent = fullDraft;
         fullStatusText.textContent = language === "中文"
@@ -1564,6 +1595,7 @@
       callFullLetter();
     });
 
+    // Reset 按钮
     btnClear.addEventListener("click", () => {
       recipientInput.value = "";
       detailsTextarea.value = "";
@@ -1572,11 +1604,14 @@
       aiPreviewBox.textContent = "";
       aiPreviewPlaceholder.style.display = "block";
       aiPreviewOverlay.style.display = "none";
+      lastFullDraft = "";
+      lastDraftMeta = null;
       aiStatusText.textContent = languageSelect.value === "中文"
         ? "系统只会生成约 30% 的预览草稿，不会保存也不会发送。"
         : "System will draft about 30% of the letter as a preview only.";
     });
 
+    // 示例粘贴
     btnPasteExample.addEventListener("click", () => {
       if (detailsTextarea.value.trim()) return;
       if (languageSelect.value === "中文") {
@@ -1588,7 +1623,9 @@
       }
     });
 
+    // ========= 多语言 & 登录状态 =========
     const langButtons = document.querySelectorAll(".lang-btn");
+
     const i18n = {
       en: {
         brandSub: "Private writing & resolution desk",
@@ -1720,7 +1757,6 @@
       }
     };
 
-    // ==== 登录状态：复用 aurum_user ====
     const USER_STORAGE_KEY = "aurum_user";
 
     function getCurrentUser() {
@@ -1741,18 +1777,16 @@
       const user = getCurrentUser();
       const t = (i18n[currentLang] || i18n.en);
 
-      if (user && (user.name || user.email)) {
-        const baseName = user.name || (user.email || "").split("@")[0] || "User";
-        const name = String(baseName).slice(0, 18);
+      if (user && user.name) {
+        const name = String(user.name).slice(0, 18);
         const hiText = "Hi, " + name;
         loginTextEl.textContent = hiText;
-        loginBtn.href = "desk.html"; // 已登录直接进 Desk
+        loginBtn.href = "desk.html";
       } else {
         loginTextEl.textContent = t.loginBtn;
-        loginBtn.href = "auth.html"; // 未登录去登录页
+        loginBtn.href = "auth.html";
       }
     }
-    // ==== 登录状态 END ====
 
     function applyLang(lang) {
       const t = i18n[lang] || i18n.en;
@@ -1834,7 +1868,8 @@
       applyLoginState();
     }
 
-    langButtons.forEach((btn) => {
+    const langButtonsList = document.querySelectorAll(".lang-btn");
+    langButtonsList.forEach((btn) => {
       btn.addEventListener("click", () => {
         const lang = btn.dataset.lang || "en";
         applyLang(lang);
