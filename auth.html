@@ -344,4 +344,349 @@
     }
     .btn {
       width: 100%;
-      border-radius: 999p
+      border-radius: 999px;
+      padding: 9px 14px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #fbbf24, #eab308);
+      color: #020617;
+      box-shadow:
+        0 0 0 1px rgba(251, 191, 36, 0.8),
+        0 16px 34px rgba(8, 47, 73, 0.9);
+    }
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow:
+        0 0 0 1px rgba(251, 191, 36, 1),
+        0 20px 44px rgba(8, 47, 73, 1);
+    }
+    .btn-secondary {
+      background: rgba(15, 23, 42, 1);
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      color: var(--text-main);
+    }
+    .btn-secondary:hover {
+      border-color: rgba(251, 191, 36, 0.9);
+      color: #fefce8;
+      box-shadow: 0 10px 26px rgba(15, 23, 42, 0.9);
+    }
+    .small-note {
+      margin-top: 8px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+    .status {
+      margin-top: 8px;
+      font-size: 0.78rem;
+      min-height: 1.3em;
+    }
+    .status.ok { color: #4ade80; }
+    .status.err { color: #fca5a5; }
+
+    footer {
+      max-width: 1120px;
+      margin: 26px auto 0;
+      padding: 18px 16px 26px;
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      border-top: 1px solid rgba(31, 41, 55, 0.9);
+    }
+    .footer-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+    .footer-links a:hover {
+      color: #e5e7eb;
+    }
+
+    @media (max-width: 900px) {
+      header { border-radius: 18px; padding-inline: 14px; }
+      .auth-layout {
+        grid-template-columns: minmax(0, 1fr);
+        margin-top: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-shell">
+    <div class="content">
+      <header>
+        <div class="brand">
+          <div class="brand-mark">
+            <div class="brand-mark-inner">AU</div>
+          </div>
+          <div class="brand-text">
+            <div class="brand-title">Aurum Task Desk</div>
+            <div class="brand-sub">Private AI Writing & Resolution Desk</div>
+          </div>
+        </div>
+        <nav>
+          <div class="nav-links">
+            <a href="index.html" class="nav-link nav-link-pill" data-page="home">首页</a>
+            <a href="desk.html" class="nav-link nav-link-pill" data-page="desk">Desk 任务台</a>
+            <a href="about.html" class="nav-link" data-page="about">关于我们</a>
+            <a href="contact.html" class="nav-link" data-page="contact">联系我们</a>
+          </div>
+          <div class="lang-toggle" aria-label="Language">
+            <button class="lang-btn active" data-lang="en">EN</button>
+            <button class="lang-btn" data-lang="zh">中</button>
+          </div>
+          <a href="auth.html" class="login-btn">
+            <span class="icon">⭑</span>
+            <span>登录 / 我的 Desk</span>
+          </a>
+        </nav>
+      </header>
+
+      <main class="auth-layout">
+        <section class="auth-copy">
+          <h1>
+            <span class="accent">Login / My Desk</span><br />
+            安静一点，再处理你的任务
+          </h1>
+          <p>
+            这里是你自己的 Aurum Task Desk 账号入口。  
+            登录后，你可以更方便地继续未完成的任务，查看历史信件、升级服务。
+          </p>
+          <div class="auth-highlights">
+            <div class="auth-highlight-item">
+              <span class="bullet">•</span>
+              <span>我们只需要你的邮箱和一个密码，不做花里胡哨的社交账号登录。</span>
+            </div>
+            <div class="auth-highlight-item">
+              <span class="bullet">•</span>
+              <span>账号只用于保存任务与信件，不会拿去做广告投放或“训练素材”。</span>
+            </div>
+            <div class="auth-highlight-item">
+              <span class="bullet">•</span>
+              <span>如果你只是一次性任务，也可以注册后随时要求删除账号。</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="auth-card">
+          <div class="auth-tabs">
+            <button class="auth-tab active" data-mode="login">登录到我的 Desk</button>
+            <button class="auth-tab" data-mode="register">第一次使用，创建账号</button>
+          </div>
+
+          <form id="authForm" class="auth-form">
+            <div class="field">
+              <label for="email">邮箱 (作为登录账号)</label>
+              <input type="email" id="email" required placeholder="you@example.com" />
+            </div>
+
+            <div id="register-extra" style="display:none;">
+              <div class="field">
+                <label for="passwordReg">设置密码</label>
+                <input type="password" id="passwordReg" minlength="6" required placeholder="至少 6 位字母或数字" />
+              </div>
+              <div class="field">
+                <label for="passwordReg2">再次输入密码</label>
+                <input type="password" id="passwordReg2" minlength="6" required />
+              </div>
+            </div>
+
+            <div id="login-field">
+              <div class="field">
+                <label for="passwordLogin">密码</label>
+                <input type="password" id="passwordLogin" minlength="6" required />
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" id="submitBtn">
+              登录
+            </button>
+
+            <button type="button" class="btn btn-secondary" id="backDeskBtn" style="margin-top:6px;">
+              返回任务台 Desk
+            </button>
+
+            <p class="small-note">
+              忘记密码？目前可以先重新注册一个账号（使用同一个邮箱或新的邮箱），
+              以后我们会开通专门的重置密码入口。
+            </p>
+
+            <div id="status" class="status"></div>
+          </form>
+        </section>
+      </main>
+    </div>
+
+    <footer>
+      <div class="footer-row">
+        <div>
+          <span>© <span id="year"></span> Aurum Task Desk.</span>
+          <span> 为严肃问题而生的安静写作工作台。</span>
+        </div>
+        <div class="footer-links">
+          <a href="privacy.html">隐私政策</a>
+          <a href="terms.html">使用条款</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // ===== 语言切换（先简单：EN = 原文，ZH 保持中文说明为主）=====
+    const langBtns = document.querySelectorAll(".lang-btn");
+    langBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        langBtns.forEach(b => b.classList.toggle("active", b === btn));
+        const lang = btn.dataset.lang;
+        document.documentElement.lang = (lang === "zh" ? "zh-CN" : "en");
+        try { localStorage.setItem("aurum_lang", lang); } catch(e) {}
+      });
+    });
+    try {
+      const saved = localStorage.getItem("aurum_lang");
+      if (saved === "zh") {
+        document.querySelector('.lang-btn[data-lang="zh"]').click();
+      }
+    } catch(e) {}
+
+    // ===== 导航当前页高亮：这里不单独高亮，默认 Desk 或首页由其它页面控制 =====
+
+    // ===== 登录 / 注册切换 =====
+    const tabs = document.querySelectorAll(".auth-tab");
+    const registerExtra = document.getElementById("register-extra");
+    const loginField = document.getElementById("login-field");
+    const submitBtn = document.getElementById("submitBtn");
+    let mode = "login";
+
+    tabs.forEach(tab => {
+      tab.addEventListener("click", () => {
+        mode = tab.dataset.mode;
+        tabs.forEach(t => t.classList.toggle("active", t === tab));
+        if (mode === "register") {
+          registerExtra.style.display = "";
+          loginField.style.display = "none";
+          submitBtn.textContent = "创建账号并登录";
+        } else {
+          registerExtra.style.display = "none";
+          loginField.style.display = "";
+          submitBtn.textContent = "登录";
+        }
+        document.getElementById("status").textContent = "";
+        document.getElementById("status").className = "status";
+      });
+    });
+
+    document.getElementById("backDeskBtn").addEventListener("click", () => {
+      window.location.href = "desk.html";
+    });
+
+    // ===== API 封装 =====
+    // TODO: 把这里改成你自己的 Cloudflare Worker 地址
+    const API_BASE = ""; // 例: "https://aurumdesk-worker.yourname.workers.dev"
+
+    async function callAPI(path, payload) {
+      const res = await fetch(API_BASE + path, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload || {})
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        const msg = data.error || data.message || ("Request failed: " + res.status);
+        throw new Error(msg);
+      }
+      return data;
+    }
+
+    const form = document.getElementById("authForm");
+    const statusEl = document.getElementById("status");
+
+    function setStatus(msg, ok) {
+      statusEl.textContent = msg || "";
+      statusEl.className = "status " + (ok === true ? "ok" : ok === false ? "err" : "");
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = document.getElementById("email").value.trim();
+      if (!email) {
+        setStatus("请输入邮箱地址。", false);
+        return;
+      }
+
+      try {
+        submitBtn.disabled = true;
+        submitBtn.textContent = mode === "login" ? "登录中..." : "创建中...";
+        setStatus("正在处理，请稍候...", null);
+
+        let data;
+        if (mode === "register") {
+          const p1 = document.getElementById("passwordReg").value;
+          const p2 = document.getElementById("passwordReg2").value;
+          if (p1.length < 6) {
+            setStatus("密码至少 6 位。", false);
+            return;
+          }
+          if (p1 !== p2) {
+            setStatus("两次密码不一致。", false);
+            return;
+          }
+          data = await callAPI("/auth/register", { email, password: p1 });
+        } else {
+          const p = document.getElementById("passwordLogin").value;
+          if (p.length < 6) {
+            setStatus("密码至少 6 位。", false);
+            return;
+          }
+          data = await callAPI("/auth/login", { email, password: p });
+        }
+
+        // 约定后端返回 { token, user: { email } }
+        try {
+          if (data.token) localStorage.setItem("aurum_token", data.token);
+          if (data.user && data.user.email) {
+            localStorage.setItem("aurum_email", data.user.email);
+          } else {
+            localStorage.setItem("aurum_email", email);
+          }
+        } catch(e) {}
+
+        setStatus("已登录，你可以返回任务台。", true);
+        submitBtn.textContent = "已登录";
+
+        // 1秒后跳转到 Desk
+        setTimeout(() => {
+          window.location.href = "desk.html";
+        }, 1000);
+      } catch (err) {
+        console.error(err);
+        setStatus(err.message || "登录失败，请稍后再试。", false);
+      } finally {
+        submitBtn.disabled = false;
+        if (mode === "login") submitBtn.textContent = "登录";
+        else submitBtn.textContent = "创建账号并登录";
+      }
+    });
+  </script>
+</body>
+</html>
