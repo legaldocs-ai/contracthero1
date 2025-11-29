@@ -55,7 +55,7 @@
       margin: 0 auto;
     }
 
-    /* 顶部导航：改成和 desk 一致的“胶囊条 + 高亮”风格 */
+    /* 顶部导航：和 Desk / Contact 统一 */
     .top-nav {
       display: flex;
       align-items: center;
@@ -552,15 +552,15 @@
           <a href="index.html" class="nav-link" id="navHome">Home</a>
           <a href="desk.html" class="nav-link" id="navDesk">Desk</a>
           <a href="about.html" class="nav-link nav-link--active" id="navAbout">About</a>
-          <a href="index.html#contact" class="nav-link" id="navContact">Contact</a>
+          <!-- 改成独立 Contact 页面 -->
+          <a href="contact.html" class="nav-link" id="navContact">Contact</a>
         </div>
         <div class="nav-right">
           <div class="lang-toggle">
             <button class="lang-btn active" data-lang="en" id="btnLangEn">EN</button>
             <button class="lang-btn" data-lang="zh" id="btnLangZh">中</button>
           </div>
-          <!-- 这里去掉原来的 onclick，用 JS 根据登录状态控制 -->
-          <button class="primary-btn">
+          <button class="primary-btn" id="loginBtn">
             <span class="icon">⭑</span>
             <span id="loginBtnText">Login / My Desk</span>
           </button>
@@ -760,9 +760,10 @@
   </div>
 
   <script>
-    // ===== 语言 & 导航同步逻辑（和 index / desk 共用 aurum_lang） =====
+    // ===== 语言 & 登录状态同步 =====
     const langButtons = document.querySelectorAll(".lang-btn");
     const loginBtnTextEl = document.getElementById("loginBtnText");
+    const loginBtnEl = document.getElementById("loginBtn");
     const brandSubText = document.getElementById("brandSubText");
     const navHome = document.getElementById("navHome");
     const navDesk = document.getElementById("navDesk");
@@ -770,7 +771,6 @@
     const navContact = document.getElementById("navContact");
 
     let currentLang = "en";
-    let currentUser = null;
 
     const i18n = {
       en: {
@@ -805,8 +805,7 @@
         whoMain1:
           "Senior employees, engineers, managers or small business owners who must send a formal letter to a company, supplier, landlord, or partner and want it to be calm but firm.",
         whoMain2:
-          "Travellers, retirees or families facing insurance or airline problems – delays, lost luggage,
-          denied claims – who need a structured claim letter with the right tone.",
+          "Travellers, retirees or families facing insurance or airline problems – delays, lost luggage, denied claims – who need a structured claim letter with the right tone.",
         whoMain3:
           "People dealing with immigration paperwork, embassy communication or family crisis letters who feel emotionally overwhelmed and want a neutral, private assistant.",
 
@@ -923,9 +922,50 @@
       }
     };
 
+    // 从 localStorage 中读取登录展示名，兼容多种字段
+    function getLoginLabel() {
+      const short = localStorage.getItem("aurum_user_short");
+      const name = localStorage.getItem("aurum_user_name");
+      const email = localStorage.getItem("aurum_user_email");
+      let base = short || name || email || "";
+
+      if (!base) return "";
+
+      if (!short && !name && email) {
+        // 用邮箱前缀
+        base = email.split("@")[0] || email;
+      }
+
+      if (base.length > 12) {
+        base = base.slice(0, 3) + "…" + base.slice(-2);
+      }
+      return base;
+    }
+
+    function refreshLoginState() {
+      const label = getLoginLabel();
+      const t = i18n[currentLang] || i18n.en;
+
+      if (!loginBtnEl) return;
+
+      if (label) {
+        // 已登录：显示 Hi, XXX，点击去 Desk
+        loginBtnTextEl.textContent = "Hi, " + label;
+        loginBtnEl.onclick = function () {
+          window.location.href = "desk.html";
+        };
+      } else {
+        // 未登录：显示多语言 Login 文案，点击去 auth
+        loginBtnTextEl.textContent = t.loginBtn;
+        loginBtnEl.onclick = function () {
+          window.location.href = "auth.html";
+        };
+      }
+    }
+
     function applyLang(lang) {
-      const t = i18n[lang] || i18n.en;
       currentLang = lang;
+      const t = i18n[lang] || i18n.en;
 
       // 顶部
       brandSubText.textContent = t.brandSub;
@@ -933,11 +973,8 @@
       navDesk.textContent = t.navDesk;
       navAbout.textContent = t.navAbout;
       navContact.textContent = t.navContact;
-
-      // 只有未登录时才切换按钮文案，已登录就保持 "Hi, xxx"
-      if (!currentUser || !currentUser.email) {
-        loginBtnTextEl.textContent = t.loginBtn;
-      }
+      // 登录按钮文案先按语言设置一遍，随后 refreshLoginState 里会根据是否登录覆盖
+      loginBtnTextEl.textContent = t.loginBtn;
 
       // about hero
       document.getElementById("aboutPillText").textContent = t.aboutPill;
@@ -986,18 +1023,18 @@
       document.getElementById("founderMeta").textContent = t.founderMeta;
       document.getElementById("founderText").textContent = t.founderText;
 
-      // 按钮样式
+      // 语言按钮高亮
       langButtons.forEach((b) => {
         b.classList.toggle("active", b.dataset.lang === lang);
       });
 
-      if (lang === "zh") {
-        document.documentElement.lang = "zh-CN";
-      } else {
-        document.documentElement.lang = "en";
-      }
+      document.documentElement.lang = (lang === "zh" ? "zh-CN" : "en");
 
+      // 保存语言，和 index / desk / contact 同步
       localStorage.setItem("aurum_lang", lang);
+
+      // 根据语言 & 登录状态刷新按钮
+      refreshLoginState();
     }
 
     langButtons.forEach((btn) => {
@@ -1016,40 +1053,16 @@
       }
     })();
 
-    // ============================
-    // 登录状态同步：Aurum Desk 全站通用
-    // ============================
-    (function syncLoginState() {
-      let user = null;
-
-      try {
-        const raw = localStorage.getItem("aurum_user");
-        if (raw) user = JSON.parse(raw);
-      } catch (e) {
-        console.warn("aurum_user parse error", e);
+    // 如果在其它标签页登录 / 退出，本页也能同步（可选）
+    window.addEventListener("storage", (event) => {
+      if (
+        event.key === "aurum_user_email" ||
+        event.key === "aurum_user_name" ||
+        event.key === "aurum_user_short"
+      ) {
+        refreshLoginState();
       }
-
-      const loginBtn = document.querySelector(".primary-btn");
-      if (!loginBtn || !loginBtnTextEl) return;
-
-      currentUser = user;
-
-      if (user && user.email) {
-        // 已登录：Hi, name -> desk.html
-        const displayName =
-          (user.name && user.name.trim()) ||
-          (user.email && user.email.split("@")[0]) ||
-          "My Desk";
-
-        loginBtnTextEl.textContent = `Hi, ${displayName}`;
-        loginBtn.onclick = () => (window.location.href = "desk.html");
-      } else {
-        // 未登录：按当前语言显示按钮文案 -> auth.html
-        const t = i18n[currentLang] || i18n.en;
-        loginBtnTextEl.textContent = t.loginBtn;
-        loginBtn.onclick = () => (window.location.href = "auth.html");
-      }
-    })();
+    });
   </script>
 </body>
 </html>
