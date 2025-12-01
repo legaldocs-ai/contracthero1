@@ -1517,7 +1517,7 @@ Aurum Account Recovery Desk
   // 页面加载时先按 URL 的 plan（如果有）更新一遍
   applyPlan(initialPlanKey, { source: "url" });
 
-  // ===== Step1：调用 /w/api/diagnosis =====
+  // ===== Step1：调用 https://aurum-task-worker.sophieinbg.workers.dev/api/diagnosis=====
   var form = document.getElementById("diagnosisForm");
   var runBtn = document.getElementById("runBtn");
   var runBtnText = document.getElementById("runBtnText");
@@ -1565,7 +1565,7 @@ Aurum Account Recovery Desk
       riskBadge.style.display = "none";
 
       try {
-        const res = await fetch("/w/api/diagnosis", {
+        const res = await fetch("https://aurum-task-worker.sophieinbg.workers.dev/api/diagnosis", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
@@ -1634,7 +1634,7 @@ Aurum Account Recovery Desk
     });
   }
 
-  // ===== Step2：调用 /w/api/full-letter =====
+  // ===== Step2：调用 https://aurum-task-worker.sophieinbg.workers.dev/api/full-letter=====
   var paidCheck = document.getElementById("paidCheck");
   var unlockBtn = document.getElementById("unlockBtn");
   var fullLetterBody = document.getElementById("fullLetterBody");
@@ -1661,7 +1661,7 @@ Aurum Account Recovery Desk
           initialPlanKey ||
           "standard"; // 发给 Worker，作为内部参考
 
-        const res = await fetch("/w/api/full-letter", {
+        const res = await fetch("https://aurum-task-worker.sophieinbg.workers.dev/api/full-letter", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
