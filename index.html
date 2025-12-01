@@ -2,27 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Aurum Task Desk — Private AI Writing & Resolution Desk</title>
+  <title>Aurum Dispute Desk — Account Risk, Appeal & Reinstatement System</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- Favicon -->
-  <link rel="icon" href="favicon.png" />
-  <link rel="icon" type="image/png" href="favicon.png" />
-
-  <!-- Google tag (gtag.js) — keep as in your original site if needed -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NEY7RNB5S"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){ dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', 'G-NEY7RNB5S');
-  </script>
+  <link rel="icon" href="favicon.png" type="image/png" />
 
   <!-- Basic SEO -->
-  <meta
-    name="description"
-    content="Aurum Task Desk is a private AI writing & resolution desk for 40+ US & EU professionals — legal-style letters, immigration explanations, insurance claims, family crisis letters, and complaint escalation."
-  />
+  <meta name="description" content="Aurum Dispute Desk helps you analyze account risk, generate strong appeal letters and step-by-step reinstatement strategies for TikTok, PayPal, Stripe, Facebook Ads, Airbnb, Amazon and more." />
 
   <style>
     * {
@@ -33,98 +20,52 @@
 
     :root {
       --bg-deep: #020617;
-      --bg-soft: #020b2a;
-      --card: #020816;
+      --bg-card: #020617;
+      --bg-soft: #020617;
+      --border-subtle: rgba(148, 163, 184, 0.3);
       --gold: #fbbf24;
       --gold-soft: rgba(251, 191, 36, 0.18);
-      --border-subtle: rgba(148, 163, 184, 0.35);
+      --gold-strong: #fbbf24;
       --text-main: #e5e7eb;
-      --text-muted: #9ca3af;
-      --accent-blue: #38bdf8;
+      --text-soft: #9ca3af;
       --danger: #f97373;
-      --shadow-soft: 0 22px 60px rgba(15, 23, 42, 0.9);
-      --radius-xl: 24px;
-    }
-
-    html {
-      scroll-behavior: smooth;
+      --radius-xl: 26px;
+      --radius-lg: 20px;
+      --radius-pill: 999px;
+      --shadow-soft: 0 32px 80px rgba(15, 23, 42, 0.9);
+      --shadow-subtle: 0 18px 50px rgba(15, 23, 42, 0.7);
+      --blur-glass: blur(22px);
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui,
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
         "Segoe UI", sans-serif;
       min-height: 100vh;
+      background:
+        radial-gradient(circle at top left, rgba(56, 189, 248, 0.10), transparent 55%),
+        radial-gradient(circle at top right, rgba(251, 191, 36, 0.18), transparent 60%),
+        #020617;
       color: var(--text-main);
-      background:
-        radial-gradient(circle at top left, #0b1120 0%, #020617 40%, #000 80%);
-      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
     }
 
-    .page-shell {
-      min-height: 100vh;
-      position: relative;
-      isolation: isolate;
+    a {
+      color: inherit;
+      text-decoration: none;
     }
 
-    /* Subtle gradient overlay + grid */
-    .page-shell::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background:
-        radial-gradient(circle at top, rgba(56, 189, 248, 0.18), transparent 55%),
-        radial-gradient(circle at right, rgba(251, 191, 36, 0.18), transparent 55%);
-      opacity: 0.5;
-      pointer-events: none;
-      z-index: -2;
-    }
-    .page-shell::after {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background-image: linear-gradient(
-          rgba(15, 23, 42, 0.55),
-          rgba(15, 23, 42, 0.85)
-        );
-      mix-blend-mode: multiply;
-      pointer-events: none;
-      z-index: -1;
-    }
-
-    .content {
+    .page {
       max-width: 1120px;
       margin: 0 auto;
-      padding: 20px 16px 72px;
+      padding: 18px 16px 52px;
     }
 
-    /* Simple animations */
-    @keyframes softPulse {
-      0% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.4); }
-      100% { box-shadow: 0 0 0 10px rgba(56, 189, 248, 0); }
-    }
-
-    @keyframes floatUp {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-3px); }
-      100% { transform: translateY(0); }
-    }
-
-    /* Header */
     header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
-      padding: 10px 18px;
-      margin-bottom: 18px;
-      border-radius: 999px;
-      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.9), rgba(2, 6, 23, 0.96));
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      box-shadow: 0 14px 40px rgba(15, 23, 42, 0.9);
-      backdrop-filter: blur(18px);
-      position: sticky;
-      top: 10px;
-      z-index: 30;
+      gap: 16px;
+      margin-bottom: 20px;
     }
 
     .brand {
@@ -136,1671 +77,865 @@
     .brand-mark {
       width: 30px;
       height: 30px;
-      border-radius: 999px;
-      background:
-        conic-gradient(
-          from 210deg,
-          #0ea5e9,
-          #22d3ee,
-          #fbbf24,
-          #eab308,
-          #0ea5e9
-        );
-      padding: 2px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow:
-        0 0 0 1px rgba(148, 163, 184, 0.9),
-        0 0 40px rgba(14, 165, 233, 0.8);
-      animation: softPulse 2.8s ease-out infinite;
-    }
-
-    .brand-mark-inner {
-      width: 100%;
-      height: 100%;
-      border-radius: inherit;
-      background: radial-gradient(circle at 30% 20%, #0f172a, #020617);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      font-size: 0.8rem;
-      color: #fefce8;
+      border-radius: 16px;
+      background: conic-gradient(
+        from 160deg,
+        #fbbf24,
+        #22d3ee,
+        #4ade80,
+        #fbbf24
+      );
+      box-shadow: 0 0 25px rgba(251, 191, 36, 0.45);
     }
 
     .brand-text {
       display: flex;
       flex-direction: column;
-      gap: 1px;
+      gap: 2px;
     }
 
     .brand-title {
-      font-size: 0.95rem;
       font-weight: 600;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.06em;
+      font-size: 15px;
       text-transform: uppercase;
     }
 
     .brand-sub {
-      font-size: 0.72rem;
-      color: var(--text-muted);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
+      font-size: 11px;
+      color: var(--text-soft);
     }
 
     nav {
       display: flex;
       align-items: center;
       gap: 14px;
-      font-size: 0.8rem;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+      font-size: 13px;
+      color: var(--text-soft);
       flex-wrap: wrap;
+      justify-content: flex-end;
     }
 
-    .nav-link {
-      color: var(--text-muted);
-      text-decoration: none;
-      padding: 4px 10px;
+    nav a {
+      padding: 6px 10px;
       border-radius: 999px;
       border: 1px solid transparent;
-      transition: all 0.16s ease-out;
-      cursor: pointer;
-      white-space: nowrap;
-    }
-    .nav-link:hover {
-      color: #e5e7eb;
-      border-color: rgba(148, 163, 184, 0.6);
-      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.9), rgba(2, 6, 23, 0.9));
-    }
-
-    /* 当前页面高亮 */
-    .nav-link--active {
-      color: var(--gold);
-      border-color: rgba(251, 191, 36, 0.8);
-      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.85), rgba(2, 6, 23, 0.95));
-      box-shadow: 0 0 0 1px rgba(251, 191, 36, 0.5);
-    }
-
-    .lang-toggle {
-      display: inline-flex;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      overflow: hidden;
-      font-size: 0.75rem;
-    }
-
-    .lang-btn {
-      padding: 4px 10px;
-      border: none;
-      background: transparent;
-      color: var(--text-muted);
-      cursor: pointer;
-      transition: all 0.14s ease-out;
-    }
-    .lang-btn.active {
-      background: linear-gradient(135deg, #fbbf24, #eab308);
-      color: #020617;
-      font-weight: 600;
-    }
-
-    .login-btn {
-      padding: 6px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.9), rgba(2, 6, 23, 0.96));
-      color: #e5e7eb;
-      font-size: 0.8rem;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      cursor: pointer;
       transition: all 0.18s ease-out;
+      cursor: pointer;
       white-space: nowrap;
     }
-    .login-btn span.icon {
-      font-size: 0.9rem;
-    }
-    .login-btn:hover {
-      border-color: var(--gold);
-      color: #fefce8;
-      box-shadow: 0 0 0 1px rgba(251, 191, 36, 0.6),
-        0 12px 30px rgba(8, 47, 73, 0.9);
+
+    nav a:hover {
+      border-color: rgba(148, 163, 184, 0.4);
+      color: #e5e7eb;
+      background: rgba(15, 23, 42, 0.8);
     }
 
-    /* Layout: hero + main sections */
-    .hero-and-main {
-      display: grid;
-      grid-template-columns: minmax(0, 3fr);
-      gap: 22px;
+    nav a.active {
+      border-color: rgba(251, 191, 36, 0.7);
+      background: radial-gradient(circle at top, rgba(251, 191, 36, 0.18), transparent 65%);
+      color: #fefce8;
+    }
+
+    .nav-cta {
+      border-color: rgba(251, 191, 36, 0.8);
+      background: linear-gradient(120deg, #fbbf24, #f97316);
+      color: #0b1120;
+      font-weight: 600;
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.9);
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 20px 45px rgba(15, 23, 42, 0.95);
+      background: linear-gradient(120deg, #fde047, #fb923c);
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      gap: 26px;
     }
 
     .hero {
-      border-radius: var(--radius-xl);
-      padding: 24px 22px 22px;
-      background:
-        radial-gradient(circle at top left, rgba(56, 189, 248, 0.18), transparent 55%),
-        radial-gradient(circle at bottom right, rgba(251, 191, 36, 0.16), transparent 55%),
-        linear-gradient(135deg, rgba(15, 23, 42, 0.88), rgba(15, 23, 42, 0.96));
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      box-shadow: var(--shadow-soft);
-      position: relative;
-      overflow: hidden;
-      animation: floatUp 9s ease-in-out infinite;
-    }
-
-    .hero::before {
-      content: "";
-      position: absolute;
-      inset: -2px;
-      border-radius: inherit;
-      background-image: radial-gradient(circle at top, rgba(248, 250, 252, 0.05), transparent 55%);
-      opacity: 0.4;
-      pointer-events: none;
-    }
-
-    .hero-inner {
-      position: relative;
       display: grid;
-      grid-template-columns: minmax(0, 3fr) minmax(0, 2.2fr);
-      gap: 24px;
-      z-index: 1;
-    }
-
-    .pill-row {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: radial-gradient(circle at left, rgba(56, 189, 248, 0.2), rgba(15, 23, 42, 0.95));
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      margin-bottom: 10px;
-      position: relative;
-      overflow: hidden;
-    }
-    .pill-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: #22c55e;
-      box-shadow: 0 0 12px rgba(34, 197, 94, 0.9);
-    }
-    .pill-highlight {
-      color: #e5e7eb;
-      font-weight: 500;
-    }
-
-    .urgent-strip {
-      margin-bottom: 10px;
-      border-radius: 999px;
-      padding: 5px 10px;
-      font-size: 0.76rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: radial-gradient(circle at left, rgba(250, 204, 21, 0.12), rgba(15, 23, 42, 0.96));
-      border: 1px dashed rgba(234, 179, 8, 0.7);
-    }
-    .urgent-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: #f97316;
-      box-shadow: 0 0 18px rgba(248, 113, 113, 0.9);
-    }
-
-    h1 {
-      font-size: clamp(1.7rem, 1.3rem + 1.4vw, 2.1rem);
-      line-height: 1.2;
-      margin-bottom: 10px;
-    }
-    h1 span.accent {
-      background: linear-gradient(135deg, #eab308, #fbbf24, #38bdf8);
-      -webkit-background-clip: text;
-      color: transparent;
-    }
-
-    .hero-sub {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      max-width: 32rem;
-      line-height: 1.6;
-      margin-bottom: 14px;
-    }
-
-    .trust-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      align-items: center;
-      font-size: 0.75rem;
-      margin-bottom: 18px;
-    }
-    .trust-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 9px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.98));
-      color: var(--text-muted);
-    }
-    .trust-tag .dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: var(--gold);
-      box-shadow: 0 0 12px rgba(251, 191, 36, 0.9);
-    }
-
-    .hero-cta-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 14px;
-    }
-
-    .btn-primary {
-      position: relative;
-      padding: 10px 18px;
-      border-radius: 999px;
-      border: none;
-      font-size: 0.9rem;
-      font-weight: 600;
-      cursor: pointer;
-      color: #020617;
-      background: linear-gradient(135deg, #fbbf24, #eab308);
-      box-shadow:
-        0 0 0 1px rgba(251, 191, 36, 0.75),
-        0 18px 40px rgba(8, 47, 73, 0.9);
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      text-decoration: none;
-    }
-    .btn-primary:hover {
-      transform: translateY(-1px);
-      box-shadow:
-        0 0 0 1px rgba(251, 191, 36, 0.9),
-        0 22px 50px rgba(8, 47, 73, 1);
-    }
-
-    .btn-ghost {
-      padding: 9px 16px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.94), rgba(15, 23, 42, 0.98));
-      color: var(--text-main);
-      font-size: 0.85rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      cursor: pointer;
-      text-decoration: none;
-      transition: all 0.18s ease-out;
-    }
-    .btn-ghost:hover {
-      border-color: rgba(251, 191, 36, 0.9);
-      color: #fefce8;
-      box-shadow: 0 14px 34px rgba(15, 23, 42, 0.9);
-    }
-
-    .hero-steps {
-      margin-top: 8px;
-      border-radius: 14px;
-      padding: 8px 10px;
-      background: radial-gradient(circle at left, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.98));
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      font-size: 0.74rem;
-      color: var(--text-muted);
-    }
-    .hero-step-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 8px;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(31, 41, 55, 0.9);
-    }
-    .hero-step-chip span.num {
-      width: 16px;
-      height: 16px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.7rem;
-      color: var(--gold);
-    }
-
-    /* Avatar / case list */
-    .hero-avatars {
-      position: relative;
-      border-radius: 22px;
-      background:
-        radial-gradient(circle at top left, rgba(15, 23, 42, 0.92), rgba(15, 23, 42, 0.98));
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      padding: 12px;
-      box-shadow:
-        0 18px 60px rgba(15, 23, 42, 0.9),
-        0 0 0 1px rgba(15, 23, 42, 0.9);
-      overflow: hidden;
-      min-height: 260px;
-    }
-
-    .hero-avatars::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      background:
-        radial-gradient(circle at top, rgba(56, 189, 248, 0.18), transparent 60%),
-        radial-gradient(circle at bottom, rgba(251, 191, 36, 0.22), transparent 55%);
-      mix-blend-mode: screen;
-      opacity: 0.6;
-      pointer-events: none;
-    }
-
-    .case-list {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      font-size: 0.78rem;
-    }
-    .case-item {
-      border-radius: 14px;
-      padding: 9px 10px;
-      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.98));
-      border: 1px solid rgba(148, 163, 184, 0.55);
-      transition: all 0.2s ease-out;
-    }
-    .case-item:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 18px 36px rgba(15, 23, 42, 0.9);
-      border-color: rgba(251, 191, 36, 0.8);
-    }
-    .case-tag {
-      font-size: 0.7rem;
-      color: var(--text-muted);
-      margin-bottom: 2px;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
-    .case-title {
-      font-weight: 600;
-      margin-bottom: 2px;
-    }
-    .case-desc {
-      font-size: 0.74rem;
-      color: var(--text-muted);
-      line-height: 1.5;
-    }
-
-    .avatar-strip {
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 22px;
+      align-items: stretch;
       margin-top: 10px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.72rem;
-      color: var(--text-muted);
-    }
-    .avatar-stack {
-      display: flex;
-      align-items: center;
-    }
-    .avatar-circle {
-      width: 24px;
-      height: 24px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      background: radial-gradient(circle at top, #0f172a, #020617);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.7rem;
-      color: #e5e7eb;
-      margin-left: -6px;
-    }
-    .avatar-circle:first-child {
-      margin-left: 0;
     }
 
-    /* Sections below hero */
-    .sections-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-      margin-top: 18px;
-    }
-
-    .card {
-      border-radius: 20px;
-      background: radial-gradient(circle at top left, #020617, #020617 28%, #020617 100%);
-      border: 1px solid rgba(148, 163, 184, 0.45);
-      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.9);
-      padding: 16px 16px 14px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.75), transparent 60%);
-      opacity: 0.8;
-      pointer-events: none;
-    }
-    .card-inner {
-      position: relative;
-      z-index: 1;
-    }
-
-    .section-label {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      color: var(--text-muted);
-      margin-bottom: 6px;
-    }
-    .section-title-row {
-      display: flex;
-      align-items: baseline;
-      gap: 8px;
-      margin-bottom: 10px;
-    }
-    .section-title {
-      font-size: 0.95rem;
-      font-weight: 600;
-    }
-    .section-pill {
-      font-size: 0.7rem;
-      padding: 2px 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.55);
-      color: var(--text-muted);
-    }
-
-    .reason-list {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      gap: 8px 12px;
-      margin-top: 6px;
-      font-size: 0.78rem;
-    }
-    .reason-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 6px;
-      color: var(--text-muted);
-    }
-    .reason-item strong {
-      color: #e5e7eb;
-      font-weight: 500;
-    }
-    .reason-icon {
-      margin-top: 1px;
-      font-size: 0.85rem;
-    }
-
-    .why-compare {
-      margin-top: 14px;
-      padding-top: 10px;
-      border-top: 1px dashed rgba(148, 163, 184, 0.4);
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      gap: 12px;
-      font-size: 0.76rem;
-    }
-    .why-compare-col {
-      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 1));
-      border-radius: 14px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      padding: 10px 11px;
-    }
-    .why-compare-title {
-      font-weight: 600;
-      margin-bottom: 6px;
-    }
-    .why-compare-list {
-      list-style: disc;
-      padding-left: 18px;
-      color: var(--text-muted);
-      line-height: 1.5;
-    }
-    @media (max-width: 880px) {
-      .why-compare {
+    @media (max-width: 800px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      nav {
+        width: 100%;
+        justify-content: flex-start;
+      }
+      .hero {
         grid-template-columns: minmax(0, 1fr);
       }
     }
 
-    /* Services grid */
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
-      margin-top: 6px;
-    }
-    .service-card {
-      position: relative;
-      border-radius: 16px;
-      padding: 10px 10px 9px;
-      background: radial-gradient(circle at top, #020617, #020617 50%, #020617 100%);
+    .hero-card {
+      border-radius: 28px;
+      padding: 22px 22px 20px;
+      background: radial-gradient(circle at top left, rgba(148, 163, 184, 0.12), transparent 60%),
+        radial-gradient(circle at bottom right, rgba(15, 118, 110, 0.35), transparent 65%),
+        rgba(15, 23, 42, 0.98);
       border: 1px solid rgba(148, 163, 184, 0.5);
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      cursor: default;
+      box-shadow: var(--shadow-soft);
+      position: relative;
       overflow: hidden;
-      transition: all 0.2s ease-out;
-    }
-    .service-card:hover {
-      transform: translateY(-2px);
-      box-shadow:
-        0 0 0 1px rgba(251, 191, 36, 0.6),
-        0 18px 36px rgba(15, 23, 42, 0.95);
-      border-color: rgba(251, 191, 36, 0.8);
-    }
-    .service-icon {
-      width: 22px;
-      height: 22px;
-      border-radius: 999px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      background: radial-gradient(circle at top, rgba(248, 250, 252, 0.05), rgba(15, 23, 42, 1));
-      border: 1px solid rgba(148, 163, 184, 0.7);
-    }
-    .service-title {
-      font-size: 0.8rem;
-      font-weight: 600;
-    }
-    .service-desc {
-      font-size: 0.72rem;
-      color: var(--text-muted);
-    }
-    .service-meta-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 4px;
-      font-size: 0.72rem;
-    }
-    .service-price {
-      color: var(--gold);
-      font-weight: 600;
-    }
-    .service-cta {
-      font-size: 0.7rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      color: var(--text-muted);
     }
 
-    /* Compare card */
-    .compare-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
       gap: 8px;
-      font-size: 0.74rem;
-      margin-top: 4px;
-    }
-    .compare-card {
-      border-radius: 14px;
-      padding: 8px 9px;
+      border-radius: var(--radius-pill);
+      padding: 3px 10px;
       border: 1px solid rgba(148, 163, 184, 0.5);
-      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.98));
+      background: rgba(15, 23, 42, 0.9);
+      font-size: 11px;
+      color: var(--text-soft);
+      margin-bottom: 10px;
     }
-    .compare-title {
-      font-size: 0.78rem;
+
+    .hero-pill span {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 14px;
+      height: 14px;
+      border-radius: 999px;
+      background: rgba(34, 197, 94, 0.12);
+      color: #bbf7d0;
+      font-size: 10px;
+    }
+
+    h1 {
+      font-size: clamp(26px, 4vw, 32px);
+      line-height: 1.12;
+      margin-bottom: 12px;
+      letter-spacing: 0.02em;
+    }
+
+    .hero-sub {
+      font-size: 14px;
+      color: var(--text-soft);
+      max-width: 520px;
+      margin-bottom: 18px;
+    }
+
+    .hero-sub strong {
+      color: #e5e7eb;
+      font-weight: 600;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .badge {
+      font-size: 11px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      color: var(--text-soft);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .badge.gold {
+      border-color: rgba(251, 191, 36, 0.7);
+      background: rgba(251, 191, 36, 0.08);
+      color: #fefce8;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .btn-primary {
+      border-radius: 999px;
+      padding: 10px 18px;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      background: linear-gradient(120deg, #fbbf24, #f97316);
+      color: #0b1120;
+      box-shadow: 0 18px 42px rgba(15, 23, 42, 0.95);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.18s ease-out;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 24px 60px rgba(15, 23, 42, 1);
+      background: linear-gradient(120deg, #fde047, #fb923c);
+    }
+
+    .btn-secondary {
+      border-radius: 999px;
+      padding: 9px 15px;
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text-soft);
+      font-size: 13px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: all 0.18s ease-out;
+    }
+
+    .btn-secondary:hover {
+      border-color: rgba(251, 191, 36, 0.7);
+      color: #e5e7eb;
+      background: rgba(15, 23, 42, 1);
+    }
+
+    .hero-meta {
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    .hero-meta strong {
+      color: #e5e7eb;
+    }
+
+    .hero-platforms {
+      font-size: 11px;
+      color: var(--text-soft);
+      margin-top: 6px;
+    }
+
+    .hero-platforms span {
+      color: #e5e7eb;
+    }
+
+    .hero-side {
+      border-radius: 28px;
+      padding: 18px 18px 16px;
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.6), transparent 55%),
+        rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      box-shadow: var(--shadow-subtle);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .side-title {
+      font-size: 13px;
       font-weight: 600;
       margin-bottom: 4px;
     }
-    .compare-bad {
-      color: var(--danger);
+
+    .side-sub {
+      font-size: 12px;
+      color: var(--text-soft);
+      margin-bottom: 8px;
     }
-    .compare-good {
-      color: #22c55e;
-    }
-    .compare-list {
+
+    .risk-list {
       list-style: none;
-      padding-left: 0;
-    }
-    .compare-list li {
-      display: flex;
-      align-items: flex-start;
-      gap: 6px;
-      margin-bottom: 2px;
-      color: var(--text-muted);
-    }
-    .compare-list li span {
-      margin-top: 1px;
-    }
-
-    /* Steps card */
-    .steps-list {
-      margin-top: 6px;
-      font-size: 0.76rem;
       display: flex;
       flex-direction: column;
-      gap: 6px;
-    }
-    .step-item {
-      display: flex;
-      gap: 8px;
-    }
-    .step-num {
-      width: 18px;
-      height: 18px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.75rem;
-      color: var(--gold);
-      flex-shrink: 0;
-    }
-    .step-body {
-      color: var(--text-muted);
-    }
-    .step-body strong {
-      color: #e5e7eb;
-      font-weight: 500;
+      gap: 7px;
+      font-size: 12px;
+      margin-bottom: 6px;
     }
 
-    /* Persona card */
-    .persona-list {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr);
-      gap: 6px;
-      margin-top: 6px;
-      font-size: 0.76rem;
-    }
-    .persona-item {
+    .risk-list li {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 7px 9px;
       border-radius: 12px;
-      padding: 7px 8px;
+      background: rgba(15, 23, 42, 0.9);
       border: 1px solid rgba(148, 163, 184, 0.5);
-      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.98));
-      display: flex;
-      gap: 6px;
-      align-items: flex-start;
-      color: var(--text-muted);
-    }
-    .persona-badge {
-      font-size: 0.7rem;
-      color: #e5e7eb;
     }
 
-    /* Privacy card */
-    .privacy-list {
-      margin-top: 6px;
-      font-size: 0.74rem;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      color: var(--text-muted);
-    }
-
-    /* Not for card */
-    .notfor-list {
-      margin-top: 6px;
-      font-size: 0.74rem;
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-      color: var(--text-muted);
-    }
-    .notfor-item {
-      display: flex;
-      gap: 8px;
-      align-items: flex-start;
-    }
-    .notfor-icon {
-      width: 18px;
-      height: 18px;
+    .risk-tag {
+      font-size: 10px;
+      padding: 2px 8px;
       border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.75rem;
-      color: var(--danger);
-      flex-shrink: 0;
+      background: rgba(248, 250, 252, 0.02);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      color: var(--text-soft);
+      white-space: nowrap;
     }
 
-    /* Footer */
-    footer {
-      max-width: 1120px;
-      margin: 20px auto 0;
-      padding: 18px 16px 26px;
-      font-size: 0.74rem;
-      color: var(--text-muted);
-      border-top: 1px solid rgba(31, 41, 55, 0.9);
+    .risk-level {
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: rgba(220, 38, 38, 0.12);
+      color: #fecaca;
+      white-space: nowrap;
     }
-    .footer-row {
+
+    .side-footnote {
+      font-size: 10px;
+      color: var(--text-soft);
+    }
+
+    .side-highlight {
+      padding: 8px 10px;
+      border-radius: 14px;
+      border: 1px dashed rgba(251, 191, 36, 0.7);
+      background: rgba(251, 191, 36, 0.04);
+      font-size: 11px;
+    }
+
+    .section {
+      margin-top: 26px;
+      border-radius: 22px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.7), transparent 65%),
+        rgba(15, 23, 42, 0.95);
+      box-shadow: var(--shadow-subtle);
+      padding: 18px 18px 16px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: baseline;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .section h2 {
+      font-size: 17px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .section-lead {
+      font-size: 12px;
+      color: var(--text-soft);
+      max-width: 360px;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    @media (max-width: 880px) {
+      .feature-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+    @media (max-width: 640px) {
+      .feature-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .feature-card {
+      border-radius: 16px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.95);
+      padding: 11px 11px 10px;
+      font-size: 12px;
+    }
+
+    .feature-pill {
+      font-size: 10px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      color: var(--text-soft);
+      display: inline-flex;
+      margin-bottom: 6px;
+    }
+
+    .feature-card h3 {
+      font-size: 13px;
+      margin-bottom: 4px;
+    }
+
+    .feature-card p {
+      font-size: 12px;
+      color: var(--text-soft);
+      margin-bottom: 6px;
+    }
+
+    .feature-meta {
+      font-size: 11px;
+      color: rgba(148, 163, 184, 0.9);
+    }
+
+    .platform-row {
       display: flex;
       flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
+      gap: 6px;
+      margin-top: 4px;
+      font-size: 11px;
+      color: var(--text-soft);
     }
+
+    .platform-chip {
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.94);
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      font-size: 12px;
+    }
+
+    @media (max-width: 780px) {
+      .steps {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .step {
+      border-radius: 16px;
+      border: 1px dashed rgba(148, 163, 184, 0.6);
+      padding: 10px 11px 10px;
+      background: rgba(15, 23, 42, 0.96);
+    }
+
+    .step-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-soft);
+      margin-bottom: 4px;
+    }
+
+    .step h3 {
+      font-size: 13px;
+      margin-bottom: 4px;
+    }
+
+    .step p {
+      font-size: 12px;
+      color: var(--text-soft);
+    }
+
+    .pricing-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      font-size: 12px;
+    }
+
+    @media (max-width: 880px) {
+      .pricing-row {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+    @media (max-width: 640px) {
+      .pricing-row {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .price-card {
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.97);
+      padding: 11px 12px 11px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .price-name {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .price-tagline {
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    .price-amount {
+      font-size: 18px;
+      font-weight: 600;
+      color: #fefce8;
+    }
+
+    .price-amount span {
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--text-soft);
+    }
+
+    .price-list {
+      list-style: none;
+      padding-left: 0;
+      margin: 4px 0 6px;
+      font-size: 12px;
+      color: var(--text-soft);
+    }
+
+    .price-list li {
+      margin-bottom: 3px;
+    }
+
+    .price-cta {
+      margin-top: auto;
+      font-size: 11px;
+      padding: 6px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(251, 191, 36, 0.8);
+      background: rgba(251, 191, 36, 0.06);
+      color: #fefce8;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.18s ease-out;
+    }
+
+    .price-cta:hover {
+      background: rgba(251, 191, 36, 0.16);
+    }
+
+    footer {
+      margin-top: 26px;
+      padding-top: 14px;
+      font-size: 11px;
+      color: var(--text-soft);
+      border-top: 1px solid rgba(31, 41, 55, 0.9);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: space-between;
+      align-items: center;
+    }
+
     .footer-links {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
     }
+
     .footer-links a {
-      color: var(--text-muted);
-      text-decoration: none;
-    }
-    .footer-links a:hover {
-      color: #e5e7eb;
-    }
-
-    /* Responsive */
-    @media (max-width: 900px) {
-      header {
-        border-radius: 18px;
-        padding-inline: 14px;
-      }
-      .hero-inner {
-        grid-template-columns: minmax(0, 1fr);
-      }
-      .hero-avatars {
-        max-width: 320px;
-        margin-inline: auto;
-      }
-      .services-grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    @media (max-width: 640px) {
-      .content {
-        padding-inline: 14px;
-      }
-      header {
-        flex-wrap: wrap;
-        row-gap: 8px;
-      }
-      nav {
-        width: 100%;
-        justify-content: flex-end;
-        flex-wrap: wrap;
-      }
-      .nav-links {
-        flex-wrap: wrap;
-      }
-      .hero {
-        padding-inline: 16px;
-      }
-      .hero-cta-row {
-        flex-direction: column;
-        align-items: stretch;
-      }
-      .hero-steps {
-        flex-direction: column;
-      }
-      .compare-grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <div class="page-shell">
-    <div class="content">
-      <header>
-        <div class="brand">
-          <div class="brand-mark">
-            <div class="brand-mark-inner">AU</div>
-          </div>
-          <div class="brand-text">
-            <div class="brand-title" data-i18n-key="brandTitle">
-              Aurum Task Desk
-            </div>
-            <div class="brand-sub" data-i18n-key="brandSub">
-              Private AI Writing & Resolution Desk
-            </div>
-          </div>
-        </div>
-        <nav>
-          <!-- 顶部页面导航：首页 / Desk / 关于我们 / 联系我们 + 锚点导航 -->
-          <div class="nav-links">
-            <a href="index.html" class="nav-link" data-page="home" data-i18n-key="navHome">Home</a>
-            <a href="desk.html" class="nav-link" data-page="desk" data-i18n-key="navDesk">Desk</a>
-            <a href="about.html" class="nav-link" data-page="about" data-i18n-key="navAbout">About</a>
-            <a href="contact.html" class="nav-link" data-page="contact" data-i18n-key="navContact">Contact</a>
-            <a href="#services" class="nav-link" data-i18n-key="navServices">Services</a>
-            <a href="#how" class="nav-link" data-i18n-key="navHow">How</a>
-            <a href="#why-not" class="nav-link" data-i18n-key="navCompare">Why not ChatGPT?</a>
-            <a href="#pricing" class="nav-link" data-i18n-key="navPricing">Pricing</a>
-          </div>
-          <div class="lang-toggle" aria-label="Language">
-            <button class="lang-btn active" data-lang="en">EN</button>
-            <button class="lang-btn" data-lang="zh">中</button>
-          </div>
-          <!-- 登录 / 我的 Desk 按钮（带登录状态同步标记） -->
-          <button class="login-btn" type="button" data-auth-login>
-            <span class="icon">⭑</span>
-            <span data-i18n-key="login">Login / My Desk</span>
-          </button>
-          <!-- 退出按钮（默认隐藏，登录后显示） -->
-          <button
-            class="nav-link"
-            type="button"
-            data-auth-logout
-            data-i18n-key="logout"
-            style="display:none;"
-          >
-            Logout
-          </button>
-        </nav>
-      </header>
-
-      <main class="hero-and-main">
-        <section class="hero" aria-labelledby="hero-title">
-          <div class="hero-inner">
-            <div>
-              <div class="pill-row">
-                <div class="pill-dot"></div>
-                <span data-i18n-key="pillLeft">Quiet desk for serious letters</span>
-                <span class="pill-highlight" data-i18n-key="pillRight">Legal / immigration / insurance / complaints</span>
-              </div>
-
-              <div class="urgent-strip">
-                <div class="urgent-dot"></div>
-                <span data-i18n-key="urgentText">
-                  For real problems only: time-sensitive legal, immigration, insurance or crisis letters — from 29.9 USD per task.
-                </span>
-              </div>
-
-              <h1 id="hero-title">
-                <span class="accent" data-i18n-key="heroLine1">A private AI desk</span>
-                <br />
-                <span data-i18n-key="heroLine2">for 40+ US & EU clients</span>
-              </h1>
-
-              <p class="hero-sub" data-i18n-key="heroSub">
-                Professional, ready-to-submit letters for legal, immigration, insurance, complaint escalation and family crisis situations — designed for 40+ US & EU clients who do not want to fight with AI prompts.
-              </p>
-
-              <div class="trust-row">
-                <div class="trust-tag">
-                  <span class="dot"></span>
-                  <span data-i18n-key="trust1">No subscription, pay per task</span>
-                </div>
-                <div class="trust-tag">
-                  <span class="dot"></span>
-                  <span data-i18n-key="trust2">Optimised for lawyers, HR, case officers</span>
-                </div>
-              </div>
-
-              <div class="hero-cta-row">
-                <a href="desk.html" class="btn-primary">
-                  <span data-i18n-key="ctaPrimary">Start a task</span>
-                  <span>→</span>
-                </a>
-                <a href="#services" class="btn-ghost">
-                  <span>☲</span>
-                  <span data-i18n-key="ctaSecondary">View the 5 key services</span>
-                </a>
-              </div>
-
-              <div class="hero-steps">
-                <div class="hero-step-chip">
-                  <span class="num">1</span>
-                  <span data-i18n-key="chip1">Upload screenshots or describe the situation</span>
-                </div>
-                <div class="hero-step-chip">
-                  <span class="num">2</span>
-                  <span data-i18n-key="chip2">Tell us who you write to and your ideal outcome</span>
-                </div>
-                <div class="hero-step-chip">
-                  <span class="num">3</span>
-                  <span data-i18n-key="chip3">Receive a structured, ready-to-submit letter</span>
-                </div>
-              </div>
-            </div>
-
-            <aside class="hero-avatars" aria-label="Case examples">
-              <div class="case-list">
-                <div class="case-item">
-                  <div class="case-tag" data-i18n-key="case1Tag">CASE 1 · Serious letter</div>
-                  <div class="case-title" data-i18n-key="case1Title">Serious letter scenario</div>
-                  <div class="case-desc" data-i18n-key="case1Desc">
-                    For contract drafts, legal-style notices, and professional correspondence. Desk produces structured, ready-to-submit letters.
-                  </div>
-                </div>
-                <div class="case-item">
-                  <div class="case-tag" data-i18n-key="case2Tag">CASE 2 · Claims & escalation</div>
-                  <div class="case-title" data-i18n-key="case2Title">Claim & escalation scenario</div>
-                  <div class="case-desc" data-i18n-key="case2Desc">
-                    For airline refund claims, insurance disputes, and escalation letters to companies.
-                  </div>
-                </div>
-                <div class="case-item">
-                  <div class="case-tag" data-i18n-key="case3Tag">CASE 3 · Immigration & crisis</div>
-                  <div class="case-title" data-i18n-key="case3Title">Immigration & crisis scenario</div>
-                  <div class="case-desc" data-i18n-key="case3Desc">
-                    For visa RFE responses, refusal explanations, and family crisis letters.
-                  </div>
-                </div>
-              </div>
-
-              <div class="avatar-strip">
-                <div class="avatar-stack">
-                  <div class="avatar-circle">MK</div>
-                  <div class="avatar-circle">JR</div>
-                  <div class="avatar-circle">LS</div>
-                </div>
-                <div data-i18n-key="avatarStripText">
-                  Typical clients: 42–68 year old professionals, managers and small business owners.
-                </div>
-              </div>
-            </aside>
-          </div>
-        </section>
-
-        <section class="sections-grid">
-          <div class="card" id="why">
-            <div class="card-inner">
-              <div class="section-label" data-i18n-key="whyLabel">Why this desk?</div>
-              <div class="section-title-row">
-                <div class="section-title" data-i18n-key="whyTitle">
-                  Built for 40+ US & EU clients in real trouble
-                </div>
-                <div class="section-pill" data-i18n-key="whyPill">
-                  Not a generic AI toy
-                </div>
-              </div>
-              <div class="reason-list">
-                <div class="reason-item">
-                  <div class="reason-icon">◎</div>
-                  <div>
-                    <strong data-i18n-key="why1Title">Serious situations only.</strong>
-                    <span data-i18n-key="why1Body">
-                      Immigration, legal-style, insurance claim, complaint escalation, and family crisis letters.
-                    </span>
-                  </div>
-                </div>
-                <div class="reason-item">
-                  <div class="reason-icon">◎</div>
-                  <div>
-                    <strong data-i18n-key="why2Title">Ready to submit.</strong>
-                    <span data-i18n-key="why2Body">
-                      The output is structured for lawyers, HR, case officers and insurance handlers — not for social media.
-                    </span>
-                  </div>
-                </div>
-                <div class="reason-item">
-                  <div class="reason-icon">◎</div>
-                  <div>
-                    <strong data-i18n-key="why3Title">40+ friendly.</strong>
-                    <span data-i18n-key="why3Body">
-                      No prompt dancing or technical jargon. You answer questions; the desk prepares the letter.
-                    </span>
-                  </div>
-                </div>
-                <div class="reason-item">
-                  <div class="reason-icon">◎</div>
-                  <div>
-                    <strong data-i18n-key="why4Title">No subscription.</strong>
-                    <span data-i18n-key="why4Body">
-                      Each task is priced per letter. No hidden monthly plans that keep charging your card.
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="why-compare">
-                <div class="why-compare-col">
-                  <div class="why-compare-title" data-i18n-key="whyCompareLeftTitle">If you only use ChatGPT chat…</div>
-                  <ul class="why-compare-list">
-                    <li data-i18n-key="whyCompareLeft1">Need to design your own prompts and structure.</li>
-                    <li data-i18n-key="whyCompareLeft2">Output tone may be too casual or “AI-ish”.</li>
-                    <li data-i18n-key="whyCompareLeft3">No one checks if it fits legal, HR or claim style.</li>
-                  </ul>
-                </div>
-                <div class="why-compare-col">
-                  <div class="why-compare-title" data-i18n-key="whyCompareRightTitle">With Aurum Task Desk…</div>
-                  <ul class="why-compare-list">
-                    <li data-i18n-key="whyCompareRight1">We turn your notes into structured letters.</li>
-                    <li data-i18n-key="whyCompareRight2">Tone and length tuned for officers, HR and insurers.</li>
-                    <li data-i18n-key="whyCompareRight3">Clear English that 40+ professionals are comfortable sending.</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="card" id="pricing">
-            <div class="card-inner">
-              <div class="section-label" data-i18n-key="pricingLabel">Pricing snapshot</div>
-              <div class="section-title-row">
-                <div class="section-title" data-i18n-key="pricingTitle">
-                  Five specialised services, clear prices
-                </div>
-              </div>
-              <div class="services-grid" id="services">
-                <div class="service-card">
-                  <div class="service-icon">§</div>
-                  <div class="service-title" data-i18n-key="svc1Title">
-                    Legal letters & contract drafts
-                  </div>
-                  <div class="service-desc" data-i18n-key="svc1Desc">
-                    Contract wording, breach notices, formal legal-style letters for companies or individuals.
-                  </div>
-                  <div class="service-meta-row">
-                    <div class="service-price" data-i18n-key="svc1Price">USD 29.9</div>
-                    <a class="service-cta" data-i18n-key="svc1Cta" href="desk.html#legal">
-                      Open service →
-                    </a>
-                  </div>
-                </div>
-
-                <div class="service-card">
-                  <div class="service-icon">✈</div>
-                  <div class="service-title" data-i18n-key="svc3Title">
-                    Insurance & airline claim letters
-                  </div>
-                  <div class="service-desc" data-i18n-key="svc3Desc">
-                    Delay / cancellation refunds, lost luggage claims, rejected payouts rewritten in a stronger tone.
-                  </div>
-                  <div class="service-meta-row">
-                    <div class="service-price" data-i18n-key="svc3Price">USD 29.9</div>
-                    <a class="service-cta" data-i18n-key="svc3Cta" href="desk.html#claims">
-                      Open service →
-                    </a>
-                  </div>
-                </div>
-
-                <div class="service-card">
-                  <div class="service-icon">🛂</div>
-                  <div class="service-title" data-i18n-key="svc2Title">
-                    Immigration letters & RFE explanations
-                  </div>
-                  <div class="service-desc" data-i18n-key="svc2Desc">
-                    RFE response, refusal explanation, background statements for visas, residency and green card.
-                  </div>
-                  <div class="service-meta-row">
-                    <div class="service-price" data-i18n-key="svc2Price">USD 29.9</div>
-                    <a class="service-cta" data-i18n-key="svc2Cta" href="desk.html#immigration">
-                      Open service →
-                    </a>
-                  </div>
-                </div>
-
-                <div class="service-card">
-                  <div class="service-icon">❤</div>
-                  <div class="service-title" data-i18n-key="svc4Title">
-                    Family & emotional crisis letters
-                  </div>
-                  <div class="service-desc" data-i18n-key="svc4Desc">
-                    Calm, structured letters for serious relationship or family conflicts — without drama.
-                  </div>
-                  <div class="service-meta-row">
-                    <div class="service-price" data-i18n-key="svc4Price">USD 29.9</div>
-                    <a class="service-cta" data-i18n-key="svc4Cta" href="desk.html#family">
-                      Open service →
-                    </a>
-                  </div>
-                </div>
-
-                <div class="service-card">
-                  <div class="service-icon">⚠</div>
-                  <div class="service-title" data-i18n-key="svc5Title">
-                    Complaint & escalation services
-                  </div>
-                  <div class="service-desc" data-i18n-key="svc5Desc">
-                    Escalation letters to banks, airlines, employers, and regulators when “normal” emails are ignored.
-                  </div>
-                  <div class="service-meta-row">
-                    <div class="service-price" data-i18n-key="svc5Price">USD 29.9</div>
-                    <a class="service-cta" data-i18n-key="svc5Cta" href="desk.html#complaint">
-                      Open service →
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="card" id="why-not">
-            <div class="card-inner">
-              <div class="section-label" data-i18n-key="compareLabel">Why not just use ChatGPT?</div>
-              <div class="section-title-row">
-                <div class="section-title" data-i18n-key="compareTitle">
-                  Generic AI vs a quiet, specialised desk
-                </div>
-              </div>
-              <div class="compare-grid">
-                <div class="compare-card">
-                  <div class="compare-title compare-bad" data-i18n-key="compareLeftTitle">
-                    Generic AI tools
-                  </div>
-                  <ul class="compare-list">
-                    <li>
-                      <span>–</span>
-                      <span data-i18n-key="cmpL1">
-                        Long, academic paragraphs that do not match legal or case-officer style.
-                      </span>
-                    </li>
-                    <li>
-                      <span>–</span>
-                      <span data-i18n-key="cmpL2">
-                        No understanding of how immigration, insurance or complaint letters are actually read.
-                      </span>
-                    </li>
-                    <li>
-                      <span>–</span>
-                      <span data-i18n-key="cmpL3">
-                        You must prompt, tweak, and rewrite many times — exhausting for 40+ clients.
-                      </span>
-                    </li>
-                    <li>
-                      <span>–</span>
-                      <span data-i18n-key="cmpL4">
-                        Output often “feels like AI”, which some officers now reject instantly.
-                      </span>
-                    </li>
-                  </ul>
-                </div>
-                <div class="compare-card">
-                  <div class="compare-title compare-good" data-i18n-key="compareRightTitle">
-                    Aurum Task Desk
-                  </div>
-                  <ul class="compare-list">
-                    <li>
-                      <span>+</span>
-                      <span data-i18n-key="cmpR1">
-                        Structure, tone and length tuned for real-world reviewers (lawyers, HR, case officers).
-                      </span>
-                    </li>
-                    <li>
-                      <span>+</span>
-                      <span data-i18n-key="cmpR2">
-                        Focus only on legal-style, immigration, insurance, complaint and crisis situations.
-                      </span>
-                    </li>
-                    <li>
-                      <span>+</span>
-                      <span data-i18n-key="cmpR3">
-                        Clear questions instead of prompts — suitable for non-technical users.
-                      </span>
-                    </li>
-                    <li>
-                      <span>+</span>
-                      <span data-i18n-key="cmpR4">
-                        Pay per task, from 29.9 USD, no recurring subscription.
-                      </span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="card" id="how">
-            <div class="card-inner">
-              <div class="section-label" data-i18n-key="howLabel">How it works</div>
-              <div class="section-title-row">
-                <div class="section-title" data-i18n-key="howTitle">
-                  Starting a task is intentionally simple
-                </div>
-              </div>
-              <div class="steps-list">
-                <div class="step-item">
-                  <div class="step-num">1</div>
-                  <div class="step-body" data-i18n-key="step1">
-                    <strong>Share what happened.</strong>
-                    Upload screenshots, letters, or describe the situation in your own words. No need to be “perfect”.
-                  </div>
-                </div>
-                <div class="step-item">
-                  <div class="step-num">2</div>
-                  <div class="step-body" data-i18n-key="step2">
-                    <strong>Clarify who and what.</strong>
-                    Tell us who you are writing to (lawyer, embassy, insurer, employer, airline) and your ideal outcome.
-                  </div>
-                </div>
-                <div class="step-item">
-                  <div class="step-num">3</div>
-                  <div class="step-body" data-i18n-key="step3">
-                    <strong>Receive a ready-to-submit letter.</strong>
-                    You review, add personal details if needed, and then send it on — email, portal or print.
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="card" id="personas">
-            <div class="card-inner">
-              <div class="section-label" data-i18n-key="whoLabel">Who this desk is for</div>
-              <div class="section-title-row">
-                <div class="section-title" data-i18n-key="whoTitle">
-                  Three typical Aurum Desk clients
-                </div>
-              </div>
-              <div class="persona-list">
-                <div class="persona-item">
-                  <div class="persona-badge">①</div>
-                  <div data-i18n-key="persona1">
-                    Overseas Chinese or international workers living in the US/EU, English is not native, facing immigration or insurance problems.
-                  </div>
-                </div>
-                <div class="persona-item">
-                  <div class="persona-badge">②</div>
-                  <div data-i18n-key="persona2">
-                    40+ professionals, managers, or small business owners who dislike “prompt engineering” but need strong, serious letters.
-                  </div>
-                </div>
-                <div class="persona-item">
-                  <div class="persona-badge">③</div>
-                  <div data-i18n-key="persona3">
-                    People in real crisis: refusal letters, unfair treatment, sudden family or relationship breakdown, airlines or banks ignoring them.
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="card" id="privacy">
-            <div class="card-inner">
-              <div class="section-label" data-i18n-key="privacyLabel">Protection & privacy</div>
-              <div class="section-title-row">
-                <div class="section-title" data-i18n-key="privacyTitle">
-                  Quiet by design — your situation is not content
-                </div>
-              </div>
-              <div class="privacy-list">
-                <div data-i18n-key="pri1">
-                  We do not use your letters as “training data”. Your situation is never treated as marketing material.
-                </div>
-                <div data-i18n-key="pri2">
-                  Sensitive IDs (passport, visa numbers, medical files) can be redacted before upload if you prefer.
-                </div>
-                <div data-i18n-key="pri3">
-                  You can request deletion of past tasks after your situation is resolved.
-                </div>
-                <div data-i18n-key="pri4">
-                  The desk is built with a simple, auditable backend — not a giant ad platform.
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="card" id="not-for">
-            <div class="card-inner">
-              <div class="section-label" data-i18n-key="notForLabel">Who this desk is not for</div>
-              <div class="section-title-row">
-                <div class="section-title" data-i18n-key="notForTitle">
-                  To keep the desk quiet and serious
-                </div>
-              </div>
-              <div class="notfor-list">
-                <div class="notfor-item">
-                  <div class="notfor-icon">✕</div>
-                  <div data-i18n-key="nf1">
-                    People looking for entertainment content, social media posts, or general homework help. This desk is for real-world problems only.
-                  </div>
-                </div>
-                <div class="notfor-item">
-                  <div class="notfor-icon">✕</div>
-                  <div data-i18n-key="nf2">
-                    Users who want to generate dozens of letters per day or run bulk campaigns. Each task is meant to be specific and important.
-                  </div>
-                </div>
-                <div class="notfor-item">
-                  <div class="notfor-icon">✕</div>
-                  <div data-i18n-key="nf3">
-                    Situations that require licensed legal advice or representation in court. The desk focuses on writing support, not formal legal counsel.
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </section>
-      </main>
-    </div>
-
-    <footer>
-      <div class="footer-row">
-        <div>
-          <span>© <span id="year"></span> Aurum Task Desk.</span>
-          <span data-i18n-key="footerCopy">
-            A quiet AI desk for serious letters.
-          </span>
-        </div>
-        <div class="footer-links">
-          <a href="privacy.html" data-i18n-key="footerPrivacy">Privacy</a>
-          <a href="terms.html" data-i18n-key="footerTerms">Terms</a>
+  <div class="page">
+    <header>
+      <div class="brand">
+        <div class="brand-mark"></div>
+        <div class="brand-text">
+          <div class="brand-title">Aurum Dispute Desk</div>
+          <div class="brand-sub">Account risk & appeal assistant</div>
         </div>
       </div>
-    </footer>
+      <nav>
+        <a href="index.html" class="active">Home</a>
+        <a href="platforms.html">Platforms</a>
+        <a href="risk-diagnosis.html">Risk Diagnosis</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="contact.html">Contact</a>
+        <a href="risk-diagnosis.html" class="nav-cta">Start free diagnosis</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-card">
+          <div class="hero-pill">
+            <span>●</span>
+            Accounts suspended, ads restricted, funds frozen?
+          </div>
+          <h1>Aurum Dispute Desk — Account Risk, Appeal & Reinstatement System</h1>
+          <p class="hero-sub">
+            Your TikTok, PayPal, Stripe, Facebook Ads, Airbnb or Amazon account was
+            <strong>suspended, restricted or flagged</strong>? We generate
+            <strong>appeal letters, risk reports and reinstatement strategies</strong>
+            so you don't have to guess.
+          </p>
+
+          <div class="hero-badges">
+            <div class="badge gold">We don't log into your account · We don't fake documents</div>
+            <div class="badge">Language: English · Global platforms</div>
+            <div class="badge">For creators, sellers, agencies & small businesses</div>
+          </div>
+
+          <div class="hero-actions">
+            <button class="btn-primary" onclick="window.location.href='risk-diagnosis.html'">
+              Start free risk diagnosis
+              <span>→</span>
+            </button>
+            <button class="btn-secondary" onclick="window.location.href='pricing.html'">
+              View appeal & VIP plans
+            </button>
+          </div>
+
+          <div class="hero-meta">
+            <strong>Typical users:</strong> TikTok shop sellers, ad buyers, PayPal / Stripe merchants,
+            Airbnb hosts, Amazon sellers, content creators.
+          </div>
+          <div class="hero-platforms">
+            <span>Supported:</span> TikTok · Facebook / Instagram · PayPal · Stripe · Airbnb · Amazon · Google Ads · Others
+          </div>
+        </div>
+
+        <aside class="hero-side">
+          <div>
+            <div class="side-title">Live-style risk preview</div>
+            <div class="side-sub">
+              Example: how we would surface your risks and next steps in real time.
+            </div>
+          </div>
+
+          <ul class="risk-list">
+            <li>
+              <div>
+                <div>TikTok Shop — sudden suspension</div>
+                <div class="feature-meta">Possible triggers: product claims, off-platform contact, repeated disputes</div>
+              </div>
+              <div class="risk-level">High</div>
+            </li>
+            <li>
+              <div>
+                <div>PayPal — funds on hold 180 days</div>
+                <div class="feature-meta">Needs: business model explanation + transaction pattern context</div>
+              </div>
+              <div class="risk-level">Medium</div>
+            </li>
+            <li>
+              <div>
+                <div>Facebook Ads — policy violation</div>
+                <div class="feature-meta">We map ad + landing + wording to policy sections</div>
+              </div>
+              <div class="risk-level">Medium</div>
+            </li>
+          </ul>
+
+          <div class="side-highlight">
+            We never log into your accounts and we never create fake contracts or fake invoices.
+            We only provide <strong>explanations, letters and strategies</strong> that you submit yourself.
+          </div>
+
+          <div class="side-footnote">
+            This is not legal representation. We help you speak to platforms in a structured,
+            policy-aware way to improve your chances of reinstatement.
+          </div>
+        </aside>
+      </section>
+
+      <section class="section">
+        <div class="section-header">
+          <h2>What Aurum Dispute Desk does</h2>
+          <p class="section-lead">
+            We sit between you and the platforms. We read the policy, decode the risk, 
+            and give you clear explanations, appeal letters and next steps.
+            We don't touch your login.
+          </p>
+        </div>
+
+        <div class="feature-grid">
+          <div class="feature-card">
+            <div class="feature-pill">Core · Appeal letters</div>
+            <h3>Platform-ready appeal drafts</h3>
+            <p>
+              Structured explanations with context, responsibility, corrective actions and
+              requests — tailored to each platform's risk language.
+            </p>
+            <div class="feature-meta">
+              Good for: first-time bans, ad account shutdowns, merchant holds.
+            </div>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-pill">Core · Risk analysis</div>
+            <h3>Risk & policy mapping</h3>
+            <p>
+              We map your case against common triggers: IP, chargeback patterns, creative claims,
+              content flags, location & device patterns.
+            </p>
+            <div class="feature-meta">
+              Output: a 1–3 page report with risk factors & mitigation.
+            </div>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-pill">Core · Strategy</div>
+            <h3>Step-by-step reinstatement plan</h3>
+            <p>
+              We turn panic into a sequence: what to send first, what to wait for, when to escalate,
+              and when to stop pushing.
+            </p>
+            <div class="feature-meta">
+              Helps you avoid over-submitting random, contradictory appeals.
+            </div>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-pill">Premium · VIP</div>
+            <h3>VIP appeal & follow-up</h3>
+            <p>
+              For high-value accounts, we refine your appeal text, clarify your model,
+              and craft follow-up messages if the first attempt fails.
+            </p>
+            <div class="feature-meta">
+              Used by: agencies, ad buyers, sellers with 5–6 figure monthly volume.
+            </div>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-pill">Business · Ongoing</div>
+            <h3>Ongoing risk monitoring</h3>
+            <p>
+              For repeat advertisers & merchants, we periodically scan for risky patterns and 
+              suggest safer configurations before you get flagged.
+            </p>
+            <div class="feature-meta">
+              Available via monthly subscription · See pricing.
+            </div>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-pill">Compliance · Guardrails</div>
+            <h3>We don't cross the line</h3>
+            <p>
+              No fake documents, no identity manipulation, no logins. Only explanations, 
+              policy-aware documents and strategies you submit yourself.
+            </p>
+            <div class="feature-meta">
+              Keeps your business — and ours — on the right side of the law.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-header">
+          <h2>How it works</h2>
+          <p class="section-lead">
+            Three steps from panic to a calm, structured plan. You stay in control of your accounts.
+          </p>
+        </div>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-label">Step 1</div>
+            <h3>Free risk diagnosis</h3>
+            <p>
+              Select platform, upload or paste the notice, describe what happened.
+              We show likely triggers, policy areas and whether appeal makes sense.
+            </p>
+          </div>
+
+          <div class="step">
+            <div class="step-label">Step 2</div>
+            <h3>Generate appeal & plan</h3>
+            <p>
+              Unlock a full appeal letter, suggested supporting information
+              and a specific submission path for that platform.
+            </p>
+          </div>
+
+          <div class="step">
+            <div class="step-label">Step 3</div>
+            <h3>Optional VIP support</h3>
+            <p>
+              For higher stakes, upgrade to VIP review: we refine, rewrite and
+              help you respond if the platform writes back again.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-header">
+          <h2>Plans & typical use</h2>
+          <p class="section-lead">
+            Use Aurum Dispute Desk once when you're in trouble, or keep it on standby 
+            if your entire business depends on these platforms.
+          </p>
+        </div>
+
+        <div class="pricing-row">
+          <div class="price-card">
+            <div class="price-name">Single Appeal Pack</div>
+            <div class="price-tagline">For one suspension or risk event</div>
+            <div class="price-amount">$39 <span>per case</span></div>
+            <ul class="price-list">
+              <li>• 1 full appeal letter</li>
+              <li>• Suggested supporting info</li>
+              <li>• Submission path overview</li>
+            </ul>
+            <div class="price-cta" onclick="window.location.href='pricing.html#single'">
+              View details & start →
+            </div>
+          </div>
+
+          <div class="price-card">
+            <div class="price-name">Analysis & Strategy</div>
+            <div class="price-tagline">When you need to understand the risk</div>
+            <div class="price-amount">$99 <span>per case</span></div>
+            <ul class="price-list">
+              <li>• Full risk analysis report</li>
+              <li>• Appeal letter included</li>
+              <li>• 7–14 day playbook</li>
+            </ul>
+            <div class="price-cta" onclick="window.location.href='pricing.html#analysis'">
+              See what's included →
+            </div>
+          </div>
+
+          <div class="price-card">
+            <div class="price-name">VIP Appeal Guidance</div>
+            <div class="price-tagline">For high-value accounts & agencies</div>
+            <div class="price-amount">$299–$499 <span>per case</span></div>
+            <ul class="price-list">
+              <li>• 1:1 appeal review & rewrite</li>
+              <li>• Up to 2 follow-up responses</li>
+              <li>• Priority response window</li>
+            </ul>
+            <div class="price-cta" onclick="window.location.href='pricing.html#vip'">
+              Explore VIP support →
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <div>© <span id="year"></span> Aurum Dispute Desk. All rights reserved.</div>
+        <div class="footer-links">
+          <a href="pricing.html">Pricing</a>
+          <a href="contact.html">Contact</a>
+          <a href="#">Terms (coming soon)</a>
+        </div>
+      </footer>
+    </main>
   </div>
 
   <script>
-    // Year
-    document.getElementById("year").textContent = new Date().getFullYear();
-
-    // Simple i18n
-    const translations = {
-      zh: {
-        brandTitle: "Aurum Task Desk",
-        brandSub: "您的私人 AI 写作与解决方案工作台",
-        navHome: "首页",
-        navDesk: "Desk 任务台",
-        navAbout: "关于我们",
-        navContact: "联系我们",
-        navServices: "服务",
-        navHow: "流程",
-        navCompare: "为什么不用 ChatGPT？",
-        navPricing: "定价",
-        login: "登录 / 我的 Desk",
-        logout: "退出登录",
-        pillLeft: "安静、严肃场景专用的写作工作台",
-        pillRight: "法律 / 移民 / 保险 / 投诉",
-        urgentText:
-          "只接严肃问题：法律、移民、保险理赔或危机场景的英文信件 —— 单次服务从 29.9 美元起。",
-        heroLine1: "面向严肃问题的私人 AI 写作桌",
-        heroLine2: "专为 40+ 欧美客户设计",
-        heroSub:
-          "针对法律文书、移民补件说明、保险与航空理赔、投诉升级以及家庭危机沟通，提供可以直接提交的英文信件，特别适合 40+ 不想和 AI 较劲的用户。",
-        trust1: "无需订阅，每个任务单独计费",
-        trust2: "语气与结构专为律师、HR、审核官而优化",
-        ctaPrimary: "开始一个任务",
-        ctaSecondary: "查看 5 大核心服务",
-        chip1: "上传截图或简单描述事情经过",
-        chip2: "告诉我们写给谁、希望得到什么结果",
-        chip3: "收到结构完整、可以直接提交的英文信件",
-
-        case1Tag: "案例 1 · 严肃法律信",
-        case1Title: "严肃法律 / 合同场景",
-        case1Desc:
-          "用于合同草稿、违约通知、正式法律风格往来信件，由 Desk 生成可直接提交的结构化文本。",
-        case2Tag: "案例 2 · 理赔与升级",
-        case2Title: "理赔 / 投诉升级场景",
-        case2Desc:
-          "用于航空退款、保险纠纷、对公司或机构的升级投诉信，让对方重新认真审视你的情况。",
-        case3Tag: "案例 3 · 移民与危机",
-        case3Title: "移民 / 危机说明场景",
-        case3Desc:
-          "用于签证 RFE 回应、拒签解释、家庭或情感危机的冷静说明信件。",
-
-        avatarStripText:
-          "典型用户：42–68 岁的专业人士、管理者与小企业主。",
-
-        whyLabel: "为什么需要这个 Desk？",
-        whyTitle: "为有真实麻烦的 40+ 欧美用户准备",
-        whyPill: "不是玩具型 AI",
-        why1Title: "只做严肃场景。",
-        why1Body:
-          "移民、法律风格、保险索赔、投诉升级、家庭危机沟通等，不做娱乐文案。",
-        why2Title: "直接提交用。",
-        why2Body:
-          "输出结构、语气、长度都围绕律师、HR、审核官和理赔人员来设计。",
-        why3Title: "40+ 友好。",
-        why3Body:
-          "不用折腾 prompt，只需回答清晰的问题，再由 Desk 帮你组织信件。",
-        why4Title: "没有订阅。",
-        why4Body:
-          "每封信按次计费，没有隐藏月费，不会悄悄自动扣款。",
-
-        whyCompareLeftTitle: "如果你只用 ChatGPT 聊天……",
-        whyCompareLeft1: "需要自己设计 prompt 和结构，过程很折腾。",
-        whyCompareLeft2: "语气容易过于随意或“AI 味”太重。",
-        whyCompareLeft3: "没人帮你检查是否符合法律、HR 或理赔信的风格。",
-        whyCompareRightTitle: "使用 Aurum Task Desk……",
-        whyCompareRight1: "由 Desk 帮你把碎片信息整理成完整结构化信件。",
-        whyCompareRight2:
-          "语气和长度围绕审核官、HR 和理赔人员来调优，更贴近真实阅读习惯。",
-        whyCompareRight3:
-          "通过清晰的问题收集信息，而不是要求你写复杂指令。",
-
-        pricingLabel: "定价概览",
-        pricingTitle: "5 大专门服务，清晰价格",
-        svc1Title: "法律文书 / 合同草稿",
-        svc1Desc: "合同条款撰写、违约通知、正式法律风格信件，适用于公司与个人。",
-        svc1Price: "USD 29.9",
-        svc1Cta: "进入服务 →",
-        svc2Title: "移民申请信 / RFE / 拒签解释",
-        svc2Desc:
-          "针对 RFE 回复、拒签解释、背景说明等签证与永居场景的英文信件。",
-        svc2Price: "USD 29.9",
-        svc2Cta: "进入服务 →",
-        svc3Title: "保险理赔 / 航空延误退款",
-        svc3Desc:
-          "航班延误 / 取消退款、行李损坏、拒赔后重新申诉等英文信件。",
-        svc3Price: "USD 29.9",
-        svc3Cta: "进入服务 →",
-        svc4Title: "家庭与情感危机信",
-        svc4Desc:
-          "在严重关系冲突时，用冷静、尊重的结构化英文信表达立场与底线。",
-        svc4Price: "USD 29.9",
-        svc4Cta: "进入服务 →",
-        svc5Title: "投诉升级服务",
-        svc5Desc:
-          "升级写给银行、航空公司、雇主或监管机构，让对方认真对待你的问题。",
-        svc5Price: "USD 29.9",
-        svc5Cta: "进入服务 →",
-
-        compareLabel: "为什么不用 ChatGPT？",
-        compareTitle: "通用 AI vs. 安静的专门写作桌",
-        compareLeftTitle: "通用型 AI 工具",
-        cmpL1:
-          "输出内容偏学术、冗长，很难直接用在法律、移民或理赔场景里。",
-        cmpL2:
-          "不了解移民官、理赔人员或 HR 实际审材料的习惯和关注点。",
-        cmpL3:
-          "需要不断试 prompt、调语气、反复修改，对 40+ 来说非常耗精力。",
-        cmpL4:
-          "文字容易带有明显的“AI 味道”，在部分机构中甚至会被直接否掉。",
-        compareRightTitle: "Aurum Task Desk",
-        cmpR1:
-          "结构、语气与长度以“审核者视角”设计，更贴近真实阅读习惯。",
-        cmpR2:
-          "只专注于法律风格、移民、保险、投诉与危机沟通，不做杂项内容。",
-        cmpR3:
-          "用问答方式收集信息，不需要你懂技术或写复杂指令。",
-        cmpR4:
-          "按封计费，从 29.9 美元起，无需订阅，无自动续费。",
-
-        howLabel: "流程",
-        howTitle: "开始一个任务，其实很简单",
-        step1:
-          "【1】说明发生了什么：上传截图、原信件，或用自己的话简单描述经过，无需“写得很完美”。",
-        step2:
-          "【2】说明写给谁、想要什么：是律师、使馆、保险公司、雇主还是航空公司？你希望对方做什么？",
-        step3:
-          "【3】收到可直接提交的英文信件：你可以再补充细节，然后通过邮箱、在线表格或纸质形式发送。",
-
-        whoLabel: "适合人群",
-        whoTitle: "三类典型的 Aurum Desk 用户",
-        persona1:
-          "在欧美生活、工作或读书的华人 / 国际人士，英语一般，但正在处理移民、保险或合规问题。",
-        persona2:
-          "40+ 职场人士、经理或小企业主，不想学习 AI 技巧，但需要严肃、好用的英文信件。",
-        persona3:
-          "已经收到拒信、负面回复，或被长期忽视的人：需要通过严肃、礼貌但清晰的信件重新“被看见”。",
-
-        privacyLabel: "保护与隐私",
-        privacyTitle: "安静为先 —— 你的遭遇不是“素材”",
-        pri1:
-          "不会把你的信件当作“训练数据”或营销内容来使用，你的经历不是平台用来讲故事的素材。",
-        pri2:
-          "如有需要，你可以在上传前打码护照号、案件号等敏感信息，仅保留必要内容。",
-        pri3:
-          "在事情解决之后，你可以请求删除相关任务记录，不继续保留。",
-        pri4:
-          "Desk 采用简单、可审计的后台逻辑，而不是复杂难懂、到处串联广告的巨型平台。",
-
-        notForLabel: "不适合的人群",
-        notForTitle: "为了保持桌面安静、严肃",
-        nf1:
-          "只想要娱乐内容、社交媒体文案或一般作业辅导的用户。本桌面只服务真实的现实问题。",
-        nf2:
-          "希望每天批量生成大量信件、做群发活动的用户。每个任务都应该是具体而重要的。",
-        nf3:
-          "需要持牌律师提供正式法律意见或出庭代理的情况。Desk 只做写作支持，并非法律代理。",
-
-        footerCopy: "为严肃问题而生的安静写作工作台。",
-        footerPrivacy: "隐私政策",
-        footerTerms: "使用条款"
-      }
-    };
-
-    const langButtons = document.querySelectorAll(".lang-btn");
-    const i18nElements = document.querySelectorAll("[data-i18n-key]");
-
-    function setLanguage(lang) {
-      langButtons.forEach((btn) => {
-        btn.classList.toggle("active", btn.dataset.lang === lang);
-      });
-
-      if (lang === "zh") {
-        i18nElements.forEach((el) => {
-          const key = el.getAttribute("data-i18n-key");
-          if (translations.zh[key]) {
-            el.textContent = translations.zh[key];
-          }
-        });
-        document.documentElement.lang = "zh-CN";
-      } else {
-        // Reset to default EN text (stored in HTML)
-        window.location.reload(); // simplest way to ensure all original EN text comes back clean
-      }
-
-      try {
-        localStorage.setItem("aurum_lang", lang);
-      } catch (_) {}
-    }
-
-    langButtons.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const lang = btn.dataset.lang;
-        if (!btn.classList.contains("active")) {
-          setLanguage(lang);
-        }
-      });
-    });
-
-    // Load saved language
-    try {
-      const saved = localStorage.getItem("aurum_lang");
-      if (saved === "zh") {
-        setLanguage("zh");
-      }
-    } catch (_) {}
-
-    // 顶部页面导航当前页高亮（index.html → 首页）
-    (function () {
-      const path = window.location.pathname.toLowerCase();
-      let currentKey = "home";
-      if (path.endsWith("desk.html") || path.endsWith("desk_full.html")) {
-        currentKey = "desk";
-      } else if (path.endsWith("about.html")) {
-        currentKey = "about";
-      } else if (path.endsWith("contact.html")) {
-        currentKey = "contact";
-      } else if (path.endsWith("index.html") || path === "/" || path === "") {
-        currentKey = "home";
-      }
-
-      document
-        .querySelectorAll('.nav-link[data-page="' + currentKey + '"]')
-        .forEach((el) => el.classList.add("nav-link--active"));
-    })();
-  </script>
-
-  <!-- 登录状态同步脚本：和 auth.html 共用 localStorage("aurum_user") -->
-  <script>
-    (function () {
-      const STORAGE_KEY = "aurum_user";
-
-      function getCurrentUser() {
-        try {
-          const raw = localStorage.getItem(STORAGE_KEY);
-          if (!raw) return null;
-          return JSON.parse(raw);
-        } catch (e) {
-          return null;
-        }
-      }
-
-      function logoutAndRedirect() {
-        try {
-          localStorage.removeItem(STORAGE_KEY);
-        } catch (_) {}
-        // 退出后回到首页；如果你想回任务台，可以改成 desk.html
-        window.location.href = "index.html";
-      }
-
-      function setupAuthUI() {
-        const loginEls = document.querySelectorAll("[data-auth-login]");
-        const logoutEls = document.querySelectorAll("[data-auth-logout]");
-        if (!loginEls.length && !logoutEls.length) return;
-
-        const user = getCurrentUser();
-
-        if (user && user.email) {
-          // 已登录：显示 Hi, Name，并启用退出按钮
-          const name =
-            user.name ||
-            (user.email.includes("@")
-              ? user.email.split("@")[0]
-              : user.email);
-
-          loginEls.forEach((el) => {
-            el.textContent = "Hi, " + name;
-            el.onclick = function () {
-              window.location.href = "desk.html";
-            };
-          });
-
-          logoutEls.forEach((el) => {
-            el.style.display = "";
-            el.onclick = logoutAndRedirect;
-          });
-        } else {
-          // 未登录：保持原文字，只负责跳到 auth.html，隐藏退出
-          loginEls.forEach((el) => {
-            el.onclick = function () {
-              window.location.href = "auth.html";
-            };
-          });
-
-          logoutEls.forEach((el) => {
-            el.style.display = "none";
-          });
-        }
-      }
-
-      document.addEventListener("DOMContentLoaded", setupAuthUI);
-    })();
+    document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
