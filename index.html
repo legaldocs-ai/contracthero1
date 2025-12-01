@@ -476,7 +476,7 @@
 
     @media (max-width: 720px) {
       .snapshot-layout {
-        grid-template-columns: minmax(0, 1fr);
+        grid-template-columns: minmax(0,1fr);
       }
     }
 
@@ -823,7 +823,7 @@
       color: var(--text-mute);
     }
 
-    /* Pricing */
+    /* Pricing / plans */
     .pricing-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1051,8 +1051,8 @@
         <div class="nav-links">
           <button class="nav-link" data-scroll="#top">Home</button>
           <button class="nav-link" data-scroll="#how-it-works">How it works</button>
-          <button class="nav-link" data-scroll="#pricing">Pricing</button>
-          <button class="nav-link primary" data-scroll="#contact">Contact</button>
+          <button class="nav-link" data-scroll="#pricing">Plans</button>
+          <button class="nav-link primary" data-scroll="#snapshot">Run engine</button>
         </div>
         <div class="nav-note">Scroll</div>
       </nav>
@@ -1077,16 +1077,16 @@
           <p class="hero-subtitle">
             Aurum Dispute Desk runs your case through a Workers AI triage engine
             built for TikTok, Facebook Ads, PayPal, Stripe, Airbnb and more.
-            You paste your story once. We return: risk level, concrete steps,
+            You paste your story once. The engine returns: risk level, concrete steps,
             and (if it makes sense) a calm, structured appeal draft.
           </p>
           <div class="hero-pill-row">
             <span class="pill pill-gold">
               <span class="pill-dot"></span>
-              Free risk snapshot · one-click appeal draft · no login
+              100% automatic · free to use · no login
             </span>
             <span class="pill">For creators, sellers, ad buyers & small businesses</span>
-            <span class="pill">No fake documents · no “copy-paste templates only”</span>
+            <span class="pill">No calls, no emails needed. Just copy the results.</span>
           </div>
           <div class="hero-actions">
             <button class="btn btn-primary" data-scroll="#snapshot">
@@ -1125,7 +1125,7 @@
                   </div>
                   <div id="snapshot-text" class="snapshot-text snapshot-placeholder">
                     Paste your story on the right and click “Generate snapshot”.
-                    We’ll map platform view, likely triggers and give you
+                    The engine will map platform view, likely triggers and give you
                     3–6 concrete steps to follow.
                   </div>
                   <div class="snapshot-meta-row" id="snapshot-meta">
@@ -1195,8 +1195,8 @@
                   </div>
                   <div>
                     <label for="email">Email (optional)</label>
-                    <input id="email" name="email" type="email" placeholder="For follow-up, if needed" />
-                    <div class="input-hint">Leave blank if you only want on-screen results.</div>
+                    <input id="email" name="email" type="email" placeholder="For your own notes only" />
+                    <div class="input-hint">You don’t have to enter an email. Results show on this page.</div>
                   </div>
                 </div>
 
@@ -1226,7 +1226,7 @@
                   </button>
 
                   <span class="form-note">
-                    Your text is sent to your Aurum Worker using Cloudflare Workers AI only.
+                    Fully automatic. Your text goes only to your Aurum Worker using Cloudflare Workers AI.
                   </span>
                 </div>
                 <div class="form-note" id="status-line"></div>
@@ -1240,9 +1240,9 @@
       <section id="how-it-works" class="anchor reveal">
         <div class="section-eyebrow">From panic to a plan</div>
         <div class="section-title-row">
-          <h2 class="section-title">How the automatic triage & appeal engine works</h2>
+          <h2 class="section-title">Three steps, no human in the loop</h2>
           <p class="section-sub">
-            We’re not a magic unban button. We slow your story down and turn it into one serious attempt.
+            Paste once, get a risk snapshot, and if it makes sense, generate a full appeal letter.
           </p>
         </div>
 
@@ -1250,9 +1250,9 @@
           <div class="step-card">
             <div class="step-badge">Step 1 · You paste the story</div>
             <div class="step-title">Platform, notice, what you were really doing</div>
-            <div class="step-meta">No logins · no screen-sharing · no fake docs</div>
+            <div class="step-meta">No logins · no screen-sharing · no support tickets</div>
             <p>
-              You tell us which platform, what the notice said, and what you were actually running or
+              You tell the engine which platform, what the notice said, and what you were actually running or
               selling. The AI reads like a cold reviewer, not like a friend.
             </p>
           </div>
@@ -1268,7 +1268,7 @@
           <div class="step-card">
             <div class="step-badge">Step 3 · Optional appeal draft</div>
             <div class="step-title">A calm, structured letter you can edit</div>
-            <div class="step-meta">Based on the same facts · one-click</div>
+            <div class="step-meta">One click · you stay in control</div>
             <p>
               If the snapshot says an appeal is worth trying, you can generate a full appeal draft
               in one click, then edit it in your own style before sending it to the platform.
@@ -1277,13 +1277,13 @@
         </div>
       </section>
 
-      <!-- Pricing -->
+      <!-- Plans (used instead of pricing / human contact) -->
       <section id="pricing" class="anchor reveal">
-        <div class="section-eyebrow">Pricing for human help</div>
+        <div class="section-eyebrow">How to use this engine</div>
         <div class="section-title-row">
-          <h2 class="section-title">The AI engine is free. Human work is not.</h2>
+          <h2 class="section-title">Two typical ways people use Aurum Dispute Desk</h2>
           <p class="section-sub">
-            Automatic risk & appeal drafts are free to run. Paid work is only for complex or high stakes cases.
+            The engine itself is free and automatic. These “plans” are just ways to structure your own work.
           </p>
         </div>
 
@@ -1291,52 +1291,52 @@
           <div class="price-card">
             <div class="price-header-row">
               <div>
-                <div class="price-name">Appeal Pack</div>
+                <div class="price-name">Self-serve Appeal Pack</div>
                 <div class="price-caption">One account · one serious attempt</div>
               </div>
-              <div class="price-number">$280</div>
+              <div class="price-number">$0</div>
             </div>
             <ul class="price-list">
-              <li><span class="check-icon">✓</span><span>Human review of your risk snapshot & AI draft.</span></li>
-              <li><span class="check-icon">✓</span><span>Refined appeal letter in calm, policy-aware language.</span></li>
-              <li><span class="check-icon">✓</span><span>Evidence checklist: what to send, what to avoid.</span></li>
-              <li><span class="check-icon">✓</span><span>7–14 day plan for replies and follow-ups.</span></li>
+              <li><span class="check-icon">✓</span><span>Run the engine once for a clear risk snapshot.</span></li>
+              <li><span class="check-icon">✓</span><span>Generate a full appeal letter and edit it in your own words.</span></li>
+              <li><span class="check-icon">✓</span><span>Follow the 7–14 day action plan from the snapshot.</span></li>
+              <li><span class="check-icon">✓</span><span>Keep everything on your side – no need to talk to anyone.</span></li>
             </ul>
             <div class="price-cta-row">
-              <button class="price-btn" data-scroll="#contact">Ask about Appeal Pack</button>
-              <button class="price-btn secondary" data-scroll="#snapshot">Try free engine first</button>
+              <button class="price-btn" data-scroll="#snapshot">Run this plan now</button>
+              <button class="price-btn secondary" data-scroll="#how-it-works">See the steps again</button>
             </div>
           </div>
 
           <div class="price-card alt">
             <div class="price-header-row">
               <div>
-                <div class="price-name">VIP Guidance</div>
-                <div class="price-caption">For high-volume ad buyers & key accounts</div>
+                <div class="price-name">Ongoing risk hygiene</div>
+                <div class="price-caption">For agencies and heavy spenders</div>
               </div>
-              <div class="price-number">$780+</div>
+              <div class="price-number">$0</div>
             </div>
             <ul class="price-list">
-              <li><span class="check-icon">✓</span><span>Everything in Appeal Pack, plus iterative follow-ups.</span></li>
-              <li><span class="check-icon">✓</span><span>Risk strategy across accounts, BMs and payment setups.</span></li>
-              <li><span class="check-icon">✓</span><span>Best for agencies, media buyers and large sellers.</span></li>
-              <li><span class="check-icon">✓</span><span>Limited slots; only if the snapshot looks realistic.</span></li>
+              <li><span class="check-icon">✓</span><span>Run the engine for each serious flag or suspension.</span></li>
+              <li><span class="check-icon">✓</span><span>Use the action steps to adjust funnels, creatives and policies.</span></li>
+              <li><span class="check-icon">✓</span><span>Keep a private log of snapshots and appeals over time.</span></li>
+              <li><span class="check-icon">✓</span><span>No subscription, no login system – just use the tool when needed.</span></li>
             </ul>
             <div class="price-cta-row">
-              <button class="price-btn" data-scroll="#contact">Apply for VIP slot</button>
-              <button class="price-btn secondary" data-scroll="#how-it-works">How we decide</button>
+              <button class="price-btn" data-scroll="#snapshot">Open the engine</button>
+              <button class="price-btn secondary" data-scroll="#faq">Read the FAQ</button>
             </div>
           </div>
         </div>
       </section>
 
       <!-- FAQ -->
-      <section class="anchor reveal">
+      <section id="faq" class="anchor reveal">
         <div class="section-eyebrow">Before you spam the appeal button</div>
         <div class="section-title-row">
-          <h2 class="section-title">Why bother with a dispute desk at all?</h2>
+          <h2 class="section-title">What this tool is — and what it is not</h2>
           <p class="section-sub">
-            Because sending ten emotional appeals is often worse than sending one structured one.
+            It is a structured way to think like a platform. It is not a magic “unban” button or a law firm.
           </p>
         </div>
 
@@ -1345,13 +1345,13 @@
             <div class="faq-q">Is this a magic “unban” service?</div>
             <div class="faq-a">
               No. Some accounts can be recovered, some cannot. The risk snapshot tells you which bucket
-              you are in: reasonable chance, low chance, or almost zero chance. We’d rather say “no”
-              than charge you for hopeless cases.
+              you are in: reasonable chance, low chance, or almost zero chance. It is better to know than
+              to send ten emotional appeals.
             </div>
             <div class="faq-q">Do you log into my accounts?</div>
             <div class="faq-a">
               No. You stay in full control. You paste notices and facts, you submit appeals from your
-              own devices and networks. We don’t ask for passwords or codes.
+              own devices and networks. The engine never asks for passwords, codes or screenshots.
             </div>
           </div>
           <div class="faq-card">
@@ -1363,34 +1363,33 @@
             </div>
             <div class="faq-q">Is this legal advice?</div>
             <div class="faq-a">
-              No. Aurum Dispute Desk is not a law firm and does not replace your lawyer. We help you
+              No. Aurum Dispute Desk is not a law firm and does not replace your lawyer. It helps you
               communicate with platforms more clearly and realistically.
             </div>
           </div>
         </div>
       </section>
 
-      <!-- Contact -->
+      <!-- Contact（仅技术问题备用，不再做流程的一部分） -->
       <section id="contact" class="anchor reveal">
-        <div class="section-eyebrow">Contact</div>
+        <div class="section-eyebrow">Optional contact</div>
         <div class="section-title-row">
-          <h2 class="section-title">If your case looks worth fighting, talk to a human</h2>
+          <h2 class="section-title">Most users never need to contact us</h2>
           <p class="section-sub">
-            The engine is free to run. Human work is only for serious or complex cases.
+            You can simply use the engine above and copy the results. The email below is only for technical issues.
           </p>
         </div>
         <div class="contact-card">
           <div class="contact-row">
-            <span class="contact-pill">1. Run the free engine above</span>
-            <span class="contact-pill">2. If it looks realistic, email us</span>
+            <span class="contact-pill">Engine questions or bugs only</span>
           </div>
           <p>
             Email:
             <a class="contact-link" href="mailto:contact@aurumdesks.com">contact@aurumdesks.com</a>
           </p>
           <p style="font-size: 11px; color: var(--text-mute);">
-            You can change this email address in the code. If you prefer WhatsApp or another channel,
-            just update this section and your footer accordingly.
+            Ordinary users do not need to write to this email. Just run the snapshot and, if helpful,
+            generate the appeal letter automatically.
           </p>
         </div>
       </section>
