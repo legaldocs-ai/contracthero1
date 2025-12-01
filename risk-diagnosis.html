@@ -596,7 +596,7 @@
             </div>
             <h1>Free risk diagnosis: is your case worth an appeal?</h1>
             <p class="hero-sub">
-              Paste your platform notice and describe what happened.  
+              Paste your platform notice and describe what happened.
               We give you a <strong>calm, policy-aware view</strong> of your situation:
               risk level, whether appeal is realistic, and what information you should prepare.
             </p>
@@ -611,37 +611,30 @@
             </div>
 
             <p class="hero-note">
-              <strong>No login, no screen-share, no password.</strong>  
+              <strong>No login, no screen-share, no password.</strong>
               You stay in control: you paste the notice here and later submit your appeal from your own account.
             </p>
           </div>
 
           <div class="form-card">
-            <!--
-              You can change the email below to your real mailbox, for example:
-              action="mailto:auth@aurumdesks.com"
-            -->
-            <form
-              action="mailto:support@aurumdesks.com"
-              method="POST"
-              enctype="text/plain"
-            >
+            <!-- 自动诊断表单，不再 mailto -->
+            <form id="risk-form">
               <div class="inline-fields">
                 <div class="field-group">
                   <label class="field-label">
                     <span>Platform</span>
                     <small>Required</small>
                   </label>
-                  <select name="Platform" required>
+                  <select id="platform" name="platform" required>
                     <option value="">Select a platform…</option>
-                    <option>TikTok / TikTok Shop</option>
-                    <option>Facebook / Instagram Ads</option>
-                    <option>PayPal</option>
-                    <option>Stripe</option>
-                    <option>Airbnb</option>
-                    <option>Amazon</option>
-                    <option>Google Ads</option>
-                    <option>Other</option>
+                    <option value="tiktok">TikTok / TikTok Shop</option>
+                    <option value="meta_ads">Facebook / Instagram Ads</option>
+                    <option value="paypal">PayPal</option>
+                    <option value="stripe">Stripe</option>
+                    <option value="airbnb">Airbnb</option>
+                    <option value="amazon">Amazon</option>
+                    <option value="google_ads">Google Ads</option>
+                    <option value="other">Other</option>
                   </select>
                 </div>
 
@@ -650,12 +643,12 @@
                     <span>How urgent is this?</span>
                     <small>Rough feel</small>
                   </label>
-                  <select name="Urgency">
+                  <select id="urgency" name="urgency">
                     <option value="">Select…</option>
-                    <option>Low — just want a calm opinion</option>
-                    <option>Medium — important, but business still runs</option>
-                    <option>High — main cashflow is blocked</option>
-                    <option>Critical — this is my only income</option>
+                    <option value="low">Low — just want a calm opinion</option>
+                    <option value="medium">Medium — important, but business still runs</option>
+                    <option value="high">High — main cashflow is blocked</option>
+                    <option value="critical">Critical — this is my only income</option>
                   </select>
                 </div>
               </div>
@@ -666,7 +659,8 @@
                   <small>Required</small>
                 </label>
                 <textarea
-                  name="Platform notice"
+                  id="notice"
+                  name="notice"
                   placeholder="Copy the text of the email or in-app message here, including error codes or policy names…"
                   required
                 ></textarea>
@@ -678,7 +672,8 @@
                   <small>Required</small>
                 </label>
                 <textarea
-                  name="What happened"
+                  id="context"
+                  name="context"
                   placeholder="Example: we launched a new campaign to country X, changed landing page, received disputes, changed product category, received a warning last week…"
                   required
                 ></textarea>
@@ -690,7 +685,8 @@
                   <small>Required</small>
                 </label>
                 <textarea
-                  name="Business model"
+                  id="business"
+                  name="business"
                   placeholder="Short description in simple words. What do you sell, to whom, at what price point, how do you deliver?"
                   required
                 ></textarea>
@@ -704,7 +700,8 @@
                   </label>
                   <input
                     type="email"
-                    name="Email"
+                    id="email"
+                    name="email"
                     placeholder="we'll send the diagnosis here"
                     required
                   />
@@ -716,7 +713,8 @@
                   </label>
                   <input
                     type="text"
-                    name="WhatsApp"
+                    id="whatsapp"
+                    name="whatsapp"
                     placeholder="+1 555 000 0000"
                   />
                 </div>
@@ -728,27 +726,44 @@
                   <small>Optional</small>
                 </label>
                 <textarea
-                  name="Extra context"
+                  id="extra"
+                  name="extra"
                   placeholder="Previous bans, old tickets, sensitive verticals, special documents you have, budget you roughly have in mind for appeals…"
                 ></textarea>
               </div>
 
               <div class="submit-row">
-                <button type="submit" class="btn-primary">
+                <button type="submit" class="btn-primary" id="risk-submit">
                   Send for free diagnosis
                   <span>→</span>
                 </button>
                 <div class="submit-note">
-                  We normally respond within <strong>24–48 hours</strong>  
-                  with a written diagnosis and, if it makes sense, suggested appeal options and pricing.
+                  This runs an <strong>automatic risk diagnosis</strong> first.
+                  For complex or very high-risk cases, we may invite you to a paid full appeal pack.
                 </div>
               </div>
 
-              <div class="helper-line">
-                By submitting, you confirm you are sharing your own case and are not asking for fake documents or account rental.  
+              <p id="risk-status" class="helper-line" style="margin-top:6px;"></p>
+
+              <div class="helper-line" style="margin-top:4px;">
+                By submitting, you confirm you are sharing your own case and are not asking for fake documents or account rental.
                 We may decline cases that clearly violate platform or legal rules.
               </div>
             </form>
+
+            <!-- 自动诊断结果展示 -->
+            <div id="risk-result" class="section" style="margin-top:14px; display:none;">
+              <div class="section-header">
+                <h2>Automatic diagnosis</h2>
+                <p class="section-lead">
+                  This is a first-pass AI diagnosis, not legal advice. It helps you see risk level,
+                  appeal chances and which documents to prepare.
+                </p>
+              </div>
+              <div class="faq-item">
+                <div class="faq-a" id="risk-result-text"></div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -767,8 +782,8 @@
           <div class="faq-item">
             <div class="faq-q">What do I receive after I submit?</div>
             <div class="faq-a">
-              You receive a short written diagnosis by email: our best view of
-              <strong>what the platform likely saw</strong>, how serious it is,
+              You receive a short written diagnosis:
+              our best view of <strong>what the platform likely saw</strong>, how serious it is,
               and whether it's worth paying for a full appeal pack or VIP support.
               We sometimes say “do not appeal yet” if your case is not ready.
             </div>
@@ -778,7 +793,7 @@
             <div class="faq-q">Can you guarantee my account will be reinstated?</div>
             <div class="faq-a">
               No. Anyone who promises guaranteed reinstatement is not being honest.
-              We can't control internal platform systems or reviewers.  
+              We can't control internal platform systems or reviewers.
               We focus on giving you the <strong>cleanest, most reasonable version of your story</strong>
               and a structure that respects their policies.
             </div>
@@ -816,7 +831,68 @@
   </div>
 
   <script>
+    // 年份
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // 自动诊断前端逻辑
+    const form = document.getElementById('risk-form');
+    const btn = document.getElementById('risk-submit');
+    const statusEl = document.getElementById('risk-status');
+    const resultBox = document.getElementById('risk-result');
+    const resultText = document.getElementById('risk-result-text');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const payload = {
+        platform: form.platform.value,
+        urgency: form.urgency.value,
+        notice: form.notice.value,
+        context: form.context.value,
+        business: form.business.value,
+        email: form.email.value,
+        whatsapp: form.whatsapp.value,
+        extra: form.extra.value
+      };
+
+      // 简单校验
+      if (!payload.notice || !payload.context || !payload.business || !payload.email) {
+        statusEl.textContent = 'Please fill the required fields first.';
+        return;
+      }
+
+      btn.disabled = true;
+      const oldText = btn.textContent;
+      btn.textContent = 'Analyzing...';
+      statusEl.textContent = 'Running an automatic risk diagnosis. This can take 5–15 seconds…';
+      resultBox.style.display = 'none';
+      resultText.textContent = '';
+
+      try {
+        const res = await fetch('/api/risk-diagnosis', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (!res.ok) {
+          throw new Error('Network error');
+        }
+
+        const data = await res.json();
+        const summary = data.summary || 'Diagnosis received, but no details were returned.';
+
+        resultText.textContent = summary;
+        resultBox.style.display = 'block';
+        statusEl.textContent = 'Done. This is an automatic diagnosis, not legal or financial advice.';
+      } catch (err) {
+        console.error(err);
+        statusEl.textContent = 'Something went wrong. Please try again later.';
+      } finally {
+        btn.disabled = false;
+        btn.textContent = oldText;
+      }
+    });
   </script>
 </body>
 </html>
