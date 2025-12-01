@@ -1,899 +1,613 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <title>Aurum Account Recovery Desk — Free Risk Diagnosis</title>
+  <title>Aurum 申诉办公桌 — 免费风险诊断</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <link rel="icon" type="image/png" href="favicon.png" />
+  <meta name="description" content="在花钱写申诉信之前，先做一次冷静的书面风险评估。Aurum 会生成一份书面风险诊断报告，并提供约 30% 的英文申诉信预览。" />
 
-  <meta
-    name="description"
-    content="Run a free risk diagnosis for your suspended or limited account. Aurum Desk gives you a calm written risk report and an appeal preview before you pay."
-  />
+  <link rel="icon" href="favicon.png" type="image/png" />
 
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg-page: #f4f6fb;
-      --bg-soft: #ffffff;
-      --bg-soft-alt: #f9fafb;
-      --border-subtle: rgba(148, 163, 184, 0.4);
-      --border-strong: rgba(148, 163, 184, 0.85);
+      --bg: #eef3ff;
+      --bg-soft: rgba(255, 255, 255, 0.92);
       --ink: #0f172a;
-      --ink-soft: #4b5563;
-      --ink-softer: #6b7280;
-      --ink-softest: #9ca3af;
-      --accent: #1d4ed8;
-      --accent-soft: rgba(37, 99, 235, 0.1);
+      --ink-soft: #64748b;
+      --line-soft: rgba(148, 163, 184, 0.55);
+      --accent: #2563eb;
+      --accent-soft: rgba(37, 99, 235, 0.12);
       --accent-strong: #1d4ed8;
-      --gold: #f59e0b;
-      --gold-soft: rgba(245, 158, 11, 0.12);
-      --success: #16a34a;
-      --danger: #ef4444;
-
-      --radius-xl: 28px;
-      --radius-lg: 22px;
-      --radius-md: 16px;
+      --danger: #b91c1c;
+      --radius-lg: 26px;
+      --radius-md: 18px;
       --radius-pill: 999px;
-
-      --shadow-soft: 0 26px 80px rgba(15, 23, 42, 0.15);
-      --shadow-card: 0 18px 50px rgba(15, 23, 42, 0.12);
-      --shadow-subtle: 0 10px 30px rgba(15, 23, 42, 0.06);
-
-      --nav-height: 76px;
+      --shadow-soft: 0 26px 70px rgba(15, 23, 42, 0.21);
     }
-
-    html, body { height: 100%; }
 
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
-        "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #e5edff 0%, #f4f6fb 47%, #edf1f8 100%);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #dbeafe 0, #eef2ff 35%, #e5e7eb 100%);
       color: var(--ink);
-      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
     }
+
+    a { color: inherit; text-decoration: none; }
 
     .page {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .bg-orbit {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: -2;
-    }
-
-    .bg-orbit::before,
-    .bg-orbit::after {
-      content: "";
-      position: absolute;
-      border-radius: 999px;
-      filter: blur(70px);
-      opacity: 0.6;
-      mix-blend-mode: screen;
-      animation: floatSoft 18s ease-in-out infinite alternate;
-    }
-
-    .bg-orbit::before {
-      width: 520px;
-      height: 520px;
-      top: -80px;
-      left: -40px;
-      background: radial-gradient(circle at 10% 0%, rgba(56, 189, 248, 0.6), transparent 70%);
-    }
-
-    .bg-orbit::after {
-      width: 560px;
-      height: 560px;
-      bottom: -120px;
-      right: -40px;
-      background: radial-gradient(circle at 80% 40%, rgba(245, 158, 11, 0.5), transparent 70%);
-      animation-delay: 2s;
-    }
-
-    .bg-grid {
-      position: fixed;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(148, 163, 184, 0.25) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(148, 163, 184, 0.25) 1px, transparent 1px);
-      background-size: 80px 80px;
-      opacity: 0.18;
-      mask-image: radial-gradient(circle at top, black 0%, transparent 62%);
-      -webkit-mask-image: radial-gradient(circle at top, black 0%, transparent 62%);
-      pointer-events: none;
-      z-index: -1;
-    }
-
-    @keyframes floatSoft {
-      from { transform: translate3d(0,0,0) scale(1); }
-      to { transform: translate3d(18px,40px,0) scale(1.03); }
-    }
-
-    .top-strip {
-      position: relative;
-      z-index: 30;
-      display: flex;
-      justify-content: center;
-      padding: 8px 16px;
-      font-size: 12px;
-      color: var(--ink-softest);
-    }
-
-    .top-strip-inner {
       max-width: 1120px;
-      width: 100%;
-      background: linear-gradient(
-        90deg,
-        rgba(37, 99, 235, 0.06),
-        rgba(56, 189, 248, 0.04),
-        rgba(245, 158, 11, 0.06)
-      );
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.35);
-      padding: 6px 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      box-shadow: 0 10px 30px rgba(148, 163, 184, 0.3);
+      margin: 16px auto 40px;
+      padding: 16px 16px 40px;
     }
 
-    .top-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 2px 9px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.8);
-      color: var(--ink-soft);
-      font-weight: 500;
-      font-size: 11px;
-    }
-
-    .top-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: #22c55e;
-      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.4);
-    }
-
-    .top-strip-text {
-      font-size: 11px;
-      color: var(--ink-soft);
-    }
-
+    /* 顶部导航 */
     header {
-      position: sticky;
-      top: 0;
-      z-index: 40;
-      backdrop-filter: blur(26px);
-      background: linear-gradient(
-        to bottom,
-        rgba(244, 246, 251, 0.9),
-        rgba(244, 246, 251, 0.75),
-        rgba(244, 246, 251, 0.5)
-      );
-      border-bottom: 1px solid rgba(203, 213, 225, 0.7);
-    }
-
-    .nav-inner {
-      max-width: 1120px;
-      margin: 0 auto;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 10px 18px;
-      height: var(--nav-height);
+      gap: 12px;
+      padding: 8px 14px 16px;
+      margin-bottom: 6px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.04);
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }
 
-    .brand-mark {
-      width: 38px;
-      height: 38px;
-      border-radius: 18px;
-      background:
-        conic-gradient(
-          from 220deg,
-          rgba(37, 99, 235, 0.06),
-          rgba(37, 99, 235, 0.4),
-          rgba(56, 189, 248, 0.45),
-          rgba(245, 158, 11, 0.85),
-          rgba(37, 99, 235, 0.1)
-        );
+    .brand-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background: conic-gradient(from 210deg, #f97316, #facc15, #22c55e, #3b82f6, #6366f1, #f97316);
       display: flex;
       align-items: center;
       justify-content: center;
-      position: relative;
-      box-shadow:
-        0 0 0 1px rgba(148, 163, 184, 0.55),
-        0 14px 35px rgba(15, 23, 42, 0.4);
-      overflow: hidden;
-    }
-
-    .brand-mark::after {
-      content: "A";
+      color: #fff;
       font-weight: 700;
-      color: #0f172a;
-      font-size: 18px;
-      letter-spacing: 0.03em;
-      text-shadow: 0 3px 8px rgba(15, 23, 42, 0.45);
-    }
-
-    .brand-text {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .brand-name {
       font-size: 16px;
-      font-weight: 650;
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-      color: #020617;
+      box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.85);
     }
 
-    .brand-sub {
+    .brand-text-main {
+      font-weight: 650;
+      font-size: 15px;
+      letter-spacing: 0.04em;
+    }
+
+    .brand-text-sub {
       font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      color: var(--ink-softest);
+      color: var(--ink-soft);
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 22px;
+      gap: 14px;
       font-size: 13px;
       color: var(--ink-soft);
     }
 
-    .nav-links a {
-      text-decoration: none;
-      color: inherit;
-      position: relative;
-      padding-bottom: 2px;
-      cursor: pointer;
-    }
-
-    .nav-links a::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 0;
-      height: 1.5px;
-      background: linear-gradient(90deg, var(--accent), var(--gold));
-      transition: width 0.18s ease-out;
-    }
-
-    .nav-links a:hover::after,
-    .nav-links a.active::after {
-      width: 100%;
+    .nav-links a[data-current="true"] {
+      color: var(--ink);
+      font-weight: 600;
     }
 
     .nav-actions {
       display: flex;
       align-items: center;
-      gap: 10px;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
       gap: 8px;
-      border-radius: var(--radius-pill);
-      border: 1px solid transparent;
-      padding: 8px 16px;
-      font-size: 13px;
-      font-weight: 500;
-      cursor: pointer;
-      transition:
-        transform 0.14s ease-out,
-        box-shadow 0.14s ease-out,
-        background 0.14s ease-out,
-        border-color 0.14s ease-out,
-        color 0.14s ease-out;
-      white-space: nowrap;
     }
 
-    .btn-ghost {
-      background: rgba(255, 255, 255, 0.7);
-      border-color: rgba(148, 163, 184, 0.6);
-      color: var(--ink-soft);
-      box-shadow: var(--shadow-subtle);
-    }
-
-    .btn-ghost:hover {
-      background: #ffffff;
-      transform: translateY(-1px);
-      box-shadow: 0 12px 30px rgba(148, 163, 184, 0.4);
-    }
-
-    .btn-primary {
-      background: radial-gradient(circle at top left, #60a5fa, #1d4ed8);
-      color: #f9fafb;
-      border-color: rgba(30, 64, 175, 0.9);
-      box-shadow: 0 16px 45px rgba(37, 99, 235, 0.55);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-1px) translateZ(0);
-      box-shadow: 0 22px 60px rgba(37, 99, 235, 0.7);
-      filter: brightness(1.03);
-    }
-
-    .btn-outline {
-      background: rgba(255, 255, 255, 0.9);
-      border-color: rgba(148, 163, 184, 0.9);
-      color: var(--ink-soft);
-    }
-
-    .btn-outline:hover {
-      background: #ffffff;
-      transform: translateY(-1px);
-      box-shadow: 0 12px 30px rgba(148, 163, 184, 0.45);
-    }
-
-    .btn .dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: #22c55e;
-      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.5);
-    }
-
-    .btn-sm {
-      padding: 6px 12px;
-      font-size: 12px;
-    }
-
-    .hamburger {
-      display: none;
-      width: 32px;
-      height: 32px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.8);
-      background: rgba(255, 255, 255, 0.7);
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-    }
-
-    .hamburger span {
-      width: 16px;
-      height: 2px;
-      background: #020617;
-      border-radius: 999px;
+    .badge-toggle {
       position: relative;
-    }
-
-    .hamburger span::before,
-    .hamburger span::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      width: 16px;
-      height: 2px;
-      background: #020617;
-      border-radius: 999px;
-    }
-
-    .hamburger span::before { top: -5px; }
-    .hamburger span::after { top: 5px; }
-
-    main { flex: 1; }
-
-    .shell {
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 20px 18px 80px;
-    }
-
-    .hero {
-      margin-top: 26px;
-      display: grid;
-      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.05fr);
-      gap: 24px;
-      align-items: flex-start;
-    }
-
-    .stepper {
-      display: flex;
-      gap: 12px;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      color: var(--ink-softest);
-      align-items: center;
-      margin-bottom: 10px;
-    }
-
-    .step-pill {
-      padding: 3px 10px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.9);
-      border: 1px solid rgba(148, 163, 184, 0.9);
-      box-shadow: 0 10px 30px rgba(148, 163, 184, 0.4);
-      font-weight: 500;
-      color: var(--ink-soft);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .step-pill span.count {
-      width: 16px;
-      height: 16px;
-      border-radius: 999px;
-      background: var(--accent);
-      color: #fff;
       display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 10px;
+      padding: 3px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.08);
+    }
+
+    .badge-toggle span {
+      position: relative;
+      z-index: 2;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      cursor: default;
+    }
+
+    .badge-toggle span.active {
+      background: #fff;
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.25);
+      color: var(--accent-strong);
       font-weight: 600;
     }
 
+    .btn-ghost {
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      font-size: 12px;
+      color: var(--ink-soft);
+      background: rgba(15, 23, 42, 0.02);
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      padding: 7px 16px;
+      border-radius: 999px;
+      border: none;
+      background: radial-gradient(circle at top, #60a5fa 0, #2563eb 28%, #1e40af 100%);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      cursor: pointer;
+      box-shadow: 0 18px 40px rgba(37, 99, 235, 0.5);
+    }
+
+    .btn-primary .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.4);
+    }
+
+    /* 主体布局 */
+    .main-grid {
+      margin-top: 14px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+      gap: 18px;
+      align-items: flex-start;
+    }
+
+    .hero-left {
+      padding: 18px 20px 20px;
+      border-radius: var(--radius-lg);
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      backdrop-filter: blur(18px);
+    }
+
+    .steps-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+      font-size: 11px;
+    }
+
+    .step-pill {
+      border-radius: 999px;
+      padding: 4px 10px;
+      background: rgba(15, 23, 42, 0.03);
+      color: var(--ink-soft);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+    }
+
+    .step-pill.highlight {
+      border-color: rgba(34, 197, 94, 0.8);
+      color: #16a34a;
+    }
+
     .hero-title {
-      font-size: clamp(26px, 3vw + 8px, 34px);
-      line-height: 1.16;
+      font-size: 24px;
+      line-height: 1.3;
       font-weight: 750;
-      letter-spacing: -0.03em;
-      color: #020617;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
+      color: #0f172a;
     }
 
-    .hero-title span.highlight {
-      background: linear-gradient(90deg, #1d4ed8, #2563eb, #0ea5e9);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      text-shadow:
-        0 14px 40px rgba(37, 99, 235, 0.35),
-        0 0 1px rgba(15, 23, 42, 0.4);
-    }
-
-    .hero-subtitle {
-      font-size: 14px;
-      color: var(--ink-softer);
-      max-width: 540px;
+    .hero-desc {
+      font-size: 13px;
+      color: var(--ink-soft);
       line-height: 1.7;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
     .hero-tags {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 16px;
+      gap: 7px;
+      margin-bottom: 18px;
     }
 
-    .hero-tag {
+    .hero-tags span {
       font-size: 11px;
-      padding: 3px 9px;
+      padding: 4px 10px;
       border-radius: 999px;
-      background: rgba(255,255,255,0.96);
-      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.03);
+      border: 1px dashed rgba(148, 163, 184, 0.6);
       color: var(--ink-soft);
-      box-shadow: 0 10px 30px rgba(148, 163, 184, 0.45);
     }
 
-    .plan-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 4px 12px;
-      border-radius: 999px;
-      background: var(--gold-soft);
-      border: 1px solid rgba(245, 158, 11, 0.9);
+    .form-section-title {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .form-hint {
       font-size: 11px;
-      color: #92400e;
+      color: var(--ink-soft);
       margin-bottom: 10px;
     }
 
-    .plan-chip span.label {
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      font-weight: 600;
-      font-size: 10px;
-      opacity: 0.9;
+    .fieldset {
+      border-radius: var(--radius-md);
+      background: rgba(248, 250, 252, 0.95);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      padding: 12px 12px 6px;
+      box-shadow: 0 20px 40px rgba(15, 23, 42, 0.06);
     }
 
-    .plan-chip span.price {
-      font-weight: 600;
+    .field-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+      gap: 10px;
+      margin-bottom: 10px;
     }
 
-    .hero-note {
+    .field {
+      margin-bottom: 10px;
+    }
+
+    label {
+      display: block;
       font-size: 11px;
-      color: var(--ink-softest);
-      margin-top: 6px;
+      color: var(--ink-soft);
+      margin-bottom: 4px;
     }
 
-    .form-card {
-      background: rgba(255,255,255,0.98);
-      border-radius: 24px;
-      border: 1px solid rgba(203, 213, 225, 0.9);
-      box-shadow: 0 20px 60px rgba(148, 163, 184, 0.6);
-      padding: 16px 16px 14px;
+    select,
+    input[type="text"],
+    input[type="email"],
+    textarea {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      padding: 8px 10px;
+      font-size: 13px;
+      font-family: inherit;
+      background: rgba(255, 255, 255, 0.9);
+      outline: none;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    }
+
+    select:focus,
+    input:focus,
+    textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.5);
+      background: #fff;
+    }
+
+    textarea {
+      min-height: 52px;
+      resize: vertical;
+    }
+
+    .disclaimer {
+      margin-top: 10px;
+      font-size: 11px;
+      color: var(--ink-soft);
+      line-height: 1.6;
+    }
+
+    .run-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .run-row-note {
+      font-size: 11px;
+      color: var(--ink-soft);
+    }
+
+    /* 右侧结果区 */
+    .right-column {
       display: flex;
       flex-direction: column;
       gap: 12px;
+    }
+
+    .card {
+      border-radius: var(--radius-lg);
+      background: var(--bg-soft);
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      padding: 14px 18px 16px;
+      backdrop-filter: blur(16px);
       position: relative;
       overflow: hidden;
     }
 
-    .form-card::before {
-      content: "";
-      position: absolute;
-      inset: -40%;
-      background: radial-gradient(circle at top left, rgba(37, 99, 235, 0.18), transparent 60%);
-      opacity: 0.8;
-      pointer-events: none;
-    }
-
-    .form-inner {
-      position: relative;
-      z-index: 1;
+    .card-header {
       display: flex;
-      flex-direction: column;
-      gap: 10px;
-      font-size: 12px;
-      color: var(--ink-softer);
-    }
-
-    .form-header {
-      display: flex;
-      justify-content: space-between;
       align-items: center;
-      gap: 10px;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 8px;
     }
 
-    .form-header-title {
+    .card-title {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .card-subtitle {
+      font-size: 12px;
+      color: var(--ink-soft);
+    }
+
+    .pill-soft {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      color: var(--ink-soft);
+      background: rgba(255, 255, 255, 0.7);
+    }
+
+    .pill-live {
+      border-color: rgba(34, 197, 94, 0.7);
+      color: #15803d;
+    }
+
+    .pill-preview-only {
+      border-style: dashed;
+    }
+
+    .diagnosis-body {
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--ink);
+    }
+
+    .skeleton-line {
+      height: 10px;
+      border-radius: 999px;
+      background: linear-gradient(
+        90deg,
+        rgba(226, 232, 240, 0.35),
+        rgba(148, 163, 184, 0.55),
+        rgba(226, 232, 240, 0.35)
+      );
+      background-size: 200% 100%;
+      animation: shimmer 1.2s infinite;
+      margin-bottom: 8px;
+    }
+
+    .skeleton-line:nth-child(2) { width: 92%; }
+    .skeleton-line:nth-child(3) { width: 86%; }
+    .skeleton-line:nth-child(4) { width: 74%; }
+
+    @keyframes shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    /* 30% 预览卡片 */
+    .preview-card {
+      position: relative;
+      padding: 14px 16px 18px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.96);
+      box-shadow: 0 20px 50px rgba(15, 23, 42, 0.16);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      overflow: hidden;
+      color: var(--ink-soft);
+      font-size: 12px;
+    }
+
+    .preview-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .preview-title {
       font-size: 14px;
       font-weight: 600;
       color: var(--ink);
     }
 
-    .form-header-sub {
-      font-size: 11px;
-      color: var(--ink-softest);
-    }
-
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .field-row {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
-    }
-
-    label {
+    .preview-note {
       font-size: 11px;
       color: var(--ink-soft);
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    label span.hint {
-      font-size: 10px;
-      color: var(--ink-softest);
-    }
-
-    input, select, textarea {
-      border-radius: 12px;
-      border: 1px solid rgba(203, 213, 225, 0.9);
-      padding: 8px 9px;
-      font-size: 12px;
-      font-family: inherit;
-      background: rgba(255,255,255,0.98);
-      color: var(--ink);
-      outline: none;
-      transition:
-        border-color 0.15s ease-out,
-        box-shadow 0.15s ease-out,
-        background 0.15s ease-out;
-    }
-
-    input:focus,
-    select:focus,
-    textarea:focus {
-      border-color: rgba(37, 99, 235, 0.9);
-      box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.7);
-      background: #ffffff;
-    }
-
-    textarea {
-      min-height: 80px;
-      resize: vertical;
-    }
-
-    .helper {
-      font-size: 10px;
-      color: var(--ink-softest);
-    }
-
-    .form-footer {
-      margin-top: 2px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-      font-size: 11px;
-      color: var(--ink-softest);
-    }
-
-    .diagnosis-column {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .diag-card {
-      background: rgba(255,255,255,0.98);
-      border-radius: 22px;
-      border: 1px solid rgba(203, 213, 225, 0.9);
-      box-shadow: 0 18px 50px rgba(148, 163, 184, 0.6);
-      padding: 14px 14px 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      font-size: 12px;
-      color: var(--ink-softer);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .diag-header {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      align-items: center;
-    }
-
-    .diag-title {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--ink);
     }
 
     .badge-soft {
-      font-size: 10px;
-      padding: 2px 8px;
+      padding: 4px 10px;
       border-radius: 999px;
-      background: rgba(15, 23, 42, 0.04);
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      color: var(--ink-softest);
-      text-transform: uppercase;
-      letter-spacing: 0.09em;
-    }
-
-    .risk-label {
+      border: 1px solid rgba(148, 163, 184, 0.55);
       font-size: 11px;
-      padding: 2px 7px;
-      border-radius: 999px;
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      border: 1px solid transparent;
-      background: rgba(15, 23, 42, 0.03);
-    }
-
-    .risk-label span.dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-    }
-
-    .risk-low { border-color: rgba(22, 163, 74, 0.9); background: rgba(22, 163, 74, 0.08); color: #166534; }
-    .risk-low .dot { background: #22c55e; }
-
-    .risk-medium { border-color: rgba(245, 158, 11, 0.9); background: rgba(245, 158, 11, 0.08); color: #92400e; }
-    .risk-medium .dot { background: #f59e0b; }
-
-    .risk-high { border-color: rgba(239, 68, 68, 0.9); background: rgba(239, 68, 68, 0.08); color: #b91c1c; }
-    .risk-high .dot { background: #ef4444; }
-
-    .diag-body {
-      font-size: 12px;
-      color: var(--ink-softer);
-      line-height: 1.7;
-      white-space: pre-wrap;
-    }
-
-    .diag-note {
-      font-size: 11px;
-      color: var(--ink-softest);
-    }
-
-    .preview-card {
-      background: rgba(255,255,255,0.98);
-      border-radius: 20px;
-      border: 1px solid rgba(203, 213, 225, 0.9);
-      box-shadow: 0 14px 40px rgba(148, 163, 184, 0.6);
-      padding: 12px 14px 10px;
-      position: relative;
-      overflow: hidden;
-      font-size: 12px;
-      color: var(--ink-softer);
-    }
-
-    .preview-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 6px;
-    }
-
-    .preview-title {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--ink);
+      color: var(--ink-soft);
+      background: rgba(248, 250, 252, 0.95);
     }
 
     .preview-text {
-      position: relative;
-      max-height: 140px;
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--ink);
+      max-height: 7.6rem;  /* 桌面：约 3–4 行 */
       overflow: hidden;
-      mask-image: linear-gradient(to bottom, black 0%, black 55%, transparent 100%);
-      -webkit-mask-image: linear-gradient(to bottom, black 0%, black 55%, transparent 100%);
-      white-space: pre-wrap;
     }
 
     .preview-blur {
       position: absolute;
-      inset: auto 0 0 0;
-      height: 50%;
-      background:
-        linear-gradient(
-          to bottom,
-          rgba(244, 246, 251, 0) 0%,
-          rgba(244, 246, 251, 0.92) 50%,
-          rgba(244, 246, 251, 0.98) 100%
-        );
-      backdrop-filter: blur(6px);
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 52%;
+      background: linear-gradient(
+        to bottom,
+        rgba(248, 250, 252, 0) 0%,
+        rgba(248, 250, 252, 0.96) 70%,
+        rgba(248, 250, 252, 1) 100%
+      );
       pointer-events: none;
     }
 
     .preview-footer {
+      position: relative;
       margin-top: 6px;
-      font-size: 11px;
-      color: var(--ink-softest);
-    }
-
-    .step2-card {
-      background: rgba(255,255,255,0.98);
-      border-radius: 22px;
-      border: 1px solid rgba(203,213,225,0.9);
-      box-shadow: 0 18px 50px rgba(148,163,184,0.6);
-      padding: 14px 14px 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      font-size: 12px;
-      color: var(--ink-softer);
-    }
-
-    .step2-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .step2-title {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--ink);
-    }
-
-    .price-pill {
-      display: inline-flex;
-      align-items: baseline;
-      gap: 4px;
-      padding: 2px 10px;
-      border-radius: 999px;
-      background: rgba(15,23,42,0.03);
-      border: 1px solid rgba(148,163,184,0.8);
       font-size: 11px;
       color: var(--ink-soft);
     }
 
-    .price-pill span.currency { font-size: 11px; }
-    .price-pill span.amount { font-weight: 600; }
-    .price-pill span.meta { font-size: 10px; color: var(--ink-softest); }
-
-    .pay-row {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      margin-top: 4px;
+    /* 付款步骤卡片 */
+    .step-card-title {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 4px;
     }
 
-    .pay-links {
+    .step-card-sub {
+      font-size: 11px;
+      color: var(--ink-soft);
+      margin-bottom: 8px;
+    }
+
+    .plan-pill-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .plan-chip {
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      background: rgba(248, 250, 252, 0.85);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      color: var(--ink-soft);
+    }
+
+    .plan-chip strong {
+      color: var(--ink);
+    }
+
+    .plan-price {
+      font-size: 12px;
+      text-align: right;
+      color: var(--ink-soft);
+    }
+
+    .plan-price strong {
+      font-size: 16px;
+      color: var(--ink);
+    }
+
+    .plan-price small {
+      font-size: 11px;
+      color: var(--ink-soft);
+    }
+
+    .pay-links-row {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
+      margin-bottom: 8px;
     }
 
-    .pay-links a {
-      font-size: 12px;
-      padding: 6px 10px;
+    .pay-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 7px 14px;
       border-radius: 999px;
-      border: 1px dashed rgba(148,163,184,0.8);
+      font-size: 12px;
+      border: 1px dashed rgba(148, 163, 184, 0.9);
+      color: #1d4ed8;
+      background: rgba(239, 246, 255, 0.95);
+      cursor: pointer;
       text-decoration: none;
-      color: var(--accent-strong);
-      background: rgba(255,255,255,0.98);
     }
 
-    .pay-links a span {
-      font-size: 11px;
-      color: var(--ink-softest);
+    .pay-link.secondary {
+      color: #0369a1;
+      border-style: dashed;
+      background: rgba(224, 242, 254, 0.9);
     }
 
-    .checkbox-row {
+    .pay-checkbox {
       display: flex;
       align-items: flex-start;
-      gap: 6px;
+      gap: 8px;
       font-size: 11px;
-      color: var(--ink-softest);
-      margin-top: 6px;
+      color: var(--ink-soft);
+      margin-bottom: 8px;
     }
 
-    .checkbox-row input[type="checkbox"] {
+    .pay-checkbox input {
       margin-top: 2px;
     }
 
+    .btn-unlock {
+      margin-top: 4px;
+      padding: 8px 15px;
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(135deg, #4f46e5, #2563eb);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 18px 36px rgba(37, 99, 235, 0.55);
+    }
+
+    .btn-unlock:disabled {
+      opacity: 0.45;
+      cursor: default;
+      box-shadow: none;
+    }
+
+    .unlock-note {
+      margin-top: 6px;
+      font-size: 11px;
+      color: var(--ink-soft);
+    }
+
+    /* 深蓝色完整申诉信 */
     .full-letter-card {
-      margin-top: 8px;
-      background: #020617;
-      border-radius: 20px;
-      border: 1px solid rgba(30, 64, 175, 0.9);
+      border-radius: var(--radius-lg);
+      background: radial-gradient(circle at top left, #1e293b 0, #020617 60%);
+      padding: 16px 18px 18px;
       color: #e5e7eb;
-      padding: 12px 14px 10px;
-      box-shadow: 0 22px 70px rgba(15,23,42,0.95);
+      box-shadow: 0 30px 70px rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(15, 23, 42, 0.75);
       position: relative;
       overflow: hidden;
     }
 
-    .full-letter-card::before {
-      content: "";
-      position: absolute;
-      inset: -40%;
-      background: radial-gradient(circle at top left, rgba(37, 99, 235, 0.9), transparent 60%);
-      opacity: 0.9;
-      pointer-events: none;
-    }
-
-    .full-letter-inner {
-      position: relative;
-      z-index: 1;
+    .full-letter-header {
       display: flex;
-      flex-direction: column;
-      gap: 6px;
-      font-size: 12px;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      gap: 8px;
     }
 
     .full-letter-title {
@@ -901,336 +615,237 @@
       font-weight: 600;
     }
 
+    .full-letter-tag {
+      font-size: 11px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.8);
+      color: #cbd5f5;
+    }
+
     .full-letter-body {
-      font-size: 12px;
-      color: rgba(226, 232, 240, 0.96);
-      line-height: 1.7;
+      font-size: 13px;
+      line-height: 1.8;
       white-space: pre-wrap;
-      max-height: 220px;
+      max-height: 340px;
       overflow: auto;
     }
 
-    .full-letter-note {
+    .full-letter-body::-webkit-scrollbar {
+      width: 6px;
+    }
+    .full-letter-body::-webkit-scrollbar-thumb {
+      background: rgba(148, 163, 184, 0.8);
+      border-radius: 999px;
+    }
+
+    .full-letter-footer {
+      margin-top: 6px;
       font-size: 11px;
-      color: rgba(203,213,225,0.9);
+      color: rgba(148, 163, 184, 0.95);
     }
 
-    .pill-small {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      padding: 2px 8px;
-      border-radius: 999px;
-      background: rgba(15,23,42,0.65);
-      border: 1px solid rgba(148,163,184,0.9);
-      font-size: 10px;
-      color: rgba(226,232,240,0.96);
-    }
-
-    .skeleton {
-      position: relative;
-      overflow: hidden;
-      background: linear-gradient(90deg, #e5e7eb, #f3f4f6, #e5e7eb);
-      background-size: 200% 100%;
-      animation: shimmer 1.2s infinite linear;
-    }
-
-    @keyframes shimmer {
-      0% { background-position: -200% 0; }
-      100% { background-position: 200% 0; }
-    }
-
-    .skeleton-line {
-      height: 10px;
-      border-radius: 999px;
-      margin-bottom: 6px;
-    }
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(14px);
-      transition:
-        opacity 0.5s ease-out,
-        transform 0.5s ease-out;
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
+    /* 响应式 */
     @media (max-width: 960px) {
-      .nav-links,
-      .nav-actions { display: none; }
-      .hamburger { display: inline-flex; }
-      .hero { grid-template-columns: minmax(0,1fr); }
-      .shell { padding-inline: 14px; }
-    }
-
-    .mobile-menu {
-      position: fixed;
-      inset: calc(var(--nav-height) + 8px) 12px auto 12px;
-      background: rgba(255, 255, 255, 0.98);
-      border-radius: 20px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      padding: 12px 14px;
-      box-shadow: 0 18px 60px rgba(15, 23, 42, 0.5);
-      display: none;
-      flex-direction: column;
-      gap: 10px;
-      z-index: 30;
-    }
-
-    .mobile-menu.open { display: flex; }
-
-    .mobile-menu a {
-      font-size: 13px;
-      color: var(--ink-soft);
-      text-decoration: none;
-    }
-
-    .mobile-menu .btn-primary,
-    .mobile-menu .btn-ghost {
-      width: 100%;
-      justify-content: center;
-    }
-
-    footer {
-      padding: 18px;
-      font-size: 11px;
-      color: var(--ink-softest);
-      text-align: center;
-    }
-
-    footer a {
-      color: var(--ink-softest);
-      text-decoration: underline;
-      text-underline-offset: 3px;
-    }
-
-    @media (max-width: 720px) {
-      .form-footer {
-        flex-direction: column;
-        align-items: flex-start;
+      .page {
+        margin-top: 10px;
+        padding: 10px 10px 32px;
       }
-      .diagnosis-column {
-        margin-top: 18px;
+      .main-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      header {
+        flex-wrap: wrap;
+        border-radius: 20px;
+      }
+
+      .nav-links { display: none; }
+
+      .hero-title {
+        font-size: 20px;
+      }
+
+      .hero-left {
+        padding: 14px 14px 16px;
+      }
+
+      .fieldset {
+        padding: 10px 10px 6px;
+      }
+
+      .field-row {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .preview-text {
+        max-height: 11rem;  /* 手机上多显示内容 */
+      }
+
+      .preview-blur {
+        height: 34%;        /* 手机上模糊减少 */
+      }
+
+      .full-letter-body {
+        max-height: 260px;
       }
     }
   </style>
 </head>
+
 <body>
-<div class="page">
-  <div class="bg-orbit"></div>
-  <div class="bg-grid"></div>
-
-  <div class="top-strip">
-    <div class="top-strip-inner">
-      <div class="top-pill">
-        <span class="top-dot"></span>
-        <span>Step 1 — Free risk diagnosis</span>
-      </div>
-      <div class="top-strip-text">
-        Paste your suspension notice and activity once. Aurum writes a calm risk report and appeal preview before you pay.
-      </div>
-    </div>
-  </div>
-
-  <header>
-    <div class="nav-inner">
+  <div class="page">
+    <!-- 顶部导航 -->
+    <header>
       <div class="brand">
-        <div class="brand-mark"></div>
-        <div class="brand-text">
-          <div class="brand-name">AURUM DESK</div>
-          <div class="brand-sub">ACCOUNT RECOVERY & APPEALS</div>
+        <div class="brand-avatar">A</div>
+        <div>
+          <div class="brand-text-main">AURUM 办公桌</div>
+          <div class="brand-text-sub">账户申诉 | 账号恢复书信</div>
         </div>
       </div>
 
       <nav class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="index.html#platforms">Platforms</a>
-        <a href="index.html#how-it-works">How it works</a>
-        <a href="pricing.html">Pricing</a>
-        <a class="active">Free diagnosis</a>
+        <a href="index.html">首页</a>
+        <a href="index.html#how-it-works">工作原理</a>
+        <a href="pricing.html">价格</a>
+        <a href="diagnosis.html" data-current="true">免费诊断</a>
       </nav>
 
       <div class="nav-actions">
-        <button class="btn btn-ghost">Client login</button>
-        <button class="btn btn-primary">
-          <span class="dot"></span>
-          On this page
-        </button>
+        <button class="btn-ghost">客户端登录</button>
+        <div class="badge-toggle">
+          <span>访客</span>
+          <span class="active">本页</span>
+        </div>
       </div>
+    </header>
 
-      <button class="hamburger" id="hamburger">
-        <span></span>
-      </button>
-    </div>
-
-    <div class="mobile-menu" id="mobileMenu">
-      <a href="index.html">Home</a>
-      <a href="index.html#platforms">Platforms</a>
-      <a href="index.html#how-it-works">How it works</a>
-      <a href="pricing.html">Pricing</a>
-      <a>Free diagnosis</a>
-      <button class="btn btn-ghost">Client login</button>
-      <button class="btn btn-primary">On this page</button>
-    </div>
-  </header>
-
-  <main>
-    <div class="shell">
-      <section class="hero reveal">
-        <div>
-          <div class="stepper">
-            <div class="step-pill">
-              <span class="count">1</span> Free diagnosis
-            </div>
-            <span>→</span>
-            <div class="step-pill" style="opacity:0.7;">
-              <span class="count">2</span> Payment & full letter
-            </div>
-          </div>
-
-          <div id="planChip" class="plan-chip" style="display:none;">
-            <span class="label">PLAN</span>
-            <span class="price" id="planChipText"></span>
-          </div>
-
-          <h1 class="hero-title">
-            Get a calm, written risk assessment
-            <span class="highlight">before you spend money on an appeal letter.</span>
-          </h1>
-
-          <p class="hero-subtitle">
-            Paste your suspension notice and describe your real activity. Aurum generates a written risk diagnosis and
-            ~30% preview of your appeal letter — tailored to your platform and region.
-          </p>
-
-          <div class="hero-tags">
-            <span class="hero-tag">Built for Meta Ads, PayPal, Airbnb, Amazon & more</span>
-            <span class="hero-tag">Designed for US & EU professionals</span>
-            <span class="hero-tag">No subscription required for most cases</span>
-          </div>
-
-          <div class="form-card">
-            <div class="form-inner">
-              <div class="form-header">
-                <div>
-                  <div class="form-header-title">Case details</div>
-                  <div class="form-header-sub">Explain your case in normal business language. Do not invent anything.</div>
-                </div>
-              </div>
-
-              <form id="diagnosisForm">
-                <div class="field-row">
-                  <label>
-                    Platform
-                    <select id="platform" required>
-                      <option value="">Select platform</option>
-                      <option>Meta Ads / Facebook Business</option>
-                      <option>Google Ads / Merchant Center</option>
-                      <option>PayPal</option>
-                      <option>Stripe</option>
-                      <option>Airbnb</option>
-                      <option>Booking.com</option>
-                      <option>Amazon</option>
-                      <option>Shopify Payments</option>
-                      <option>Other</option>
-                    </select>
-                  </label>
-                  <label>
-                    Country / region
-                    <input id="region" type="text" placeholder="e.g. US, Germany, UK" required />
-                  </label>
-                </div>
-
-                <label>
-                  What was this account used for?
-                  <span class="hint">Briefly describe your business and typical activity.</span>
-                  <textarea id="activity" placeholder="Example: US-based e-commerce store selling phone cases; weekly ad spend around $3,000; no reselling of accounts." required></textarea>
-                </label>
-
-                <label>
-                  Official suspension / limitation notice
-                  <span class="hint">Copy-paste the email or on-screen text. Keep the exact wording if possible.</span>
-                  <textarea id="officialNotice" placeholder="Paste the exact message from the platform..." required></textarea>
-                </label>
-
-                <label>
-                  What realistically happened before the suspension?
-                  <span class="hint">Be honest. Include any policy grey area, previous warnings, unusual activity, etc.</span>
-                  <textarea id="before" placeholder="Example: We tested a new landing page with unclear refund terms; partner logged in from another country once..."></textarea>
-                </label>
-
-                <label>
-                  What have you already tried?
-                  <span class="hint">Appeals, emails, chats, new accounts, documentation you sent, etc.</span>
-                  <textarea id="tried" placeholder="Example: Sent 2 short appeals; no documents uploaded yet; opened one new account that was also rejected."></textarea>
-                </label>
-
-                <label>
-                  Email (optional, for sending a copy)
-                  <span class="hint">If you prefer, you can simply copy or download everything from this page.</span>
-                  <input id="email" type="email" placeholder="you@example.com" />
-                </label>
-
-                <div class="form-footer">
-                  <div>
-                    <div class="helper">
-                      Step 1 only generates a written diagnosis and preview. No payment happens on this step.
-                    </div>
-                    <div class="helper">
-                      Do not include passwords or full card numbers. Keep it factual and simple.
-                    </div>
-                  </div>
-                  <button id="runBtn" class="btn btn-primary" type="submit">
-                    <span class="dot" id="runDot"></span>
-                    <span id="runBtnText">Run risk diagnosis</span>
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-
-          <p class="hero-note">
-            This is not legal advice. Platforms keep full control over their decisions; our job is to remove amateur mistakes
-            and present your situation clearly.
-          </p>
+    <!-- 主体 -->
+    <div class="main-grid">
+      <!-- 左侧：表单 -->
+      <section class="hero-left">
+        <div class="steps-row">
+          <span class="step-pill">① 免费诊断</span>
+          <span class="step-pill highlight">② 按需购买完整申诉信（189 美元起）</span>
         </div>
 
-        <div class="diagnosis-column">
-          <div class="diag-card" id="diagCard">
-            <div class="diag-header">
-              <div>
-                <div class="diag-title">Risk diagnosis</div>
-                <div class="diag-note">How your case looks from the platform’s internal risk perspective.</div>
+        <h1 class="hero-title">在花钱写申诉信之前，先冷静地进行书面风险评估。</h1>
+        <p class="hero-desc">
+          粘贴您的申诉通知和描述您的实际活动，Aurum 会生成一份书面风险诊断报告，并提供约 30% 的申诉信预览——用平台风险团队看得懂的语言，帮您把情况讲清楚。
+        </p>
+
+        <div class="hero-tags">
+          <span>专为 Meta Ads、PayPal、Airbnb、亚马逊等平台设计</span>
+          <span>更适合欧美平台风控的专业人士</span>
+          <span>大多数案例无需开通订阅</span>
+        </div>
+
+        <div class="form-section-title">案件详情</div>
+        <div class="form-hint">
+          请用真实的业务语言描述。不需要“编故事”，但要尽量具体。我们不会把这些内容发给平台。
+        </div>
+
+        <form id="diagnosisForm">
+          <div class="fieldset">
+            <div class="field-row">
+              <div class="field">
+                <label for="platform">平台</label>
+                <select id="platform" name="platform">
+                  <option value="Meta Ads / Facebook Business" selected>Meta Ads / Facebook Business</option>
+                  <option value="PayPal">PayPal</option>
+                  <option value="Stripe">Stripe</option>
+                  <option value="Airbnb">Airbnb</option>
+                  <option value="Amazon">Amazon</option>
+                  <option value="Other">其它平台</option>
+                </select>
               </div>
-              <div class="badge-soft">Live preview</div>
+              <div class="field">
+                <label for="region">国家 / 地区</label>
+                <input id="region" name="region" type="text" placeholder="US, DE, UK..." />
+              </div>
             </div>
-            <div id="riskBadge" class="risk-label risk-medium" style="margin-top:4px; display:none;">
-              <span class="dot"></span>
-              <span id="riskText">Moderate risk — recoverable with strong documentation</span>
+
+            <div class="field">
+              <label for="accountUse">这个账户是用来做什么的？</label>
+              <textarea id="accountUse" name="accountUse" placeholder="比如：电商广告投放、小企业收款、短租民宿、跨境电商店铺等。"></textarea>
             </div>
-            <div id="diagSkeleton">
-              <div class="skeleton skeleton-line" style="width:85%;"></div>
-              <div class="skeleton skeleton-line" style="width:92%;"></div>
-              <div class="skeleton skeleton-line" style="width:78%;"></div>
-              <div class="skeleton skeleton-line" style="width:88%;"></div>
+
+            <div class="field">
+              <label for="noticeText">官方暂停 / 限制通知</label>
+              <textarea id="noticeText" name="noticeText" placeholder="直接粘贴邮件正文或站内通知，尽量保持原文。"></textarea>
             </div>
-            <div id="diagBody" class="diag-body" style="display:none;"></div>
+
+            <div class="field">
+              <label for="whatHappened">实际发生了什么？</label>
+              <textarea id="whatHappened" name="whatHappened" placeholder="诚实描述：之前是否有灰色操作、被警告过、账号有几个人使用等。"></textarea>
+            </div>
+
+            <div class="field">
+              <label for="whatYouDid">你已经做过什么尝试？</label>
+              <textarea id="whatYouDid" name="whatYouDid" placeholder="例如：上诉过几次、改过哪些设置、是否联系过客服等。"></textarea>
+            </div>
+
+            <div class="field">
+              <label for="email">电子邮件（可选，用于发送副本）</label>
+              <input id="email" name="email" type="email" placeholder="you@example.com" />
+            </div>
           </div>
 
-          <div class="preview-card" id="previewCard">
-            <div class="preview-header">
-              <div>
-                <div class="preview-title">Appeal letter preview (~30%)</div>
-                <div class="diag-note">Written in calm, structured language for risk & compliance teams.</div>
-              </div>
-              <div class="badge-soft">Preview only</div>
+          <div class="disclaimer">
+            这不是法律意见，最终决定权在各个平台。我们的目标是帮您减少低级错误，把情况讲得更清楚、更专业。
+          </div>
+
+          <div class="run-row">
+            <button type="submit" class="btn-primary" id="runBtn">
+              <span class="dot" id="runDot"></span>
+              Run risk diagnosis
+            </button>
+            <div class="run-row-note">
+              本步骤只生成诊断和预览，不会触发任何付款。
             </div>
-            <div class="preview-text" id="previewText">
-Dear Risk & Compliance Team,
+          </div>
+        </form>
+      </section>
+
+      <!-- 右侧：诊断结果 & 预览 & 付款步骤 -->
+      <section class="right-column">
+        <!-- 风险诊断 -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Risk diagnosis</div>
+              <div class="card-subtitle">How your case looks from the platform’s internal risk perspective.</div>
+            </div>
+            <span class="pill-soft pill-live">LIVE PREVIEW</span>
+          </div>
+
+          <div id="diagSkeleton">
+            <div class="skeleton-line"></div>
+            <div class="skeleton-line"></div>
+            <div class="skeleton-line"></div>
+            <div class="skeleton-line"></div>
+          </div>
+
+          <div class="diagnosis-body" id="diagBody" style="display:none;">
+            在这里，系统会用平台风控团队熟悉的语言，给出一份简短的风险诊断：包括这次限制更像“硬性封禁”、政策误伤，还是文档不足 / 账户结构问题等。
+          </div>
+        </div>
+
+        <!-- 申诉信 30% 预览 -->
+        <div class="preview-card">
+          <div class="preview-header">
+            <div>
+              <div class="preview-title">Appeal letter preview (~30%)</div>
+              <div class="preview-note">Written in calm, structured language for risk &amp; compliance teams.</div>
+            </div>
+            <span class="badge-soft">PREVIEW ONLY</span>
+          </div>
+
+          <div class="preview-text" id="previewText">
+Dear Risk &amp; Compliance Team,
 
 This panel shows an example of how your appeal letter will start. In the actual service we
 draft this text from your real description and the platform’s notice, using calm and
@@ -1238,70 +853,73 @@ professional language that a risk or compliance analyst can read quickly.
 
 For now this is sample preview text so you can see the structure and tone that your clients
 will receive before paying.
-</div>
-            <div class="preview-blur"></div>
-            <div class="preview-footer">
-              The remaining 70%+ and PDF export unlock after payment in Step 2.
+          </div>
+
+          <div class="preview-blur"></div>
+          <div class="preview-footer">
+            The remaining 70%+ and export options unlock after payment in Step 2.
+          </div>
+        </div>
+
+        <!-- Step 2 付款解锁 -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="step-card-title">Step 2 — Pay & unlock full appeal letter</div>
+              <div class="step-card-sub">
+                先看完风险诊断和预览，再决定是否需要完整申诉信。没有强制订阅。
+              </div>
+            </div>
+            <div class="pill-soft" id="planBadge">
+              建议方案：<strong>Standard appeal letter — $89</strong>
             </div>
           </div>
 
-          <div class="step2-card">
-            <div class="step2-header">
-              <div>
-                <div class="step2-title">Step 2 – Pay & unlock full appeal letter</div>
-                <div class="diag-note" id="planExplain">
-                  After you read your diagnosis, you can choose the plan that fits your case. You don’t have to decide now.
-                </div>
-              </div>
-              <div id="pricePill" class="price-pill" style="display:none;">
-                <span class="currency">$</span><span class="amount" id="priceAmount">89</span>
-                <span class="meta" id="priceMeta">one-time per case</span>
+          <div class="plan-pill-row">
+            <div class="plan-chip" id="planChipText">
+              Most clients only need one case — no subscription.
+            </div>
+            <div class="plan-price" id="planPriceBox">
+              <div><strong>$89</strong> <small>per case</small></div>
+              <div style="font-size:11px;color:var(--ink-soft);" id="planMini">
+                Standard appeal letter
               </div>
             </div>
+          </div>
 
-            <div class="pay-row">
-              <div>
-                <strong>1. Pay using the link below</strong>
-                <div class="diag-note">
-                  Your client simply clicks and pays. You decide which plan is available for this case; the system will show the correct price.
-                </div>
-              </div>
-              <div class="pay-links">
-                <a id="mainPayLink" href="#" target="_blank" rel="noreferrer">
-                  Main payment link
-                  <span>(replace with your real URL)</span>
-                </a>
-                <a id="backupPayLink" href="#" target="_blank" rel="noreferrer">
-                  Backup link
-                  <span>(optional)</span>
-                </a>
-              </div>
-            </div>
+          <div class="step-card-sub">
+            1. Pay using the link below.  
+            您可以将自己的 Wise / Paddle / 其它收款链接替换到下面按钮。
+          </div>
 
-            <div class="checkbox-row">
-              <input type="checkbox" id="paidCheck" />
-              <label for="paidCheck">
-                I confirm I’ve completed the payment for this case and want to unlock the full appeal letter on this page.
-              </label>
-            </div>
+          <div class="pay-links-row">
+            <a href="#" class="pay-link" id="mainPayLink">Main payment link (replace with your real URL)</a>
+            <a href="#" class="pay-link secondary" id="backupPayLink">Backup link (optional)</a>
+          </div>
 
-            <div style="margin-top:6px; display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
-              <button id="unlockBtn" class="btn btn-outline btn-sm" disabled>
-                Generate full appeal letter
-              </button>
-              <span class="helper">
-                This will call your Worker endpoint (<code>/w/api/full-letter</code>) once the payment is done.
-              </span>
-            </div>
+          <label class="pay-checkbox">
+            <input type="checkbox" id="paidCheck" />
+            <span>I confirm I’ve completed the payment for this case and want to unlock the full appeal letter on this page.</span>
+          </label>
 
-            <div class="full-letter-card" id="fullLetterCard" style="margin-top:10px;">
-              <div class="full-letter-inner">
-                <div class="full-letter-title">
-                  Full appeal letter (unlocked after payment)
-                </div>
-                <div class="full-letter-body" id="fullLetterBody">
-<div class="full-letter-body" id="fullLetterBody">
-Dear Risk & Compliance Team,
+          <button class="btn-unlock" id="unlockBtn" disabled>
+            Generate full appeal letter
+          </button>
+
+          <div class="unlock-note">
+            After payment is confirmed, the full English appeal letter for this case will appear in the dark panel below.  
+            您的客户可以复制到平台表单，或导出到文档中。
+          </div>
+        </div>
+
+        <!-- 完整申诉信 -->
+        <div class="full-letter-card">
+          <div class="full-letter-header">
+            <div class="full-letter-title">完整申诉信（付款后解锁）</div>
+            <span class="full-letter-tag">Final letter for platform review</span>
+          </div>
+          <div class="full-letter-body" id="fullLetterBody">
+Dear Risk &amp; Compliance Team,
 
 This panel will hold the complete appeal letter for your client’s case. In the actual
 service we prepare a structured 1–2 page explanation that matches the platform’s policies
@@ -1314,255 +932,103 @@ platform’s appeal form or export it to a document.
 
 Best regards,
 Aurum Account Recovery Desk
-</div>
-                <div class="full-letter-note">
-                  <span class="pill-small">Tip</span>
-                  &nbsp;You can also keep a copy of this letter in your own records in case you need to escalate later.
-                </div>
-              </div>
-            </div>
+          </div>
+          <div class="full-letter-footer">
+            提示：我们不会登录客户账户，所有文本都以“书面说明 / 申诉信”的方式提供，方便转交会计、律师或商务伙伴。
           </div>
         </div>
       </section>
     </div>
-  </main>
+  </div>
 
-  <footer>
-    Aurum Account Recovery Desk — Free Risk Diagnosis.
-    <a href="pricing.html">Pricing</a> · <a href="#">Terms</a> · <a href="#">Privacy</a>
-  </footer>
-</div>
+  <!-- 逻辑脚本 -->
+  <script>
+    const form = document.getElementById("diagnosisForm");
+    const runBtn = document.getElementById("runBtn");
+    const runDot = document.getElementById("runDot");
+    const diagSkeleton = document.getElementById("diagSkeleton");
+    const diagBody = document.getElementById("diagBody");
+    const previewText = document.getElementById("previewText");
+    const fullLetterBody = document.getElementById("fullLetterBody");
 
-<script>
-  // ===== 基础：导航 & 动效 =====
-  var hamburger = document.getElementById("hamburger");
-  var mobileMenu = document.getElementById("mobileMenu");
-  if (hamburger && mobileMenu) {
-    hamburger.addEventListener("click", function () {
-      mobileMenu.classList.toggle("open");
-    });
-  }
+    const planBadge = document.getElementById("planBadge");
+    const planChipText = document.getElementById("planChipText");
+    const planPriceBox = document.getElementById("planPriceBox");
+    const planMini = document.getElementById("planMini");
+    const mainPayLink = document.getElementById("mainPayLink");
+    const backupPayLink = document.getElementById("backupPayLink");
 
-  var observer = new IntersectionObserver(
-    function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.12 }
-  );
-  document.querySelectorAll(".reveal").forEach(function (el) {
-    observer.observe(el);
-  });
+    const paidCheck = document.getElementById("paidCheck");
+    const unlockBtn = document.getElementById("unlockBtn");
 
-  // ===== Plan 配置：价格 + 文案 + 收款链接 =====
-  function getPlanFromUrl() {
-    var params = new URLSearchParams(window.location.search);
-    var p = (params.get("plan") || "").toLowerCase();
-    return p;
-  }
+    let lastPayload = null;
 
-  // rank 用来比较高低：free(0) < standard(1) < recovery(2) < desk(3)
-  var planConfig = {
-    free: {
-      key: "free",
-      rank: 0,
-      chipText: "FREE RISK DIAGNOSIS — $0",
-      price: "0",
-      meta: "per case",
-      explainUrl:
-        "You chose the Free Risk Diagnosis. You can stay free or upgrade to a paid letter after reading the report.",
-      explainAi:
-        "Based on your diagnosis, your case can stay on the Free Risk Diagnosis tier. You may still upgrade later if you want a full letter.",
-      mainPay: "",
-      backupPay: "",
-    },
-    standard: {
-      key: "standard",
-      rank: 1,
-      chipText: "STANDARD APPEAL LETTER — $89",
-      price: "89",
-      meta: "one-time per case",
-      explainUrl:
-        "You came from Standard Appeal Letter. If your diagnosis looks realistic, you can unlock the full letter here.",
-      explainAi:
-        "Based on your diagnosis, your case qualifies for the Standard Appeal Letter ($89). This is usually enough for single-platform, single-flag cases.",
-      mainPay: "https://pay.example.com/standard-89", // TODO: 换成你自己的 89 美金收款链接
-      backupPay: "",
-    },
-    recovery: {
-      key: "recovery",
-      rank: 2,
-      chipText: "RECOVERY PACK — $189",
-      price: "189",
-      meta: "for complex multi-flag cases",
-      explainUrl:
-        "You came from Recovery Pack. Recommended only if your diagnosis involves multiple parallel flags or platforms.",
-      explainAi:
-        "Based on your diagnosis, your case is closer to the Recovery Pack ($189) — used for multiple flags, payment risk or multi-platform cases.",
-      mainPay: "https://pay.example.com/recovery-189", // TODO: 换成你自己的 189 美金收款链接
-      backupPay: "",
-    },
-    desk: {
-      key: "desk",
-      rank: 3,
-      chipText: "ONGOING DESK — $380 / MONTH",
-      price: "380",
-      meta: "per month, agencies & operators",
-      explainUrl:
-        "You came from Ongoing Desk. We usually start with one paid case first, then move into this desk option.",
-      explainAi:
-        "Based on your diagnosis, your profile looks like an agency/operator with many accounts. Ongoing Desk ($380 / month) is usually used in this scenario.",
-      mainPay: "https://pay.example.com/desk-380", // TODO: 换成你自己的 380 美金收款链接
-      backupPay: "",
-    },
-  };
+    const DEFAULT_RISK_TEXT =
+      "在这里，系统会用平台风控团队熟悉的语言，给出一份简短的风险诊断：包括这次限制更像“硬性封禁”、政策误伤，还是文档不足 / 账户结构问题等。";
 
-  function normalizePlanKey(key) {
-    key = (key || "").toLowerCase();
-    return planConfig[key] ? key : null;
-  }
+    const DEFAULT_PREVIEW_TEXT = previewText.textContent.trim();
 
-  // 根据 URL plan + AI suggestedPlan 决定最终 plan（取 rank 较高的那个）
-  function chooseFinalPlan(urlPlanKey, suggestedPlanKey) {
-    var u = normalizePlanKey(urlPlanKey);
-    var s = normalizePlanKey(suggestedPlanKey);
-
-    if (!u && !s) return "standard"; // 都没给 → 默认 standard
-    if (!u && s) return s;
-    if (u && !s) return u;
-
-    var ru = planConfig[u].rank;
-    var rs = planConfig[s].rank;
-    return rs > ru ? s : u;
-  }
-
-  var planChip = document.getElementById("planChip");
-  var planChipText = document.getElementById("planChipText");
-  var pricePill = document.getElementById("pricePill");
-  var priceAmount = document.getElementById("priceAmount");
-  var priceMeta = document.getElementById("priceMeta");
-  var planExplain = document.getElementById("planExplain");
-  var mainPayLink = document.getElementById("mainPayLink");
-  var backupPayLink = document.getElementById("backupPayLink");
-
-  var initialPlanKey = normalizePlanKey(getPlanFromUrl());
-  var currentPlanKey = initialPlanKey || null; // 最终 plan 放这里
-
-  // 根据 planKey 更新右侧价格 + 文案 + 链接
-  function applyPlan(planKey, options) {
-    options = options || {};
-    var source = options.source || "url"; // "url" | "ai"
-    var rawSuggested = options.rawSuggested || null;
-
-    if (!planKey || !planConfig[planKey]) {
-      // 没有任何 plan：不展示价格，只展示通用说明
-      if (planChip) planChip.style.display = "none";
-      if (pricePill) pricePill.style.display = "none";
-      if (planExplain) {
-        planExplain.textContent =
-          "After you read your diagnosis, you can choose the plan that fits your case. You don’t have to decide now.";
-      }
-      if (mainPayLink) mainPayLink.href = "#";
-      if (backupPayLink) {
-        backupPayLink.href = "#";
-        backupPayLink.style.display = "none";
-      }
-      return;
-    }
-
-    var cfg = planConfig[planKey];
-
-    if (planChip && planChipText) {
-      planChip.style.display = "inline-flex";
-      planChipText.textContent = cfg.chipText;
-    }
-
-    if (pricePill && priceAmount && priceMeta) {
-      pricePill.style.display = "inline-flex";
-      priceAmount.textContent = cfg.price;
-      priceMeta.textContent = cfg.meta;
-    }
-
-    if (planExplain) {
-      if (source === "ai") {
-        // AI 决定价格时的解释
-        var extra = rawSuggested && rawSuggested !== planKey
-          ? " (you originally came from: " + (initialPlanKey || "no specific plan") + ")"
-          : "";
-        planExplain.textContent = cfg.explainAi + extra;
+    function setRunning(running) {
+      if (running) {
+        runBtn.disabled = true;
+        runBtn.textContent = "Running diagnosis…";
+        runDot.style.animation = "pulse 1s infinite";
+        diagSkeleton.style.display = "block";
+        diagBody.style.display = "none";
       } else {
-        // 只按 URL 的 plan 显示
-        planExplain.textContent = cfg.explainUrl;
+        runBtn.disabled = false;
+        runBtn.textContent = "Run risk diagnosis";
+        runDot.style.animation = "none";
       }
     }
 
-    if (mainPayLink) {
-      mainPayLink.href = cfg.mainPay || "#";
-    }
-    if (backupPayLink) {
-      if (cfg.backupPay) {
-        backupPayLink.href = cfg.backupPay;
-        backupPayLink.style.display = "inline-flex";
-      } else {
-        backupPayLink.href = "#";
-        backupPayLink.style.display = "none";
+    // 推荐方案显示
+    function applyPlan(planKey) {
+      let title = "Standard appeal letter — $89";
+      let chip = "Most clients only need one case — no subscription.";
+      let priceHtml =
+        '<div><strong>$89</strong> <small>per case</small></div>' +
+        '<div style="font-size:11px;color:var(--ink-soft);">Standard appeal letter</div>';
+
+      if (planKey === "recovery") {
+        title = "Recovery pack — $189";
+        chip = "For complex cases: multiple flags, payment risk or multi-platform cases.";
+        priceHtml =
+          '<div><strong>$189</strong> <small>per case</small></div>' +
+          '<div style="font-size:11px;color:var(--ink-soft);">Recovery pack for complex cases</div>';
+      } else if (planKey === "desk") {
+        title = "Ongoing desk — $380 / month";
+        chip = "For agencies or operators who manage many accounts and need standing support.";
+        priceHtml =
+          '<div><strong>$380</strong> <small>per month</small></div>' +
+          '<div style="font-size:11px;color:var(--ink-soft);">Ongoing desk for agencies / operators</div>';
       }
+
+      planBadge.innerHTML = "建议方案：<strong>" + title + "</strong>";
+      planChipText.textContent = chip;
+      planPriceBox.innerHTML = priceHtml;
     }
-  }
 
-  // 页面加载时先按 URL 的 plan（如果有）更新一遍
-  applyPlan(initialPlanKey, { source: "url" });
+    // 绑定默认 plan（如果有的话，可以从 URL 参数解析，这里简单默认 standard）
+    applyPlan("standard");
 
-  // ===== Step1：调用 https://aurum-task-worker.sophieinbg.workers.dev/api/diagnosis=====
-  var form = document.getElementById("diagnosisForm");
-  var runBtn = document.getElementById("runBtn");
-  var runBtnText = document.getElementById("runBtnText");
-  var runDot = document.getElementById("runDot");
-  var diagSkeleton = document.getElementById("diagSkeleton");
-  var diagBody = document.getElementById("diagBody");
-  var riskBadge = document.getElementById("riskBadge");
-  var riskText = document.getElementById("riskText");
-  var previewText = document.getElementById("previewText");
-
-  var lastPayload = null;
-
-  function setRunning(state) {
-    if (!runBtn) return;
-    runBtn.disabled = state;
-    if (state) {
-      runBtnText.textContent = "Running diagnosis…";
-      runDot.style.boxShadow = "0 0 0 4px rgba(59,130,246,0.6)";
-    } else {
-      runBtnText.textContent = "Run risk diagnosis";
-      runDot.style.boxShadow = "0 0 0 4px rgba(34,197,94,0.5)";
-    }
-  }
-
-  if (form) {
-    form.addEventListener("submit", async function (e) {
+    // ===== Step1: 调用 Workers 诊断 API =====
+    form.addEventListener("submit", async (e) => {
       e.preventDefault();
 
-      var urlPlanKey = initialPlanKey; // 初始来自 URL 的 plan
-      var payload = {
+      const payload = {
         platform: document.getElementById("platform").value,
         region: document.getElementById("region").value,
-        activity: document.getElementById("activity").value,
-        officialNotice: document.getElementById("officialNotice").value,
-        before: document.getElementById("before").value,
-        tried: document.getElementById("tried").value,
-        email: document.getElementById("email").value || null,
-        plan: urlPlanKey || null,
+        accountUse: document.getElementById("accountUse").value,
+        noticeText: document.getElementById("noticeText").value,
+        whatHappened: document.getElementById("whatHappened").value,
+        whatYouDid: document.getElementById("whatYouDid").value,
+        email: document.getElementById("email").value,
+        initialPlan: "standard",
       };
-      lastPayload = payload;
 
+      lastPayload = payload;
       setRunning(true);
-      diagBody.style.display = "none";
-      diagSkeleton.style.display = "block";
-      riskBadge.style.display = "none";
 
       try {
         const res = await fetch("https://aurum-task-worker.sophieinbg.workers.dev/api/diagnosis", {
@@ -1570,129 +1036,1183 @@ Aurum Account Recovery Desk
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
         });
+
         const data = await res.json();
 
         diagSkeleton.style.display = "none";
         diagBody.style.display = "block";
 
-        if (data.error) {
+        if (!data.ok) {
           diagBody.textContent =
-            "Diagnosis error: " +
-            data.error +
-            (data.details ? "\n\n" + data.details : "");
+            "There was a temporary system error while generating the written diagnosis. Please try again later.";
+          previewText.textContent = DEFAULT_PREVIEW_TEXT;
+          applyPlan("standard");
           return;
         }
 
-        var summary = data.riskSummary || "";
-        var preview = data.previewLetter || "";
-        var suggestedPlan = (data.suggestedPlan || "").toLowerCase();
-
-        diagBody.textContent =
-          summary || "The AI did not return a risk diagnosis. Please try again.";
-
-        var lower = summary.toLowerCase();
-        var riskCls, riskMsg;
-        if (lower.includes("almost no chance") || lower.includes("hard ban")) {
-          riskCls = "risk-high";
-          riskMsg = "High risk — almost no chance of recovery";
-        } else if (
-          lower.includes("moderate") ||
-          lower.includes("documents") ||
-          lower.includes("gaps")
-        ) {
-          riskCls = "risk-medium";
-          riskMsg = "Moderate risk — recoverable if documentation is strong";
-        } else {
-          riskCls = "risk-low";
-          riskMsg = "Lower risk — likely recoverable with a clear explanation";
-        }
-
-        riskBadge.className = "risk-label " + riskCls;
-        riskText.textContent = riskMsg;
-        riskBadge.style.display = "inline-flex";
-
-        previewText.textContent =
-          preview ||
-          "The AI did not return a preview letter. You can still generate the full letter in Step 2.";
-
-        // === 关键：根据 AI 建议 & URL plan 选择最终 plan
-        var finalPlanKey = chooseFinalPlan(urlPlanKey, suggestedPlan);
-        currentPlanKey = finalPlanKey;
-        applyPlan(finalPlanKey, {
-          source: suggestedPlan ? "ai" : "url",
-          rawSuggested: suggestedPlan,
-        });
-       } catch (err) {
+        diagBody.textContent = data.risk || DEFAULT_RISK_TEXT;
+        previewText.textContent = data.preview || DEFAULT_PREVIEW_TEXT;
+        applyPlan(data.suggestedPlan || "standard");
+      } catch (err) {
         diagSkeleton.style.display = "none";
         diagBody.style.display = "block";
         diagBody.textContent =
-          "There was a temporary system error while generating the written diagnosis. " +
-          "Please try again in a moment, or send your case details through the contact form.";
+          "There was a temporary system error while generating the written diagnosis. Please try again in a moment.";
+        previewText.textContent = DEFAULT_PREVIEW_TEXT;
+        applyPlan("standard");
       } finally {
         setRunning(false);
       }
     });
-  }
 
-  // ===== Step2：调用 https://aurum-task-worker.sophieinbg.workers.dev/api/full-letter=====
-  var paidCheck = document.getElementById("paidCheck");
-  var unlockBtn = document.getElementById("unlockBtn");
-  var fullLetterBody = document.getElementById("fullLetterBody");
-
-  if (paidCheck && unlockBtn) {
-    paidCheck.addEventListener("change", function () {
+    // 勾选付款复选框后，按钮可用
+    paidCheck.addEventListener("change", () => {
       unlockBtn.disabled = !paidCheck.checked;
     });
 
-    unlockBtn.addEventListener("click", async function () {
-      if (!paidCheck.checked || unlockBtn.disabled) return;
+    // ===== Step2: 生成完整申诉信 =====
+    unlockBtn.addEventListener("click", async () => {
+      if (!paidCheck.checked || !lastPayload || unlockBtn.disabled) return;
 
-      if (!lastPayload) {
-        alert("Please run the risk diagnosis in Step 1 first.");
-        return;
-      }
-
-      unlockBtn.textContent = "Generating full letter…";
       unlockBtn.disabled = true;
+      unlockBtn.textContent = "Generating full appeal…";
 
       try {
-        var planKeyToSend =
-          currentPlanKey ||
-          initialPlanKey ||
-          "standard"; // 发给 Worker，作为内部参考
-
         const res = await fetch("https://aurum-task-worker.sophieinbg.workers.dev/api/full-letter", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             ...lastPayload,
-            plan: planKeyToSend,
+            planFromPricing: "client-selected",
             riskSummary: diagBody.textContent || "",
           }),
         });
 
         const data = await res.json();
 
-        if (data.error) {
+        if (!data.ok || !data.fullLetter) {
           fullLetterBody.textContent =
-            "Error generating full letter: " +
-            data.error +
-            (data.details ? "\n\n" + data.details : "");
-          return;
+            "We could not generate a full letter at this moment. Please try again or contact support with your case details.";
+        } else {
+          fullLetterBody.textContent = data.fullLetter;
         }
-
-        fullLetterBody.textContent =
-          data.fullLetter ||
-          "The AI did not return a full letter. Please try again or check your Worker logs.";
       } catch (err) {
         fullLetterBody.textContent =
-          "Network or AI error while generating full letter.\n\n" + String(err);
+          "Network or system error while generating full letter. Please try again later.";
       } finally {
         unlockBtn.textContent = "Generate full appeal letter";
         unlockBtn.disabled = !paidCheck.checked;
       }
     });
-  }
-</script>
+  </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>Aurum 申诉办公桌 — 免费风险诊断</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <meta name="description" content="在花钱写申诉信之前，先做一次冷静的书面风险评估。Aurum 会生成一份书面风险诊断报告，并提供约 30% 的英文申诉信预览。" />
+
+  <link rel="icon" href="favicon.png" type="image/png" />
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #eef3ff;
+      --bg-soft: rgba(255, 255, 255, 0.92);
+      --ink: #0f172a;
+      --ink-soft: #64748b;
+      --line-soft: rgba(148, 163, 184, 0.55);
+      --accent: #2563eb;
+      --accent-soft: rgba(37, 99, 235, 0.12);
+      --accent-strong: #1d4ed8;
+      --danger: #b91c1c;
+      --radius-lg: 26px;
+      --radius-md: 18px;
+      --radius-pill: 999px;
+      --shadow-soft: 0 26px 70px rgba(15, 23, 42, 0.21);
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #dbeafe 0, #eef2ff 35%, #e5e7eb 100%);
+      color: var(--ink);
+      min-height: 100vh;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .page {
+      max-width: 1120px;
+      margin: 16px auto 40px;
+      padding: 16px 16px 40px;
+    }
+
+    /* 顶部导航 */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 8px 14px 16px;
+      margin-bottom: 6px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.04);
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background: conic-gradient(from 210deg, #f97316, #facc15, #22c55e, #3b82f6, #6366f1, #f97316);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 700;
+      font-size: 16px;
+      box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.85);
+    }
+
+    .brand-text-main {
+      font-weight: 650;
+      font-size: 15px;
+      letter-spacing: 0.04em;
+    }
+
+    .brand-text-sub {
+      font-size: 11px;
+      color: var(--ink-soft);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 13px;
+      color: var(--ink-soft);
+    }
+
+    .nav-links a[data-current="true"] {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .badge-toggle {
+      position: relative;
+      display: inline-flex;
+      padding: 3px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.08);
+    }
+
+    .badge-toggle span {
+      position: relative;
+      z-index: 2;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      cursor: default;
+    }
+
+    .badge-toggle span.active {
+      background: #fff;
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.25);
+      color: var(--accent-strong);
+      font-weight: 600;
+    }
+
+    .btn-ghost {
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      font-size: 12px;
+      color: var(--ink-soft);
+      background: rgba(15, 23, 42, 0.02);
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      padding: 7px 16px;
+      border-radius: 999px;
+      border: none;
+      background: radial-gradient(circle at top, #60a5fa 0, #2563eb 28%, #1e40af 100%);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      cursor: pointer;
+      box-shadow: 0 18px 40px rgba(37, 99, 235, 0.5);
+    }
+
+    .btn-primary .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.4);
+    }
+
+    /* 主体布局 */
+    .main-grid {
+      margin-top: 14px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+      gap: 18px;
+      align-items: flex-start;
+    }
+
+    .hero-left {
+      padding: 18px 20px 20px;
+      border-radius: var(--radius-lg);
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      backdrop-filter: blur(18px);
+    }
+
+    .steps-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+      font-size: 11px;
+    }
+
+    .step-pill {
+      border-radius: 999px;
+      padding: 4px 10px;
+      background: rgba(15, 23, 42, 0.03);
+      color: var(--ink-soft);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+    }
+
+    .step-pill.highlight {
+      border-color: rgba(34, 197, 94, 0.8);
+      color: #16a34a;
+    }
+
+    .hero-title {
+      font-size: 24px;
+      line-height: 1.3;
+      font-weight: 750;
+      margin-bottom: 8px;
+      color: #0f172a;
+    }
+
+    .hero-desc {
+      font-size: 13px;
+      color: var(--ink-soft);
+      line-height: 1.7;
+      margin-bottom: 12px;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-bottom: 18px;
+    }
+
+    .hero-tags span {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.03);
+      border: 1px dashed rgba(148, 163, 184, 0.6);
+      color: var(--ink-soft);
+    }
+
+    .form-section-title {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .form-hint {
+      font-size: 11px;
+      color: var(--ink-soft);
+      margin-bottom: 10px;
+    }
+
+    .fieldset {
+      border-radius: var(--radius-md);
+      background: rgba(248, 250, 252, 0.95);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      padding: 12px 12px 6px;
+      box-shadow: 0 20px 40px rgba(15, 23, 42, 0.06);
+    }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .field {
+      margin-bottom: 10px;
+    }
+
+    label {
+      display: block;
+      font-size: 11px;
+      color: var(--ink-soft);
+      margin-bottom: 4px;
+    }
+
+    select,
+    input[type="text"],
+    input[type="email"],
+    textarea {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      padding: 8px 10px;
+      font-size: 13px;
+      font-family: inherit;
+      background: rgba(255, 255, 255, 0.9);
+      outline: none;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    }
+
+    select:focus,
+    input:focus,
+    textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.5);
+      background: #fff;
+    }
+
+    textarea {
+      min-height: 52px;
+      resize: vertical;
+    }
+
+    .disclaimer {
+      margin-top: 10px;
+      font-size: 11px;
+      color: var(--ink-soft);
+      line-height: 1.6;
+    }
+
+    .run-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .run-row-note {
+      font-size: 11px;
+      color: var(--ink-soft);
+    }
+
+    /* 右侧结果区 */
+    .right-column {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .card {
+      border-radius: var(--radius-lg);
+      background: var(--bg-soft);
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      padding: 14px 18px 16px;
+      backdrop-filter: blur(16px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .card-title {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .card-subtitle {
+      font-size: 12px;
+      color: var(--ink-soft);
+    }
+
+    .pill-soft {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      color: var(--ink-soft);
+      background: rgba(255, 255, 255, 0.7);
+    }
+
+    .pill-live {
+      border-color: rgba(34, 197, 94, 0.7);
+      color: #15803d;
+    }
+
+    .pill-preview-only {
+      border-style: dashed;
+    }
+
+    .diagnosis-body {
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--ink);
+    }
+
+    .skeleton-line {
+      height: 10px;
+      border-radius: 999px;
+      background: linear-gradient(
+        90deg,
+        rgba(226, 232, 240, 0.35),
+        rgba(148, 163, 184, 0.55),
+        rgba(226, 232, 240, 0.35)
+      );
+      background-size: 200% 100%;
+      animation: shimmer 1.2s infinite;
+      margin-bottom: 8px;
+    }
+
+    .skeleton-line:nth-child(2) { width: 92%; }
+    .skeleton-line:nth-child(3) { width: 86%; }
+    .skeleton-line:nth-child(4) { width: 74%; }
+
+    @keyframes shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    /* 30% 预览卡片 */
+    .preview-card {
+      position: relative;
+      padding: 14px 16px 18px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.96);
+      box-shadow: 0 20px 50px rgba(15, 23, 42, 0.16);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      overflow: hidden;
+      color: var(--ink-soft);
+      font-size: 12px;
+    }
+
+    .preview-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .preview-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .preview-note {
+      font-size: 11px;
+      color: var(--ink-soft);
+    }
+
+    .badge-soft {
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      font-size: 11px;
+      color: var(--ink-soft);
+      background: rgba(248, 250, 252, 0.95);
+    }
+
+    .preview-text {
+      margin-top: 10px;
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--ink);
+      max-height: 7.6rem;  /* 桌面：约 3–4 行 */
+      overflow: hidden;
+    }
+
+    .preview-blur {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 52%;
+      background: linear-gradient(
+        to bottom,
+        rgba(248, 250, 252, 0) 0%,
+        rgba(248, 250, 252, 0.96) 70%,
+        rgba(248, 250, 252, 1) 100%
+      );
+      pointer-events: none;
+    }
+
+    .preview-footer {
+      position: relative;
+      margin-top: 6px;
+      font-size: 11px;
+      color: var(--ink-soft);
+    }
+
+    /* 付款步骤卡片 */
+    .step-card-title {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .step-card-sub {
+      font-size: 11px;
+      color: var(--ink-soft);
+      margin-bottom: 8px;
+    }
+
+    .plan-pill-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .plan-chip {
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      background: rgba(248, 250, 252, 0.85);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      color: var(--ink-soft);
+    }
+
+    .plan-chip strong {
+      color: var(--ink);
+    }
+
+    .plan-price {
+      font-size: 12px;
+      text-align: right;
+      color: var(--ink-soft);
+    }
+
+    .plan-price strong {
+      font-size: 16px;
+      color: var(--ink);
+    }
+
+    .plan-price small {
+      font-size: 11px;
+      color: var(--ink-soft);
+    }
+
+    .pay-links-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .pay-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 7px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      border: 1px dashed rgba(148, 163, 184, 0.9);
+      color: #1d4ed8;
+      background: rgba(239, 246, 255, 0.95);
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .pay-link.secondary {
+      color: #0369a1;
+      border-style: dashed;
+      background: rgba(224, 242, 254, 0.9);
+    }
+
+    .pay-checkbox {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 11px;
+      color: var(--ink-soft);
+      margin-bottom: 8px;
+    }
+
+    .pay-checkbox input {
+      margin-top: 2px;
+    }
+
+    .btn-unlock {
+      margin-top: 4px;
+      padding: 8px 15px;
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(135deg, #4f46e5, #2563eb);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 18px 36px rgba(37, 99, 235, 0.55);
+    }
+
+    .btn-unlock:disabled {
+      opacity: 0.45;
+      cursor: default;
+      box-shadow: none;
+    }
+
+    .unlock-note {
+      margin-top: 6px;
+      font-size: 11px;
+      color: var(--ink-soft);
+    }
+
+    /* 深蓝色完整申诉信 */
+    .full-letter-card {
+      border-radius: var(--radius-lg);
+      background: radial-gradient(circle at top left, #1e293b 0, #020617 60%);
+      padding: 16px 18px 18px;
+      color: #e5e7eb;
+      box-shadow: 0 30px 70px rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(15, 23, 42, 0.75);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .full-letter-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      gap: 8px;
+    }
+
+    .full-letter-title {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .full-letter-tag {
+      font-size: 11px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.8);
+      color: #cbd5f5;
+    }
+
+    .full-letter-body {
+      font-size: 13px;
+      line-height: 1.8;
+      white-space: pre-wrap;
+      max-height: 340px;
+      overflow: auto;
+    }
+
+    .full-letter-body::-webkit-scrollbar {
+      width: 6px;
+    }
+    .full-letter-body::-webkit-scrollbar-thumb {
+      background: rgba(148, 163, 184, 0.8);
+      border-radius: 999px;
+    }
+
+    .full-letter-footer {
+      margin-top: 6px;
+      font-size: 11px;
+      color: rgba(148, 163, 184, 0.95);
+    }
+
+    /* 响应式 */
+    @media (max-width: 960px) {
+      .page {
+        margin-top: 10px;
+        padding: 10px 10px 32px;
+      }
+      .main-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      header {
+        flex-wrap: wrap;
+        border-radius: 20px;
+      }
+
+      .nav-links { display: none; }
+
+      .hero-title {
+        font-size: 20px;
+      }
+
+      .hero-left {
+        padding: 14px 14px 16px;
+      }
+
+      .fieldset {
+        padding: 10px 10px 6px;
+      }
+
+      .field-row {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .preview-text {
+        max-height: 11rem;  /* 手机上多显示内容 */
+      }
+
+      .preview-blur {
+        height: 34%;        /* 手机上模糊减少 */
+      }
+
+      .full-letter-body {
+        max-height: 260px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <!-- 顶部导航 -->
+    <header>
+      <div class="brand">
+        <div class="brand-avatar">A</div>
+        <div>
+          <div class="brand-text-main">AURUM 办公桌</div>
+          <div class="brand-text-sub">账户申诉 | 账号恢复书信</div>
+        </div>
+      </div>
+
+      <nav class="nav-links">
+        <a href="index.html">首页</a>
+        <a href="index.html#how-it-works">工作原理</a>
+        <a href="pricing.html">价格</a>
+        <a href="diagnosis.html" data-current="true">免费诊断</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="btn-ghost">客户端登录</button>
+        <div class="badge-toggle">
+          <span>访客</span>
+          <span class="active">本页</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- 主体 -->
+    <div class="main-grid">
+      <!-- 左侧：表单 -->
+      <section class="hero-left">
+        <div class="steps-row">
+          <span class="step-pill">① 免费诊断</span>
+          <span class="step-pill highlight">② 按需购买完整申诉信（189 美元起）</span>
+        </div>
+
+        <h1 class="hero-title">在花钱写申诉信之前，先冷静地进行书面风险评估。</h1>
+        <p class="hero-desc">
+          粘贴您的申诉通知和描述您的实际活动，Aurum 会生成一份书面风险诊断报告，并提供约 30% 的申诉信预览——用平台风险团队看得懂的语言，帮您把情况讲清楚。
+        </p>
+
+        <div class="hero-tags">
+          <span>专为 Meta Ads、PayPal、Airbnb、亚马逊等平台设计</span>
+          <span>更适合欧美平台风控的专业人士</span>
+          <span>大多数案例无需开通订阅</span>
+        </div>
+
+        <div class="form-section-title">案件详情</div>
+        <div class="form-hint">
+          请用真实的业务语言描述。不需要“编故事”，但要尽量具体。我们不会把这些内容发给平台。
+        </div>
+
+        <form id="diagnosisForm">
+          <div class="fieldset">
+            <div class="field-row">
+              <div class="field">
+                <label for="platform">平台</label>
+                <select id="platform" name="platform">
+                  <option value="Meta Ads / Facebook Business" selected>Meta Ads / Facebook Business</option>
+                  <option value="PayPal">PayPal</option>
+                  <option value="Stripe">Stripe</option>
+                  <option value="Airbnb">Airbnb</option>
+                  <option value="Amazon">Amazon</option>
+                  <option value="Other">其它平台</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="region">国家 / 地区</label>
+                <input id="region" name="region" type="text" placeholder="US, DE, UK..." />
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="accountUse">这个账户是用来做什么的？</label>
+              <textarea id="accountUse" name="accountUse" placeholder="比如：电商广告投放、小企业收款、短租民宿、跨境电商店铺等。"></textarea>
+            </div>
+
+            <div class="field">
+              <label for="noticeText">官方暂停 / 限制通知</label>
+              <textarea id="noticeText" name="noticeText" placeholder="直接粘贴邮件正文或站内通知，尽量保持原文。"></textarea>
+            </div>
+
+            <div class="field">
+              <label for="whatHappened">实际发生了什么？</label>
+              <textarea id="whatHappened" name="whatHappened" placeholder="诚实描述：之前是否有灰色操作、被警告过、账号有几个人使用等。"></textarea>
+            </div>
+
+            <div class="field">
+              <label for="whatYouDid">你已经做过什么尝试？</label>
+              <textarea id="whatYouDid" name="whatYouDid" placeholder="例如：上诉过几次、改过哪些设置、是否联系过客服等。"></textarea>
+            </div>
+
+            <div class="field">
+              <label for="email">电子邮件（可选，用于发送副本）</label>
+              <input id="email" name="email" type="email" placeholder="you@example.com" />
+            </div>
+          </div>
+
+          <div class="disclaimer">
+            这不是法律意见，最终决定权在各个平台。我们的目标是帮您减少低级错误，把情况讲得更清楚、更专业。
+          </div>
+
+          <div class="run-row">
+            <button type="submit" class="btn-primary" id="runBtn">
+              <span class="dot" id="runDot"></span>
+              Run risk diagnosis
+            </button>
+            <div class="run-row-note">
+              本步骤只生成诊断和预览，不会触发任何付款。
+            </div>
+          </div>
+        </form>
+      </section>
+
+      <!-- 右侧：诊断结果 & 预览 & 付款步骤 -->
+      <section class="right-column">
+        <!-- 风险诊断 -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Risk diagnosis</div>
+              <div class="card-subtitle">How your case looks from the platform’s internal risk perspective.</div>
+            </div>
+            <span class="pill-soft pill-live">LIVE PREVIEW</span>
+          </div>
+
+          <div id="diagSkeleton">
+            <div class="skeleton-line"></div>
+            <div class="skeleton-line"></div>
+            <div class="skeleton-line"></div>
+            <div class="skeleton-line"></div>
+          </div>
+
+          <div class="diagnosis-body" id="diagBody" style="display:none;">
+            在这里，系统会用平台风控团队熟悉的语言，给出一份简短的风险诊断：包括这次限制更像“硬性封禁”、政策误伤，还是文档不足 / 账户结构问题等。
+          </div>
+        </div>
+
+        <!-- 申诉信 30% 预览 -->
+        <div class="preview-card">
+          <div class="preview-header">
+            <div>
+              <div class="preview-title">Appeal letter preview (~30%)</div>
+              <div class="preview-note">Written in calm, structured language for risk &amp; compliance teams.</div>
+            </div>
+            <span class="badge-soft">PREVIEW ONLY</span>
+          </div>
+
+          <div class="preview-text" id="previewText">
+Dear Risk &amp; Compliance Team,
+
+This panel shows an example of how your appeal letter will start. In the actual service we
+draft this text from your real description and the platform’s notice, using calm and
+professional language that a risk or compliance analyst can read quickly.
+
+For now this is sample preview text so you can see the structure and tone that your clients
+will receive before paying.
+          </div>
+
+          <div class="preview-blur"></div>
+          <div class="preview-footer">
+            The remaining 70%+ and export options unlock after payment in Step 2.
+          </div>
+        </div>
+
+        <!-- Step 2 付款解锁 -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="step-card-title">Step 2 — Pay & unlock full appeal letter</div>
+              <div class="step-card-sub">
+                先看完风险诊断和预览，再决定是否需要完整申诉信。没有强制订阅。
+              </div>
+            </div>
+            <div class="pill-soft" id="planBadge">
+              建议方案：<strong>Standard appeal letter — $89</strong>
+            </div>
+          </div>
+
+          <div class="plan-pill-row">
+            <div class="plan-chip" id="planChipText">
+              Most clients only need one case — no subscription.
+            </div>
+            <div class="plan-price" id="planPriceBox">
+              <div><strong>$89</strong> <small>per case</small></div>
+              <div style="font-size:11px;color:var(--ink-soft);" id="planMini">
+                Standard appeal letter
+              </div>
+            </div>
+          </div>
+
+          <div class="step-card-sub">
+            1. Pay using the link below.  
+            您可以将自己的 Wise / Paddle / 其它收款链接替换到下面按钮。
+          </div>
+
+          <div class="pay-links-row">
+            <a href="#" class="pay-link" id="mainPayLink">Main payment link (replace with your real URL)</a>
+            <a href="#" class="pay-link secondary" id="backupPayLink">Backup link (optional)</a>
+          </div>
+
+          <label class="pay-checkbox">
+            <input type="checkbox" id="paidCheck" />
+            <span>I confirm I’ve completed the payment for this case and want to unlock the full appeal letter on this page.</span>
+          </label>
+
+          <button class="btn-unlock" id="unlockBtn" disabled>
+            Generate full appeal letter
+          </button>
+
+          <div class="unlock-note">
+            After payment is confirmed, the full English appeal letter for this case will appear in the dark panel below.  
+            您的客户可以复制到平台表单，或导出到文档中。
+          </div>
+        </div>
+
+        <!-- 完整申诉信 -->
+        <div class="full-letter-card">
+          <div class="full-letter-header">
+            <div class="full-letter-title">完整申诉信（付款后解锁）</div>
+            <span class="full-letter-tag">Final letter for platform review</span>
+          </div>
+          <div class="full-letter-body" id="fullLetterBody">
+Dear Risk &amp; Compliance Team,
+
+This panel will hold the complete appeal letter for your client’s case. In the actual
+service we prepare a structured 1–2 page explanation that matches the platform’s policies
+and the written risk diagnosis, so that your team can review the situation in a calm and
+transparent way.
+
+Right now this is sample text so you can see the layout and how a finished letter would look
+on the page. When the service is live, your client will be able to copy this letter into the
+platform’s appeal form or export it to a document.
+
+Best regards,
+Aurum Account Recovery Desk
+          </div>
+          <div class="full-letter-footer">
+            提示：我们不会登录客户账户，所有文本都以“书面说明 / 申诉信”的方式提供，方便转交会计、律师或商务伙伴。
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- 逻辑脚本 -->
+  <script>
+    const form = document.getElementById("diagnosisForm");
+    const runBtn = document.getElementById("runBtn");
+    const runDot = document.getElementById("runDot");
+    const diagSkeleton = document.getElementById("diagSkeleton");
+    const diagBody = document.getElementById("diagBody");
+    const previewText = document.getElementById("previewText");
+    const fullLetterBody = document.getElementById("fullLetterBody");
+
+    const planBadge = document.getElementById("planBadge");
+    const planChipText = document.getElementById("planChipText");
+    const planPriceBox = document.getElementById("planPriceBox");
+    const planMini = document.getElementById("planMini");
+    const mainPayLink = document.getElementById("mainPayLink");
+    const backupPayLink = document.getElementById("backupPayLink");
+
+    const paidCheck = document.getElementById("paidCheck");
+    const unlockBtn = document.getElementById("unlockBtn");
+
+    let lastPayload = null;
+
+    const DEFAULT_RISK_TEXT =
+      "在这里，系统会用平台风控团队熟悉的语言，给出一份简短的风险诊断：包括这次限制更像“硬性封禁”、政策误伤，还是文档不足 / 账户结构问题等。";
+
+    const DEFAULT_PREVIEW_TEXT = previewText.textContent.trim();
+
+    function setRunning(running) {
+      if (running) {
+        runBtn.disabled = true;
+        runBtn.textContent = "Running diagnosis…";
+        runDot.style.animation = "pulse 1s infinite";
+        diagSkeleton.style.display = "block";
+        diagBody.style.display = "none";
+      } else {
+        runBtn.disabled = false;
+        runBtn.textContent = "Run risk diagnosis";
+        runDot.style.animation = "none";
+      }
+    }
+
+    // 推荐方案显示
+    function applyPlan(planKey) {
+      let title = "Standard appeal letter — $89";
+      let chip = "Most clients only need one case — no subscription.";
+      let priceHtml =
+        '<div><strong>$89</strong> <small>per case</small></div>' +
+        '<div style="font-size:11px;color:var(--ink-soft);">Standard appeal letter</div>';
+
+      if (planKey === "recovery") {
+        title = "Recovery pack — $189";
+        chip = "For complex cases: multiple flags, payment risk or multi-platform cases.";
+        priceHtml =
+          '<div><strong>$189</strong> <small>per case</small></div>' +
+          '<div style="font-size:11px;color:var(--ink-soft);">Recovery pack for complex cases</div>';
+      } else if (planKey === "desk") {
+        title = "Ongoing desk — $380 / month";
+        chip = "For agencies or operators who manage many accounts and need standing support.";
+        priceHtml =
+          '<div><strong>$380</strong> <small>per month</small></div>' +
+          '<div style="font-size:11px;color:var(--ink-soft);">Ongoing desk for agencies / operators</div>';
+      }
+
+      planBadge.innerHTML = "建议方案：<strong>" + title + "</strong>";
+      planChipText.textContent = chip;
+      planPriceBox.innerHTML = priceHtml;
+    }
+
+    // 绑定默认 plan（如果有的话，可以从 URL 参数解析，这里简单默认 standard）
+    applyPlan("standard");
+
+    // ===== Step1: 调用 Workers 诊断 API =====
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const payload = {
+        platform: document.getElementById("platform").value,
+        region: document.getElementById("region").value,
+        accountUse: document.getElementById("accountUse").value,
+        noticeText: document.getElementById("noticeText").value,
+        whatHappened: document.getElementById("whatHappened").value,
+        whatYouDid: document.getElementById("whatYouDid").value,
+        email: document.getElementById("email").value,
+        initialPlan: "standard",
+      };
+
+      lastPayload = payload;
+      setRunning(true);
+
+      try {
+        const res = await fetch("https://aurum-task-worker.sophieinbg.workers.dev/api/diagnosis", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+
+        const data = await res.json();
+
+        diagSkeleton.style.display = "none";
+        diagBody.style.display = "block";
+
+        if (!data.ok) {
+          diagBody.textContent =
+            "There was a temporary system error while generating the written diagnosis. Please try again later.";
+          previewText.textContent = DEFAULT_PREVIEW_TEXT;
+          applyPlan("standard");
+          return;
+        }
+
+        diagBody.textContent = data.risk || DEFAULT_RISK_TEXT;
+        previewText.textContent = data.preview || DEFAULT_PREVIEW_TEXT;
+        applyPlan(data.suggestedPlan || "standard");
+      } catch (err) {
+        diagSkeleton.style.display = "none";
+        diagBody.style.display = "block";
+        diagBody.textContent =
+          "There was a temporary system error while generating the written diagnosis. Please try again in a moment.";
+        previewText.textContent = DEFAULT_PREVIEW_TEXT;
+        applyPlan("standard");
+      } finally {
+        setRunning(false);
+      }
+    });
+
+    // 勾选付款复选框后，按钮可用
+    paidCheck.addEventListener("change", () => {
+      unlockBtn.disabled = !paidCheck.checked;
+    });
+
+    // ===== Step2: 生成完整申诉信 =====
+    unlockBtn.addEventListener("click", async () => {
+      if (!paidCheck.checked || !lastPayload || unlockBtn.disabled) return;
+
+      unlockBtn.disabled = true;
+      unlockBtn.textContent = "Generating full appeal…";
+
+      try {
+        const res = await fetch("https://aurum-task-worker.sophieinbg.workers.dev/api/full-letter", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ...lastPayload,
+            planFromPricing: "client-selected",
+            riskSummary: diagBody.textContent || "",
+          }),
+        });
+
+        const data = await res.json();
+
+        if (!data.ok || !data.fullLetter) {
+          fullLetterBody.textContent =
+            "We could not generate a full letter at this moment. Please try again or contact support with your case details.";
+        } else {
+          fullLetterBody.textContent = data.fullLetter;
+        }
+      } catch (err) {
+        fullLetterBody.textContent =
+          "Network or system error while generating full letter. Please try again later.";
+      } finally {
+        unlockBtn.textContent = "Generate full appeal letter";
+        unlockBtn.disabled = !paidCheck.checked;
+      }
+    });
+  </script>
 </body>
 </html>
