@@ -654,7 +654,7 @@
                 <textarea
                   name="business"
                   id="risk-business"
-                  placeholder="Short description in simple words. What do you sell, to whom, at what price point, how do you deliver?"
+                  placeholder="Short deion in simple words. What do you sell, to whom, at what price point, how do you deliver?"
                   required
                 ></textarea>
               </div>
@@ -785,69 +785,33 @@
       </footer>
     </main>
   </div>
-
+  
   <script>
   document.addEventListener("DOMContentLoaded", () => {
-    // 1) 找到表单和按钮（不依赖 id）
-    const form = document.querySelector("form");
+    const form = document.getElementById("risk-form");
     if (!form) return;
 
-    const btn = form.querySelector('button[type="submit"]');
+    const btn        = document.getElementById("risk-submit-btn");
+    const statusEl   = document.getElementById("risk-status-text");
+    const resultBox  = document.getElementById("risk-result-box");
+    const resultText = document.getElementById("risk-result-text");
 
-    // 这些是状态提示区域（如果页面上没有对应 id，也不会报错）
-    const statusEl = document.getElementById("diagnosisStatus");
-    const resultBox = document.getElementById("diagnosisResultBox");
-    const resultText = document.getElementById("diagnosisResult");
-
-    // 2) 预填 URL 上的参数（platform / urgency / notice / context / business / email / whatsapp / extra）
-    const params = new URLSearchParams(window.location.search);
-    const prefill = [
-      "platform",
-      "urgency",
-      "notice",
-      "context",
-      "business",
-      "email",
-      "whatsapp",
-      "extra",
-    ];
-    for (const key of prefill) {
-      const v = params.get(key);
-      if (!v) continue;
-      const field = form.elements[key];
-      if (!field) continue;
-      if (field.tagName === "SELECT") {
-        // 下拉选项
-        for (const opt of field.options) {
-          if (opt.value === v || opt.text === v) {
-            field.value = opt.value;
-            break;
-          }
-        }
-      } else {
-        field.value = v;
-      }
-    }
-
-    // 3) 提交事件
+    // 提交事件：调用 /w/api/risk-diagnosis，然后把结果写进页面
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
 
-      const f = e.target;
-
-      // 从表单里取值（根据 name 获取）
       const payload = {
-        platform: f.platform ? f.platform.value : "",
-        urgency: f.urgency ? f.urgency.value : "",
-        notice: f.notice ? f.notice.value : "",
-        context: f.context ? f.context.value : "",
-        business: f.business ? f.business.value : "",
-        email: f.email ? f.email.value : "",
-        whatsapp: f.whatsapp ? f.whatsapp.value : "",
-        extra: f.extra ? f.extra.value : "",
+        platform:  document.getElementById("risk-platform")?.value || "",
+        urgency:   document.getElementById("risk-urgency")?.value || "",
+        notice:    document.getElementById("risk-notice")?.value || "",
+        context:   document.getElementById("risk-context")?.value || "",
+        business:  document.getElementById("risk-business")?.value || "",
+        email:     document.getElementById("risk-email")?.value || "",
+        whatsapp:  document.getElementById("risk-whatsapp")?.value || "",
+        extra:     document.getElementById("risk-extra")?.value || "",
       };
 
-      // 简单必填检查
+      // 简单必填校验
       if (!payload.notice || !payload.context || !payload.business || !payload.email) {
         if (statusEl) {
           statusEl.textContent = "Please fill the required fields first.";
@@ -857,7 +821,7 @@
         return;
       }
 
-      // 4) 禁用按钮 + 状态提示
+      // 按钮和提示状态
       if (btn) {
         btn.disabled = true;
         btn.dataset.oldText = btn.textContent;
@@ -867,13 +831,16 @@
         statusEl.textContent =
           "Running an automatic risk diagnosis. This can take 5–15 seconds…";
       }
-      if (resultBox) resultBox.style.display = "none";
-      if (resultText) resultText.textContent = "";
+      if (resultBox) {
+        resultBox.style.display = "none";
+      }
+      if (resultText) {
+        resultText.textContent = "";
+      }
 
       try {
-        console.log("posting to https://aurumdesks.com/w/api/risk-diagnosis");
-
-        const res = await fetch("https://aurumdesks.com/w/api/risk-diagnosis", {
+        // 用相对路径，走 Cloudflare Pages → Worker 的 /w/* 路由
+        const res = await fetch("/w/api/risk-diagnosis", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
@@ -890,7 +857,6 @@
           return;
         }
 
-        // 5) 把诊断结果显示在页面（如果有对应容器）
         const diagnosisText =
           data.diagnosis ||
           data.result ||
@@ -907,6 +873,9 @@
           statusEl.textContent =
             "Automatic risk diagnosis completed. Please review the result below.";
         }
+
+        // 可选：自动滚动到结果区域
+        resultBox?.scrollIntoView({ behavior: "smooth", block: "start" });
       } catch (err) {
         console.error("risk diagnosis error", err);
         if (statusEl) {
@@ -916,11 +885,12 @@
           alert("Something went wrong. Please try again later.");
         }
       } finally {
-        // 6) 恢复按钮
         if (btn) {
           btn.disabled = false;
           if (btn.dataset.oldText) {
             btn.textContent = btn.dataset.oldText;
+          } else {
+            btn.textContent = "Send for free diagnosis →";
           }
         }
       }
