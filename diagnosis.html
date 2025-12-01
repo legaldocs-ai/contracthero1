@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Aurum Account Recovery Desk — Free Risk Diagnosis</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="icon" type="image/png" href="favicon.png" />
+
+  <meta
+    name="description"
+    content="Run a free risk diagnosis for your suspended or restricted account. Aurum Account Recovery Desk helps you understand platform risk, whether an appeal is realistic, and what information you should prepare."
+  />
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-page: #f4f6fb;
+      --bg-soft: #ffffff;
+      --bg-soft-alt: #f9fafb;
+      --border-subtle: rgba(148, 163, 184, 0.4);
+      --border-strong: rgba(148, 163, 184, 0.85);
+      --ink: #0f172a;
+      --ink-soft: #4b5563;
+      --ink-softer: #6b7280;
+      --ink-softest: #9ca3af;
+      --accent: #1d4ed8;
+      --accent-soft: rgba(37, 99, 235, 0.08);
+      --gold: #f59e0b;
+      --gold-soft: rgba(245, 158, 11, 0.12);
+      --success: #16a34a;
+      --danger: #ef4444;
+
+      --radius-xl: 26px;
+      --radius-lg: 20px;
+      --radius-md: 16px;
+      --radius-pill: 999px;
+
+      --shadow-soft: 0 26px 80px rgba(15, 23, 42, 0.15);
+      --shadow-card: 0 18px 50px rgba(15, 23, 42, 0.12);
+      --shadow-subtle: 0 10px 30px rgba(15, 23, 42, 0.06);
+
+      --nav-height: 76px;
+    }
+
+    html, body { height: 100%; }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #e5edff 0%, #f4f6fb 47%, #edf1f8 100%);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .bg-orbit {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -2;
+    }
+
+    .bg-orbit::before,
+    .bg-orbit::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(70px);
+      opacity: 0.6;
+      mix-blend-mode: screen;
+      animation: floatSoft 18s ease-in-out infinite alternate;
+    }
+
+    .bg-orbit::before {
+      width: 520px;
+      height: 520px;
+      top: -80px;
+      left: -40px;
+      background: radial-gradient(circle at 10% 0%, rgba(56, 189, 248, 0.6), transparent 70%);
+    }
+
+    .bg-orbit::after {
+      width: 560px;
+      height: 560px;
+      bottom: -120px;
+      right: -40px;
+      background: radial-gradient(circle at 80% 40%, rgba(245, 158, 11, 0.5), transparent 70%);
+      animation-delay: 2s;
+    }
+
+    .bg-grid {
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(148, 163, 184, 0.25) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(148, 163, 184, 0.25) 1px, transparent 1px);
+      background-size: 80px 80px;
+      opacity: 0.18;
+      mask-image: radial-gradient(circle at top, black 0%, transparent 62%);
+      -webkit-mask-image: radial-gradient(circle at top, black 0%, transparent 62%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    @keyframes floatSoft {
+      from { transform: translate3d(0,0,0) scale(1); }
+      to { transform: translate3d(18px,40px,0) scale(1.03); }
+    }
+
+    /* Top strip */
+    .top-strip {
+      position: relative;
+      z-index: 30;
+      display: flex;
+      justify-content: center;
+      padding: 8px 16px;
+      font-size: 12px;
+      color: var(--ink-softest);
+    }
+
+    .top-strip-inner {
+      max-width: 1120px;
+      width: 100%;
+      background: linear-gradient(
+        90deg,
+        rgba(37, 99, 235, 0.06),
+        rgba(56, 189, 248, 0.04),
+        rgba(245, 158, 11, 0.06)
+      );
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      padding: 6px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 10px 30px rgba(148, 163, 184, 0.3);
+    }
+
+    .top-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 2px 9px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.8);
+      color: var(--ink-soft);
+      font-weight: 500;
+      font-size: 11px;
+    }
+
+    .top-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.4);
+    }
+
+    .top-strip-text {
+      font-size: 11px;
+      color: var(--ink-soft);
+    }
+
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(26px);
+      background: linear-gradient(
+        to bottom,
+        rgba(244, 246, 251, 0.9),
+        rgba(244, 246, 251, 0.75),
+        rgba(244, 246, 251, 0.5)
+      );
+      border-bottom: 1px solid rgba(203, 213, 225, 0.7);
+    }
+
+    .nav-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 18px;
+      height: var(--nav-height);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 18px;
+      background:
+        conic-gradient(
+          from 220deg,
+          rgba(37, 99, 235, 0.06),
+          rgba(37, 99, 235, 0.4),
+          rgba(56, 189, 248, 0.45),
+          rgba(245, 158, 11, 0.85),
+          rgba(37, 99, 235, 0.1)
+        );
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      box-shadow:
+        0 0 0 1px rgba(148, 163, 184, 0.55),
+        0 14px 35px rgba(15, 23, 42, 0.4);
+      overflow: hidden;
+    }
+
+    .brand-mark::after {
+      content: "A";
+      font-weight: 700;
+      color: #0f172a;
+      font-size: 18px;
+      letter-spacing: 0.03em;
+      text-shadow: 0 3px 8px rgba(15, 23, 42, 0.45);
+    }
+
+    .brand-text { display: flex; flex-direction: column; gap: 2px; }
+
+    .brand-name {
+      font-size: 16px;
+      font-weight: 650;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: #020617;
+    }
+
+    .brand-sub {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--ink-softest);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      font-size: 13px;
+      color: var(--ink-soft);
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: inherit;
+      position: relative;
+      padding-bottom: 2px;
+      cursor: pointer;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 1.5px;
+      background: linear-gradient(90deg, var(--accent), var(--gold));
+      transition: width 0.18s ease-out;
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      width: 100%;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border-radius: var(--radius-pill);
+      border: 1px solid transparent;
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition:
+        transform 0.14s ease-out,
+        box-shadow 0.14s ease-out,
+        background 0.14s ease-out,
+        border-color 0.14s ease-out,
+        color 0.14s ease-out;
+      white-space: nowrap;
+    }
+
+    .btn-ghost {
+      background: rgba(255, 255, 255, 0.7);
+      border-color: rgba(148, 163, 184, 0.6);
+      color: var(--ink-soft);
+      box-shadow: var(--shadow-subtle);
+    }
+
+    .btn-ghost:hover {
+      background: #ffffff;
+      transform: translateY(-1px);
+      box-shadow: 0 12px 30px rgba(148, 163, 184, 0.4);
+    }
+
+    .btn-primary {
+      background: radial-gradient(circle at top left, #60a5fa, #1d4ed8);
+      color: #f9fafb;
+      border-color: rgba(30, 64, 175, 0.9);
+      box-shadow: 0 16px 45px rgba(37, 99, 235, 0.55);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px) translateZ(0);
+      box-shadow: 0 22px 60px rgba(37, 99, 235, 0.7);
+      filter: brightness(1.03);
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.5);
+    }
+
+    .hamburger {
+      display: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.8);
+      background: rgba(255, 255, 255, 0.7);
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .hamburger span {
+      width: 16px;
+      height: 2px;
+      background: #020617;
+      border-radius: 999px;
+      position: relative;
+    }
+
+    .hamburger span::before,
+    .hamburger span::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      width: 16px;
+      height: 2px;
+      background: #020617;
+      border-radius: 999px;
+    }
+
+    .hamburger span::before { top: -5px; }
+    .hamburger span::after { top: 5px; }
+
+    main { flex: 1; }
+
+    .shell {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 20px 18px 80px;
+    }
+
+    /* Hero / intro */
+    .hero {
+      margin-top: 26px;
+      margin-bottom: 22px;
+    }
+
+    .hero-kicker {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--ink-softest);
+    }
+
+    .hero-title {
+      margin-top: 6px;
+      font-size: 24px;
+      font-weight: 650;
+      color: #020617;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-subtitle {
+      margin-top: 8px;
+      font-size: 13px;
+      color: var(--ink-softer);
+      max-width: 640px;
+      line-height: 1.7;
+    }
+
+    .hero-note {
+      margin-top: 8px;
+      font-size: 11px;
+      color: var(--ink-softest);
+    }
+
+    /* Layout */
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+      gap: 24px;
+      align-items: flex-start;
+    }
+
+    /* Form card */
+    .form-card {
+      background: linear-gradient(145deg, #ffffff, #f9fafb);
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(203, 213, 225, 0.9);
+      padding: 18px 18px 16px;
+      box-shadow: var(--shadow-card);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .form-card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle at top left, rgba(59, 130, 246, 0.12), transparent 60%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .form-card-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--ink-softest);
+    }
+
+    .section-heading {
+      margin-top: 6px;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .section-desc {
+      margin-top: 6px;
+      font-size: 12px;
+      color: var(--ink-softer);
+      line-height: 1.7;
+    }
+
+    .form-grid {
+      margin-top: 14px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 12px 14px;
+    }
+
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 12px;
+      color: var(--ink-soft);
+    }
+
+    .form-field.full { grid-column: 1 / -1; }
+
+    .label-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      align-items: baseline;
+    }
+
+    .label-main { font-weight: 500; }
+
+    .label-sub {
+      font-size: 11px;
+      color: var(--ink-softest);
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(203, 213, 225, 0.9);
+      background: rgba(255, 255, 255, 0.96);
+      font-family: inherit;
+      font-size: 12px;
+      color: var(--ink);
+      outline: none;
+      transition: border-color 0.12s ease-out, box-shadow 0.12s ease-out, background 0.12s ease-out;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: rgba(37, 99, 235, 0.9);
+      box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.2);
+      background: #ffffff;
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .pill {
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.03);
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      font-size: 10px;
+      color: var(--ink-softest);
+    }
+
+    .form-foot {
+      margin-top: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .helper-text {
+      font-size: 11px;
+      color: var(--ink-softest);
+      max-width: 260px;
+      line-height: 1.6;
+    }
+
+    .btn-secondary {
+      background: rgba(15, 23, 42, 0.05);
+      border-color: rgba(148, 163, 184, 0.7);
+      color: var(--ink-soft);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.9);
+      transform: translateY(-1px);
+      box-shadow: 0 10px 32px rgba(148, 163, 184, 0.4);
+    }
+
+    .btn-primary span.badge {
+      font-size: 10px;
+      padding: 1px 7px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.25);
+      border: 1px solid rgba(148, 163, 184, 0.9);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* Preview card */
+    .preview-card {
+      background: linear-gradient(145deg, #0f172a, #020617);
+      border-radius: var(--radius-xl);
+      padding: 16px 16px 14px;
+      color: #e5e7eb;
+      box-shadow: 0 24px 72px rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(30, 64, 175, 0.85);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .preview-card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle at top left, rgba(37, 99, 235, 0.9), transparent 60%);
+      opacity: 0.8;
+      pointer-events: none;
+    }
+
+    .preview-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .preview-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: rgba(191, 219, 254, 0.95);
+    }
+
+    .preview-heading {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .risk-chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .risk-chip {
+      font-size: 11px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(148, 163, 184, 0.9);
+    }
+
+    .risk-chip.green {
+      background: rgba(22, 163, 74, 0.15);
+      border-color: rgba(22, 163, 74, 0.8);
+      color: #bbf7d0;
+    }
+
+    .risk-chip.red {
+      background: rgba(239, 68, 68, 0.15);
+      border-color: rgba(239, 68, 68, 0.9);
+      color: #fecaca;
+    }
+
+    .risk-meter {
+      margin-top: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 10px;
+      color: rgba(226, 232, 240, 0.9);
+    }
+
+    .risk-bar-track {
+      position: relative;
+      height: 9px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: linear-gradient(90deg, #fee2e2, #fef9c3, #dcfce7);
+    }
+
+    .risk-bar-fill {
+      position: absolute;
+      inset: 0;
+      width: 60%;
+      background: linear-gradient(90deg, #ef4444, #f97316, #facc15, #22c55e);
+      border-radius: inherit;
+      box-shadow: 0 0 12px rgba(34, 197, 94, 0.6);
+      transform-origin: left;
+      animation: riskPulse 4.2s ease-in-out infinite alternate;
+    }
+
+    @keyframes riskPulse {
+      0% { transform: scaleX(0.55); }
+      100% { transform: scaleX(0.7); }
+    }
+
+    .preview-body {
+      margin-top: 4px;
+      background: rgba(15, 23, 42, 0.72);
+      border-radius: 18px;
+      border: 1px solid rgba(30, 64, 175, 0.9);
+      padding: 10px 12px;
+      font-size: 12px;
+      max-height: 190px;
+      overflow: auto;
+      line-height: 1.7;
+    }
+
+    .preview-body::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .preview-body::-webkit-scrollbar-thumb {
+      background: rgba(148, 163, 184, 0.7);
+      border-radius: 999px;
+    }
+
+    .preview-footer {
+      margin-top: 6px;
+      font-size: 11px;
+      color: rgba(203, 213, 225, 0.9);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .preview-footer strong { color: #e5e7eb; }
+
+    .preview-tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .preview-tag {
+      font-size: 10px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.65);
+      border: 1px solid rgba(148, 163, 184, 0.8);
+    }
+
+    .loading-dots::after {
+      content: "…";
+      animation: dots 1.2s steps(3, end) infinite;
+    }
+
+    @keyframes dots {
+      0% { content: ""; }
+      33% { content: "."; }
+      66% { content: ".."; }
+      100% { content: "..."; }
+    }
+
+    footer {
+      padding: 18px;
+      font-size: 11px;
+      color: var(--ink-softest);
+      text-align: center;
+    }
+
+    footer a {
+      color: var(--ink-softest);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    /* Responsive */
+    @media (max-width: 960px) {
+      .nav-links, .nav-actions { display: none; }
+      .hamburger { display: inline-flex; }
+      .layout { grid-template-columns: minmax(0, 1fr); }
+      .shell { padding-inline: 14px; }
+    }
+
+    .mobile-menu {
+      position: fixed;
+      inset: calc(var(--nav-height) + 8px) 12px auto 12px;
+      background: rgba(255, 255, 255, 0.98);
+      border-radius: 20px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      padding: 12px 14px;
+      box-shadow: 0 18px 60px rgba(15, 23, 42, 0.5);
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 30;
+    }
+
+    .mobile-menu.open { display: flex; }
+
+    .mobile-menu a {
+      font-size: 13px;
+      color: var(--ink-soft);
+      text-decoration: none;
+    }
+
+    .mobile-menu .btn-primary,
+    .mobile-menu .btn-ghost {
+      width: 100%;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+  <div class="bg-orbit"></div>
+  <div class="bg-grid"></div>
+
+  <!-- Top strip -->
+  <div class="top-strip">
+    <div class="top-strip-inner">
+      <div class="top-pill">
+        <span class="top-dot"></span>
+        <span>Free risk diagnosis</span>
+      </div>
+      <div class="top-strip-text">
+        No card required. You keep the diagnosis even if you don’t unlock the letter.
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="brand-mark"></div>
+        <div class="brand-text">
+          <div class="brand-name">AURUM DESK</div>
+          <div class="brand-sub">ACCOUNT RECOVERY & APPEALS</div>
+        </div>
+      </div>
+
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="index.html#platforms">Platforms</a>
+        <a href="index.html#how-it-works">How it works</a>
+        <a href="index.html#comparison">Why Aurum</a>
+        <a href="index.html#final-cta">Pricing</a>
+        <a class="active">Free diagnosis</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="btn btn-ghost">Client login</button>
+        <button class="btn btn-primary">
+          <span class="dot"></span>
+          Start a new case
+        </button>
+      </div>
+
+      <button class="hamburger" id="hamburger">
+        <span></span>
+      </button>
+    </div>
+
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html">Home</a>
+      <a href="index.html#platforms">Platforms</a>
+      <a href="index.html#how-it-works">How it works</a>
+      <a href="index.html#comparison">Why Aurum</a>
+      <a href="index.html#final-cta">Pricing</a>
+      <a>Free diagnosis</a>
+      <button class="btn btn-ghost">Client login</button>
+      <button class="btn btn-primary">Start a new case</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="shell">
+      <section class="hero">
+        <div class="hero-kicker">Step 1 · Free risk diagnosis</div>
+        <h1 class="hero-title">Tell Aurum what happened. Get a calm, written risk report.</h1>
+        <p class="hero-subtitle">
+          Paste the exact suspension or limitation message you received, add your side of the story,
+          and we will classify your case into a risk bucket. You get a written risk report and a
+          preview of a professional appeal letter using your facts.
+        </p>
+        <p class="hero-note">
+          We do not ask for passwords or direct access to your account. Please remove card digits and
+          extremely sensitive data before pasting.
+        </p>
+      </section>
+
+      <section class="layout">
+        <!-- Left: form -->
+        <div class="form-card">
+          <div class="form-card-inner">
+            <div class="section-label">Case intake</div>
+            <div class="section-heading">Describe the suspended or restricted account.</div>
+            <div class="section-desc">
+              The more precise you are, the better your diagnosis and letter preview will be. It’s
+              completely fine if you don’t know exact policy numbers – just describe what you do and
+              what you think triggered the platform.
+            </div>
+
+            <form id="diagnosisForm">
+              <div class="form-grid">
+                <div class="form-field">
+                  <div class="label-row">
+                    <span class="label-main">Platform</span>
+                  </div>
+                  <select id="platform" required>
+                    <option value="">Select a platform</option>
+                    <option>Meta Ads / Business Manager</option>
+                    <option>PayPal merchant / personal</option>
+                    <option>Stripe</option>
+                    <option>Airbnb host</option>
+                    <option>Amazon seller</option>
+                    <option>TikTok Ads</option>
+                    <option>Google Ads</option>
+                    <option>Other (explain below)</option>
+                  </select>
+                  <div class="pill-row">
+                    <span class="pill">Meta / TikTok / Google Ads</span>
+                    <span class="pill">PayPal / Stripe / banks</span>
+                    <span class="pill">Airbnb / Amazon / Etsy</span>
+                  </div>
+                </div>
+
+                <div class="form-field">
+                  <div class="label-row">
+                    <span class="label-main">Country / region</span>
+                    <span class="label-sub">Where you operate or registered.</span>
+                  </div>
+                  <input id="country" type="text" placeholder="e.g. US, UK, EU, Canada" />
+                </div>
+
+                <div class="form-field">
+                  <div class="label-row">
+                    <span class="label-main">Monthly value of this account</span>
+                    <span class="label-sub">Rough range is enough.</span>
+                  </div>
+                  <select id="valueRange">
+                    <option value="">Select a range</option>
+                    <option>Under $5,000 / month</option>
+                    <option>$5,000 – $25,000 / month</option>
+                    <option>$25,000 – $100,000 / month</option>
+                    <option>Over $100,000 / month</option>
+                  </select>
+                </div>
+
+                <div class="form-field">
+                  <div class="label-row">
+                    <span class="label-main">Rough suspension type</span>
+                    <span class="label-sub">If you’re not sure, choose “Not sure”.</span>
+                  </div>
+                  <select id="suspensionType">
+                    <option>Not sure yet</option>
+                    <option>Policy violation</option>
+                    <option>Payments / financial risk</option>
+                    <option>Safety / trust & integrity</option>
+                    <option>Performance / disputes / defects</option>
+                  </select>
+                </div>
+
+                <div class="form-field full">
+                  <div class="label-row">
+                    <span class="label-main">Exact platform message</span>
+                    <span class="label-sub">Copy-paste the email or on-screen text.</span>
+                  </div>
+                  <textarea
+                    id="platformMessage"
+                    placeholder="Paste the notification here. Remove card numbers or extremely sensitive details if needed."
+                    required
+                  ></textarea>
+                </div>
+
+                <div class="form-field full">
+                  <div class="label-row">
+                    <span class="label-main">Your side of the story</span>
+                    <span class="label-sub">Explain what you do and what you think happened.</span>
+                  </div>
+                  <textarea
+                    id="yourStory"
+                    placeholder="Explain what your business does, what you were using this account for, and what you think might have triggered the decision."
+                    required
+                  ></textarea>
+                </div>
+              </div>
+
+              <div class="form-foot">
+                <div class="helper-text">
+                  You’ll see a risk classification and a partial appeal letter preview.
+                  Unlocking the full letter happens later, only if your case looks recoverable.
+                </div>
+                <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                  <button type="button" class="btn btn-secondary" id="clearForm">
+                    Clear form
+                  </button>
+                  <button type="submit" class="btn btn-primary" id="submitBtn">
+                    <span class="dot"></span>
+                    Run diagnosis & show preview
+                    <span class="badge">Free</span>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Right: preview -->
+        <aside class="preview-card">
+          <div class="preview-inner">
+            <div>
+              <div class="preview-label">Diagnosis preview</div>
+              <div class="preview-heading" id="previewHeading">
+                We will classify your case into a realistic risk level.
+              </div>
+            </div>
+
+            <div class="risk-chip-row" id="riskChips">
+              <span class="risk-chip">Waiting for your case…</span>
+            </div>
+
+            <div class="risk-meter">
+              <span>Internal risk meter (approximate view)</span>
+              <div class="risk-bar-track">
+                <div class="risk-bar-fill" id="riskBar"></div>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-size:9px;">
+                <span>Hard ban</span>
+                <span>Policy confusion</span>
+                <span>Documentation gaps</span>
+                <span>Clean</span>
+              </div>
+            </div>
+
+            <div class="preview-body" id="previewBody">
+              Paste your platform message and your story, then click
+              “Run diagnosis & show preview”. We will generate a short risk report and show about
+              30% of a professional appeal letter, so you understand the tone and structure before
+              you pay for anything.
+            </div>
+
+            <div class="preview-footer">
+              <div>
+                <strong>What happens next?</strong>  
+                If your case looks realistically recoverable, you’ll be able to unlock the full,
+                platform-aligned letter on the main desk page.
+              </div>
+              <div class="preview-tag-row">
+                <span class="preview-tag">We will not send anything to the platform for you.</span>
+                <span class="preview-tag">You keep the diagnosis even if you don’t upgrade.</span>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    Aurum Account Recovery Desk — Free risk diagnosis.  
+    <a href="index.html#final-cta">View pricing</a> · <a href="#">Terms</a> · <a href="#">Privacy</a>
+  </footer>
+</div>
+
+<script>
+  // Mobile menu toggle
+  var hamburger = document.getElementById("hamburger");
+  var mobileMenu = document.getElementById("mobileMenu");
+  if (hamburger && mobileMenu) {
+    hamburger.addEventListener("click", function () {
+      mobileMenu.classList.toggle("open");
+    });
+  }
+
+  var form = document.getElementById("diagnosisForm");
+  var clearBtn = document.getElementById("clearForm");
+  var submitBtn = document.getElementById("submitBtn");
+  var previewHeading = document.getElementById("previewHeading");
+  var previewBody = document.getElementById("previewBody");
+  var riskChips = document.getElementById("riskChips");
+  var riskBar = document.getElementById("riskBar");
+
+  function setLoadingState(isLoading) {
+    if (isLoading) {
+      submitBtn.disabled = true;
+      submitBtn.style.opacity = "0.7";
+      previewHeading.textContent = "Analysing your case, building a calm explanation";
+      previewBody.innerHTML =
+        '<span class="loading-dots">We are scanning your description for risk patterns</span>';
+      riskChips.innerHTML =
+        '<span class="risk-chip">Checking policy vs payments vs safety signals</span>';
+    } else {
+      submitBtn.disabled = false;
+      submitBtn.style.opacity = "1";
+    }
+  }
+
+  function generatePreview(data) {
+    // 这里以后换成调用你 Cloudflare Worker 的 AI 接口
+    var platform = data.platform || "this account";
+    var story = data.yourStory || "";
+    var type = data.suspensionType || "Not sure yet";
+
+    var riskLabel = "Documentation gaps";
+    var riskClass = "green";
+    var riskPercent = 0.65;
+
+    if (type.includes("financial") || type.includes("Payments")) {
+      riskLabel = "Payments / financial risk";
+      riskClass = "red";
+      riskPercent = 0.55;
+    } else if (type.includes("Policy")) {
+      riskLabel = "Policy confusion / overlap";
+      riskClass = "green";
+      riskPercent = 0.6;
+    } else if (type.includes("Safety")) {
+      riskLabel = "Safety / trust & integrity";
+      riskClass = "red";
+      riskPercent = 0.52;
+    }
+
+    riskBar.style.transform = "scaleX(" + riskPercent + ")";
+
+    riskChips.innerHTML =
+      '<span class="risk-chip ' + riskClass + '">Primary risk bucket: ' + riskLabel + '</span>' +
+      '<span class="risk-chip">Secondary: how your explanation reads internally</span>';
+
+    previewHeading.textContent = "Initial risk diagnosis and letter preview";
+
+    var sanitizedStory = story.length > 380 ? story.slice(0, 380) + "…" : story;
+
+    var letterPreview =
+      "Dear review team,\n\n" +
+      "Thank you for taking the time to look at my case. I understand that " +
+      platform +
+      " needs to protect its ecosystem from abuse, and I am not writing to argue with that. " +
+      "I would like to calmly explain what my activity looks like from my side, and why I believe this decision can be revisited.\n\n" +
+      (sanitizedStory
+        ? "In practical terms, here is what I have been using the account for:\n" +
+          sanitizedStory +
+          "\n\n"
+        : "") +
+      "I can see how parts of this may resemble higher-risk patterns in your internal systems. " +
+      "To address that, I am prepared to provide concrete documentation and make specific operational changes, rather than just ask for a generic exception.";
+
+    previewBody.textContent = letterPreview;
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    var platform = document.getElementById("platform").value.trim();
+    var country = document.getElementById("country").value.trim();
+    var valueRange = document.getElementById("valueRange").value;
+    var suspensionType = document.getElementById("suspensionType").value;
+    var platformMessage = document.getElementById("platformMessage").value.trim();
+    var yourStory = document.getElementById("yourStory").value.trim();
+
+    if (!platformMessage || !yourStory || !platform) {
+      alert("Please fill at least: platform, platform message and your side of the story.");
+      return;
+    }
+
+    var payload = {
+      platform: platform,
+      country: country,
+      valueRange: valueRange,
+      suspensionType: suspensionType,
+      platformMessage: platformMessage,
+      yourStory: yourStory
+    };
+
+    setLoadingState(true);
+
+    // 模拟调用：1.2 秒后展示预览
+    setTimeout(function () {
+      setLoadingState(false);
+      generatePreview(payload);
+    }, 1200);
+
+    // 真正接入 Worker 时，你可以改成：
+    // fetch('https://你的worker域名/diagnosis', { method:'POST', body:JSON.stringify(payload), headers:{'Content-Type':'application/json'} })
+    //   .then(res => res.json())
+    //   .then(data => { 根据 data 更新 preview })
+    //   .catch(() => { 显示错误 });
+  });
+
+  clearBtn.addEventListener("click", function () {
+    form.reset();
+    riskBar.style.transform = "scaleX(0.6)";
+    previewHeading.textContent = "We will classify your case into a realistic risk level.";
+    riskChips.innerHTML = '<span class="risk-chip">Waiting for your case…</span>';
+    previewBody.textContent =
+      "Paste your platform message and your story, then click “Run diagnosis & show preview”. " +
+      "We will generate a short risk report and show about 30% of a professional appeal letter, " +
+      "so you understand the tone and structure before you pay for anything.";
+  });
+</script>
+</body>
+</html>
