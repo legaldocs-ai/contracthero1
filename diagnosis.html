@@ -9,7 +9,7 @@
 
   <meta
     name="description"
-    content="Run a free risk diagnosis for your suspended or restricted account. Aurum Account Recovery Desk helps you understand platform risk, whether an appeal is realistic, and what information you should prepare."
+    content="Run a free risk diagnosis for your suspended or limited account. Aurum Account Recovery Desk gives you a calm written risk report and an appeal preview before you pay."
   />
 
   <style>
@@ -117,7 +117,6 @@
       to { transform: translate3d(18px,40px,0) scale(1.03); }
     }
 
-    /* Top strip */
     .top-strip {
       position: relative;
       z-index: 30;
@@ -172,7 +171,6 @@
       color: var(--ink-soft);
     }
 
-    /* Header */
     header {
       position: sticky;
       top: 0;
@@ -407,7 +405,6 @@
       padding: 20px 18px 80px;
     }
 
-    /* Hero layout */
     .hero {
       margin-top: 26px;
       display: grid;
@@ -500,14 +497,14 @@
     .plan-chip {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      padding: 4px 10px;
+      gap: 8px;
+      padding: 4px 12px;
       border-radius: 999px;
       background: var(--gold-soft);
       border: 1px solid rgba(245, 158, 11, 0.9);
       font-size: 11px;
       color: #92400e;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
 
     .plan-chip span.label {
@@ -528,7 +525,6 @@
       margin-top: 6px;
     }
 
-    /* Form card */
     .form-card {
       background: rgba(255,255,255,0.98);
       border-radius: 24px;
@@ -648,7 +644,6 @@
       color: var(--ink-softest);
     }
 
-    /* Right column: diagnosis + preview + payment / full letter */
     .diagnosis-column {
       display: flex;
       flex-direction: column;
@@ -788,7 +783,6 @@
       color: var(--ink-softest);
     }
 
-    /* Payment & full letter */
     .step2-card {
       background: rgba(255,255,255,0.98);
       border-radius: 22px;
@@ -933,7 +927,6 @@
       color: rgba(226,232,240,0.96);
     }
 
-    /* Skeleton loader */
     .skeleton {
       position: relative;
       overflow: hidden;
@@ -953,7 +946,6 @@
       margin-bottom: 6px;
     }
 
-    /* Reveal on scroll */
     .reveal {
       opacity: 0;
       transform: translateY(14px);
@@ -967,18 +959,11 @@
       transform: translateY(0);
     }
 
-    /* Mobile */
     @media (max-width: 960px) {
       .nav-links,
-      .nav-actions {
-        display: none;
-      }
+      .nav-actions { display: none; }
       .hamburger { display: inline-flex; }
-
-      .hero {
-        grid-template-columns: minmax(0,1fr);
-      }
-
+      .hero { grid-template-columns: minmax(0,1fr); }
       .shell { padding-inline: 14px; }
     }
 
@@ -1032,7 +1017,6 @@
         margin-top: 18px;
       }
     }
-
   </style>
 </head>
 <body>
@@ -1040,7 +1024,6 @@
   <div class="bg-orbit"></div>
   <div class="bg-grid"></div>
 
-  <!-- Top strip -->
   <div class="top-strip">
     <div class="top-strip-inner">
       <div class="top-pill">
@@ -1048,12 +1031,11 @@
         <span>Step 1 — Free risk diagnosis</span>
       </div>
       <div class="top-strip-text">
-        Paste your suspension notice and activity once. Aurum generates a calm risk report and appeal preview for you.
+        Paste your suspension notice and activity once. Aurum writes a calm risk report and appeal preview before you pay.
       </div>
     </div>
   </div>
 
-  <!-- Header -->
   <header>
     <div class="nav-inner">
       <div class="brand">
@@ -1092,16 +1074,13 @@
       <a href="pricing.html">Pricing</a>
       <a>Free diagnosis</a>
       <button class="btn btn-ghost">Client login</button>
-      <button class="btn btn-primary">
-        On this page
-      </button>
+      <button class="btn btn-primary">On this page</button>
     </div>
   </header>
 
   <main>
     <div class="shell">
       <section class="hero reveal">
-        <!-- Left: intro + form -->
         <div>
           <div class="stepper">
             <div class="step-pill">
@@ -1114,12 +1093,12 @@
           </div>
 
           <div id="planChip" class="plan-chip" style="display:none;">
-            <span class="label" id="planChipLabel">Selected plan</span>
-            <span class="price" id="planChipPrice"></span>
+            <span class="label">YOU CAME FROM:</span>
+            <span class="price" id="planChipText"></span>
           </div>
 
           <h1 class="hero-title">
-            Get a calm, written assessment  
+            Get a calm, written risk assessment  
             <span class="highlight">before you spend money on an appeal letter.</span>
           </h1>
 
@@ -1129,9 +1108,9 @@
           </p>
 
           <div class="hero-tags">
-            <span class="hero-tag">Works for Meta Ads, PayPal, Airbnb, Amazon & more</span>
-            <span class="hero-tag">Built for US & EU operators</span>
-            <span class="hero-tag">No login or payment required for Step 1</span>
+            <span class="hero-tag">Built for Meta Ads, PayPal, Airbnb, Amazon & more</span>
+            <span class="hero-tag">Designed for US & EU professionals</span>
+            <span class="hero-tag">No subscription required for most cases</span>
           </div>
 
           <div class="form-card">
@@ -1139,7 +1118,7 @@
               <div class="form-header">
                 <div>
                   <div class="form-header-title">Case details</div>
-                  <div class="form-header-sub">Share enough context so the diagnosis is realistic, but don’t invent anything.</div>
+                  <div class="form-header-sub">Explain your case in normal business language. Do not invent anything.</div>
                 </div>
               </div>
 
@@ -1168,8 +1147,8 @@
 
                 <label>
                   What was this account used for?
-                  <span class="hint">Briefly describe your business / activity in normal language.</span>
-                  <textarea id="activity" placeholder="Example: US-based e-commerce store selling phone cases; weekly ad spend around $3,000; no dropshipping." required></textarea>
+                  <span class="hint">Briefly describe your business and typical activity.</span>
+                  <textarea id="activity" placeholder="Example: US-based e-commerce store selling phone cases; weekly ad spend around $3,000; no reselling of accounts." required></textarea>
                 </label>
 
                 <label>
@@ -1181,28 +1160,28 @@
                 <label>
                   What realistically happened before the suspension?
                   <span class="hint">Be honest. Include any policy grey area, previous warnings, unusual activity, etc.</span>
-                  <textarea id="before" placeholder="Example: We tested a new landing page that may have had unclear refund terms; a friend logged in from another country once..."></textarea>
+                  <textarea id="before" placeholder="Example: We tested a new landing page with unclear refund terms; partner logged in from another country once..."></textarea>
                 </label>
 
                 <label>
                   What have you already tried?
                   <span class="hint">Appeals, emails, chats, new accounts, documentation you sent, etc.</span>
-                  <textarea id="tried" placeholder="Example: Submitted 2 short appeals through the app; no documents uploaded yet; opened one new ad account that was also rejected."></textarea>
+                  <textarea id="tried" placeholder="Example: Sent 2 short appeals; no documents uploaded yet; opened one new account that was also rejected."></textarea>
                 </label>
 
                 <label>
                   Email (optional, for sending a copy)
-                  <span class="hint">If you prefer, we can let you download everything directly instead.</span>
+                  <span class="hint">If you prefer, you can simply copy or download everything from this page.</span>
                   <input id="email" type="email" placeholder="you@example.com" />
                 </label>
 
                 <div class="form-footer">
                   <div>
                     <div class="helper">
-                      We will generate a written risk diagnosis and an appeal preview using these details.
+                      Step 1 only generates a written diagnosis and preview. No payment happens on this step.
                     </div>
                     <div class="helper">
-                      No payment happens on this step. Do not include passwords or full card numbers.
+                      Do not include passwords or full card numbers. Keep it factual and simple.
                     </div>
                   </div>
                   <button id="runBtn" class="btn btn-primary" type="submit">
@@ -1216,13 +1195,11 @@
 
           <p class="hero-note">
             This is not legal advice. Platforms keep full control over their decisions; our job is to remove amateur mistakes
-            and present your case clearly.
+            and present your situation clearly.
           </p>
         </div>
 
-        <!-- Right column -->
         <div class="diagnosis-column">
-          <!-- Risk diagnosis -->
           <div class="diag-card" id="diagCard">
             <div class="diag-header">
               <div>
@@ -1233,7 +1210,7 @@
             </div>
             <div id="riskBadge" class="risk-label risk-medium" style="margin-top:4px; display:none;">
               <span class="dot"></span>
-              <span id="riskText">Moderate risk — recoverable with strong explanation</span>
+              <span id="riskText">Moderate risk — recoverable with strong documentation</span>
             </div>
             <div id="diagSkeleton">
               <div class="skeleton skeleton-line" style="width:85%;"></div>
@@ -1244,41 +1221,38 @@
             <div id="diagBody" class="diag-body" style="display:none;"></div>
           </div>
 
-          <!-- Appeal preview -->
           <div class="preview-card" id="previewCard">
             <div class="preview-header">
               <div>
                 <div class="preview-title">Appeal letter preview (~30%)</div>
                 <div class="diag-note">Written in calm, structured language for risk & compliance teams.</div>
               </div>
-              <div class="badge-soft">Locked to preview</div>
+              <div class="badge-soft">Preview only</div>
             </div>
             <div class="preview-text" id="previewText">
-              Dear [Platform Risk / Compliance Team],
+Dear Risk & Compliance Team,
 
-              This is where you will see the first part of your appeal letter. After the AI diagnosis is connected,
-              this paragraph will use your own details, explaining calmly what your account was used for, what happened,
-              and what has changed.
+This area will show the first part of your appeal letter. After your Worker AI is connected,
+the text here will be generated from your own answers and platform notice, so you can see the tone
+and structure before paying.
 
-              For now this is only sample text, so you can see the layout. Once your Worker endpoint is live, this preview
-              will update in real time after you run the diagnosis.
+For now this is sample text just to show the layout.
             </div>
             <div class="preview-blur"></div>
             <div class="preview-footer">
-              The rest of the letter (70%+) and PDF export unlock after payment in Step 2.
+              The remaining 70%+ and PDF export unlock after payment in Step 2.
             </div>
           </div>
 
-          <!-- Step 2 payment + full letter -->
           <div class="step2-card">
             <div class="step2-header">
               <div>
-                <div class="step2-title">Step 2 – Payment & unlock full letter</div>
+                <div class="step2-title">Step 2 – Pay & unlock full appeal letter</div>
                 <div class="diag-note" id="planExplain">
-                  After reading your diagnosis, choose whether to upgrade to a full appeal letter.
+                  After reading your diagnosis, you can choose a plan. If you came from a pricing card, it will show here.
                 </div>
               </div>
-              <div id="pricePill" class="price-pill">
+              <div id="pricePill" class="price-pill" style="display:none;">
                 <span class="currency">$</span><span class="amount" id="priceAmount">89</span>
                 <span class="meta" id="priceMeta">one-time per case</span>
               </div>
@@ -1286,19 +1260,19 @@
 
             <div class="pay-row">
               <div>
-                <strong>1. Open your payment link</strong>
+                <strong>1. Pay using the link below</strong>
                 <div class="diag-note">
-                  Replace these placeholders with your actual Wise / Paddle / other links.
+                  Replace these with your actual Wise / Paddle / payment links. Your client simply clicks and pays.
                 </div>
               </div>
               <div class="pay-links">
                 <a href="#" target="_blank" rel="noreferrer">
-                  Pay main link
-                  <span> (replace with real URL)</span>
+                  Main payment link
+                  <span>(replace with your real URL)</span>
                 </a>
                 <a href="#" target="_blank" rel="noreferrer">
                   Backup link
-                  <span> (optional)</span>
+                  <span>(optional)</span>
                 </a>
               </div>
             </div>
@@ -1306,7 +1280,7 @@
             <div class="checkbox-row">
               <input type="checkbox" id="paidCheck" />
               <label for="paidCheck">
-                I confirm that I have completed the payment for the selected plan and want to unlock the full appeal letter on this page.
+                I confirm I’ve completed the payment for this case and want to unlock the full appeal letter on this page.
               </label>
             </div>
 
@@ -1315,7 +1289,7 @@
                 Generate full appeal letter
               </button>
               <span class="helper">
-                This will call your Worker endpoint (<code>/api/full-letter</code>) once connected.
+                This will call your Worker endpoint (<code>/w/api/full-letter</code>) once connected.
               </span>
             </div>
 
@@ -1325,18 +1299,18 @@
                   Full appeal letter (unlocked after payment)
                 </div>
                 <div class="full-letter-body" id="fullLetterBody">
-Dear [Platform Risk / Compliance Team],
+Dear Risk & Compliance Team,
 
-Once your Worker AI is connected, this area will show your complete appeal letter – usually 1–2 pages – based on your diagnosis answers and real situation.
+Once your Worker AI is connected, this dark panel will show a complete appeal letter – usually 1–2 pages – based on your answers and diagnosis. For now, this is demo text so you can see the layout.
 
-For now, this is demo text so you can see the layout and dark reader. After you hook your Cloudflare Worker to <code>/api/full-letter</code>, this section will update with the real output, ready for you to copy or download.
+After integration, your client will be able to copy this letter directly into the platform’s appeal form or download it to a document.
 
-Best regards,  
+Best regards,
 Aurum Account Recovery Desk
                 </div>
                 <div class="full-letter-note">
                   <span class="pill-small">Tip</span>
-                  &nbsp;After the full letter is generated, you can copy this text into the platform’s appeal form or save it to a document on your side.
+                  &nbsp;You can also keep a copy of this letter in your own records in case you need to escalate later.
                 </div>
               </div>
             </div>
@@ -1347,13 +1321,13 @@ Aurum Account Recovery Desk
   </main>
 
   <footer>
-    Aurum Account Recovery Desk — Free Risk Diagnosis.  
+    Aurum Account Recovery Desk — Free Risk Diagnosis.
     <a href="pricing.html">Pricing</a> · <a href="#">Terms</a> · <a href="#">Privacy</a>
   </footer>
 </div>
 
 <script>
-  // Mobile menu
+  // ===== basic nav / reveal =====
   var hamburger = document.getElementById("hamburger");
   var mobileMenu = document.getElementById("mobileMenu");
   if (hamburger && mobileMenu) {
@@ -1362,52 +1336,94 @@ Aurum Account Recovery Desk
     });
   }
 
-  // Reveal on scroll
-  var observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.12 });
-
-  document.querySelectorAll(".reveal").forEach(function(el) {
+  var observer = new IntersectionObserver(
+    function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.12 }
+  );
+  document.querySelectorAll(".reveal").forEach(function (el) {
     observer.observe(el);
   });
 
-  // Plan param / price mapping
+  // ===== plan chip & price logic =====
+  function getPlanFromUrl() {
+    var params = new URLSearchParams(window.location.search);
+    var p = (params.get("plan") || "").toLowerCase();
+    return p;
+  }
+
   var planConfig = {
-    free:    { label: "You came from: Free diagnosis", price: "0", meta: "per case", explain: "You can stay on the free diagnosis only, or upgrade after you read the report." },
-    standard:{ label: "You came from: Standard Appeal Letter", price: "89", meta: "one-time per case", explain: "If the diagnosis looks realistic, you can unlock the full Standard Appeal Letter here." },
-    recovery:{ label: "You came from: Recovery Pack", price: "189", meta: "per complex case", explain: "If your diagnosis shows multiple flags, the Recovery Pack may be recommended." },
-    desk:    { label: "You came from: Ongoing Desk", price: "380", meta: "per month", explain: "For agencies/operators; start with one case first, then upgrade to an ongoing desk if needed." }
+    free: {
+      chipText: "FREE RISK DIAGNOSIS — $0",
+      price: "0",
+      meta: "per case",
+      explain:
+        "You chose the Free Risk Diagnosis. You can stay free or upgrade to a paid letter after reading the report.",
+    },
+    standard: {
+      chipText: "STANDARD APPEAL LETTER — $89",
+      price: "89",
+      meta: "one-time per case",
+      explain:
+        "You came from Standard Appeal Letter. If your diagnosis looks realistic, you can unlock the full letter here.",
+    },
+    recovery: {
+      chipText: "RECOVERY PACK — $189",
+      price: "189",
+      meta: "for complex multi-flag cases",
+      explain:
+        "You came from Recovery Pack. Recommended only if your case involves multiple parallel flags or platforms.",
+    },
+    desk: {
+      chipText: "ONGOING DESK — $380 / MONTH",
+      price: "380",
+      meta: "per month, agencies & operators",
+      explain:
+        "You came from Ongoing Desk. We usually start with one paid case first, then move into a standing desk.",
+    },
   };
 
-  function applyPlanFromUrl() {
-    var params = new URLSearchParams(window.location.search);
-    var plan = (params.get("plan") || "standard").toLowerCase();
-    if (!planConfig[plan]) plan = "standard";
-
-    var cfg = planConfig[plan];
+  (function applyPlanFromUrl() {
+    var plan = getPlanFromUrl();
     var chip = document.getElementById("planChip");
-    var chipLabel = document.getElementById("planChipLabel");
-    var chipPrice = document.getElementById("planChipPrice");
+    var chipText = document.getElementById("planChipText");
+    var pricePill = document.getElementById("pricePill");
     var priceAmount = document.getElementById("priceAmount");
     var priceMeta = document.getElementById("priceMeta");
     var planExplain = document.getElementById("planExplain");
 
-    chip.style.display = "inline-flex";
-    chipLabel.textContent = cfg.label;
-    chipPrice.textContent = cfg.price === "0" ? "FREE" : ("$" + cfg.price);
-    priceAmount.textContent = cfg.price;
-    priceMeta.textContent = cfg.meta;
-    planExplain.textContent = cfg.explain;
-  }
+    if (!plan || !planConfig[plan]) {
+      // no plan selected – hide chip and price
+      if (chip) chip.style.display = "none";
+      if (pricePill) pricePill.style.display = "none";
+      if (planExplain) {
+        planExplain.textContent =
+          "After you read your diagnosis, you can choose the plan that fits your case. You don’t have to decide now.";
+      }
+      return;
+    }
 
-  applyPlanFromUrl();
+    var cfg = planConfig[plan];
 
-  // Diagnosis form submit
+    if (chip && chipText) {
+      chip.style.display = "inline-flex";
+      chipText.textContent = cfg.chipText;
+    }
+    if (pricePill && priceAmount && priceMeta) {
+      pricePill.style.display = "inline-flex";
+      priceAmount.textContent = cfg.price;
+      priceMeta.textContent = cfg.meta;
+    }
+    if (planExplain) planExplain.textContent = cfg.explain;
+  })();
+
+  // ===== diagnosis + preview via /w/api/diagnosis =====
   var form = document.getElementById("diagnosisForm");
   var runBtn = document.getElementById("runBtn");
   var runBtnText = document.getElementById("runBtnText");
@@ -1432,161 +1448,144 @@ Aurum Account Recovery Desk
     }
   }
 
-  function classifyRisk(resultText) {
-    // 简单规则，根据文字里有没有 "hard ban" 等词；真实逻辑可以在 Worker 里做
-    var lower = (resultText || "").toLowerCase();
-    if (lower.includes("almost no chance") || lower.includes("hard ban")) {
-      return { cls: "risk-high", text: "High risk — almost no chance of recovery" };
-    }
-    if (lower.includes("moderate") || lower.includes("documents") || lower.includes("gaps")) {
-      return { cls: "risk-medium", text: "Moderate risk — recoverable if documentation is strong" };
-    }
-    return { cls: "risk-low", text: "Lower risk — likely recoverable with a clear explanation" };
+  if (form) {
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      var plan = getPlanFromUrl();
+      var payload = {
+        platform: document.getElementById("platform").value,
+        region: document.getElementById("region").value,
+        activity: document.getElementById("activity").value,
+        officialNotice: document.getElementById("officialNotice").value,
+        before: document.getElementById("before").value,
+        tried: document.getElementById("tried").value,
+        email: document.getElementById("email").value || null,
+        plan: plan || null,
+      };
+      lastPayload = payload;
+
+      setRunning(true);
+      diagBody.style.display = "none";
+      diagSkeleton.style.display = "block";
+      riskBadge.style.display = "none";
+
+      try {
+        const res = await fetch("/w/api/diagnosis", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+        const data = await res.json();
+
+        diagSkeleton.style.display = "none";
+        diagBody.style.display = "block";
+
+        if (data.error) {
+          diagBody.textContent =
+            "Diagnosis error: " +
+            data.error +
+            (data.details ? "\n\n" + data.details : "");
+          return;
+        }
+
+        var summary = data.riskSummary || "";
+        var preview = data.previewLetter || "";
+
+        diagBody.textContent =
+          summary || "The AI did not return a risk diagnosis. Please try again.";
+
+        var lower = summary.toLowerCase();
+        var riskCls, riskMsg;
+        if (lower.includes("almost no chance") || lower.includes("hard ban")) {
+          riskCls = "risk-high";
+          riskMsg = "High risk — almost no chance of recovery";
+        } else if (
+          lower.includes("moderate") ||
+          lower.includes("documents") ||
+          lower.includes("gaps")
+        ) {
+          riskCls = "risk-medium";
+          riskMsg = "Moderate risk — recoverable if documentation is strong";
+        } else {
+          riskCls = "risk-low";
+          riskMsg = "Lower risk — likely recoverable with a clear explanation";
+        }
+
+        riskBadge.className = "risk-label " + riskCls;
+        riskText.textContent = riskMsg;
+        riskBadge.style.display = "inline-flex";
+
+        previewText.textContent =
+          preview ||
+          "The AI did not return a preview letter. You can still generate the full letter in Step 2.";
+      } catch (err) {
+        diagSkeleton.style.display = "none";
+        diagBody.style.display = "block";
+        diagBody.textContent =
+          "Network or AI error while running diagnosis.\n\n" + String(err);
+      } finally {
+        setRunning(false);
+      }
+    });
   }
 
-  if (form) {
- // 读取 URL 里的 plan 参数
-function getPlanFromUrl() {
-  var params = new URLSearchParams(window.location.search);
-  var p = (params.get("plan") || "standard").toLowerCase();
-  return p;
-}
+  // ===== full letter via /w/api/full-letter =====
+  var paidCheck = document.getElementById("paidCheck");
+  var unlockBtn = document.getElementById("unlockBtn");
+  var fullLetterBody = document.getElementById("fullLetterBody");
 
-var lastPayload = null;
-
-  form.addEventListener("submit", async function (e) {
-    e.preventDefault();
-
-    var plan = getPlanFromUrl();
-
-    var payload = {
-      platform: document.getElementById("platform").value,
-      region: document.getElementById("region").value,
-      activity: document.getElementById("activity").value,
-      officialNotice: document.getElementById("officialNotice").value,
-      before: document.getElementById("before").value,
-      tried: document.getElementById("tried").value,
-      email: document.getElementById("email").value || null,
-      plan: plan,
-    };
-    lastPayload = payload;
-
-    setRunning(true);
-    diagBody.style.display = "none";
-    diagSkeleton.style.display = "block";
-    riskBadge.style.display = "none";
-
-    try {
-      const res = await fetch("/w/api/diagnosis", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-
-      const data = await res.json();
-
-      diagSkeleton.style.display = "none";
-      diagBody.style.display = "block";
-
-      if (data.error) {
-        diagBody.textContent =
-          "Diagnosis error: " + data.error + (data.details ? "\n\n" + data.details : "");
-        return;
-      }
-
-      var summary = data.riskSummary || "";
-      var preview = data.previewLetter || "";
-
-      diagBody.textContent = summary || "No risk summary returned from AI.";
-
-      // 简单按 summary 内容分级
-      var lower = summary.toLowerCase();
-      var riskCls, riskMsg;
-      if (lower.includes("almost no chance") || lower.includes("hard ban")) {
-        riskCls = "risk-high";
-        riskMsg = "High risk — almost no chance of recovery";
-      } else if (
-        lower.includes("moderate") ||
-        lower.includes("documents") ||
-        lower.includes("gaps")
-      ) {
-        riskCls = "risk-medium";
-        riskMsg = "Moderate risk — recoverable if documentation is strong";
-      } else {
-        riskCls = "risk-low";
-        riskMsg = "Lower risk — likely recoverable with a clear explanation";
-      }
-
-      riskBadge.className = "risk-label " + riskCls;
-      riskText.textContent = riskMsg;
-      riskBadge.style.display = "inline-flex";
-
-      previewText.textContent =
-        preview ||
-        "The AI did not return a preview letter. You may still generate the full letter in Step 2.";
-    } catch (err) {
-      diagSkeleton.style.display = "none";
-      diagBody.style.display = "block";
-      diagBody.textContent =
-        "Network or AI error while running diagnosis.\n\n" + String(err);
-    } finally {
-      setRunning(false);
-    }
-  });
-}
-
-
- if (paidCheck && unlockBtn) {
-  paidCheck.addEventListener("change", function () {
-    unlockBtn.disabled = !paidCheck.checked;
-  });
-
-  unlockBtn.addEventListener("click", async function () {
-    if (!paidCheck.checked || unlockBtn.disabled) return;
-
-    if (!lastPayload) {
-      alert("Please run the diagnosis first.");
-      return;
-    }
-
-    unlockBtn.textContent = "Generating full letter…";
-    unlockBtn.disabled = true;
-
-    try {
-      var plan = getPlanFromUrl();
-
-      const res = await fetch("/w/api/full-letter", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...lastPayload,
-          plan: plan,
-          riskSummary: diagBody.textContent || "",
-        }),
-      });
-
-      const data = await res.json();
-
-      if (data.error) {
-        fullLetterBody.textContent =
-          "Error generating full letter: " +
-          data.error +
-          (data.details ? "\n\n" + data.details : "");
-        return;
-      }
-
-      fullLetterBody.textContent =
-        data.fullLetter ||
-        "The AI did not return a full letter. Please try again or check your Worker logs.";
-    } catch (err) {
-      fullLetterBody.textContent =
-        "Network or AI error while generating full letter.\n\n" + String(err);
-    } finally {
-      unlockBtn.textContent = "Generate full appeal letter";
+  if (paidCheck && unlockBtn) {
+    paidCheck.addEventListener("change", function () {
       unlockBtn.disabled = !paidCheck.checked;
-    }
-  });
-}
+    });
+
+    unlockBtn.addEventListener("click", async function () {
+      if (!paidCheck.checked || unlockBtn.disabled) return;
+
+      if (!lastPayload) {
+        alert("Please run the risk diagnosis in Step 1 first.");
+        return;
+      }
+
+      unlockBtn.textContent = "Generating full letter…";
+      unlockBtn.disabled = true;
+
+      try {
+        var plan = getPlanFromUrl();
+
+        const res = await fetch("/w/api/full-letter", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ...lastPayload,
+            plan: plan || null,
+            riskSummary: diagBody.textContent || "",
+          }),
+        });
+
+        const data = await res.json();
+
+        if (data.error) {
+          fullLetterBody.textContent =
+            "Error generating full letter: " +
+            data.error +
+            (data.details ? "\n\n" + data.details : "");
+          return;
+        }
+
+        fullLetterBody.textContent =
+          data.fullLetter ||
+          "The AI did not return a full letter. Please try again or check your Worker logs.";
+      } catch (err) {
+        fullLetterBody.textContent =
+          "Network or AI error while generating full letter.\n\n" + String(err);
+      } finally {
+        unlockBtn.textContent = "Generate full appeal letter";
+        unlockBtn.disabled = !paidCheck.checked;
+      }
+    });
+  }
 </script>
 </body>
 </html>
