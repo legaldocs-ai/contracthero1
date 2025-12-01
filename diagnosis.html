@@ -1231,9 +1231,14 @@
             </div>
             <div class="preview-text" id="previewText">
 Dear Risk & Compliance Team,
-This section will display the opening paragraph of your appeal letter. You may preview its tone and structure before making payment.
-For now this is sample text just to show the layout.
-            </div>
+
+This panel shows an example of how your appeal letter will start. In the actual service we
+draft this text from your real description and the platform’s notice, using calm and
+professional language that a risk or compliance analyst can read quickly.
+
+For now this is sample preview text so you can see the structure and tone that your clients
+will receive before paying.
+</div>
             <div class="preview-blur"></div>
             <div class="preview-footer">
               The remaining 70%+ and PDF export unlock after payment in Step 2.
@@ -1295,15 +1300,21 @@ For now this is sample text just to show the layout.
                   Full appeal letter (unlocked after payment)
                 </div>
                 <div class="full-letter-body" id="fullLetterBody">
+<div class="full-letter-body" id="fullLetterBody">
 Dear Risk & Compliance Team,
 
-Once your Worker AI is connected, this dark panel will show a complete appeal letter – usually 1–2 pages – based on your answers and diagnosis. For now, this is demo text so you can see the layout.
+This panel will hold the complete appeal letter for your client’s case. In the actual
+service we prepare a structured 1–2 page explanation that matches the platform’s policies
+and the written risk diagnosis, so that your team can review the situation in a calm and
+transparent way.
 
-After integration, your client will be able to copy this letter directly into the platform’s appeal form or download it to a document.
+Right now this is sample text so you can see the layout and how a finished letter would look
+on the page. When the service is live, your client will be able to copy this letter into the
+platform’s appeal form or export it to a document.
 
 Best regards,
 Aurum Account Recovery Desk
-                </div>
+</div>
                 <div class="full-letter-note">
                   <span class="pill-small">Tip</span>
                   &nbsp;You can also keep a copy of this letter in your own records in case you need to escalate later.
@@ -1611,11 +1622,12 @@ Aurum Account Recovery Desk
           source: suggestedPlan ? "ai" : "url",
           rawSuggested: suggestedPlan,
         });
-      } catch (err) {
+       } catch (err) {
         diagSkeleton.style.display = "none";
         diagBody.style.display = "block";
         diagBody.textContent =
-          "Network or AI error while running diagnosis.\n\n" + String(err);
+          "There was a temporary system error while generating the written diagnosis. " +
+          "Please try again in a moment, or send your case details through the contact form.";
       } finally {
         setRunning(false);
       }
