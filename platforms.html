@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Aurum Dispute Desk — Platforms we support</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="icon" href="favicon.png" type="image/png" />
+  <meta
+    name="description"
+    content="See which platforms Aurum Dispute Desk supports for risk diagnosis, appeal drafting and VIP guidance: TikTok, Facebook Ads, PayPal, Stripe, Airbnb, Amazon and more."
+  />
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg-deep: #020617;
+      --bg-card: #020617;
+      --border-subtle: rgba(148, 163, 184, 0.4);
+      --gold: #fbbf24;
+      --gold-soft: rgba(251, 191, 36, 0.16);
+      --text-main: #e5e7eb;
+      --text-soft: #9ca3af;
+      --shadow-strong: 0 32px 80px rgba(15, 23, 42, 0.95);
+      --shadow-soft: 0 18px 50px rgba(15, 23, 42, 0.7);
+      --radius-xl: 26px;
+      --radius-lg: 20px;
+      --radius-md: 16px;
+      --radius-pill: 999px;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top left, rgba(56, 189, 248, 0.10), transparent 55%),
+        radial-gradient(circle at top right, rgba(251, 191, 36, 0.25), transparent 60%),
+        radial-gradient(circle at bottom, rgba(15, 23, 42, 0.95), #020617 58%);
+      color: var(--text-main);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 18px 16px 52px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* background glow */
+    .bg-orbit {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .bg-orbit::before,
+    .bg-orbit::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(40px);
+      opacity: 0.5;
+      animation: float 12s ease-in-out infinite alternate;
+    }
+
+    .bg-orbit::before {
+      width: 420px;
+      height: 420px;
+      background: radial-gradient(circle at center, rgba(251, 191, 36, 0.45), transparent 65%);
+      top: -160px;
+      left: -80px;
+    }
+
+    .bg-orbit::after {
+      width: 360px;
+      height: 360px;
+      background: radial-gradient(circle at center, rgba(56, 189, 248, 0.35), transparent 70%);
+      bottom: -120px;
+      right: -60px;
+      animation-delay: -4s;
+    }
+
+    @keyframes float {
+      0% { transform: translate3d(0, 0, 0); opacity: 0.4; }
+      100% { transform: translate3d(40px, 30px, 0); opacity: 0.7; }
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-mark {
+      width: 32px;
+      height: 32px;
+      border-radius: 16px;
+      background: conic-gradient(
+        from 160deg,
+        #fbbf24,
+        #22d3ee,
+        #4ade80,
+        #f97316,
+        #fbbf24
+      );
+      box-shadow: 0 0 26px rgba(251, 191, 36, 0.5);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .brand-mark::after {
+      content: "";
+      position: absolute;
+      inset: 4px;
+      border-radius: 14px;
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.9), #020617);
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .brand-title {
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      font-size: 15px;
+      text-transform: uppercase;
+    }
+
+    .brand-sub {
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 13px;
+      color: var(--text-soft);
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    nav a {
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      transition: all 0.18s ease-out;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    nav a:hover {
+      border-color: rgba(148, 163, 184, 0.5);
+      color: #e5e7eb;
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    nav a.active {
+      border-color: rgba(251, 191, 36, 0.8);
+      background: radial-gradient(circle at top, rgba(251, 191, 36, 0.22), transparent 65%);
+      color: #fefce8;
+    }
+
+    .nav-cta {
+      border-color: rgba(251, 191, 36, 0.85);
+      background: linear-gradient(120deg, #fbbf24, #f97316);
+      color: #0b1120;
+      font-weight: 600;
+      box-shadow: 0 14px 32px rgba(15, 23, 42, 0.95);
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 20px 46px rgba(15, 23, 42, 1);
+      background: linear-gradient(120deg, #fde047, #fb923c);
+    }
+
+    @media (max-width: 800px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      nav {
+        width: 100%;
+        justify-content: flex-start;
+      }
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    /* HERO */
+
+    .hero {
+      border-radius: 28px;
+      padding: 22px 22px 18px;
+      background:
+        radial-gradient(circle at top left, rgba(148, 163, 184, 0.25), transparent 60%),
+        radial-gradient(circle at bottom right, rgba(15, 118, 110, 0.6), transparent 65%),
+        rgba(15, 23, 42, 0.98);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      box-shadow: var(--shadow-strong);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      border-radius: inherit;
+      background: conic-gradient(
+        from 160deg,
+        rgba(251, 191, 36, 0.12),
+        transparent,
+        rgba(56, 189, 248, 0.15),
+        transparent,
+        rgba(251, 191, 36, 0.12)
+      );
+      mix-blend-mode: screen;
+      opacity: 0.8;
+      pointer-events: none;
+      animation: borderGlow 12s linear infinite;
+    }
+
+    @keyframes borderGlow {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: var(--radius-pill);
+      padding: 4px 11px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.92);
+      font-size: 11px;
+      color: var(--text-soft);
+      margin-bottom: 6px;
+    }
+
+    .hero-pill span {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 15px;
+      height: 15px;
+      border-radius: 999px;
+      background: rgba(34, 197, 94, 0.15);
+      color: #bbf7d0;
+      font-size: 10px;
+    }
+
+    h1 {
+      font-size: clamp(26px, 4vw, 32px);
+      line-height: 1.12;
+      letter-spacing: 0.02em;
+      margin-bottom: 4px;
+    }
+
+    .hero-sub {
+      font-size: 14px;
+      color: var(--text-soft);
+      max-width: 660px;
+      margin-bottom: 6px;
+    }
+
+    .hero-sub strong {
+      color: #e5e7eb;
+      font-weight: 600;
+    }
+
+    .hero-meta {
+      font-size: 11px;
+      color: rgba(148, 163, 184, 0.95);
+      max-width: 580px;
+    }
+
+    /* SECTIONS */
+
+    .section {
+      border-radius: 22px;
+      border: 1px solid var(--border-subtle);
+      background:
+        radial-gradient(circle at top, rgba(15, 23, 42, 0.75), transparent 65%),
+        rgba(15, 23, 42, 0.98);
+      box-shadow: var(--shadow-soft);
+      padding: 18px 18px 14px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: baseline;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .section h2 {
+      font-size: 17px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .section-lead {
+      font-size: 12px;
+      color: var(--text-soft);
+      max-width: 420px;
+    }
+
+    /* PLATFORM GRID */
+
+    .platform-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    @media (max-width: 960px) {
+      .platform-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 720px) {
+      .platform-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .platform-card {
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.98);
+      padding: 11px 12px 10px;
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.75);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .platform-card.highlight {
+      border-color: rgba(251, 191, 36, 0.9);
+      background:
+        radial-gradient(circle at top, rgba(251, 191, 36, 0.16), transparent 65%),
+        rgba(15, 23, 42, 0.98);
+      box-shadow: 0 22px 60px rgba(15, 23, 42, 0.95);
+    }
+
+    .platform-tag {
+      font-size: 10px;
+      padding: 3px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      color: var(--text-soft);
+      align-self: flex-start;
+    }
+
+    .platform-card.highlight .platform-tag {
+      border-color: rgba(251, 191, 36, 0.9);
+      background: rgba(251, 191, 36, 0.08);
+      color: #fefce8;
+    }
+
+    .platform-name {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .platform-role {
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    .platform-body {
+      font-size: 12px;
+      color: var(--text-soft);
+    }
+
+    .platform-list {
+      margin-left: 14px;
+      margin-top: 3px;
+      font-size: 12px;
+      color: var(--text-soft);
+    }
+
+    .platform-list li {
+      margin-bottom: 2px;
+    }
+
+    .platform-footer {
+      margin-top: auto;
+      font-size: 11px;
+      color: rgba(148, 163, 184, 0.95);
+    }
+
+    .platform-footer a {
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      cursor: pointer;
+    }
+
+    /* CTA SECTION */
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      font-size: 12px;
+    }
+
+    .btn-primary {
+      border-radius: 999px;
+      padding: 10px 18px;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      background: linear-gradient(120deg, #fbbf24, #f97316);
+      color: #0b1120;
+      box-shadow: 0 18px 42px rgba(15, 23, 42, 0.95);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.18s ease-out;
+      text-decoration: none;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 24px 60px rgba(15, 23, 42, 1);
+      background: linear-gradient(120deg, #fde047, #fb923c);
+    }
+
+    .btn-ghost {
+      border-radius: 999px;
+      padding: 8px 13px;
+      border: 1px solid rgba(148, 163, 184, 0.8);
+      background: rgba(15, 23, 42, 0.96);
+      color: var(--text-soft);
+      font-size: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.18s ease-out;
+    }
+
+    .btn-ghost:hover {
+      border-color: rgba(251, 191, 36, 0.8);
+      color: #e5e7eb;
+      background: rgba(15, 23, 42, 1);
+    }
+
+    /* FOOTER */
+
+    footer {
+      margin-top: 24px;
+      padding-top: 14px;
+      font-size: 11px;
+      color: var(--text-soft);
+      border-top: 1px solid rgba(31, 41, 55, 0.9);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .footer-links a {
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-orbit"></div>
+
+  <div class="page">
+    <header>
+      <div class="brand">
+        <div class="brand-mark"></div>
+        <div class="brand-text">
+          <div class="brand-title">Aurum Dispute Desk</div>
+          <div class="brand-sub">Account risk · Appeal · Reinstatement</div>
+        </div>
+      </div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="platforms.html" class="active">Platforms</a>
+        <a href="risk-diagnosis.html">Risk Diagnosis</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="contact.html">Contact</a>
+        <a href="risk-diagnosis.html" class="nav-cta">Start free diagnosis</a>
+      </nav>
+    </header>
+
+    <main>
+      <!-- HERO -->
+      <section class="hero">
+        <div class="hero-inner">
+          <div class="hero-pill">
+            <span>●</span>
+            One writing & strategy desk for several platforms.
+          </div>
+          <h1>Where this desk can actually help.</h1>
+          <p class="hero-sub">
+            We focus on platforms where a <strong>clear written story, policy awareness and realistic evidence</strong>
+            change how a human reviewer sees your case. Not every “ban” is worth fighting. Below are the places where
+            a structured appeal desk like this usually makes sense.
+          </p>
+          <div class="hero-meta">
+            If your platform is not listed but the pattern is similar (risk systems, compliance, creator accounts),
+            you can still reach out. We will tell you honestly if it is outside our scope.
+          </div>
+        </div>
+      </section>
+
+      <!-- PLATFORM CARDS -->
+      <section class="section">
+        <div class="section-header">
+          <h2>Supported platforms</h2>
+          <p class="section-lead">
+            Different rules, same idea: the platform is trying to manage risk.  
+            Our job is to translate your story into something a risk team can reasonably accept.
+          </p>
+        </div>
+
+        <div class="platform-grid">
+          <!-- TikTok -->
+          <article class="platform-card highlight">
+            <div class="platform-tag">High volume · Fast changes</div>
+            <div class="platform-name">TikTok & TikTok Shop</div>
+            <div class="platform-role">Creators · Shops · Agencies</div>
+            <div class="platform-body">
+              Common issues we see:
+              <ul class="platform-list">
+                <li>• Live / content bans and community guideline strikes</li>
+                <li>• TikTok Shop product or logistics violations</li>
+                <li>• Payment holds, KYC document problems</li>
+                <li>• “High risk behaviour” around ads or traffic</li>
+              </ul>
+              We help by structuring your history, business model and future controls
+              so it doesn’t look like a random reshipping or arbitrage account.
+            </div>
+            <div class="platform-footer">
+              Start with a <a href="risk-diagnosis.html">risk diagnosis</a> and mention TikTok in the platform field.
+            </div>
+          </article>
+
+          <!-- Facebook / Instagram Ads -->
+          <article class="platform-card">
+            <div class="platform-tag">Ad accounts & BM</div>
+            <div class="platform-name">Facebook / Instagram Ads</div>
+            <div class="platform-role">Media buyers · Brands</div>
+            <div class="platform-body">
+              Common issues:
+              <ul class="platform-list">
+                <li>• Disabled ad accounts and Business Managers</li>
+                <li>• Restricted ability to advertise or create assets</li>
+                <li>• Policy flags on landing pages or creative</li>
+                <li>• Previous history of “circumventing systems”</li>
+              </ul>
+              We cannot unlock every BM, but we can stop you from burning your last appeal
+              with an emotional wall of text and no structure.
+            </div>
+            <div class="platform-footer">
+              For serious ad spend or agencies, ask about <a href="pricing.html">VIP Guidance</a>.
+            </div>
+          </article>
+
+          <!-- PayPal -->
+          <article class="platform-card">
+            <div class="platform-tag">Holds & limitations</div>
+            <div class="platform-name">PayPal</div>
+            <div class="platform-role">E-commerce · Service providers</div>
+            <div class="platform-body">
+              Common issues:
+              <ul class="platform-list">
+                <li>• 180-day rolling reserve / limitation notices</li>
+                <li>• “Unusual activity” and compliance checks</li>
+                <li>• Documentation reviews for higher volumes</li>
+                <li>• Chargeback and dispute patterns</li>
+              </ul>
+              We focus on explaining your business model, customer journey and risk controls
+              in a way that fits their internal compliance mindset.
+            </div>
+            <div class="platform-footer">
+              High stakes? Mention that your balance or cashflow is critical in your <a href="risk-diagnosis.html">diagnosis</a>.
+            </div>
+          </article>
+
+          <!-- Stripe -->
+          <article class="platform-card">
+            <div class="platform-tag">Risk engines & disputes</div>
+            <div class="platform-name">Stripe</div>
+            <div class="platform-role">SaaS · Subscriptions · DTC</div>
+            <div class="platform-body">
+              Common issues:
+              <ul class="platform-list">
+                <li>• Sudden account terminations</li>
+                <li>• Payout holds and rolling reserves</li>
+                <li>• High dispute ratios or refund cycles</li>
+                <li>• Risk on specific verticals or business models</li>
+              </ul>
+              We help articulate why your model is controllable and what changes
+              you’re willing to make to keep risk within their comfort zone.
+            </div>
+            <div class="platform-footer">
+              Stripe cases often justify an <a href="pricing.html">Appeal Pack</a> or <a href="pricing.html">VIP Guidance</a>.
+            </div>
+          </article>
+
+          <!-- Airbnb -->
+          <article class="platform-card">
+            <div class="platform-tag">Trust & safety</div>
+            <div class="platform-name">Airbnb</div>
+            <div class="platform-role">Hosts · Co-hosts</div>
+            <div class="platform-body">
+              Common issues:
+              <ul class="platform-list">
+                <li>• Suspended host accounts</li>
+                <li>• Listing removals after guest complaints</li>
+                <li>• Identity and safety concerns</li>
+                <li>• Disputes around reviews or “party risk”</li>
+              </ul>
+              Here, tone and acknowledgement of guest and neighbour experience matter.
+              We help you write like a responsible host, not a defensive argument.
+            </div>
+            <div class="platform-footer">
+              Use the <a href="risk-diagnosis.html">risk diagnosis</a> page and paste the full trust & safety emails.
+            </div>
+          </article>
+
+          <!-- Amazon -->
+          <article class="platform-card">
+            <div class="platform-tag">POA & compliance</div>
+            <div class="platform-name">Amazon</div>
+            <div class="platform-role">Private label · Resellers</div>
+            <div class="platform-body">
+              Common issues:
+              <ul class="platform-list">
+                <li>• Account suspensions triggered by product or review issues</li>
+                <li>• Listing removals for IP or safety complaints</li>
+                <li>• Requests for Plan of Action (POA)</li>
+                <li>• Multiple related account flags</li>
+              </ul>
+              We help you create a structured POA with root cause, corrective actions
+              and long-term prevention that doesn’t read like copy-paste from the internet.
+            </div>
+            <div class="platform-footer">
+              Complex Amazon cases should be discussed via the <a href="contact.html">contact form</a>.
+            </div>
+          </article>
+
+          <!-- Other / Mixed -->
+          <article class="platform-card">
+            <div class="platform-tag">Other & mixed cases</div>
+            <div class="platform-name">Other platforms</div>
+            <div class="platform-role">Creators · Agencies · Tools</div>
+            <div class="platform-body">
+              We sometimes take cases on:
+              <ul class="platform-list">
+                <li>• Google Ads, YouTube, Pinterest, Reddit Ads</li>
+                <li>• Marketplaces, booking platforms, creator tools</li>
+                <li>• Affiliate networks and payment processors</li>
+              </ul>
+              The pattern is the same: risk systems and human reviewers.
+              If your situation involves <strong>fake documents, account rental or obvious abuse</strong>,
+              we will decline the case.
+            </div>
+            <div class="platform-footer">
+              Unsure if your platform fits? Send a short note via the <a href="contact.html">contact page</a>.
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- CTA SECTION -->
+      <section class="section">
+        <div class="section-header">
+          <h2>Next step</h2>
+          <p class="section-lead">
+            For real cases with a suspension or restriction notice in hand,
+            the Risk Diagnosis form is usually the best first move.
+          </p>
+        </div>
+
+        <div class="cta-row">
+          <a href="risk-diagnosis.html" class="btn-primary">
+            Start free risk diagnosis
+            <span>→</span>
+          </a>
+          <a href="pricing.html" class="btn-ghost">
+            View pricing and options
+          </a>
+        </div>
+      </section>
+
+      <footer>
+        <div>© <span id="year"></span> Aurum Dispute Desk. All rights reserved.</div>
+        <div class="footer-links">
+          <a href="pricing.html">Pricing</a>
+          <a href="contact.html">Contact</a>
+          <a href="#">Terms (coming soon)</a>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
