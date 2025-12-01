@@ -5,8 +5,10 @@
   <title>Aurum Dispute Desk — Free Risk Diagnosis</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <!-- Favicon -->
   <link rel="icon" href="favicon.png" type="image/png" />
 
+  <!-- Basic SEO -->
   <meta
     name="description"
     content="Run a free risk diagnosis for your suspended or restricted account. Aurum Dispute Desk helps you understand platform risk, whether an appeal is realistic, and what information you should prepare."
@@ -23,877 +25,978 @@
       --gold-soft: rgba(251, 191, 36, 0.16);
       --text-main: #e5e7eb;
       --text-soft: #9ca3af;
-      --shadow-strong: 0 32px 80px rgba(15, 23, 42, 0.95);
-      --shadow-soft: 0 18px 50px rgba(15, 23, 42, 0.7);
-      --radius-xl: 26px;
+      --danger: #f97373;
+      --success: #4ade80;
       --radius-lg: 20px;
-      --radius-md: 16px;
+      --radius-md: 14px;
       --radius-pill: 999px;
+      --shadow-soft: 0 24px 80px rgba(15, 23, 42, 0.9);
+      --shadow-soft-small: 0 10px 40px rgba(15, 23, 42, 0.7);
     }
 
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
         "Segoe UI", sans-serif;
       min-height: 100vh;
-      background:
-        radial-gradient(circle at top left, rgba(56, 189, 248, 0.10), transparent 55%),
-        radial-gradient(circle at top right, rgba(251, 191, 36, 0.25), transparent 60%),
-        radial-gradient(circle at bottom, rgba(15, 23, 42, 0.95), #020617 58%);
+      background: radial-gradient(circle at top, #0f172a 0%, #020617 55%, #000 100%);
       color: var(--text-main);
       -webkit-font-smoothing: antialiased;
     }
 
-    a { color: inherit; text-decoration: none; }
-
     .page {
-      max-width: 1180px;
+      max-width: 1100px;
       margin: 0 auto;
-      padding: 18px 16px 52px;
-      position: relative;
-      overflow: hidden;
+      padding: 24px 16px 56px;
     }
 
-    .bg-orbit {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: -1;
+    @media (min-width: 768px) {
+      .page {
+        padding: 32px 20px 72px;
+      }
     }
 
-    .bg-orbit::before,
-    .bg-orbit::after {
-      content: "";
-      position: absolute;
-      border-radius: 999px;
-      filter: blur(40px);
-      opacity: 0.5;
-      animation: float 12s ease-in-out infinite alternate;
-    }
-
-    .bg-orbit::before {
-      width: 420px; height: 420px;
-      background: radial-gradient(circle at center, rgba(251, 191, 36, 0.45), transparent 65%);
-      top: -160px; left: -80px;
-    }
-
-    .bg-orbit::after {
-      width: 360px; height: 360px;
-      background: radial-gradient(circle at center, rgba(56, 189, 248, 0.35), transparent 70%);
-      bottom: -120px; right: -60px;
-      animation-delay: -4s;
-    }
-
-    @keyframes float {
-      0% { transform: translate3d(0, 0, 0); opacity: 0.4; }
-      100% { transform: translate3d(40px, 30px, 0); opacity: 0.7; }
-    }
-
+    /* Header */
     header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 20px;
+      gap: 12px;
+      margin-bottom: 24px;
     }
 
-    .brand {
+    .logo-wrap {
       display: flex;
       align-items: center;
       gap: 10px;
     }
 
-    .brand-mark {
-      width: 32px;
-      height: 32px;
-      border-radius: 16px;
+    .logo-mark {
+      width: 30px;
+      height: 30px;
+      border-radius: 28%;
       background: conic-gradient(
         from 160deg,
         #fbbf24,
-        #22d3ee,
-        #4ade80,
-        #f97316,
+        #facc15,
+        #eab308,
         #fbbf24
       );
-      box-shadow: 0 0 26px rgba(251, 191, 36, 0.5);
+      box-shadow: 0 0 40px rgba(251, 191, 36, 0.5);
       position: relative;
       overflow: hidden;
     }
 
-    .brand-mark::after {
+    .logo-mark::after {
       content: "";
       position: absolute;
-      inset: 4px;
-      border-radius: 14px;
-      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.9), #020617);
+      inset: 3px;
+      border-radius: 22%;
+      background: radial-gradient(circle at 30% 0%, #fefce8 0%, #0f172a 55%, #020617 100%);
+      opacity: 0.8;
     }
 
-    .brand-text {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .brand-title {
+    .logo-text-main {
+      font-size: 16px;
       font-weight: 600;
-      letter-spacing: 0.08em;
-      font-size: 15px;
-      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
 
-    .brand-sub {
+    .logo-text-sub {
       font-size: 11px;
       color: var(--text-soft);
     }
 
-    nav {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      font-size: 13px;
+    .pill-platform {
+      padding: 6px 12px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: radial-gradient(circle at top left, rgba(148, 163, 184, 0.24), #020617 60%);
+      font-size: 11px;
       color: var(--text-soft);
-      flex-wrap: wrap;
-      justify-content: flex-end;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      backdrop-filter: blur(14px);
     }
 
-    nav a {
-      padding: 6px 10px;
+    .pill-dot {
+      width: 6px;
+      height: 6px;
       border-radius: 999px;
-      border: 1px solid transparent;
-      transition: all 0.18s ease-out;
-      cursor: pointer;
-      white-space: nowrap;
+      background: #22c55e;
+      box-shadow: 0 0 12px #22c55e;
     }
 
-    nav a:hover {
-      border-color: rgba(148, 163, 184, 0.5);
-      color: #e5e7eb;
-      background: rgba(15, 23, 42, 0.9);
+    /* Layout */
+    .layout {
+      display: grid;
+      gap: 18px;
     }
 
-    nav a.active {
-      border-color: rgba(251, 191, 36, 0.8);
-      background: radial-gradient(circle at top, rgba(251, 191, 36, 0.22), transparent 65%);
-      color: #fefce8;
+    @media (min-width: 900px) {
+      .layout {
+        grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+        align-items: flex-start;
+        gap: 24px;
+      }
     }
 
-    .nav-cta {
-      border-color: rgba(251, 191, 36, 0.85);
-      background: linear-gradient(120deg, #fbbf24, #f97316);
-      color: #0b1120;
-      font-weight: 600;
-      box-shadow: 0 14px 32px rgba(15, 23, 42, 0.95);
-    }
-
-    .nav-cta:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 20px 46px rgba(15, 23, 42, 1);
-      background: linear-gradient(120deg, #fde047, #fb923c);
-    }
-
-    @media (max-width: 800px) {
-      header { flex-direction: column; align-items: flex-start; }
-      nav { width: 100%; justify-content: flex-start; }
-    }
-
-    main { display: flex; flex-direction: column; gap: 22px; }
-
-    .hero {
-      border-radius: 28px;
-      padding: 22px 22px 18px;
-      background:
-        radial-gradient(circle at top left, rgba(148, 163, 184, 0.25), transparent 60%),
-        radial-gradient(circle at bottom right, rgba(15, 118, 110, 0.6), transparent 65%),
-        rgba(15, 23, 42, 0.98);
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      box-shadow: var(--shadow-strong);
+    .card-main {
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.9) 0%, #020617 55%, #000 100%);
+      border-radius: 26px;
+      border: 1px solid rgba(148, 163, 184, 0.36);
+      padding: 18px 16px 20px;
+      box-shadow: var(--shadow-soft);
       position: relative;
       overflow: hidden;
     }
 
-    .hero::before {
+    @media (min-width: 900px) {
+      .card-main {
+        padding: 20px 18px 22px;
+      }
+    }
+
+    .card-main::before {
       content: "";
       position: absolute;
-      inset: -2px;
-      border-radius: inherit;
-      background: conic-gradient(
-        from 160deg,
-        rgba(251, 191, 36, 0.12),
-        transparent,
-        rgba(56, 189, 248, 0.15),
-        transparent,
-        rgba(251, 191, 36, 0.12)
-      );
-      mix-blend-mode: screen;
-      opacity: 0.8;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(59, 130, 246, 0.3), transparent 60%),
+        radial-gradient(circle at 100% 0%, rgba(251, 191, 36, 0.32), transparent 55%);
+      opacity: 0.36;
       pointer-events: none;
-      animation: borderGlow 12s linear infinite;
     }
 
-    @keyframes borderGlow {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    .hero-inner {
+    .card-main-inner {
       position: relative;
       z-index: 1;
-      display: grid;
-      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.1fr);
-      gap: 22px;
-      align-items: flex-start;
     }
 
-    @media (max-width: 920px) {
-      .hero-inner { grid-template-columns: minmax(0, 1fr); }
-    }
-
-    .hero-copy h1 {
-      font-size: clamp(26px, 4vw, 32px);
-      line-height: 1.12;
-      margin-bottom: 10px;
-      letter-spacing: 0.02em;
-    }
-
-    .hero-pill {
-      display: inline-flex;
-      align-items: center;
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
       gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .tag-chip {
       border-radius: var(--radius-pill);
-      padding: 4px 11px;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      background: rgba(15, 23, 42, 0.92);
-      font-size: 11px;
-      color: var(--text-soft);
-      margin-bottom: 10px;
-    }
-
-    .hero-pill span {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 15px;
-      height: 15px;
-      border-radius: 999px;
-      background: rgba(34, 197, 94, 0.15);
-      color: #bbf7d0;
+      padding: 4px 9px;
+      background: rgba(15, 23, 42, 0.88);
+      border: 1px solid rgba(148, 163, 184, 0.45);
       font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-soft);
     }
 
-    .hero-sub {
-      font-size: 14px;
+    .tag-chip.gold {
+      border-color: rgba(251, 191, 36, 0.8);
+      background: rgba(24, 24, 18, 0.9);
+      color: var(--gold);
+    }
+
+    .card-title {
+      font-size: 22px;
+      letter-spacing: 0.04em;
+      margin-bottom: 4px;
+    }
+
+    .card-desc {
+      font-size: 13px;
       color: var(--text-soft);
-      margin-bottom: 12px;
       max-width: 520px;
+      line-height: 1.5;
+      margin-bottom: 16px;
     }
 
-    .hero-sub strong { color: #e5e7eb; font-weight: 600; }
-
-    .hero-bullets {
-      font-size: 12px;
-      color: var(--text-soft);
-      margin-bottom: 10px;
-    }
-
-    .hero-bullets ul { margin-left: 16px; margin-top: 4px; }
-    .hero-bullets li { margin-bottom: 2px; }
-
-    .hero-note {
+    .risk-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
       font-size: 11px;
-      color: rgba(148, 163, 184, 0.95);
-      margin-top: 6px;
+      color: var(--text-soft);
     }
 
-    .hero-note strong { color: #e5e7eb; }
-
-    .form-card {
-      border-radius: 22px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      background: rgba(15, 23, 42, 0.98);
-      padding: 16px 16px 14px;
-      box-shadow: var(--shadow-soft);
+    .risk-meta-item {
+      padding: 4px 8px;
+      border-radius: var(--radius-pill);
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px dashed rgba(148, 163, 184, 0.5);
     }
 
+    .risk-meta-item strong {
+      color: var(--gold);
+      font-weight: 500;
+    }
+
+    /* Form */
     form {
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      font-size: 13px;
+      gap: 10px;
+      margin-top: 8px;
     }
 
-    .field-group {
+    .field {
       display: flex;
       flex-direction: column;
       gap: 5px;
     }
 
-    .field-label {
-      font-size: 12px;
-      color: var(--text-soft);
-      display: flex;
-      justify-content: space-between;
-      gap: 8px;
-    }
-
-    .field-label span {
-      color: rgba(148, 163, 184, 0.9);
-    }
-
-    .field-label small {
-      font-size: 11px;
-      color: rgba(148, 163, 184, 0.8);
-    }
-
-    input[type="text"],
-    input[type="email"],
-    textarea,
-    select {
-      border-radius: 12px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      background: rgba(15, 23, 42, 0.96);
-      padding: 9px 10px;
-      font-size: 13px;
-      color: var(--text-main);
-      outline: none;
-      transition: border-color 0.16s ease-out, box-shadow 0.16s ease-out, background 0.16s ease-out;
-      resize: vertical;
-      min-height: 38px;
-    }
-
-    textarea { min-height: 90px; max-height: 260px; }
-
-    input::placeholder,
-    textarea::placeholder { color: rgba(148, 163, 184, 0.7); }
-
-    input:focus,
-    textarea:focus,
-    select:focus {
-      border-color: rgba(251, 191, 36, 0.9);
-      box-shadow: 0 0 0 1px rgba(251, 191, 36, 0.8);
-      background: rgba(15, 23, 42, 1);
-    }
-
-    .inline-fields {
+    .field-row {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
       gap: 10px;
     }
 
     @media (max-width: 640px) {
-      .inline-fields { grid-template-columns: minmax(0, 1fr); }
+      .field-row {
+        grid-template-columns: minmax(0, 1fr);
+      }
     }
 
-    .helper-line {
+    .label-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 6px;
       font-size: 11px;
-      color: rgba(148, 163, 184, 0.85);
+      color: var(--text-soft);
     }
 
-    .helper-line strong { color: #e5e7eb; }
+    .label-main {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.11em;
+      color: #e5e7eb;
+    }
+
+    .label-badge {
+      font-size: 10px;
+      border-radius: var(--radius-pill);
+      padding: 2px 7px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      text-transform: uppercase;
+    }
+
+    .label-badge.required {
+      border-color: rgba(248, 113, 113, 0.9);
+      color: #fecaca;
+    }
+
+    .label-badge.optional {
+      border-color: rgba(148, 163, 184, 0.7);
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      border-radius: 14px;
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.75), #020617);
+      padding: 9px 12px;
+      color: #f9fafb;
+      font-size: 13px;
+      outline: none;
+      transition: border-color 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: rgba(148, 163, 184, 0.75);
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 1px rgba(251, 191, 36, 0.55);
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.9), #020617);
+    }
+
+    .helper {
+      font-size: 11px;
+      color: var(--text-soft);
+      margin-top: 2px;
+      line-height: 1.45;
+    }
+
+    /* Button + status */
+    .submit-row {
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
 
     .btn-primary {
-      border-radius: 999px;
-      padding: 10px 18px;
       border: none;
-      cursor: pointer;
-      font-size: 14px;
+      border-radius: 16px;
+      padding: 10px 18px;
+      font-size: 13px;
       font-weight: 600;
-      background: linear-gradient(120deg, #fbbf24, #f97316);
-      color: #0b1120;
-      box-shadow: 0 18px 42px rgba(15, 23, 42, 0.95);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      background: radial-gradient(circle at 30% 0, #fef3c7, #fbbf24 40%, #f97316 85%);
+      color: #0f172a;
+      box-shadow: 0 18px 40px rgba(249, 115, 22, 0.55);
       display: inline-flex;
+      justify-content: center;
       align-items: center;
       gap: 8px;
-      transition: all 0.18s ease-out;
+      transition: transform 0.14s ease, box-shadow 0.14s ease, filter 0.14s ease;
+    }
+
+    .btn-primary span.dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #0f172a;
     }
 
     .btn-primary:hover {
       transform: translateY(-1px);
-      box-shadow: 0 24px 60px rgba(15, 23, 42, 1);
-      background: linear-gradient(120deg, #fde047, #fb923c);
+      filter: brightness(1.02);
+      box-shadow: 0 22px 50px rgba(249, 115, 22, 0.7);
     }
 
-    .submit-row {
-      margin-top: 4px;
-      display: flex;
+    .btn-primary:active {
+      transform: translateY(0);
+      box-shadow: 0 12px 30px rgba(249, 115, 22, 0.5);
+    }
+
+    .btn-primary[disabled] {
+      opacity: 0.7;
+      cursor: default;
+      transform: none;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.8);
+    }
+
+    .status-banner {
+      border-radius: 14px;
+      padding: 8px 10px;
+      font-size: 12px;
+      display: none;
       align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      flex-wrap: wrap;
+      gap: 8px;
+      border: 1px solid transparent;
     }
 
-    .submit-note {
-      font-size: 11px;
-      color: rgba(148, 163, 184, 0.9);
-      max-width: 360px;
-    }
-
-    .section {
-      border-radius: 22px;
-      border: 1px solid var(--border-subtle);
-      background:
-        radial-gradient(circle at top, rgba(15, 23, 42, 0.75), transparent 65%),
-        rgba(15, 23, 42, 0.98);
-      box-shadow: var(--shadow-soft);
-      padding: 18px 18px 14px;
-    }
-
-    .section-header {
+    .status-banner.show {
       display: flex;
-      justify-content: space-between;
-      gap: 14px;
-      align-items: baseline;
-      flex-wrap: wrap;
+    }
+
+    .status-banner.error {
+      background: rgba(127, 29, 29, 0.7);
+      border-color: rgba(248, 113, 113, 0.9);
+      color: #fecaca;
+    }
+
+    .status-banner.success {
+      background: rgba(22, 101, 52, 0.7);
+      border-color: rgba(74, 222, 128, 0.9);
+      color: #bbf7d0;
+    }
+
+    .status-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: currentColor;
+    }
+
+    /* Right column */
+    .card-side {
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.9), #020617 54%, #000 100%);
+      border-radius: 24px;
+      border: 1px solid rgba(148, 163, 184, 0.42);
+      padding: 16px 14px 18px;
+      box-shadow: var(--shadow-soft-small);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-side::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(56, 189, 248, 0.22), transparent 55%),
+        radial-gradient(circle at 100% 0%, rgba(251, 191, 36, 0.28), transparent 55%);
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    .card-side-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .side-title {
+      font-size: 14px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #e5e7eb;
+      margin-bottom: 8px;
+    }
+
+    .side-block {
+      font-size: 12px;
+      color: var(--text-soft);
+      line-height: 1.6;
       margin-bottom: 10px;
     }
 
-    .section h2 {
-      font-size: 17px;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
+    .side-block strong {
+      color: #e5e7eb;
+      font-weight: 500;
     }
 
-    .section-lead {
-      font-size: 12px;
-      color: var(--text-soft);
-      max-width: 420px;
+    .side-list {
+      list-style: none;
+      padding-left: 0;
+      margin: 6px 0 6px;
     }
 
-    .faq-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      gap: 14px;
-      font-size: 12px;
-    }
-
-    @media (max-width: 860px) {
-      .faq-grid { grid-template-columns: minmax(0, 1fr); }
-    }
-
-    .faq-item {
-      border-radius: 16px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      background: rgba(15, 23, 42, 0.98);
-      padding: 9px 10px 8px;
-    }
-
-    .faq-q {
-      font-size: 12px;
-      font-weight: 600;
+    .side-list li {
+      position: relative;
+      padding-left: 18px;
       margin-bottom: 4px;
     }
 
-    .faq-a {
-      font-size: 12px;
-      color: var(--text-soft);
+    .side-list li::before {
+      content: "";
+      position: absolute;
+      left: 3px;
+      top: 7px;
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(148, 163, 184, 0.7);
     }
 
-    footer {
-      margin-top: 22px;
-      padding-top: 14px;
+    .side-note {
       font-size: 11px;
       color: var(--text-soft);
-      border-top: 1px solid rgba(31, 41, 55, 0.9);
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .footer-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .footer-links a {
-      text-decoration: underline;
-      text-decoration-style: dotted;
-      cursor: pointer;
-    }
-
-    /* result box */
-    #risk-result-box {
-      display: none;
-      margin-top: 12px;
-      padding: 10px 12px;
       border-radius: 14px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      background: rgba(15, 23, 42, 0.98);
+      border: 1px dashed rgba(148, 163, 184, 0.6);
+      padding: 8px 9px;
+      background: rgba(15, 23, 42, 0.9);
+      margin-top: 4px;
+    }
+
+    .side-note strong {
+      color: var(--gold);
+      font-weight: 500;
+    }
+
+    /* Footer section under card */
+    .expect-block {
+      margin-top: 18px;
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.75), #020617);
+      padding: 14px 12px;
+      box-shadow: 0 18px 50px rgba(15, 23, 42, 0.9);
       font-size: 12px;
-      white-space: pre-wrap;
+      line-height: 1.6;
       color: var(--text-soft);
     }
 
-    #risk-status-text {
-      margin-top: 4px;
+    .expect-title {
+      font-size: 13px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #e5e7eb;
+      margin-bottom: 6px;
+    }
+
+    .expect-block strong {
+      color: #e5e7eb;
+      font-weight: 500;
+    }
+
+    .expect-grid {
+      display: grid;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    @media (min-width: 768px) {
+      .expect-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    .expect-item {
+      border-radius: 14px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: rgba(15, 23, 42, 0.9);
+      padding: 8px 9px;
       font-size: 11px;
-      color: rgba(148, 163, 184, 0.95);
+      color: var(--text-soft);
+    }
+
+    .expect-item-title {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #e5e7eb;
+      margin-bottom: 4px;
+    }
+
+    .expect-item p {
+      font-size: 11px;
+      line-height: 1.55;
+    }
+
+    /* Small text */
+    .micro {
+      font-size: 10px;
+      color: #6b7280;
+      margin-top: 6px;
+      line-height: 1.5;
     }
   </style>
 </head>
 <body>
-  <div class="bg-orbit"></div>
-
   <div class="page">
+    <!-- Top header -->
     <header>
-      <div class="brand">
-        <div class="brand-mark"></div>
-        <div class="brand-text">
-          <div class="brand-title">Aurum Dispute Desk</div>
-          <div class="brand-sub">Account risk · Appeal · Reinstatement</div>
+      <div class="logo-wrap">
+        <div class="logo-mark"></div>
+        <div>
+          <div class="logo-text-main">Aurum Dispute Desk</div>
+          <div class="logo-text-sub">Risk diagnosis before you burn your last appeal</div>
         </div>
       </div>
-      <nav>
-        <a href="index.html">Home</a>
-        <a href="platforms.html">Platforms</a>
-        <a href="risk-diagnosis.html" class="active">Risk Diagnosis</a>
-        <a href="pricing.html">Pricing</a>
-        <a href="contact.html">Contact</a>
-        <a href="risk-diagnosis.html" class="nav-cta">Start free diagnosis</a>
-      </nav>
+
+      <div>
+        <div class="pill-platform" id="platform-pill">
+          <span class="pill-dot"></span>
+          <span id="platform-pill-text">Risk diagnosis · Free</span>
+        </div>
+      </div>
     </header>
 
-    <main>
-      <!-- HERO + FORM -->
-      <section class="hero">
-        <div class="hero-inner">
-          <div class="hero-copy">
-            <div class="hero-pill">
-              <span>●</span>
-              Free, calm first look at your suspended or restricted account.
-            </div>
-            <h1>Free risk diagnosis: is your case worth an appeal?</h1>
-            <p class="hero-sub">
-              Paste your platform notice and describe what happened.
-              We give you a <strong>calm, policy-aware view</strong> of your situation:
-              risk level, whether appeal is realistic, and what information you should prepare.
-            </p>
-
-            <div class="hero-bullets">
-              We look at:
-              <ul>
-                <li>• Platform type (TikTok, PayPal, Stripe, Facebook Ads, Airbnb, Amazon…)</li>
-                <li>• Common risk triggers: content, payments, KYC, chargebacks, landing page, devices</li>
-                <li>• History: first-time event vs. repeated violations</li>
-              </ul>
-            </div>
-
-            <p class="hero-note">
-              <strong>No login, no screen-share, no password.</strong>
-              You stay in control: you paste the notice here and later submit your appeal from your own account.
-            </p>
+    <div class="layout">
+      <!-- Left: main card + form -->
+      <section class="card-main">
+        <div class="card-main-inner">
+          <div class="tag-row">
+            <span class="tag-chip gold">Free risk diagnosis</span>
+            <span class="tag-chip">No fake docs · No magic button</span>
           </div>
 
-          <div class="form-card">
-            <form id="risk-form">
-              <div class="inline-fields">
-                <div class="field-group">
-                  <label class="field-label">
-                    <span>Platform</span>
-                    <small>Required</small>
-                  </label>
-                  <select name="platform" id="risk-platform" required>
-                    <option value="">Select a platform…</option>
-                    <option value="tiktok">TikTok / TikTok Shop</option>
-                    <option value="meta-ads">Facebook / Instagram Ads</option>
-                    <option value="paypal">PayPal</option>
-                    <option value="stripe">Stripe</option>
-                    <option value="airbnb">Airbnb</option>
-                    <option value="amazon">Amazon</option>
-                    <option value="google-ads">Google Ads</option>
-                    <option value="other">Other</option>
-                  </select>
-                </div>
+          <h1 class="card-title">Tell us what happened. We map your real risk.</h1>
+          <p class="card-desc">
+            This is not a magic unban button. It is a calm, realistic look at your situation so
+            you don’t burn your final appeal with a random wall of text.
+          </p>
 
-                <div class="field-group">
-                  <label class="field-label">
-                    <span>How urgent is this?</span>
-                    <small>Rough feel</small>
-                  </label>
-                  <select name="urgency" id="risk-urgency">
-                    <option value="">Select…</option>
-                    <option value="low">Low — just want a calm opinion</option>
-                    <option value="medium">Medium — important, but business still runs</option>
-                    <option value="high">High — main cashflow is blocked</option>
-                    <option value="critical">Critical — this is my only income</option>
-                  </select>
-                </div>
-              </div>
-
-              <div class="field-group">
-                <label class="field-label">
-                  <span>Paste the platform notice or email (original language)</span>
-                  <small>Required</small>
-                </label>
-                <textarea
-                  name="notice"
-                  id="risk-notice"
-                  placeholder="Copy the text of the email or in-app message here, including error codes or policy names…"
-                  required
-                ></textarea>
-              </div>
-
-              <div class="field-group">
-                <label class="field-label">
-                  <span>What happened just before the suspension?</span>
-                  <small>Required</small>
-                </label>
-                <textarea
-                  name="context"
-                  id="risk-context"
-                  placeholder="Example: we launched a new campaign to country X, changed landing page, received disputes, changed product category, received a warning last week…"
-                  required
-                ></textarea>
-              </div>
-
-              <div class="field-group">
-                <label class="field-label">
-                  <span>What does your business actually do?</span>
-                  <small>Required</small>
-                </label>
-                <textarea
-                  name="business"
-                  id="risk-business"
-                  placeholder="Short deion in simple words. What do you sell, to whom, at what price point, how do you deliver?"
-                  required
-                ></textarea>
-              </div>
-
-              <div class="inline-fields">
-                <div class="field-group">
-                  <label class="field-label">
-                    <span>Your email</span>
-                    <small>Required</small>
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    id="risk-email"
-                    placeholder="we'll send the diagnosis here"
-                    required
-                  />
-                </div>
-
-                <div class="field-group">
-                  <label class="field-label">
-                    <small>For follow-up only</small>
-                  </label>
-                  <input
-                    type="text"
-                    name="whatsapp"
-                    id="risk-whatsapp"
-                    placeholder="+1 555 000 0000"
-                  />
-                </div>
-              </div>
-
-              <div class="field-group">
-                <label class="field-label">
-                  <span>Anything else we should know?</span>
-                  <small>Optional</small>
-                </label>
-                <textarea
-                  name="extra"
-                  id="risk-extra"
-                  placeholder="Previous bans, old tickets, sensitive verticals, special documents you have, budget you roughly have in mind for appeals…"
-                ></textarea>
-              </div>
-
-              <div class="submit-row">
-                <button type="submit" class="btn-primary" id="risk-submit-btn">
-                  Send for free diagnosis
-                  <span>→</span>
-                </button>
-                <div class="submit-note">
-                  This runs an <strong>automatic risk diagnosis</strong> first.
-                  For complex or very high-risk cases, we may invite you to a paid full appeal pack.
-                </div>
-              </div>
-
-              <div id="risk-status-text"></div>
-              <div id="risk-result-box">
-                <div id="risk-result-text"></div>
-              </div>
-
-              <div class="helper-line">
-                By submitting, you confirm you are sharing your own case and are not asking for
-                fake documents or account rental. We may decline cases that clearly violate platform or legal rules.
-              </div>
-            </form>
+          <div class="risk-meta-row">
+            <div class="risk-meta-item">
+              Platform: <strong id="meta-platform">Unknown / choose below</strong>
+            </div>
+            <div class="risk-meta-item">
+              Urgency: <strong id="meta-urgency">Standard</strong>
+            </div>
+            <div class="risk-meta-item">
+              Case type: <strong id="meta-case">Suspended / at risk</strong>
+            </div>
           </div>
+
+          <form id="risk-form" novalidate>
+            <!-- Hidden field for full query string -->
+            <input type="hidden" id="query-string" name="queryString" />
+
+            <!-- Platform + urgency -->
+            <div class="field-row">
+              <div class="field">
+                <div class="label-line">
+                  <span class="label-main">Platform</span>
+                  <span class="label-badge required">Required</span>
+                </div>
+                <select id="platform" name="platform" required>
+                  <option value="">Select platform</option>
+                  <option value="google_ads">Google Ads</option>
+                  <option value="meta_ads">Facebook / Instagram Ads</option>
+                  <option value="tiktok_ads">TikTok Ads</option>
+                  <option value="amazon">Amazon</option>
+                  <option value="shopify">Shopify / payment processor</option>
+                  <option value="stripe">Stripe / PSP</option>
+                  <option value="other">Other / multiple platforms</option>
+                </select>
+                <div class="helper">If multiple accounts or platforms are linked, mention it below.</div>
+              </div>
+
+              <div class="field">
+                <div class="label-line">
+                  <span class="label-main">Urgency</span>
+                  <span class="label-badge optional">Optional</span>
+                </div>
+                <select id="urgency" name="urgency">
+                  <option value="standard">Standard — next 3–5 days</option>
+                  <option value="critical">Critical — 24–48 hours</option>
+                  <option value="low">Low — just exploring</option>
+                </select>
+                <div class="helper">We use this to schedule your diagnosis slot.</div>
+              </div>
+            </div>
+
+            <!-- Notice + context -->
+            <div class="field">
+              <div class="label-line">
+                <span class="label-main">What did the notice say?</span>
+                <span class="label-badge required">Required</span>
+              </div>
+              <textarea
+                id="notice"
+                name="notice"
+                required
+                placeholder="Paste the exact wording of the suspension / restriction email or on-screen notice, in English if possible."
+              ></textarea>
+              <div class="helper">
+                If you have multiple notices, paste the most important ones.
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="label-line">
+                <span class="label-main">What happened just before the suspension?</span>
+                <span class="label-badge required">Required</span>
+              </div>
+              <textarea
+                id="context"
+                name="context"
+                required
+                placeholder="New campaign launch, billing changes, policy warnings, disputes, log-in from new country, agency change, etc."
+              ></textarea>
+            </div>
+
+            <!-- Business + vertical -->
+            <div class="field">
+              <div class="label-line">
+                <span class="label-main">What does your business actually do?</span>
+                <span class="label-badge required">Required</span>
+              </div>
+              <textarea
+                id="business"
+                name="business"
+                required
+                placeholder="Products or services you sell, countries you target, average monthly ad spend, years running this business, etc."
+              ></textarea>
+            </div>
+
+            <!-- Contact -->
+            <div class="field-row">
+              <div class="field">
+                <div class="label-line">
+                  <span class="label-main">Your email</span>
+                  <span class="label-badge required">Required</span>
+                </div>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  required
+                  placeholder="name@example.com"
+                />
+                <div class="helper">
+                  Used only to send your risk diagnosis. No lists. No spam.
+                </div>
+              </div>
+
+              <div class="field">
+                <div class="label-line">
+                  <span class="label-main">For follow-up only</span>
+                  <span class="label-badge optional">Optional</span>
+                </div>
+                <input
+                  id="phone"
+                  name="phone"
+                  type="text"
+                  placeholder="+1 555 000 0000 (WhatsApp or mobile)"
+                />
+                <div class="helper">Sometimes a short call is faster than ten emails.</div>
+              </div>
+            </div>
+
+            <!-- Anything else -->
+            <div class="field">
+              <div class="label-line">
+                <span class="label-main">Anything else we should know?</span>
+                <span class="label-badge optional">Optional</span>
+              </div>
+              <textarea
+                id="extra"
+                name="extra"
+                placeholder="Previous bans, old tickets, sensitive verticals, special documents you have, budget you roughly have in mind for appeals..."
+              ></textarea>
+            </div>
+
+            <!-- Checkbox -->
+            <div class="field">
+              <label style="display:flex; align-items:flex-start; gap:8px; font-size:11px; color:var(--text-soft); cursor:pointer;">
+                <input
+                  type="checkbox"
+                  id="confirm-real-case"
+                  name="confirmRealCase"
+                  required
+                  style="width:14px; height:14px; margin-top:2px;"
+                />
+                <span>
+                  I confirm this is a real business or personal case. I am <strong>not</strong> asking
+                  for fake documents, fake statements, or “buying an old account”.
+                </span>
+              </label>
+            </div>
+
+            <!-- Submit -->
+            <div class="submit-row">
+              <button type="submit" class="btn-primary" id="submit-btn">
+                <span class="dot"></span>
+                <span id="submit-text">Send for free diagnosis →</span>
+              </button>
+
+              <div class="status-banner" id="status-banner">
+                <span class="status-dot"></span>
+                <span id="status-text"></span>
+              </div>
+
+              <p class="micro">
+                By submitting, you confirm you are sharing your own case and are not asking
+                for fake documents or account rental. We may decline cases that clearly violate
+                platform or legal rules.
+              </p>
+            </div>
+          </form>
         </div>
       </section>
 
-      <!-- FAQ / EXPECTATIONS -->
-      <section class="section">
-        <div class="section-header">
-          <h2>What to expect from a risk diagnosis</h2>
-          <p class="section-lead">
-            This is not a magic unban button. It is a calm, realistic look at your situation
-            so you don't burn your final appeal chance with a random wall of text.
+      <!-- Right column: what to expect -->
+      <aside class="card-side">
+        <div class="card-side-inner">
+          <h2 class="side-title">What we actually send back</h2>
+
+          <div class="side-block">
+            You receive a <strong>short written diagnosis</strong> in clear language, normally
+            within 24–72 hours. It includes:
+            <ul class="side-list">
+              <li><strong>Risk level</strong> (realistic / borderline / very low chance)</li>
+              <li><strong>Key reasons</strong> your account might be flagged</li>
+              <li><strong>Whether an appeal is worth it</strong> or likely to fail</li>
+              <li><strong>What evidence or documents</strong> you should prepare</li>
+            </ul>
+          </div>
+
+          <div class="side-block">
+            This free diagnosis is <strong>not legal advice</strong> and does not guarantee
+            reinstatement. It helps you decide whether to:
+            <ul class="side-list">
+              <li>Write your own appeal with a clearer structure</li>
+              <li>Book a paid escalation letter or full appeal</li>
+              <li>Walk away from a very low-odds fight</li>
+            </ul>
+          </div>
+
+          <div class="side-note">
+            <strong>We do not:</strong> create fake invoices, fake IDs, fake proof-of-address, or
+            help you rent / buy accounts against platform rules.
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <!-- Expect section -->
+    <section class="expect-block">
+      <div class="expect-title">What to expect from a risk diagnosis</div>
+      <p>
+        This is a calm, structured look at your case. We treat both
+        <strong>small advertisers</strong> and <strong>large accounts</strong> the same way:
+        clear questions, realistic odds, no drama.
+      </p>
+
+      <div class="expect-grid">
+        <div class="expect-item">
+          <div class="expect-item-title">1 · We read like a policy team</div>
+          <p>
+            Your answers are read with the same paranoia a platform risk or policy person would have.
+            We look for the weak points they are likely to see.
           </p>
         </div>
-
-        <div class="faq-grid">
-          <div class="faq-item">
-            <div class="faq-q">What do I receive after I submit?</div>
-            <div class="faq-a">
-              You receive a short written diagnosis by email: our best view of
-              <strong>what the platform likely saw</strong>, how serious it is,
-              and whether it's worth paying for a full appeal pack or VIP support.
-              We sometimes say “do not appeal yet” if your case is not ready.
-            </div>
-          </div>
-
-          <div class="faq-item">
-            <div class="faq-q">Can you guarantee my account will be reinstated?</div>
-            <div class="faq-a">
-              No. Anyone who promises guaranteed reinstatement is not being honest.
-              We can't control internal platform systems or reviewers.
-              We focus on giving you the <strong>cleanest, most reasonable version of your story</strong>
-              and a structure that respects their policies.
-            </div>
-          </div>
-
-          <div class="faq-item">
-            <div class="faq-q">Do you log into my account or send appeals for me?</div>
-            <div class="faq-a">
-              No. You keep full control. We work through written drafts and clear instructions.
-              You submit appeals or documents from your own devices and accounts.
-              We never ask for passwords, 2FA codes or remote access.
-            </div>
-          </div>
-
-          <div class="faq-item">
-            <div class="faq-q">What if my English is not good?</div>
-            <div class="faq-a">
-              That's exactly why this desk exists. You can write your story in simple English
-              (or mix with your native language if needed), and we will organise it into
-              <strong>clear, respectful, policy-aware English</strong> that reviewers can understand.
-            </div>
-          </div>
+        <div class="expect-item">
+          <div class="expect-item-title">2 · We map your realistic options</div>
+          <p>
+            Sometimes the safest move is to re-build; sometimes a carefully structured appeal is worth it.
+            We explain the trade-offs in normal language.
+          </p>
         </div>
-      </section>
-
-      <footer>
-        <div>© <span id="year"></span> Aurum Dispute Desk. All rights reserved.</div>
-        <div class="footer-links">
-          <a href="pricing.html">Pricing</a>
-          <a href="contact.html">Contact</a>
-          <a href="#">Terms (coming soon)</a>
+        <div class="expect-item">
+          <div class="expect-item-title">3 · You decide next steps</div>
+          <p>
+            If you want help with a paid full appeal or escalation letter, you can book it later.
+            This diagnosis comes first and stays free.
+          </p>
         </div>
-      </footer>
-    </main>
+      </div>
+    </section>
   </div>
-  
+
   <script>
-  document.addEventListener("DOMContentLoaded", () => {
+    // === Small helper: read query params so you can prefill from ad links ===
+    function getQueryParams() {
+      const params = new URLSearchParams(window.location.search);
+      const obj = {};
+      for (const [key, value] of params.entries()) {
+        obj[key] = value;
+      }
+      return obj;
+    }
+
+    function updateMetaFromForm() {
+      const platformMap = {
+        google_ads: "Google Ads",
+        meta_ads: "Meta / Facebook / Instagram Ads",
+        tiktok_ads: "TikTok Ads",
+        amazon: "Amazon",
+        shopify: "Shopify / payment processor",
+        stripe: "Stripe / PSP",
+        other: "Other / multiple platforms",
+      };
+      const platformSelect = document.getElementById("platform");
+      const urgencySelect = document.getElementById("urgency");
+      const metaPlatform = document.getElementById("meta-platform");
+      const metaUrgency = document.getElementById("meta-urgency");
+      const platformPillText = document.getElementById("platform-pill-text");
+
+      const pVal = platformSelect.value;
+      const uVal = urgencySelect.value;
+
+      if (pVal && platformMap[pVal]) {
+        metaPlatform.textContent = platformMap[pVal];
+        platformPillText.textContent = platformMap[pVal] + " · risk diagnosis";
+      } else {
+        metaPlatform.textContent = "Unknown / choose below";
+        platformPillText.textContent = "Risk diagnosis · Free";
+      }
+
+      if (uVal === "critical") metaUrgency.textContent = "Critical (24–48h window)";
+      else if (uVal === "low") metaUrgency.textContent = "Low (just exploring)";
+      else metaUrgency.textContent = "Standard";
+    }
+
+    // Prefill from query & attach listeners
+    (function init() {
+      const qs = window.location.search || "";
+      document.getElementById("query-string").value = qs;
+      const qp = getQueryParams();
+
+      const platform = document.getElementById("platform");
+      const urgency = document.getElementById("urgency");
+      const email = document.getElementById("email");
+
+      if (qp.platform && platform.querySelector(`option[value="${qp.platform}"]`)) {
+        platform.value = qp.platform;
+      }
+      if (qp.urgency && urgency.querySelector(`option[value="${qp.urgency}"]`)) {
+        urgency.value = qp.urgency;
+      }
+      if (qp.email) email.value = qp.email;
+
+      updateMetaFromForm();
+      platform.addEventListener("change", updateMetaFromForm);
+      urgency.addEventListener("change", updateMetaFromForm);
+    })();
+
+    // === Form submit ===
     const form = document.getElementById("risk-form");
-    if (!form) return;
+    const submitBtn = document.getElementById("submit-btn");
+    const submitText = document.getElementById("submit-text");
+    const statusBanner = document.getElementById("status-banner");
+    const statusText = document.getElementById("status-text");
 
-    const btn        = document.getElementById("risk-submit-btn");
-    const statusEl   = document.getElementById("risk-status-text");
-    const resultBox  = document.getElementById("risk-result-box");
-    const resultText = document.getElementById("risk-result-text");
+    function showStatus(type, message) {
+      statusBanner.classList.remove("error", "success", "show");
+      statusBanner.classList.add(type, "show");
+      statusText.textContent = message;
+    }
 
-    // 提交事件：调用 /w/api/risk-diagnosis，然后把结果写进页面
+    function clearStatus() {
+      statusBanner.classList.remove("error", "success", "show");
+      statusText.textContent = "";
+    }
+
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
+      clearStatus();
 
-      const payload = {
-        platform:  document.getElementById("risk-platform")?.value || "",
-        urgency:   document.getElementById("risk-urgency")?.value || "",
-        notice:    document.getElementById("risk-notice")?.value || "",
-        context:   document.getElementById("risk-context")?.value || "",
-        business:  document.getElementById("risk-business")?.value || "",
-        email:     document.getElementById("risk-email")?.value || "",
-        whatsapp:  document.getElementById("risk-whatsapp")?.value || "",
-        extra:     document.getElementById("risk-extra")?.value || "",
-      };
-
-      // 简单必填校验
-      if (!payload.notice || !payload.context || !payload.business || !payload.email) {
-        if (statusEl) {
-          statusEl.textContent = "Please fill the required fields first.";
-        } else {
-          alert("Please fill the required fields first.");
-        }
+      if (!form.reportValidity()) {
+        showStatus("error", "Please fill in all required fields.");
         return;
       }
 
-      // 按钮和提示状态
-      if (btn) {
-        btn.disabled = true;
-        btn.dataset.oldText = btn.textContent;
-        btn.textContent = "Analyzing…";
-      }
-      if (statusEl) {
-        statusEl.textContent =
-          "Running an automatic risk diagnosis. This can take 5–15 seconds…";
-      }
-      if (resultBox) {
-        resultBox.style.display = "none";
-      }
-      if (resultText) {
-        resultText.textContent = "";
-      }
+      const payload = {
+        platform: document.getElementById("platform").value || null,
+        urgency: document.getElementById("urgency").value || null,
+        notice: document.getElementById("notice").value || null,
+        context: document.getElementById("context").value || null,
+        business: document.getElementById("business").value || null,
+        email: document.getElementById("email").value || null,
+        phone: document.getElementById("phone").value || null,
+        extra: document.getElementById("extra").value || null,
+        queryString: document.getElementById("query-string").value || "",
+        confirmRealCase: document.getElementById("confirm-real-case").checked,
+        userAgent: navigator.userAgent || "",
+        path: window.location.pathname,
+      };
+
+      submitBtn.disabled = true;
+      submitText.textContent = "Sending…";
 
       try {
-        // 用相对路径，走 Cloudflare Pages → Worker 的 /w/* 路由
         const res = await fetch("/w/api/risk-diagnosis", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
         });
 
-        const data = await res.json().catch(() => null);
-
-        if (!res.ok || !data || data.ok === false) {
-          const msg =
-            (data && (data.error || data.message)) ||
-            "Automatic diagnosis failed. Please try again later.";
-          if (statusEl) statusEl.textContent = msg;
-          else alert(msg);
-          return;
+        if (!res.ok) {
+          let info = "";
+          try {
+            const j = await res.json();
+            info = j.error || "";
+          } catch (_) {}
+          throw new Error(info || ("Request failed with " + res.status));
         }
 
-        const diagnosisText =
-          data.diagnosis ||
-          data.result ||
-          data.content ||
-          "Diagnosis created. Please also check your email for details.";
-
-        if (resultText) {
-          resultText.textContent = diagnosisText;
-        }
-        if (resultBox) {
-          resultBox.style.display = "block";
-        }
-        if (statusEl) {
-          statusEl.textContent =
-            "Automatic risk diagnosis completed. Please review the result below.";
-        }
-
-        // 可选：自动滚动到结果区域
-        resultBox?.scrollIntoView({ behavior: "smooth", block: "start" });
+        showStatus(
+          "success",
+          "Received. We will send your risk diagnosis to your email within 24–72 hours (business days)."
+        );
+        form.reset();
+        updateMetaFromForm();
       } catch (err) {
-        console.error("risk diagnosis error", err);
-        if (statusEl) {
-          statusEl.textContent =
-            "Something went wrong. Please try again later.";
-        } else {
-          alert("Something went wrong. Please try again later.");
-        }
+        console.error(err);
+        showStatus(
+          "error",
+          "Could not send right now. Please try again in a few minutes or email us directly."
+        );
       } finally {
-        if (btn) {
-          btn.disabled = false;
-          if (btn.dataset.oldText) {
-            btn.textContent = btn.dataset.oldText;
-          } else {
-            btn.textContent = "Send for free diagnosis →";
-          }
-        }
+        submitBtn.disabled = false;
+        submitText.textContent = "Send for free diagnosis →";
       }
     });
-  });
-</script>
+  </script>
+</body>
+</html>
