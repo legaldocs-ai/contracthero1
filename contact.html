@@ -2,21 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Aurum Task Desk — Contact / Feedback</title>
+  <title>Aurum Dispute Desk — Contact</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Favicon -->
-  <link rel="icon" href="favicon.png" />
-  <link rel="icon" type="image/png" href="favicon.png" />
-
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NEY7RNB5S"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){ dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', 'G-NEY7RNB5S');
-  </script>
+  <link rel="icon" href="favicon.png" type="image/png" />
+  <meta
+    name="description"
+    content="Contact Aurum Dispute Desk for questions about account risk, appeal options and VIP guidance for suspended or restricted accounts."
+  />
 
   <style>
     * {
@@ -24,909 +17,778 @@
       margin: 0;
       padding: 0;
     }
+
     :root {
       --bg-deep: #020617;
       --bg-card: #020617;
-      --border-subtle: rgba(148, 163, 184, 0.35);
-      --text-main: #e5e7eb;
-      --text-soft: #cbd5f5;
+      --border-subtle: rgba(148, 163, 184, 0.4);
       --gold: #fbbf24;
-      --accent-blue: #38bdf8;
-      --shadow-strong: 0 32px 120px rgba(0,0,0,0.9);
-      --radius-xl: 24px;
-      --radius-lg: 16px;
+      --gold-soft: rgba(251, 191, 36, 0.16);
+      --text-main: #e5e7eb;
+      --text-soft: #9ca3af;
+      --shadow-strong: 0 32px 80px rgba(15, 23, 42, 0.95);
+      --shadow-soft: 0 18px 50px rgba(15, 23, 42, 0.7);
+      --radius-xl: 26px;
+      --radius-lg: 20px;
+      --radius-md: 16px;
       --radius-pill: 999px;
-      --blur-strong: 40px;
-    }
-    body {
-      min-height: 100vh;
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui,
-        "Segoe UI", sans-serif;
-      background:
-        radial-gradient(circle at top, #020617 0%, #020617 40%, #000 100%);
-      color: var(--text-main);
-      display: flex;
-      justify-content: center;
-      padding: 24px 12px 48px;
-    }
-    .page-shell {
-      width: 100%;
-      max-width: 1120px;
-      margin: 0 auto;
     }
 
-    /* 顶部导航：和首页 / desk / about 统一 */
-    .top-nav {
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top left, rgba(56, 189, 248, 0.10), transparent 55%),
+        radial-gradient(circle at top right, rgba(251, 191, 36, 0.25), transparent 60%),
+        radial-gradient(circle at bottom, rgba(15, 23, 42, 0.95), #020617 58%);
+      color: var(--text-main);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 18px 16px 52px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* background glow */
+    .bg-orbit {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .bg-orbit::before,
+    .bg-orbit::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(40px);
+      opacity: 0.5;
+      animation: float 12s ease-in-out infinite alternate;
+    }
+
+    .bg-orbit::before {
+      width: 420px;
+      height: 420px;
+      background: radial-gradient(circle at center, rgba(251, 191, 36, 0.45), transparent 65%);
+      top: -160px;
+      left: -80px;
+    }
+
+    .bg-orbit::after {
+      width: 360px;
+      height: 360px;
+      background: radial-gradient(circle at center, rgba(56, 189, 248, 0.35), transparent 70%);
+      bottom: -120px;
+      right: -60px;
+      animation-delay: -4s;
+    }
+
+    @keyframes float {
+      0% { transform: translate3d(0, 0, 0); opacity: 0.4; }
+      100% { transform: translate3d(40px, 30px, 0); opacity: 0.7; }
+    }
+
+    header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
-      padding: 10px 18px;
-      margin-bottom: 22px;
-      border-radius: 999px;
-      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.9), rgba(2, 6, 23, 0.96));
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      box-shadow: 0 14px 40px rgba(15, 23, 42, 0.9);
-      backdrop-filter: blur(18px);
-      position: sticky;
-      top: 10px;
-      z-index: 30;
+      gap: 16px;
+      margin-bottom: 24px;
     }
-    .brand-block {
+
+    .brand {
       display: flex;
       align-items: center;
       gap: 10px;
     }
-    .brand-avatar {
-      width: 30px;
-      height: 30px;
-      border-radius: 999px;
+
+    .brand-mark {
+      width: 32px;
+      height: 32px;
+      border-radius: 16px;
       background: conic-gradient(
-        from 210deg,
-        #0ea5e9,
-        #22d3ee,
+        from 160deg,
         #fbbf24,
-        #eab308,
-        #0ea5e9
+        #22d3ee,
+        #4ade80,
+        #f97316,
+        #fbbf24
       );
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow:
-        0 0 0 1px rgba(148, 163, 184, 0.9),
-        0 0 40px rgba(14, 165, 233, 0.8);
+      box-shadow: 0 0 26px rgba(251, 191, 36, 0.5);
+      position: relative;
+      overflow: hidden;
     }
-    .brand-avatar-inner {
-      width: 100%;
-      height: 100%;
-      border-radius: inherit;
-      background: radial-gradient(circle at 30% 20%, #0f172a, #020617);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      color: #fefce8;
+
+    .brand-mark::after {
+      content: "";
+      position: absolute;
+      inset: 4px;
+      border-radius: 14px;
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.9), #020617);
     }
-    .brand-text-block {
+
+    .brand-text {
       display: flex;
       flex-direction: column;
-      gap: 1px;
+      gap: 2px;
     }
-    .brand-name {
-      font-size: 0.95rem;
+
+    .brand-title {
       font-weight: 600;
       letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-    .brand-sub {
-      font-size: 0.72rem;
-      color: var(--text-soft);
-      letter-spacing: 0.06em;
+      font-size: 15px;
       text-transform: uppercase;
     }
 
-    .nav-links {
+    .brand-sub {
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    nav {
       display: flex;
       align-items: center;
       gap: 14px;
-      font-size: 0.8rem;
-    }
-    .nav-main-links {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .nav-link {
+      font-size: 13px;
       color: var(--text-soft);
-      text-decoration: none;
-      padding: 4px 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    nav a {
+      padding: 6px 10px;
       border-radius: 999px;
       border: 1px solid transparent;
-      transition: all 0.16s ease-out;
+      transition: all 0.18s ease-out;
       cursor: pointer;
       white-space: nowrap;
     }
-    .nav-link:hover {
+
+    nav a:hover {
+      border-color: rgba(148, 163, 184, 0.5);
       color: #e5e7eb;
-      border-color: rgba(148, 163, 184, 0.6);
-      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.9), rgba(2, 6, 23, 0.9));
+      background: rgba(15, 23, 42, 0.9);
     }
-    .nav-link--active {
-      color: var(--gold);
+
+    nav a.active {
       border-color: rgba(251, 191, 36, 0.8);
-      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.85), rgba(2, 6, 23, 0.95));
-      box-shadow: 0 0 0 1px rgba(251, 191, 36, 0.5);
-    }
-
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .lang-toggle {
-      display: inline-flex;
-      align-items: center;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      padding: 2px;
-      background: radial-gradient(circle at top left,#020617,#020617);
-    }
-    .lang-btn {
-      border: none;
-      outline: none;
-      padding: 4px 12px;
-      font-size: 11px;
-      border-radius: 999px;
-      background: transparent;
-      color: var(--text-soft);
-      cursor: pointer;
-      transition: all 0.18s ease;
-      min-width: 38px;
-    }
-    .lang-btn.active {
-      background: linear-gradient(135deg,#fbbf24,#f97316);
-      color: #111827;
-      box-shadow: 0 0 0 1px rgba(248, 250, 252, 0.9);
-    }
-
-    .primary-btn {
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.9), rgba(2, 6, 23, 0.96));
-      color: #e5e7eb;
-      padding: 6px 14px;
-      font-size: 0.8rem;
-      font-weight: 500;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      cursor: pointer;
-      box-shadow: 0 14px 40px rgba(15,23,42,0.9);
-      transition: transform 0.14s ease, box-shadow 0.14s ease, filter 0.14s ease, border-color 0.14s ease, color 0.14s ease;
-      white-space: nowrap;
-    }
-    .primary-btn span.icon {
-      font-size: 0.9rem;
-    }
-    .primary-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 20px 70px rgba(15,23,42,1);
-      border-color: var(--gold);
+      background: radial-gradient(circle at top, rgba(251, 191, 36, 0.22), transparent 65%);
       color: #fefce8;
     }
 
-    @media (max-width: 900px) {
-      .top-nav {
-        border-radius: 18px;
-        padding-inline: 14px;
-      }
-    }
-    @media (max-width: 720px) {
-      body {
-        padding: 18px 8px 32px;
-      }
-      .nav-main-links {
-        display: none; /* 小屏只保留语言 + 登录 */
-      }
-    }
-
-    /* 主体卡片 */
-    .contact-card {
-      margin-top: 6px;
-      border-radius: var(--radius-xl);
-      background:
-        radial-gradient(circle at top left, rgba(59, 130, 246, 0.16) 0%, transparent 60%),
-        radial-gradient(circle at bottom right, rgba(251, 191, 36, 0.06) 0%, transparent 55%),
-        rgba(15, 23, 42, 0.96);
-      border: 1px solid rgba(15, 23, 42, 0.95);
-      box-shadow: var(--shadow-strong);
-      padding: 22px 22px 24px;
-      backdrop-filter: blur(var(--blur-strong));
-    }
-
-    .contact-header {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      margin-bottom: 18px;
-    }
-    .contact-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 11px;
-      color: var(--text-soft);
-    }
-    .contact-pill-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: radial-gradient(circle at 30% 0%, #22c55e, #15803d);
-      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.16);
-    }
-    .contact-title {
-      font-size: 20px;
+    .nav-cta {
+      border-color: rgba(251, 191, 36, 0.85);
+      background: linear-gradient(120deg, #fbbf24, #f97316);
+      color: #0b1120;
       font-weight: 600;
-      letter-spacing: 0.01em;
-    }
-    .contact-subtitle {
-      font-size: 13px;
-      color: var(--text-soft);
-      max-width: 680px;
+      box-shadow: 0 14px 32px rgba(15, 23, 42, 0.95);
     }
 
-    .contact-layout {
-      display: grid;
-      grid-template-columns: minmax(0, 340px) minmax(0, 1fr);
-      gap: 18px;
-      align-items: stretch;
-    }
-
-    .contact-info-card {
-      border-radius: var(--radius-lg);
-      border: 1px solid rgba(148,163,184,0.5);
-      padding: 14px 14px 16px;
-      background:
-        radial-gradient(circle at top left, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 1));
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .contact-info-title {
-      font-size: 14px;
-      font-weight: 600;
-    }
-    .contact-info-text {
-      font-size: 12px;
-      color: var(--text-soft);
-    }
-    .contact-badge-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 4px;
-    }
-    .contact-badge {
-      font-size: 10px;
-      padding: 3px 8px;
-      border-radius: 999px;
-      border: 1px dashed rgba(148,163,184,0.7);
-      color: var(--text-soft);
-    }
-    .contact-email-box {
-      margin-top: 8px;
-      padding: 8px 10px;
-      border-radius: 12px;
-      border: 1px solid rgba(148,163,184,0.7);
-      font-size: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-    }
-    .contact-email-highlight {
-      color: var(--gold);
-      font-weight: 600;
-    }
-    .contact-mail-note {
-      font-size: 11px;
-      color: var(--text-soft);
-      margin-top: 6px;
-    }
-
-    .contact-form-card {
-      border-radius: var(--radius-lg);
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      padding: 16px 16px 18px;
-      background:
-        radial-gradient(circle at top right, rgba(56, 189, 248, 0.16), transparent 55%),
-        radial-gradient(circle at bottom left, rgba(251, 191, 36, 0.12), transparent 60%),
-        rgba(15, 23, 42, 0.98);
-    }
-    .form-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px 12px;
-    }
-    .form-full {
-      grid-column: 1 / -1;
-    }
-    .field-label {
-      font-size: 11px;
-      color: var(--text-soft);
-      margin-bottom: 4px;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-    .field-label span.badge {
-      font-size: 9px;
-      padding: 0 6px;
-      border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.7);
-    }
-    .field-input,
-    .field-select,
-    .field-textarea {
-      width: 100%;
-      border-radius: 10px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      background: rgba(15, 23, 42, 0.9);
-      color: #e5e7eb;
-      font-size: 12px;
-      padding: 7px 9px;
-      outline: none;
-      resize: vertical;
-      min-height: 0;
-      transition: border-color 0.14s ease, box-shadow 0.14s ease, background 0.14s ease;
-    }
-    .field-select {
-      padding-right: 22px;
-    }
-    .field-textarea {
-      min-height: 120px;
-      line-height: 1.45;
-    }
-    .field-input:focus,
-    .field-select:focus,
-    .field-textarea:focus {
-      border-color: var(--accent-blue);
-      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.45);
-      background: rgba(15, 23, 42, 0.96);
-    }
-    .form-footer-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      margin-top: 10px;
-      flex-wrap: wrap;
-    }
-    .contact-submit-btn {
-      border-radius: 999px;
-      border: none;
-      background: linear-gradient(120deg,#fbbf24,#f97316);
-      color: #111827;
-      padding: 8px 18px;
-      font-size: 12px;
-      font-weight: 600;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      cursor: pointer;
-      box-shadow: 0 16px 55px rgba(15,23,42,0.9);
-      transition: transform 0.14s ease, box-shadow 0.14s ease, filter 0.14s ease;
-      white-space: nowrap;
-    }
-    .contact-submit-btn:hover {
+    .nav-cta:hover {
       transform: translateY(-1px);
-      box-shadow: 0 22px 70px rgba(15,23,42,1);
-      filter: brightness(1.02);
+      box-shadow: 0 20px 46px rgba(15, 23, 42, 1);
+      background: linear-gradient(120deg, #fde047, #fb923c);
     }
-    .contact-status {
-      font-size: 11px;
-      color: var(--text-soft);
-      max-width: 320px;
+
+    @media (max-width: 800px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      nav {
+        width: 100%;
+        justify-content: flex-start;
+      }
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    /* CONTACT LAYOUT */
+
+    .contact-wrap {
+      border-radius: 28px;
+      padding: 22px 22px 18px;
+      background:
+        radial-gradient(circle at top left, rgba(148, 163, 184, 0.25), transparent 60%),
+        radial-gradient(circle at bottom right, rgba(15, 118, 110, 0.6), transparent 65%),
+        rgba(15, 23, 42, 0.98);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      box-shadow: var(--shadow-strong);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-wrap::before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      border-radius: inherit;
+      background: conic-gradient(
+        from 160deg,
+        rgba(251, 191, 36, 0.12),
+        transparent,
+        rgba(56, 189, 248, 0.15),
+        transparent,
+        rgba(251, 191, 36, 0.12)
+      );
+      mix-blend-mode: screen;
+      opacity: 0.8;
+      pointer-events: none;
+      animation: borderGlow 12s linear infinite;
+    }
+
+    @keyframes borderGlow {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .contact-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.1fr);
+      gap: 22px;
+      align-items: flex-start;
     }
 
     @media (max-width: 920px) {
-      .contact-layout {
+      .contact-inner {
         grid-template-columns: minmax(0, 1fr);
       }
     }
+
+    /* LEFT SIDE */
+
+    .contact-info h1 {
+      font-size: clamp(26px, 4vw, 32px);
+      line-height: 1.12;
+      margin-bottom: 10px;
+      letter-spacing: 0.02em;
+    }
+
+    .contact-sub {
+      font-size: 14px;
+      color: var(--text-soft);
+      max-width: 540px;
+      margin-bottom: 10px;
+    }
+
+    .contact-sub strong {
+      color: #e5e7eb;
+      font-weight: 600;
+    }
+
+    .contact-meta {
+      font-size: 12px;
+      color: rgba(148, 163, 184, 0.95);
+      margin-bottom: 14px;
+    }
+
+    .contact-meta strong {
+      color: #e5e7eb;
+    }
+
+    .info-block {
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.98);
+      padding: 10px 11px 9px;
+      font-size: 12px;
+      color: var(--text-soft);
+      margin-bottom: 10px;
+    }
+
+    .info-title {
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: #e5e7eb;
+    }
+
+    .info-row {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-top: 4px;
+    }
+
+    .info-item {
+      font-size: 12px;
+    }
+
+    .info-item span {
+      color: rgba(148, 163, 184, 0.9);
+    }
+
+    /* FORM */
+
+    .form-card {
+      border-radius: 22px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.98);
+      padding: 16px 16px 14px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      font-size: 13px;
+    }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .field-label {
+      font-size: 12px;
+      color: var(--text-soft);
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .field-label span {
+      color: rgba(148, 163, 184, 0.9);
+    }
+
+    .field-label small {
+      font-size: 11px;
+      color: rgba(148, 163, 184, 0.8);
+    }
+
+    input[type="text"],
+    input[type="email"],
+    textarea,
+    select {
+      border-radius: 12px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.96);
+      padding: 9px 10px;
+      font-size: 13px;
+      color: var(--text-main);
+      outline: none;
+      transition: border-color 0.16s ease-out, box-shadow 0.16s ease-out, background 0.16s ease-out;
+      resize: vertical;
+      min-height: 38px;
+    }
+
+    textarea {
+      min-height: 100px;
+      max-height: 260px;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: rgba(148, 163, 184, 0.7);
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: rgba(251, 191, 36, 0.9);
+      box-shadow: 0 0 0 1px rgba(251, 191, 36, 0.8);
+      background: rgba(15, 23, 42, 1);
+    }
+
+    .inline-fields {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
     @media (max-width: 640px) {
-      .contact-card {
-        padding: 16px 12px 18px;
+      .inline-fields {
+        grid-template-columns: minmax(0, 1fr);
       }
+    }
+
+    .btn-primary {
+      border-radius: 999px;
+      padding: 10px 18px;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      background: linear-gradient(120deg, #fbbf24, #f97316);
+      color: #0b1120;
+      box-shadow: 0 18px 42px rgba(15, 23, 42, 0.95);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.18s ease-out;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 24px 60px rgba(15, 23, 42, 1);
+      background: linear-gradient(120deg, #fde047, #fb923c);
+    }
+
+    .submit-note {
+      font-size: 11px;
+      color: rgba(148, 163, 184, 0.9);
+      margin-top: 4px;
+    }
+
+    .helper-line {
+      font-size: 11px;
+      color: rgba(148, 163, 184, 0.85);
+      margin-top: 4px;
+    }
+
+    /* FAQ / EXTRA */
+
+    .section {
+      border-radius: 22px;
+      border: 1px solid var(--border-subtle);
+      background:
+        radial-gradient(circle at top, rgba(15, 23, 42, 0.75), transparent 65%),
+        rgba(15, 23, 42, 0.98);
+      box-shadow: var(--shadow-soft);
+      padding: 18px 18px 14px;
+      margin-top: 22px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: baseline;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .section h2 {
+      font-size: 17px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .section-lead {
+      font-size: 12px;
+      color: var(--text-soft);
+      max-width: 420px;
+    }
+
+    .faq-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 14px;
+      font-size: 12px;
+    }
+
+    @media (max-width: 860px) {
+      .faq-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .faq-item {
+      border-radius: 16px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.98);
+      padding: 9px 10px 8px;
+    }
+
+    .faq-q {
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .faq-a {
+      font-size: 12px;
+      color: var(--text-soft);
+    }
+
+    footer {
+      margin-top: 24px;
+      padding-top: 14px;
+      font-size: 11px;
+      color: var(--text-soft);
+      border-top: 1px solid rgba(31, 41, 55, 0.9);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .footer-links a {
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <div class="page-shell">
-    <!-- 顶部导航：Contact 高亮 -->
-    <header class="top-nav">
-      <div class="brand-block">
-        <div class="brand-avatar">
-          <div class="brand-avatar-inner">AU</div>
-        </div>
-        <div class="brand-text-block">
-          <div class="brand-name">Aurum Task Desk</div>
-          <div class="brand-sub" id="brandSubText">
-            Private writing & resolution desk
-          </div>
+  <div class="bg-orbit"></div>
+
+  <div class="page">
+    <header>
+      <div class="brand">
+        <div class="brand-mark"></div>
+        <div class="brand-text">
+          <div class="brand-title">Aurum Dispute Desk</div>
+          <div class="brand-sub">Account risk · Appeal · Reinstatement</div>
         </div>
       </div>
-
-      <nav class="nav-links">
-        <div class="nav-main-links">
-          <a href="index.html" class="nav-link" id="navHome">Home</a>
-          <a href="desk.html" class="nav-link" id="navDesk">Desk</a>
-          <a href="about.html" class="nav-link" id="navAbout">About</a>
-          <a href="contact.html" class="nav-link nav-link--active" id="navContact">Contact</a>
-        </div>
-        <div class="nav-right">
-          <div class="lang-toggle">
-            <button class="lang-btn active" data-lang="en" id="btnLangEn">EN</button>
-            <button class="lang-btn" data-lang="zh" id="btnLangZh">中</button>
-          </div>
-          <button class="primary-btn">
-            <span class="icon">⭑</span>
-            <span id="loginBtnText">Login / My Desk</span>
-          </button>
-        </div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="platforms.html">Platforms</a>
+        <a href="risk-diagnosis.html">Risk Diagnosis</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="contact.html" class="active">Contact</a>
+        <a href="risk-diagnosis.html" class="nav-cta">Start free diagnosis</a>
       </nav>
     </header>
 
-    <!-- 联系 / 反馈卡片 -->
-    <main class="contact-card">
-      <section class="contact-header">
-        <div class="contact-pill">
-          <span class="contact-pill-dot"></span>
-          <span id="contactPillText">Aurum Desk feedback</span>
-        </div>
-        <h1 class="contact-title" id="contactTitle">
-          Talk directly to the Aurum Desk team
-        </h1>
-        <p class="contact-subtitle" id="contactSubtitle">
-          This page is only for feedback, complaints, or suggestions about Aurum Task Desk itself
-          (billing, bugs, letter quality, product ideas). For your own legal / immigration /
-          insurance letters, please use the Desk page instead.
-        </p>
-      </section>
+    <main>
+      <!-- CONTACT MAIN -->
+      <section class="contact-wrap">
+        <div class="contact-inner">
+          <!-- LEFT: INFO -->
+          <div class="contact-info">
+            <h1>Contact the desk.</h1>
+            <p class="contact-sub">
+              Use this form if you have questions about <strong>pricing</strong>, 
+              <strong>VIP cases</strong> or if you’re not sure which option fits your situation.
+              For a structured first look at your suspended or restricted account, the
+              <a href="risk-diagnosis.html" style="text-decoration:underline;">Risk Diagnosis</a> form is usually better.
+            </p>
+            <div class="contact-meta">
+              Typical response time: <strong>24–48 hours</strong> on business days.  
+              For truly urgent cases, mention this clearly in your message.
+            </div>
 
-      <section class="contact-layout">
-        <!-- 左侧：说明 -->
-        <aside class="contact-info-card">
-          <div class="contact-info-title" id="infoTitle">
-            Before you send
-          </div>
-          <p class="contact-info-text" id="infoText">
-            The form on the right does not send data to any server. It only opens your own email app
-            with a pre-filled draft to the Aurum team. You stay in full control and can attach
-            screenshots privately before sending.
-          </p>
-          <div class="contact-badge-row">
-            <div class="contact-badge" id="badge1">
-              ✓ Uses your own email app
+            <div class="info-block">
+              <div class="info-title">How to use this contact form</div>
+              <div class="info-row">
+                <div class="info-item">
+                  <span>1.</span> If you already submitted a risk diagnosis, mention it here (same email).
+                </div>
+                <div class="info-item">
+                  <span>2.</span> If you want a quote, tell us which platform and how critical the account is.
+                </div>
+                <div class="info-item">
+                  <span>3.</span> Do <strong>not</strong> paste full passwords, 2FA codes or secret keys here.
+                </div>
+              </div>
             </div>
-            <div class="contact-badge" id="badge2">
-              ✓ You can edit everything before sending
-            </div>
-            <div class="contact-badge" id="badge3">
-              ✓ No auto-send, no account needed
+
+            <div class="info-block">
+              <div class="info-title">Direct channels</div>
+              <div class="info-row">
+                <div class="info-item">
+                  <span>Email:</span> <a href="mailto:desk@aurumdesks.com">desk@aurumdesks.com</a>
+                </div>
+                <div class="info-item">
+                  <span>Language:</span> English (simple English is perfectly fine)
+                </div>
+              </div>
             </div>
           </div>
 
-          <div class="contact-email-box">
-            <div>
-              <div id="directEmailLabel">Feedback inbox</div>
-              <div class="contact-email-highlight">support@aurumdesks.com</div>
-            </div>
-            <button
-              type="button"
-              class="contact-submit-btn"
-              onclick="window.location.href='mailto:support@aurumdesks.com'">
-              <span id="openEmailBtnText">Open email</span>
-            </button>
-          </div>
-          <p class="contact-mail-note" id="mailNote">
-            If the form on the right does not work on your device, you can always copy this email
-            address and write to us directly from your own mailbox.
-          </p>
-        </aside>
+          <!-- RIGHT: FORM -->
+          <div class="form-card">
+            <!-- 改这里的邮箱为你的真实邮箱，例如 auth@aurumdesks.com -->
+            <form
+              action="mailto:desk@aurumdesks.com"
+              method="POST"
+              enctype="text/plain"
+            >
+              <div class="inline-fields">
+                <div class="field-group">
+                  <label class="field-label">
+                    <span>Your name</span>
+                    <small>Required</small>
+                  </label>
+                  <input
+                    type="text"
+                    name="Name"
+                    placeholder="how should we address you?"
+                    required
+                  />
+                </div>
 
-        <!-- 右侧：投诉 / 建议表单 -->
-        <section class="contact-form-card">
-          <form id="contactForm">
-            <div class="form-grid">
-              <div>
-                <label class="field-label" for="contactName">
-                  <span id="lblName">Your name</span>
-                  <span class="badge" id="lblNameBadge">Optional</span>
+                <div class="field-group">
+                  <label class="field-label">
+                    <span>Your email</span>
+                    <small>Required</small>
+                  </label>
+                  <input
+                    type="email"
+                    name="Email"
+                    placeholder="we reply here"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="inline-fields">
+                <div class="field-group">
+                  <label class="field-label">
+                    <span>Platform</span>
+                    <small>Optional</small>
+                  </label>
+                  <select name="Platform">
+                    <option value="">No specific platform</option>
+                    <option>TikTok / TikTok Shop</option>
+                    <option>Facebook / Instagram Ads</option>
+                    <option>PayPal</option>
+                    <option>Stripe</option>
+                    <option>Airbnb</option>
+                    <option>Amazon</option>
+                    <option>Google Ads</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+
+                <div class="field-group">
+                  <label class="field-label">
+                    <span>Rough budget</span>
+                    <small>Optional</small>
+                  </label>
+                  <select name="Budget">
+                    <option value="">Not sure yet</option>
+                    <option>$100–$250 · Single appeal</option>
+                    <option>$250–$500 · More serious</option>
+                    <option>$500–$1,000 · High stakes</option>
+                    <option>$1,000+ · Multi-platform / agency</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="field-group">
+                <label class="field-label">
+                  <span>Subject</span>
+                  <small>Required</small>
                 </label>
                 <input
-                  id="contactName"
-                  class="field-input"
                   type="text"
-                  autocomplete="name" />
+                  name="Subject"
+                  placeholder="example: VIP appeal for PayPal hold / Question about Appeal Pack"
+                  required
+                />
               </div>
 
-              <div>
-                <label class="field-label" for="contactEmail">
-                  <span id="lblEmail">Your email</span>
-                  <span class="badge" id="lblEmailBadge">Required</span>
-                </label>
-                <input
-                  id="contactEmail"
-                  class="field-input"
-                  type="email"
-                  autocomplete="email"
-                  required />
-              </div>
-
-              <div class="form-full">
-                <label class="field-label" for="contactTopic">
-                  <span id="lblTopic">What is this about?</span>
-                </label>
-                <select id="contactTopic" class="field-select">
-                  <option value="" selected>— select —</option>
-                  <option value="billing">Billing / payment issue</option>
-                  <option value="bug">Bug / technical problem</option>
-                  <option value="quality">Letter quality / content issue</option>
-                  <option value="feature">Feature request / product idea</option>
-                  <option value="feedback">General complaint or feedback</option>
-                  <option value="other">Other</option>
-                </select>
-              </div>
-
-              <div class="form-full">
-                <label class="field-label" for="contactSubject">
-                  <span id="lblSubject">Email subject (optional)</span>
-                </label>
-                <input
-                  id="contactSubject"
-                  class="field-input"
-                  type="text"
-                  placeholder="" />
-              </div>
-
-              <div class="form-full">
-                <label class="field-label" for="contactMessage">
-                  <span id="lblMessage">Tell us briefly what happened</span>
-                  <span class="badge" id="lblMessageBadge">Required</span>
+              <div class="field-group">
+                <label class="field-label">
+                  <span>Your message</span>
+                  <small>Required</small>
                 </label>
                 <textarea
-                  id="contactMessage"
-                  class="field-textarea"
+                  name="Message"
+                  placeholder="Short and calm is enough. Tell us what happened, what you are worried about, and what kind of help you’re looking for."
+                  required
                 ></textarea>
               </div>
-            </div>
 
-            <div class="form-footer-row">
-              <button type="submit" class="contact-submit-btn">
-                <span id="submitBtnText">Open my email app &amp; draft</span>
-              </button>
-              <div class="contact-status" id="contactStatus">
-                After you click, your phone or computer will open a new email window to
-                <span class="contact-email-highlight">support@aurumdesks.com</span>.  
-                You can still change everything before sending.
+              <div class="field-group">
+                <label class="field-label">
+                  <span>WhatsApp (optional)</span>
+                  <small>If you prefer faster follow-up</small>
+                </label>
+                <input
+                  type="text"
+                  name="WhatsApp"
+                  placeholder="+1 555 000 0000"
+                />
               </div>
-            </div>
-          </form>
-        </section>
+
+              <button type="submit" class="btn-primary">
+                Send message
+                <span>→</span>
+              </button>
+              <div class="submit-note">
+                We normally respond within <strong>24–48 hours</strong>.
+                If we believe your case is not a good fit for this desk, we will tell you rather than wasting your time.
+              </div>
+              <div class="helper-line">
+                Please don’t send passwords, full card numbers, 2FA codes or anything you would not show to a bank.
+                We only need your story and the platform notices.
+              </div>
+            </form>
+          </div>
+        </div>
       </section>
+
+      <!-- EXTRA: WHEN TO USE CONTACT VS RISK FORM -->
+      <section class="section">
+        <div class="section-header">
+          <h2>Contact form vs. risk diagnosis</h2>
+          <p class="section-lead">
+            Two doors to the same desk — one for general questions and quotes, one for real cases that already triggered a platform notice.
+          </p>
+        </div>
+
+        <div class="faq-grid">
+          <div class="faq-item">
+            <div class="faq-q">When should I use the contact form?</div>
+            <div class="faq-a">
+              Use this page when you:
+              <ul style="margin-left:14px;margin-top:4px;">
+                <li>• Have questions about pricing or what’s included</li>
+                <li>• Want to discuss a potential VIP case before sending details</li>
+                <li>• Are an agency or business with multiple accounts / platforms</li>
+                <li>• Prefer to have a human look at your situation before you paste any notices</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q">When is the risk diagnosis form better?</div>
+            <div class="faq-a">
+              Use the <a href="risk-diagnosis.html" style="text-decoration:underline;">Risk Diagnosis</a> page when:
+              <ul style="margin-left:14px;margin-top:4px;">
+                <li>• You already have a suspension / restriction / hold notice</li>
+                <li>• You can paste the text or screenshot content of the notice</li>
+                <li>• You want a structured first opinion before spending money</li>
+              </ul>
+              Most real cases should start there. You can always move into Appeal Pack or VIP Guidance afterwards.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <div>© <span id="year"></span> Aurum Dispute Desk. All rights reserved.</div>
+        <div class="footer-links">
+          <a href="pricing.html">Pricing</a>
+          <a href="contact.html">Contact</a>
+          <a href="#">Terms (coming soon)</a>
+        </div>
+      </footer>
     </main>
   </div>
 
   <script>
-    // ===== 语言 & 文案 =====
-    let currentLang = "en";
-    const langButtons = document.querySelectorAll(".lang-btn");
-
-    const i18n = {
-      en: {
-        brandSub: "Private writing & resolution desk",
-        navHome: "Home",
-        navDesk: "Desk",
-        navAbout: "About",
-        navContact: "Contact",
-        loginBtn: "Login / My Desk",
-
-        contactPill: "Aurum Desk feedback",
-        contactTitle: "Talk directly to the Aurum Desk team",
-        contactSubtitle:
-          "This page is only for feedback, complaints, or suggestions about Aurum Task Desk itself (billing, bugs, letter quality, product ideas). For your own legal / immigration / insurance letters, please use the Desk page instead.",
-
-        infoTitle: "Before you send",
-        infoText:
-          "The form on the right does not send data to any server. It only opens your own email app with a pre-filled draft to the Aurum team. You stay in full control and can attach screenshots privately before sending.",
-        badge1: "✓ Uses your own email app",
-        badge2: "✓ You can edit everything before sending",
-        badge3: "✓ No auto-send, no account needed",
-        directEmailLabel: "Feedback inbox",
-        openEmailBtnText: "Open email",
-        mailNote:
-          "If the form on the right does not work on your device, you can always copy this email address and write to us directly from your own mailbox.",
-
-        lblName: "Your name",
-        lblNameBadge: "Optional",
-        lblEmail: "Your email",
-        lblEmailBadge: "Required",
-        lblTopic: "What is this about?",
-        lblSubject: "Email subject (optional)",
-        lblMessage: "Tell us briefly what happened",
-        lblMessageBadge: "Required",
-
-        topicPlaceholder: "— select —",
-        topicBilling: "Billing / payment issue",
-        topicBug: "Bug / technical problem",
-        topicQuality: "Letter quality / content issue",
-        topicFeature: "Feature request / product idea",
-        topicFeedback: "General complaint or feedback",
-        topicOther: "Other",
-
-        submitBtnText: "Open my email app & draft",
-        statusDefault:
-          "After you click, your device will open a draft email to support@aurumdesks.com. You can still change everything before sending.",
-        statusMissingMessage:
-          "Please describe briefly what happened so the email is not empty.",
-        statusMissingEmail:
-          "Please enter your email so we can reply properly.",
-        statusMailOpened:
-          "We have opened your email app with a draft. You can add screenshots and send when ready."
-      },
-      zh: {
-        brandSub: "安静而专业的写作与申诉任务台",
-        navHome: "首页",
-        navDesk: "Desk 任务台",
-        navAbout: "关于我们",
-        navContact: "联系我们",
-        loginBtn: "登录 / 我的任务台",
-
-        contactPill: "给 Aurum 任务台的反馈",
-        contactTitle: "直接和任务台团队说一说",
-        contactSubtitle:
-          "这个页面专门用于对 Aurum Task Desk 本身的投诉、反馈或建议，例如付款问题、技术故障、信件质量、功能想法等。如果是你个人的法律、移民、保险等正式信件，请前往 Desk 任务台页面。",
-
-        infoTitle: "发送前先了解一下",
-        infoText:
-          "右侧表单不会把内容提交到服务器，而是帮你在本机打开一封发往任务台团队的邮件草稿。你可以在发送前自由添加截图和附件，所有内容都在你自己的邮箱里。",
-        badge1: "✓ 使用你自己的邮箱应用",
-        badge2: "✓ 发送前所有内容都可修改",
-        badge3: "✓ 不会自动代发，无需账号",
-        directEmailLabel: "反馈专用邮箱",
-        openEmailBtnText: "打开邮箱",
-        mailNote:
-          "如果右侧表单在你的设备上不好用，你也可以直接复制这个邮箱地址，在自己的邮箱里新建邮件。",
-
-        lblName: "你的称呼",
-        lblNameBadge: "可选",
-        lblEmail: "你的邮箱",
-        lblEmailBadge: "必填",
-        lblTopic: "这封邮件主要想说什么？",
-        lblSubject: "邮件主题（可选）",
-        lblMessage: "请简单讲讲发生了什么",
-        lblMessageBadge: "必填",
-
-        topicPlaceholder: "— 请选择 —",
-        topicBilling: "付款 / 账单问题",
-        topicBug: "技术故障 / 页面打不开",
-        topicQuality: "信件质量 / 内容问题",
-        topicFeature: "功能建议 / 产品想法",
-        topicFeedback: "综合投诉或整体反馈",
-        topicOther: "其他",
-
-        submitBtnText: "打开邮箱草稿并预填内容",
-        statusDefault:
-          "点击后，你的设备会打开一封发往 support@aurumdesks.com 的邮件草稿。你可以在发送前自由增删内容和附件。",
-        statusMissingMessage:
-          "请至少用几句话简单描述一下情况，避免邮件内容是空的。",
-        statusMissingEmail:
-          "请填写你的邮箱，方便任务台回复你。",
-        statusMailOpened:
-          "系统已尝试为你打开本机邮箱草稿。你可以在邮件中继续补充细节、添加附件，然后自行点击发送。"
-      }
-    };
-
-    function applyLang(lang) {
-      const t = i18n[lang] || i18n.en;
-      currentLang = lang;
-
-      // 顶部导航
-      document.getElementById("brandSubText").textContent = t.brandSub;
-      document.getElementById("navHome").textContent = t.navHome;
-      document.getElementById("navDesk").textContent = t.navDesk;
-      document.getElementById("navAbout").textContent = t.navAbout;
-      document.getElementById("navContact").textContent = t.navContact;
-      document.getElementById("loginBtnText").textContent = t.loginBtn;
-
-      // 主体文案
-      document.getElementById("contactPillText").textContent = t.contactPill;
-      document.getElementById("contactTitle").textContent = t.contactTitle;
-      document.getElementById("contactSubtitle").textContent = t.contactSubtitle;
-
-      document.getElementById("infoTitle").textContent = t.infoTitle;
-      document.getElementById("infoText").textContent = t.infoText;
-      document.getElementById("badge1").textContent = t.badge1;
-      document.getElementById("badge2").textContent = t.badge2;
-      document.getElementById("badge3").textContent = t.badge3;
-      document.getElementById("directEmailLabel").textContent = t.directEmailLabel;
-      document.getElementById("openEmailBtnText").textContent = t.openEmailBtnText;
-      document.getElementById("mailNote").textContent = t.mailNote;
-
-      document.getElementById("lblName").textContent = t.lblName;
-      document.getElementById("lblNameBadge").textContent = t.lblNameBadge;
-      document.getElementById("lblEmail").textContent = t.lblEmail;
-      document.getElementById("lblEmailBadge").textContent = t.lblEmailBadge;
-      document.getElementById("lblTopic").textContent = t.lblTopic;
-      document.getElementById("lblSubject").textContent = t.lblSubject;
-      document.getElementById("lblMessage").textContent = t.lblMessage;
-      document.getElementById("lblMessageBadge").textContent = t.lblMessageBadge;
-
-      const topicSelect = document.getElementById("contactTopic");
-      topicSelect.options[0].textContent = t.topicPlaceholder;
-      topicSelect.options[1].textContent = t.topicBilling;
-      topicSelect.options[2].textContent = t.topicBug;
-      topicSelect.options[3].textContent = t.topicQuality;
-      topicSelect.options[4].textContent = t.topicFeature;
-      topicSelect.options[5].textContent = t.topicFeedback;
-      topicSelect.options[6].textContent = t.topicOther;
-
-      document.getElementById("submitBtnText").textContent = t.submitBtnText;
-      document.getElementById("contactStatus").textContent = t.statusDefault;
-
-      // 按钮高亮
-      langButtons.forEach((b) => {
-        b.classList.toggle("active", b.dataset.lang === lang);
-      });
-
-      // html lang
-      document.documentElement.lang = (lang === "zh" ? "zh-CN" : "en");
-
-      // 保存语言，和 index / desk / about 同步
-      localStorage.setItem("aurum_lang", lang);
-    }
-
-    langButtons.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const lang = btn.dataset.lang || "en";
-        applyLang(lang);
-      });
-    });
-
-    (function initLang() {
-      const saved = localStorage.getItem("aurum_lang");
-      if (saved === "zh" || saved === "en") {
-        applyLang(saved);
-      } else {
-        applyLang("en");
-      }
-    })();
-
-    // ===== 表单：打开本机邮箱，预填投诉 / 建议信件 =====
-    const contactForm = document.getElementById("contactForm");
-    const contactStatus = document.getElementById("contactStatus");
-
-    contactForm.addEventListener("submit", function (e) {
-      e.preventDefault();
-
-      const t = i18n[currentLang] || i18n.en;
-
-      const name = (document.getElementById("contactName").value || "").trim();
-      const email = (document.getElementById("contactEmail").value || "").trim();
-      const topic = document.getElementById("contactTopic").value || "";
-      const subjectInput = (document.getElementById("contactSubject").value || "").trim();
-      const message = (document.getElementById("contactMessage").value || "").trim();
-
-      if (!email) {
-        contactStatus.textContent = t.statusMissingEmail;
-        return;
-      }
-      if (!message) {
-        contactStatus.textContent = t.statusMissingMessage;
-        return;
-      }
-
-      let subject = subjectInput;
-      if (!subject) {
-        subject =
-          currentLang === "zh"
-            ? "关于 Aurum Task Desk 的反馈 / 投诉"
-            : "Feedback / complaint about Aurum Task Desk";
-      }
-
-      let topicText = "";
-      switch (topic) {
-        case "billing":
-          topicText = t.topicBilling;
-          break;
-        case "bug":
-          topicText = t.topicBug;
-          break;
-        case "quality":
-          topicText = t.topicQuality;
-          break;
-        case "feature":
-          topicText = t.topicFeature;
-          break;
-        case "feedback":
-          topicText = t.topicFeedback;
-          break;
-        case "other":
-          topicText = t.topicOther;
-          break;
-        default:
-          topicText = "";
-      }
-
-      let bodyLines = [];
-      if (currentLang === "zh") {
-        bodyLines.push("发件人称呼: " + (name || "(未填写)"));
-        bodyLines.push("发件人邮箱: " + email);
-        bodyLines.push("反馈主题类型: " + (topicText || "(未选择)"));
-        bodyLines.push("");
-        bodyLines.push("—— 具体情况 / 建议 ——");
-        bodyLines.push(message);
-        bodyLines.push("");
-        bodyLines.push("（此邮件由 Aurum Task Desk 网站“联系我们 / 反馈”页面生成，你可以直接回复此邮箱与用户沟通。）");
-      } else {
-        bodyLines.push("Name: " + (name || "(not provided)"));
-        bodyLines.push("Client email: " + email);
-        bodyLines.push("Topic: " + (topicText || "(not selected)"));
-        bodyLines.push("");
-        bodyLines.push("—— Details / feedback ——");
-        bodyLines.push(message);
-        bodyLines.push("");
-        bodyLines.push("(This email was drafted via the Aurum Task Desk contact / feedback page. You can reply directly to this email address.)");
-      }
-
-      const body = bodyLines.join("\n");
-      const mailto =
-        "mailto:support@aurumdesks.com" +
-        "?subject=" + encodeURIComponent(subject) +
-        "&body=" + encodeURIComponent(body);
-
-      window.location.href = mailto;
-      contactStatus.textContent = t.statusMailOpened;
-    });
-
-    // ============================
-    // 登录状态同步：Aurum Desk 全站通用
-    // ============================
-    (function syncLoginState() {
-      let user = null;
-
-      try {
-        const raw = localStorage.getItem("aurum_user");
-        if (raw) user = JSON.parse(raw);
-      } catch (e) {
-        console.warn("User parse error", e);
-      }
-
-      const loginBtn = document.querySelector(".primary-btn");
-      const loginText = document.getElementById("loginBtnText");
-
-      if (!loginBtn || !loginText) return;
-
-      if (user && user.email) {
-        // 已登录：显示 Hi, Name，并跳转 desk.html
-        const displayName =
-          (user.name && user.name.trim()) ||
-          (user.email && user.email.split("@")[0]) ||
-          "My Desk";
-
-        loginText.textContent = `Hi, ${displayName}`;
-        loginBtn.onclick = () => (window.location.href = "desk.html");
-      } else {
-        // 未登录：回到普通 Login / My Desk
-        loginText.textContent =
-          currentLang === "zh" ? "登录 / 我的任务台" : "Login / My Desk";
-        loginBtn.onclick = () => (window.location.href = "auth.html");
-      }
-    })();
+    document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
