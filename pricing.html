@@ -1,0 +1,1740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Aurum Account Recovery Desk — Pricing & Plans</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="icon" type="image/png" href="favicon.png" />
+
+  <meta
+    name="description"
+    content="Pricing for Aurum Account Recovery Desk. Start with a free risk diagnosis, then choose a one-time appeal letter or a deeper recovery pack. No subscription required for most clients."
+  />
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-page: #f4f6fb;
+      --bg-soft: #ffffff;
+      --bg-soft-alt: #f9fafb;
+      --border-subtle: rgba(148, 163, 184, 0.4);
+      --border-strong: rgba(148, 163, 184, 0.85);
+      --ink: #0f172a;
+      --ink-soft: #4b5563;
+      --ink-softer: #6b7280;
+      --ink-softest: #9ca3af;
+      --accent: #1d4ed8;
+      --accent-soft: rgba(37, 99, 235, 0.1);
+      --accent-strong: #1d4ed8;
+      --gold: #f59e0b;
+      --gold-soft: rgba(245, 158, 11, 0.12);
+      --success: #16a34a;
+      --danger: #ef4444;
+
+      --radius-xl: 28px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --radius-pill: 999px;
+
+      --shadow-soft: 0 26px 80px rgba(15, 23, 42, 0.15);
+      --shadow-card: 0 18px 50px rgba(15, 23, 42, 0.12);
+      --shadow-subtle: 0 10px 30px rgba(15, 23, 42, 0.06);
+
+      --nav-height: 76px;
+    }
+
+    html, body { height: 100%; }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #e5edff 0%, #f4f6fb 47%, #edf1f8 100%);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .bg-orbit {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -2;
+    }
+
+    .bg-orbit::before,
+    .bg-orbit::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(70px);
+      opacity: 0.6;
+      mix-blend-mode: screen;
+      animation: floatSoft 18s ease-in-out infinite alternate;
+    }
+
+    .bg-orbit::before {
+      width: 520px;
+      height: 520px;
+      top: -80px;
+      left: -40px;
+      background: radial-gradient(circle at 10% 0%, rgba(56, 189, 248, 0.6), transparent 70%);
+    }
+
+    .bg-orbit::after {
+      width: 560px;
+      height: 560px;
+      bottom: -120px;
+      right: -40px;
+      background: radial-gradient(circle at 80% 40%, rgba(245, 158, 11, 0.5), transparent 70%);
+      animation-delay: 2s;
+    }
+
+    .bg-grid {
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(148, 163, 184, 0.25) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(148, 163, 184, 0.25) 1px, transparent 1px);
+      background-size: 80px 80px;
+      opacity: 0.18;
+      mask-image: radial-gradient(circle at top, black 0%, transparent 62%);
+      -webkit-mask-image: radial-gradient(circle at top, black 0%, transparent 62%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    @keyframes floatSoft {
+      from { transform: translate3d(0,0,0) scale(1); }
+      to { transform: translate3d(18px,40px,0) scale(1.03); }
+    }
+
+    /* Top strip */
+    .top-strip {
+      position: relative;
+      z-index: 30;
+      display: flex;
+      justify-content: center;
+      padding: 8px 16px;
+      font-size: 12px;
+      color: var(--ink-softest);
+    }
+
+    .top-strip-inner {
+      max-width: 1120px;
+      width: 100%;
+      background: linear-gradient(
+        90deg,
+        rgba(37, 99, 235, 0.06),
+        rgba(56, 189, 248, 0.04),
+        rgba(245, 158, 11, 0.06)
+      );
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      padding: 6px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 10px 30px rgba(148, 163, 184, 0.3);
+    }
+
+    .top-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 2px 9px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.06);
+      color: var(--ink-soft);
+      font-weight: 500;
+      font-size: 11px;
+    }
+
+    .top-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.4);
+    }
+
+    .top-strip-text {
+      font-size: 11px;
+      color: var(--ink-soft);
+    }
+
+    .top-strip-link {
+      color: var(--accent);
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(26px);
+      background: linear-gradient(
+        to bottom,
+        rgba(244, 246, 251, 0.9),
+        rgba(244, 246, 251, 0.75),
+        rgba(244, 246, 251, 0.5)
+      );
+      border-bottom: 1px solid rgba(203, 213, 225, 0.7);
+    }
+
+    .nav-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 18px;
+      height: var(--nav-height);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 18px;
+      background:
+        conic-gradient(
+          from 220deg,
+          rgba(37, 99, 235, 0.06),
+          rgba(37, 99, 235, 0.4),
+          rgba(56, 189, 248, 0.45),
+          rgba(245, 158, 11, 0.85),
+          rgba(37, 99, 235, 0.1)
+        );
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      box-shadow:
+        0 0 0 1px rgba(148, 163, 184, 0.55),
+        0 14px 35px rgba(15, 23, 42, 0.4);
+      overflow: hidden;
+    }
+
+    .brand-mark::after {
+      content: "A";
+      font-weight: 700;
+      color: #0f172a;
+      font-size: 18px;
+      letter-spacing: 0.03em;
+      text-shadow: 0 3px 8px rgba(15, 23, 42, 0.45);
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .brand-name {
+      font-size: 16px;
+      font-weight: 650;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: #020617;
+    }
+
+    .brand-sub {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--ink-softest);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      font-size: 13px;
+      color: var(--ink-soft);
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: inherit;
+      position: relative;
+      padding-bottom: 2px;
+      cursor: pointer;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 1.5px;
+      background: linear-gradient(90deg, var(--accent), var(--gold));
+      transition: width 0.18s ease-out;
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      width: 100%;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border-radius: var(--radius-pill);
+      border: 1px solid transparent;
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition:
+        transform 0.14s ease-out,
+        box-shadow 0.14s ease-out,
+        background 0.14s ease-out,
+        border-color 0.14s ease-out,
+        color 0.14s ease-out;
+      white-space: nowrap;
+    }
+
+    .btn-ghost {
+      background: rgba(255, 255, 255, 0.7);
+      border-color: rgba(148, 163, 184, 0.6);
+      color: var(--ink-soft);
+      box-shadow: var(--shadow-subtle);
+    }
+
+    .btn-ghost:hover {
+      background: #ffffff;
+      transform: translateY(-1px);
+      box-shadow: 0 12px 30px rgba(148, 163, 184, 0.4);
+    }
+
+    .btn-primary {
+      background: radial-gradient(circle at top left, #60a5fa, #1d4ed8);
+      color: #f9fafb;
+      border-color: rgba(30, 64, 175, 0.9);
+      box-shadow: 0 16px 45px rgba(37, 99, 235, 0.55);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px) translateZ(0);
+      box-shadow: 0 22px 60px rgba(37, 99, 235, 0.7);
+      filter: brightness(1.03);
+    }
+
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.9);
+      border-color: rgba(148, 163, 184, 0.9);
+      color: var(--ink-soft);
+    }
+
+    .btn-outline:hover {
+      background: #ffffff;
+      transform: translateY(-1px);
+      box-shadow: 0 12px 30px rgba(148, 163, 184, 0.45);
+    }
+
+    .btn .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.5);
+    }
+
+    .hamburger {
+      display: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.8);
+      background: rgba(255, 255, 255, 0.7);
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .hamburger span {
+      width: 16px;
+      height: 2px;
+      background: #020617;
+      border-radius: 999px;
+      position: relative;
+    }
+
+    .hamburger span::before,
+    .hamburger span::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      width: 16px;
+      height: 2px;
+      background: #020617;
+      border-radius: 999px;
+    }
+
+    .hamburger span::before { top: -5px; }
+    .hamburger span::after { top: 5px; }
+
+    main { flex: 1; }
+
+    .shell {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 20px 18px 80px;
+    }
+
+    /* Hero */
+    .hero {
+      margin-top: 26px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 28px;
+      align-items: center;
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .hero-kicker {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--ink-softest);
+    }
+
+    .hero-title {
+      font-size: clamp(28px, 3vw + 10px, 36px);
+      line-height: 1.16;
+      font-weight: 750;
+      letter-spacing: -0.03em;
+      color: #020617;
+    }
+
+    .hero-title span.highlight {
+      background: linear-gradient(90deg, #1d4ed8, #2563eb, #0ea5e9);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow:
+        0 14px 40px rgba(37, 99, 235, 0.35),
+        0 0 1px rgba(15, 23, 42, 0.4);
+    }
+
+    .hero-subtitle {
+      font-size: 14px;
+      color: var(--ink-softer);
+      max-width: 540px;
+      line-height: 1.7;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .hero-badge {
+      font-size: 11px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.96);
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      color: var(--ink-soft);
+      box-shadow: 0 10px 30px rgba(148, 163, 184, 0.45);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .hero-note {
+      font-size: 11px;
+      color: var(--ink-softest);
+    }
+
+    .hero-right {
+      position: relative;
+      min-height: 260px;
+    }
+
+    .hero-card {
+      background: linear-gradient(145deg, #ffffff, #f9fafb);
+      border-radius: 24px;
+      border: 1px solid rgba(203, 213, 225, 0.9);
+      box-shadow: 0 20px 60px rgba(148, 163, 184, 0.6);
+      padding: 16px 16px 14px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle at top left, rgba(37, 99, 235, 0.18), transparent 60%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .hero-card-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .hero-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .hero-card-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .hero-card-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--ink-softest);
+    }
+
+    .hero-price {
+      font-size: 22px;
+      font-weight: 700;
+      color: #020617;
+    }
+
+    .hero-price span.currency {
+      font-size: 14px;
+      opacity: 0.8;
+    }
+
+    .hero-price-meta {
+      font-size: 11px;
+      color: var(--ink-softest);
+    }
+
+    .hero-card-list {
+      font-size: 12px;
+      color: var(--ink-softer);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .hero-card-list li {
+      list-style: none;
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+
+    .hero-card-list span.bullet {
+      font-size: 13px;
+      line-height: 1.2;
+      color: #16a34a;
+    }
+
+    .hero-card-foot {
+      margin-top: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 11px;
+      color: var(--ink-softest);
+    }
+
+    .hero-chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .hero-chip {
+      font-size: 10px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.03);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      color: var(--ink-softest);
+    }
+
+    /* Sections */
+    section { margin-top: 50px; }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 18px;
+      margin-bottom: 22px;
+    }
+
+    .section-title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .section-kicker {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--ink-softest);
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: 650;
+      color: #020617;
+      letter-spacing: -0.02em;
+    }
+
+    .section-subtitle {
+      font-size: 13px;
+      color: var(--ink-softer);
+      max-width: 420px;
+    }
+
+    /* Plan grid */
+    .plan-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .plan-card {
+      background: rgba(255,255,255,0.98);
+      border-radius: 22px;
+      border: 1px solid rgba(203,213,225,0.9);
+      box-shadow: 0 16px 48px rgba(148, 163, 184, 0.5);
+      padding: 14px 14px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: relative;
+      overflow: hidden;
+      transform: translateY(0);
+      transition:
+        transform 0.18s ease-out,
+        box-shadow 0.18s ease-out,
+        border-color 0.18s ease-out;
+    }
+
+    .plan-card.highlight {
+      border-color: rgba(37, 99, 235, 0.9);
+      box-shadow: 0 22px 72px rgba(37, 99, 235, 0.7);
+    }
+
+    .plan-card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle at top left, rgba(37, 99, 235, 0.18), transparent 60%);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease-out;
+    }
+
+    .plan-card.highlight::before { opacity: 1; }
+
+    .plan-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 22px 72px rgba(148, 163, 184, 0.7);
+      border-color: rgba(37, 99, 235, 0.9);
+    }
+
+    .plan-label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+    }
+
+    .plan-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .plan-tag {
+      font-size: 10px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: var(--gold-soft);
+      border: 1px solid rgba(245, 158, 11, 0.9);
+      color: #92400e;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .plan-price {
+      font-size: 20px;
+      font-weight: 700;
+      color: #020617;
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+    }
+
+    .plan-price span.currency { font-size: 13px; opacity: 0.85; }
+    .plan-price span.period { font-size: 11px; color: var(--ink-softest); }
+
+    .plan-description {
+      font-size: 12px;
+      color: var(--ink-softer);
+      line-height: 1.7;
+    }
+
+    .plan-list {
+      font-size: 12px;
+      color: var(--ink-softer);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .plan-list li {
+      list-style: none;
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+
+    .plan-list span.tick {
+      font-size: 13px;
+      color: #16a34a;
+      line-height: 1.1;
+    }
+
+    .plan-list span.cross {
+      font-size: 13px;
+      color: #ef4444;
+      line-height: 1.1;
+    }
+
+    .plan-foot {
+      margin-top: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 11px;
+      color: var(--ink-softest);
+    }
+
+    .plan-foot strong { color: var(--ink-soft); }
+
+    /* Table */
+    .comparison-table-wrapper {
+      margin-top: 16px;
+      border-radius: 20px;
+      border: 1px solid rgba(203,213,225,0.9);
+      background: rgba(255,255,255,0.98);
+      box-shadow: 0 18px 60px rgba(148, 163, 184, 0.5);
+      overflow: hidden;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11px;
+    }
+
+    thead {
+      background: #f9fafb;
+    }
+
+    th, td {
+      padding: 10px 12px;
+      text-align: left;
+      border-bottom: 1px solid rgba(229, 231, 235, 0.9);
+    }
+
+    th {
+      font-weight: 600;
+      color: var(--ink-soft);
+      white-space: nowrap;
+    }
+
+    td { color: var(--ink-softest); }
+
+    td.plan-head {
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    td.center {
+      text-align: center;
+    }
+
+    .pill-yes {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: rgba(22, 163, 74, 0.08);
+      border: 1px solid rgba(22, 163, 74, 0.7);
+      color: #166534;
+    }
+
+    .pill-no {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: rgba(239, 68, 68, 0.06);
+      border: 1px solid rgba(239, 68, 68, 0.8);
+      color: #b91c1c;
+    }
+
+    /* What we don't do */
+    .dont-section {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 24px;
+      margin-top: 36px;
+    }
+
+    .dont-card {
+      background: rgba(255,255,255,0.98);
+      border-radius: 20px;
+      border: 1px solid rgba(203, 213, 225, 0.9);
+      box-shadow: 0 12px 40px rgba(148,163,184,0.5);
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--ink-softer);
+    }
+
+    .dont-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--danger);
+    }
+
+    .dont-list {
+      margin-top: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .dont-list li {
+      list-style: none;
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+
+    .dont-list span.icon {
+      font-size: 13px;
+      color: #ef4444;
+    }
+
+    .dont-note {
+      font-size: 11px;
+      color: var(--ink-softest);
+      margin-top: 2px;
+    }
+
+    .fair-card {
+      background: linear-gradient(145deg, #0f172a, #020617);
+      border-radius: 20px;
+      border: 1px solid rgba(30, 64, 175, 0.85);
+      padding: 14px 16px;
+      color: #e5e7eb;
+      box-shadow: 0 20px 60px rgba(15, 23, 42, 0.9);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .fair-card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle at top left, rgba(37, 99, 235, 0.9), transparent 60%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .fair-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 12px;
+    }
+
+    .fair-title {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .fair-list {
+      margin-top: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .fair-list li {
+      list-style: none;
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+
+    .fair-list span.icon {
+      font-size: 13px;
+      color: #22c55e;
+    }
+
+    .fair-note {
+      font-size: 11px;
+      color: rgba(203,213,225,0.9);
+    }
+
+    /* FAQ */
+    .faq-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 8px;
+    }
+
+    .faq-item {
+      background: rgba(255,255,255,0.98);
+      border-radius: 18px;
+      border: 1px solid rgba(203,213,225,0.9);
+      box-shadow: 0 10px 32px rgba(148,163,184,0.45);
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--ink-softer);
+    }
+
+    .faq-q {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    /* CTA bottom */
+    .final-cta {
+      margin-top: 46px;
+    }
+
+    .final-cta-inner {
+      background: linear-gradient(135deg, #0f172a, #020617);
+      border-radius: 26px;
+      padding: 18px 18px 16px;
+      color: #e5e7eb;
+      box-shadow: 0 26px 80px rgba(15, 23, 42, 0.9);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(30, 64, 175, 0.85);
+    }
+
+    .final-cta-inner::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle at top left, rgba(37, 99, 235, 0.9), transparent 60%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .final-cta-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.9fr);
+      gap: 20px;
+      align-items: center;
+    }
+
+    .final-cta-title {
+      font-size: 18px;
+      font-weight: 650;
+      letter-spacing: -0.02em;
+    }
+
+    .final-cta-sub {
+      font-size: 12px;
+      color: rgba(226, 232, 240, 0.92);
+      margin-top: 6px;
+      max-width: 420px;
+    }
+
+    .final-cta-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .final-cta-badge {
+      font-size: 11px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(148, 163, 184, 0.9);
+    }
+
+    .final-cta-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: flex-start;
+    }
+
+    .final-cta-actions .btn-primary {
+      padding-inline: 18px;
+      font-size: 13px;
+    }
+
+    .final-cta-note {
+      font-size: 11px;
+      color: rgba(203,213,225,0.9);
+    }
+
+    footer {
+      padding: 18px;
+      font-size: 11px;
+      color: var(--ink-softest);
+      text-align: center;
+    }
+
+    footer a {
+      color: var(--ink-softest);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    /* Reveal on scroll */
+    .reveal {
+      opacity: 0;
+      transform: translateY(14px);
+      transition:
+        opacity 0.5s ease-out,
+        transform 0.5s ease-out;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive */
+    @media (max-width: 960px) {
+      .nav-links,
+      .nav-actions {
+        display: none;
+      }
+      .hamburger { display: inline-flex; }
+
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .hero-right {
+        order: -1;
+      }
+
+      .shell { padding-inline: 14px; }
+
+      .plan-grid {
+        grid-template-columns: repeat(2, minmax(0,1fr));
+      }
+
+      .dont-section {
+        grid-template-columns: minmax(0,1fr);
+      }
+
+      .faq-grid {
+        grid-template-columns: minmax(0,1fr);
+      }
+
+      .final-cta-grid {
+        grid-template-columns: minmax(0,1fr);
+      }
+    }
+
+    @media (max-width: 720px) {
+      section { margin-top: 40px; }
+      .plan-grid {
+        grid-template-columns: minmax(0,1fr);
+      }
+    }
+
+    .mobile-menu {
+      position: fixed;
+      inset: calc(var(--nav-height) + 8px) 12px auto 12px;
+      background: rgba(255, 255, 255, 0.98);
+      border-radius: 20px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      padding: 12px 14px;
+      box-shadow: 0 18px 60px rgba(15, 23, 42, 0.5);
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 30;
+    }
+
+    .mobile-menu.open { display: flex; }
+
+    .mobile-menu a {
+      font-size: 13px;
+      color: var(--ink-soft);
+      text-decoration: none;
+    }
+
+    .mobile-menu .btn-primary,
+    .mobile-menu .btn-ghost {
+      width: 100%;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+  <div class="bg-orbit"></div>
+  <div class="bg-grid"></div>
+
+  <!-- Top strip -->
+  <div class="top-strip">
+    <div class="top-strip-inner">
+      <div class="top-pill">
+        <span class="top-dot"></span>
+        <span>Transparent pricing</span>
+      </div>
+      <div class="top-strip-text">
+        Start with a <strong>free risk diagnosis</strong>. Upgrade only if your case is realistically recoverable. 
+        <span class="top-strip-link" onclick="window.location.href='diagnosis.html'">Run diagnosis →</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="brand-mark"></div>
+        <div class="brand-text">
+          <div class="brand-name">AURUM DESK</div>
+          <div class="brand-sub">ACCOUNT RECOVERY & APPEALS</div>
+        </div>
+      </div>
+
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="index.html#platforms">Platforms</a>
+        <a href="index.html#how-it-works">How it works</a>
+        <a href="index.html#comparison">Why Aurum</a>
+        <a class="active">Pricing</a>
+        <a href="diagnosis.html">Free diagnosis</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="btn btn-ghost">Client login</button>
+        <button class="btn btn-primary" onclick="window.location.href='diagnosis.html'">
+          <span class="dot"></span>
+          Run free diagnosis
+        </button>
+      </div>
+
+      <button class="hamburger" id="hamburger">
+        <span></span>
+      </button>
+    </div>
+
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html">Home</a>
+      <a href="index.html#platforms">Platforms</a>
+      <a href="index.html#how-it-works">How it works</a>
+      <a href="index.html#comparison">Why Aurum</a>
+      <a>Pricing</a>
+      <a href="diagnosis.html">Free diagnosis</a>
+      <button class="btn btn-ghost">Client login</button>
+      <button class="btn btn-primary" onclick="window.location.href='diagnosis.html'">
+        Run free diagnosis
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <div class="shell">
+      <!-- Hero -->
+      <section class="hero reveal">
+        <div class="hero-left">
+          <div class="hero-kicker">Pricing & plans</div>
+          <h1 class="hero-title">
+            Calm, predictable pricing —<span class="highlight"> no retainers, no hourly surprises.</span>
+          </h1>
+          <p class="hero-subtitle">
+            You begin with a free risk diagnosis. If your case looks realistically recoverable,
+            you choose a plan. Most clients use a one-time appeal letter; some operators and agencies
+            keep Aurum as an ongoing desk.
+          </p>
+          <div class="hero-badges">
+            <span class="hero-badge">No subscription required for most cases</span>
+            <span class="hero-badge">Built for US & EU professionals</span>
+            <span class="hero-badge">All prices in USD</span>
+          </div>
+          <div class="hero-actions">
+            <button class="btn btn-primary" onclick="window.location.href='diagnosis.html'">
+              Start with free risk diagnosis
+            </button>
+            <button class="btn btn-outline" data-scroll-target="#plans">
+              View all plans
+            </button>
+          </div>
+          <p class="hero-note">
+            If our model thinks your account is almost certainly unrecoverable, we’ll tell you — instead of selling you a letter.
+          </p>
+        </div>
+
+        <div class="hero-right">
+          <div class="hero-card">
+            <div class="hero-card-inner">
+              <div class="hero-card-header">
+                <div>
+                  <div class="hero-card-label">Recommended for most single-platform cases</div>
+                  <div class="hero-card-title">Standard Appeal Letter</div>
+                </div>
+                <div>
+                  <div class="hero-price">
+                    <span class="currency">$</span>89
+                  </div>
+                  <div class="hero-price-meta">One-time per case • USD</div>
+                </div>
+              </div>
+              <ul class="hero-card-list">
+                <li>
+                  <span class="bullet">•</span>
+                  <span>Full appeal letter written around your diagnosis and documentation, not a generic template.</span>
+                </li>
+                <li>
+                  <span class="bullet">•</span>
+                  <span>Structured for internal risk & compliance teams (what happened → what changed → how you prevent a repeat).</span>
+                </li>
+                <li>
+                  <span class="bullet">•</span>
+                  <span>Exportable as text or PDF for platform forms or support email.</span>
+                </li>
+              </ul>
+              <div class="hero-card-foot">
+                <div class="hero-chip-row">
+                  <span class="hero-chip">Best for: Meta Ads, PayPal, Airbnb, Amazon</span>
+                  <span class="hero-chip">Includes: free diagnosis + full letter</span>
+                </div>
+                <div>
+                  Upgrade to deeper Recovery Pack only if your case involves multiple parallel flags (ads + payments + safety).
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Plans -->
+      <section id="plans" class="reveal">
+        <div class="section-header">
+          <div class="section-title-block">
+            <div class="section-kicker">Choose a plan after your diagnosis</div>
+            <div class="section-title">Most clients only need one case, not a subscription.</div>
+          </div>
+          <div class="section-subtitle">
+            You always see a written risk report and a preview of your appeal before paying.
+            If the report says “almost no chance”, you can stop there.
+          </div>
+        </div>
+
+        <div class="plan-grid">
+          <!-- Free diagnosis -->
+          <article class="plan-card">
+            <div class="plan-label-row">
+              <div class="plan-name">Free Risk Diagnosis</div>
+              <div style="font-size:10px;color:var(--ink-softest);text-transform:uppercase;letter-spacing:0.09em;">
+                Step 1
+              </div>
+            </div>
+            <div class="plan-price">
+              <span class="currency">$</span>0
+              <span class="period">per case</span>
+            </div>
+            <p class="plan-description">
+              A calm written assessment of how your case looks from the platform’s side, not just yours.
+            </p>
+            <ul class="plan-list">
+              <li>
+                <span class="tick">✓</span>
+                <span>Risk classification (e.g. hard ban, policy confusion, documentation gaps).</span>
+              </li>
+              <li>
+                <span class="tick">✓</span>
+                <span>Plain-language explanation of likely internal concerns.</span>
+              </li>
+              <li>
+                <span class="tick">✓</span>
+                <span>Preview of ~30% of your appeal letter using your own facts.</span>
+              </li>
+              <li>
+                <span class="cross">✕</span>
+                <span>No full letter or PDF export.</span>
+              </li>
+            </ul>
+            <div class="plan-foot">
+              <strong>You keep the diagnosis even if you never pay.</strong>
+              <span>Good if you just need clarity for your lawyer, accountant or business partner.</span>
+              <button class="btn btn-outline" style="margin-top:6px;" onclick="window.location.href='diagnosis.html'">
+                Start free diagnosis
+              </button>
+            </div>
+          </article>
+
+          <!-- Standard Appeal Letter -->
+          <article class="plan-card highlight">
+            <div class="plan-label-row">
+              <div class="plan-name">Standard Appeal Letter</div>
+              <span class="plan-tag">Most popular</span>
+            </div>
+            <div class="plan-price">
+              <span class="currency">$</span>89
+              <span class="period">one-time per case</span>
+            </div>
+            <p class="plan-description">
+              For single-platform suspensions or limitations where risk is moderate and documentation is available.
+            </p>
+            <ul class="plan-list">
+              <li>
+                <span class="tick">✓</span>
+                <span>Everything in Free Diagnosis.</span>
+              </li>
+              <li>
+                <span class="tick">✓</span>
+                <span>Full appeal letter (1–2 pages) formatted for your platform.</span>
+              </li>
+              <li>
+                <span class="tick">✓</span>
+                <span>Guidance on what documents to attach or reference.</span>
+              </li>
+              <li>
+                <span class="tick">✓</span>
+                <span>One “tone adjustment” variant (e.g. softer or more technical).</span>
+              </li>
+              <li>
+                <span class="cross">✕</span>
+                <span>No long-term consultation or multiple-wave campaigns.</span>
+              </li>
+            </ul>
+            <div class="plan-foot">
+              <strong>Best for:</strong> Meta Ads, PayPal, Stripe, Airbnb, Amazon and other single services.
+              <span>Most clients start here and never need anything more.</span>
+              <button class="btn btn-primary" style="margin-top:6px;" onclick="window.location.href='diagnosis.html'">
+                Choose this plan after diagnosis
+              </button>
+            </div>
+          </article>
+
+          <!-- Recovery Pack -->
+          <article class="plan-card">
+            <div class="plan-label-row">
+              <div class="plan-name">Recovery Pack</div>
+              <div style="font-size:10px;color:var(--ink-softest);text-transform:uppercase;letter-spacing:0.09em;">
+                For complex cases
+              </div>
+            </div>
+            <div class="plan-price">
+              <span class="currency">$</span>189
+              <span class="period">per case</span>
+            </div>
+            <p class="plan-description">
+              For multi-flag situations (e.g. ads + payments + safety) where the first appeal is unlikely to be enough.
+            </p>
+            <ul class="plan-list">
+              <li>
+                <span class="tick">✓</span>
+                <span>Everything in Standard Appeal Letter.</span>
+              </li>
+              <li>
+                <span class="tick">✓</span>
+                <span>Two appeal versions (e.g. initial + escalation tone).</span>
+              </li>
+              <li>
+                <span class="tick">✓</span>
+                <span>Guidance on sequencing appeals across platforms (for example: Ad account first, then payments).</span>
+              </li>
+              <li>
+                <span class="tick">✓</span>
+                <span>Checklist of evidence to prepare over the next 7–14 days.</span>
+              </li>
+              <li>
+                <span class="cross">✕</span>
+                <span>No meetings or video calls; communication is written.</span>
+              </li>
+            </ul>
+            <div class="plan-foot">
+              <strong>Best for:</strong> operators with multiple high-value accounts and parallel flags.
+              <span>Offered only if your diagnosis suggests a realistic but complex path.</span>
+              <button class="btn btn-outline" style="margin-top:6px;" onclick="window.location.href='diagnosis.html'">
+                See if my case qualifies
+              </button>
+            </div>
+          </article>
+
+          <!-- Ongoing Desk -->
+          <article class="plan-card">
+            <div class="plan-label-row">
+              <div class="plan-name">Ongoing Desk (Agency / Operator)</div>
+            </div>
+            <div class="plan-price">
+              <span class="currency">$</span>380
+              <span class="period">per month</span>
+            </div>
+            <p class="plan-description">
+              For agencies or operators who manage many accounts and want a standing appeal & risk desk.
+            </p>
+            <ul class="plan-list">
+              <li>
+                <span class="tick">✓</span>
+                <span>Up to 4 new diagnoses per month, across different platforms.</span>
+              </li>
+              <li>
+                <span class="tick">✓</span>
+                <span>Up to 3 full appeal letters included.</span>
+              </li>
+              <li>
+                <span class="tick">✓</span>
+                <span>Priority turnaround for high-impact cases.</span>
+              </li>
+              <li>
+                <span class="tick">✓</span>
+                <span>Internal-facing risk notes you can share with your team.</span>
+              </li>
+              <li>
+                <span class="cross">✕</span>
+                <span>We still do not log into your accounts or impersonate you.</span>
+              </li>
+            </ul>
+            <div class="plan-foot">
+              <strong>Best for:</strong> agencies, portfolio owners, logistics / property groups.
+              <span>Start with a single case first; we recommend ongoing only after we understand your risk profile.</span>
+              <button class="btn btn-outline" style="margin-top:6px;" onclick="window.location.href='diagnosis.html'">
+                Start with one case
+              </button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Comparison table -->
+      <section class="reveal">
+        <div class="section-header">
+          <div class="section-title-block">
+            <div class="section-kicker">Compare plans</div>
+            <div class="section-title">See exactly what is included at each level.</div>
+          </div>
+        </div>
+
+        <div class="comparison-table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>Free diagnosis</th>
+                <th>Standard letter</th>
+                <th>Recovery pack</th>
+                <th>Ongoing desk</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="plan-head">Written risk report</td>
+                <td class="center"><span class="pill-yes">✓ Included</span></td>
+                <td class="center"><span class="pill-yes">✓ Included</span></td>
+                <td class="center"><span class="pill-yes">✓ Included</span></td>
+                <td class="center"><span class="pill-yes">✓ Included</span></td>
+              </tr>
+              <tr>
+                <td class="plan-head">Letter preview (~30%)</td>
+                <td class="center"><span class="pill-yes">✓ Included</span></td>
+                <td class="center"><span class="pill-yes">✓ Included</span></td>
+                <td class="center"><span class="pill-yes">✓ Included</span></td>
+                <td class="center"><span class="pill-yes">✓ Included</span></td>
+              </tr>
+              <tr>
+                <td class="plan-head">Full appeal letter</td>
+                <td class="center"><span class="pill-no">✕ Not included</span></td>
+                <td class="center"><span class="pill-yes">✓ 1 letter</span></td>
+                <td class="center"><span class="pill-yes">✓ 2 letters</span></td>
+                <td class="center"><span class="pill-yes">✓ Up to 3 / month</span></td>
+              </tr>
+              <tr>
+                <td class="plan-head">Document checklist & evidence suggestions</td>
+                <td class="center"><span class="pill-yes">✓ Light version</span></td>
+                <td class="center"><span class="pill-yes">✓ Full checklist</span></td>
+                <td class="center"><span class="pill-yes">✓ Extended checklist</span></td>
+                <td class="center"><span class="pill-yes">✓ Ongoing updates</span></td>
+              </tr>
+              <tr>
+                <td class="plan-head">Multi-platform strategy (ads + payments + safety)</td>
+                <td class="center"><span class="pill-no">✕</span></td>
+                <td class="center"><span class="pill-no">✕</span></td>
+                <td class="center"><span class="pill-yes">✓ Included</span></td>
+                <td class="center"><span class="pill-yes">✓ Included</span></td>
+              </tr>
+              <tr>
+                <td class="plan-head">Priority turnaround</td>
+                <td class="center"><span class="pill-no">✕</span></td>
+                <td class="center"><span class="pill-yes">✓ Next available slot</span></td>
+                <td class="center"><span class="pill-yes">✓ Priority for that case</span></td>
+                <td class="center"><span class="pill-yes">✓ Ongoing priority</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- What we don't do / fairness -->
+      <section class="reveal">
+        <div class="section-header">
+          <div class="section-title-block">
+            <div class="section-kicker">Boundaries & fairness</div>
+            <div class="section-title">What Aurum does — and what we will never do.</div>
+          </div>
+          <div class="section-subtitle">
+            Clear lines protect both you and us. We specialise in calm, honest escalation, not tricks or system evasion.
+          </div>
+        </div>
+
+        <div class="dont-section">
+          <div class="dont-card">
+            <div class="dont-title">What we <strong>do not</strong> do</div>
+            <ul class="dont-list">
+              <li>
+                <span class="icon">✕</span>
+                <span>We do not help you create fake documents, invoices, IDs or proofs of delivery.</span>
+              </li>
+              <li>
+                <span class="icon">✕</span>
+                <span>We do not encourage “ban evasion”, new accounts to dodge permanent decisions, or violation of platform terms.</span>
+              </li>
+              <li>
+                <span class="icon">✕</span>
+                <span>We do not log in to your account or pretend to be you in calls or chats.</span>
+              </li>
+              <li>
+                <span class="icon">✕</span>
+                <span>We do not guarantee outcomes. Platforms always keep final control.</span>
+              </li>
+            </ul>
+            <p class="dont-note">
+              Aurum is built for honest operators who want to talk to platforms in a more structured,
+              professional way — not for people who want to cheat the system.
+            </p>
+          </div>
+
+          <aside class="fair-card">
+            <div class="fair-inner">
+              <div class="fair-title">What you can expect from us instead</div>
+              <ul class="fair-list">
+                <li>
+                  <span class="icon">✓</span>
+                  <span>We help you describe your real activity clearly, with realistic accountability.</span>
+                </li>
+                <li>
+                  <span class="icon">✓</span>
+                  <span>We highlight strong evidence you already have but didn’t know how to present.</span>
+                </li>
+                <li>
+                  <span class="icon">✓</span>
+                  <span>We reduce emotional language and contradictions that trigger more risk.</span>
+                </li>
+                <li>
+                  <span class="icon">✓</span>
+                  <span>We are honest if we think your case is extremely unlikely to be reversed.</span>
+                </li>
+              </ul>
+              <p class="fair-note">
+                This protects your long-term relationship with platforms and lets you sleep at night.
+              </p>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section id="faq" class="reveal">
+        <div class="section-header">
+          <div class="section-title-block">
+            <div class="section-kicker">Questions</div>
+            <div class="section-title">Frequently asked before choosing a plan.</div>
+          </div>
+        </div>
+
+        <div class="faq-grid">
+          <article class="faq-item">
+            <div class="faq-q">Do I pay anything before the diagnosis?</div>
+            <p>
+              No. The risk diagnosis is free. You see how your case looks from the platform’s
+              perspective and get a preview of the appeal letter before deciding if it’s worth
+              paying for a full letter or pack.
+            </p>
+          </article>
+
+          <article class="faq-item">
+            <div class="faq-q">What if my account looks impossible to recover?</div>
+            <p>
+              If our model believes your case is almost certainly unrecoverable, we will say so.
+              In that scenario, we do not recommend buying a letter just to “try something”.
+            </p>
+          </article>
+
+          <article class="faq-item">
+            <div class="faq-q">Can you guarantee that my account will be restored?</div>
+            <p>
+              No one can guarantee this. Platforms always keep the final decision. Our role is to
+              remove amateur mistakes, present your case calmly, and give you the best possible
+              written position.
+            </p>
+          </article>
+
+          <article class="faq-item">
+            <div class="faq-q">Do you talk directly to the platform for me?</div>
+            <p>
+              No. We do not log in or pretend to be you. You remain the one sending the appeal,
+              but you are now sending a letter that reads like it was written for a risk analyst,
+              not in panic.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <!-- Final CTA -->
+      <section class="final-cta reveal">
+        <div class="final-cta-inner">
+          <div class="final-cta-grid">
+            <div>
+              <div class="final-cta-title">
+                Start with a free, written risk diagnosis — no payment required.
+              </div>
+              <p class="final-cta-sub">
+                It takes a few minutes to paste your suspension notice and describe your activity.
+                In return, you get a calm report and a preview of your appeal, so you can decide
+                if it’s worth investing in a full letter or deeper recovery work.
+              </p>
+              <div class="final-cta-badges">
+                <span class="final-cta-badge">No card required</span>
+                <span class="final-cta-badge">No obligation to upgrade</span>
+                <span class="final-cta-badge">Optimised for US & EU platforms</span>
+              </div>
+            </div>
+            <div class="final-cta-actions">
+              <button class="btn btn-primary" onclick="window.location.href='diagnosis.html'">
+                Run free diagnosis now
+              </button>
+              <div class="final-cta-note">
+                You can screenshot or download your diagnosis and share it with partners or advisors,
+                even if you never purchase a plan.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    Aurum Account Recovery Desk — Pricing & Plans.  
+    <a href="#">Terms</a> · <a href="#">Privacy</a> · <a href="#">Contact</a>
+  </footer>
+</div>
+
+<script>
+  // Smooth scroll
+  document.querySelectorAll("[data-scroll-target]").forEach(function (el) {
+    el.addEventListener("click", function () {
+      var target = el.getAttribute("data-scroll-target");
+      if (!target) return;
+      var node = document.querySelector(target);
+      if (!node) return;
+      window.scrollTo({
+        top: node.getBoundingClientRect().top + window.scrollY - 90,
+        behavior: "smooth"
+      });
+    });
+  });
+
+  // Mobile menu toggle
+  var hamburger = document.getElementById("hamburger");
+  var mobileMenu = document.getElementById("mobileMenu");
+  if (hamburger && mobileMenu) {
+    hamburger.addEventListener("click", function () {
+      mobileMenu.classList.toggle("open");
+    });
+  }
+
+  // Reveal on scroll
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll(".reveal").forEach(function (el) {
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
