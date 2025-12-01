@@ -1623,11 +1623,14 @@
           <a data-scroll-target="#comparison">Why Aurum</a>
           <a data-scroll-target="#testimonials">Results</a>
           <a data-scroll-target="#final-cta">Pricing</a>
+          <!-- 新增：Free diagnosis 菜单 -->
+          <a href="diagnosis.html">Free diagnosis</a>
         </nav>
 
         <div class="nav-actions">
           <button class="btn btn-ghost">Client login</button>
-          <button class="btn btn-primary" data-scroll-target="#hero-diagnosis">
+          <!-- 修改：按钮跳转 diagnosis.html -->
+          <button class="btn btn-primary" onclick="window.location.href='diagnosis.html'">
             <span class="dot"></span>
             Run free diagnosis
           </button>
@@ -1644,8 +1647,11 @@
         <a data-scroll-target="#comparison">Why Aurum</a>
         <a data-scroll-target="#testimonials">Results</a>
         <a data-scroll-target="#final-cta">Pricing</a>
+        <!-- 手机菜单里的 Free diagnosis 链接 -->
+        <a href="diagnosis.html">Free diagnosis</a>
         <button class="btn btn-ghost">Client login</button>
-        <button class="btn btn-primary" data-scroll-target="#hero-diagnosis">
+        <!-- 手机菜单按钮跳转 -->
+        <button class="btn btn-primary" onclick="window.location.href='diagnosis.html'">
           Run free diagnosis
         </button>
       </div>
@@ -1678,7 +1684,8 @@
             </p>
 
             <div class="hero-action-row">
-              <button class="btn btn-primary" data-scroll-target="#final-cta">
+              <!-- Hero 主按钮：跳转 diagnosis.html -->
+              <button class="btn btn-primary" onclick="window.location.href='diagnosis.html'">
                 Run free diagnosis in under 60 seconds
               </button>
               <button class="btn btn-ghost" data-scroll-target="#how-it-works">
@@ -2195,7 +2202,8 @@
                 </div>
               </div>
               <div class="final-cta-actions">
-                <button class="btn btn-primary">
+                <!-- 最底部 CTA 也跳转 diagnosis.html -->
+                <button class="btn btn-primary" onclick="window.location.href='diagnosis.html'">
                   Run free diagnosis • No card required
                 </button>
                 <div class="final-cta-note">
