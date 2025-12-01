@@ -13,11 +13,7 @@
   />
 
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
       --bg-deep: #020617;
@@ -47,10 +43,7 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
+    a { color: inherit; text-decoration: none; }
 
     .page {
       max-width: 1180px;
@@ -60,7 +53,6 @@
       overflow: hidden;
     }
 
-    /* background glow */
     .bg-orbit {
       position: fixed;
       inset: 0;
@@ -79,19 +71,15 @@
     }
 
     .bg-orbit::before {
-      width: 420px;
-      height: 420px;
+      width: 420px; height: 420px;
       background: radial-gradient(circle at center, rgba(251, 191, 36, 0.45), transparent 65%);
-      top: -160px;
-      left: -80px;
+      top: -160px; left: -80px;
     }
 
     .bg-orbit::after {
-      width: 360px;
-      height: 360px;
+      width: 360px; height: 360px;
       background: radial-gradient(circle at center, rgba(56, 189, 248, 0.35), transparent 70%);
-      bottom: -120px;
-      right: -60px;
+      bottom: -120px; right: -60px;
       animation-delay: -4s;
     }
 
@@ -203,23 +191,12 @@
     }
 
     @media (max-width: 800px) {
-      header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      nav {
-        width: 100%;
-        justify-content: flex-start;
-      }
+      header { flex-direction: column; align-items: flex-start; }
+      nav { width: 100%; justify-content: flex-start; }
     }
 
-    main {
-      display: flex;
-      flex-direction: column;
-      gap: 22px;
-    }
+    main { display: flex; flex-direction: column; gap: 22px; }
 
-    /* HERO SECTION */
     .hero {
       border-radius: 28px;
       padding: 22px 22px 18px;
@@ -267,9 +244,7 @@
     }
 
     @media (max-width: 920px) {
-      .hero-inner {
-        grid-template-columns: minmax(0, 1fr);
-      }
+      .hero-inner { grid-template-columns: minmax(0, 1fr); }
     }
 
     .hero-copy h1 {
@@ -311,10 +286,7 @@
       max-width: 520px;
     }
 
-    .hero-sub strong {
-      color: #e5e7eb;
-      font-weight: 600;
-    }
+    .hero-sub strong { color: #e5e7eb; font-weight: 600; }
 
     .hero-bullets {
       font-size: 12px;
@@ -322,14 +294,8 @@
       margin-bottom: 10px;
     }
 
-    .hero-bullets ul {
-      margin-left: 16px;
-      margin-top: 4px;
-    }
-
-    .hero-bullets li {
-      margin-bottom: 2px;
-    }
+    .hero-bullets ul { margin-left: 16px; margin-top: 4px; }
+    .hero-bullets li { margin-bottom: 2px; }
 
     .hero-note {
       font-size: 11px;
@@ -337,11 +303,7 @@
       margin-top: 6px;
     }
 
-    .hero-note strong {
-      color: #e5e7eb;
-    }
-
-    /* FORM SECTION */
+    .hero-note strong { color: #e5e7eb; }
 
     .form-card {
       border-radius: 22px;
@@ -397,15 +359,10 @@
       min-height: 38px;
     }
 
-    textarea {
-      min-height: 90px;
-      max-height: 260px;
-    }
+    textarea { min-height: 90px; max-height: 260px; }
 
     input::placeholder,
-    textarea::placeholder {
-      color: rgba(148, 163, 184, 0.7);
-    }
+    textarea::placeholder { color: rgba(148, 163, 184, 0.7); }
 
     input:focus,
     textarea:focus,
@@ -422,9 +379,7 @@
     }
 
     @media (max-width: 640px) {
-      .inline-fields {
-        grid-template-columns: minmax(0, 1fr);
-      }
+      .inline-fields { grid-template-columns: minmax(0, 1fr); }
     }
 
     .helper-line {
@@ -432,9 +387,7 @@
       color: rgba(148, 163, 184, 0.85);
     }
 
-    .helper-line strong {
-      color: #e5e7eb;
-    }
+    .helper-line strong { color: #e5e7eb; }
 
     .btn-primary {
       border-radius: 999px;
@@ -472,8 +425,6 @@
       color: rgba(148, 163, 184, 0.9);
       max-width: 360px;
     }
-
-    /* FAQ SECTION */
 
     .section {
       border-radius: 22px;
@@ -514,9 +465,7 @@
     }
 
     @media (max-width: 860px) {
-      .faq-grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
+      .faq-grid { grid-template-columns: minmax(0, 1fr); }
     }
 
     .faq-item {
@@ -560,6 +509,25 @@
       text-decoration: underline;
       text-decoration-style: dotted;
       cursor: pointer;
+    }
+
+    /* result box */
+    #risk-result-box {
+      display: none;
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.98);
+      font-size: 12px;
+      white-space: pre-wrap;
+      color: var(--text-soft);
+    }
+
+    #risk-status-text {
+      margin-top: 4px;
+      font-size: 11px;
+      color: rgba(148, 163, 184, 0.95);
     }
   </style>
 </head>
@@ -617,7 +585,6 @@
           </div>
 
           <div class="form-card">
-            <!-- 自动诊断表单，不再 mailto -->
             <form id="risk-form">
               <div class="inline-fields">
                 <div class="field-group">
@@ -625,15 +592,15 @@
                     <span>Platform</span>
                     <small>Required</small>
                   </label>
-                  <select id="platform" name="platform" required>
+                  <select name="platform" id="risk-platform" required>
                     <option value="">Select a platform…</option>
                     <option value="tiktok">TikTok / TikTok Shop</option>
-                    <option value="meta_ads">Facebook / Instagram Ads</option>
+                    <option value="meta-ads">Facebook / Instagram Ads</option>
                     <option value="paypal">PayPal</option>
                     <option value="stripe">Stripe</option>
                     <option value="airbnb">Airbnb</option>
                     <option value="amazon">Amazon</option>
-                    <option value="google_ads">Google Ads</option>
+                    <option value="google-ads">Google Ads</option>
                     <option value="other">Other</option>
                   </select>
                 </div>
@@ -643,7 +610,7 @@
                     <span>How urgent is this?</span>
                     <small>Rough feel</small>
                   </label>
-                  <select id="urgency" name="urgency">
+                  <select name="urgency" id="risk-urgency">
                     <option value="">Select…</option>
                     <option value="low">Low — just want a calm opinion</option>
                     <option value="medium">Medium — important, but business still runs</option>
@@ -659,8 +626,8 @@
                   <small>Required</small>
                 </label>
                 <textarea
-                  id="notice"
                   name="notice"
+                  id="risk-notice"
                   placeholder="Copy the text of the email or in-app message here, including error codes or policy names…"
                   required
                 ></textarea>
@@ -672,8 +639,8 @@
                   <small>Required</small>
                 </label>
                 <textarea
-                  id="context"
                   name="context"
+                  id="risk-context"
                   placeholder="Example: we launched a new campaign to country X, changed landing page, received disputes, changed product category, received a warning last week…"
                   required
                 ></textarea>
@@ -685,8 +652,8 @@
                   <small>Required</small>
                 </label>
                 <textarea
-                  id="business"
                   name="business"
+                  id="risk-business"
                   placeholder="Short description in simple words. What do you sell, to whom, at what price point, how do you deliver?"
                   required
                 ></textarea>
@@ -700,8 +667,8 @@
                   </label>
                   <input
                     type="email"
-                    id="email"
                     name="email"
+                    id="risk-email"
                     placeholder="we'll send the diagnosis here"
                     required
                   />
@@ -713,8 +680,8 @@
                   </label>
                   <input
                     type="text"
-                    id="whatsapp"
                     name="whatsapp"
+                    id="risk-whatsapp"
                     placeholder="+1 555 000 0000"
                   />
                 </div>
@@ -726,14 +693,14 @@
                   <small>Optional</small>
                 </label>
                 <textarea
-                  id="extra"
                   name="extra"
+                  id="risk-extra"
                   placeholder="Previous bans, old tickets, sensitive verticals, special documents you have, budget you roughly have in mind for appeals…"
                 ></textarea>
               </div>
 
               <div class="submit-row">
-                <button type="submit" class="btn-primary" id="risk-submit">
+                <button type="submit" class="btn-primary" id="risk-submit-btn">
                   Send for free diagnosis
                   <span>→</span>
                 </button>
@@ -743,27 +710,16 @@
                 </div>
               </div>
 
-              <p id="risk-status" class="helper-line" style="margin-top:6px;"></p>
+              <div id="risk-status-text"></div>
+              <div id="risk-result-box">
+                <div id="risk-result-text"></div>
+              </div>
 
-              <div class="helper-line" style="margin-top:4px;">
-                By submitting, you confirm you are sharing your own case and are not asking for fake documents or account rental.
-                We may decline cases that clearly violate platform or legal rules.
+              <div class="helper-line">
+                By submitting, you confirm you are sharing your own case and are not asking for
+                fake documents or account rental. We may decline cases that clearly violate platform or legal rules.
               </div>
             </form>
-
-            <!-- 自动诊断结果展示 -->
-            <div id="risk-result" class="section" style="margin-top:14px; display:none;">
-              <div class="section-header">
-                <h2>Automatic diagnosis</h2>
-                <p class="section-lead">
-                  This is a first-pass AI diagnosis, not legal advice. It helps you see risk level,
-                  appeal chances and which documents to prepare.
-                </p>
-              </div>
-              <div class="faq-item">
-                <div class="faq-a" id="risk-result-text"></div>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -782,8 +738,8 @@
           <div class="faq-item">
             <div class="faq-q">What do I receive after I submit?</div>
             <div class="faq-a">
-              You receive a short written diagnosis:
-              our best view of <strong>what the platform likely saw</strong>, how serious it is,
+              You receive a short written diagnosis by email: our best view of
+              <strong>what the platform likely saw</strong>, how serious it is,
               and whether it's worth paying for a full appeal pack or VIP support.
               We sometimes say “do not appeal yet” if your case is not ready.
             </div>
@@ -831,68 +787,108 @@
   </div>
 
   <script>
-    // 年份
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // 自动诊断前端逻辑
-    const form = document.getElementById('risk-form');
-    const btn = document.getElementById('risk-submit');
-    const statusEl = document.getElementById('risk-status');
-    const resultBox = document.getElementById('risk-result');
-    const resultText = document.getElementById('risk-result-text');
+    (function () {
+      const form = document.getElementById("risk-form");
+      const btn = document.getElementById("risk-submit-btn");
+      const statusEl = document.getElementById("risk-status-text");
+      const resultBox = document.getElementById("risk-result-box");
+      const resultText = document.getElementById("risk-result-text");
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
+      if (!form || !btn) return;
 
-      const payload = {
-        platform: form.platform.value,
-        urgency: form.urgency.value,
-        notice: form.notice.value,
-        context: form.context.value,
-        business: form.business.value,
-        email: form.email.value,
-        whatsapp: form.whatsapp.value,
-        extra: form.extra.value
-      };
-
-      // 简单校验
-      if (!payload.notice || !payload.context || !payload.business || !payload.email) {
-        statusEl.textContent = 'Please fill the required fields first.';
-        return;
+      // 预填 URL 参数
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const map = [
+          ["platform", "risk-platform"],
+          ["urgency", "risk-urgency"],
+          ["notice", "risk-notice"],
+          ["context", "risk-context"],
+          ["business", "risk-business"],
+          ["email", "risk-email"],
+          ["whatsapp", "risk-whatsapp"],
+          ["extra", "risk-extra"],
+        ];
+        for (const [key, id] of map) {
+          const v = params.get(key);
+          if (!v) continue;
+          const el = document.getElementById(id);
+          if (!el) continue;
+          el.value = decodeURIComponent(v);
+        }
+      } catch (e) {
+        console.warn("prefill error", e);
       }
 
-      btn.disabled = true;
-      const oldText = btn.textContent;
-      btn.textContent = 'Analyzing...';
-      statusEl.textContent = 'Running an automatic risk diagnosis. This can take 5–15 seconds…';
-      resultBox.style.display = 'none';
-      resultText.textContent = '';
+      form.addEventListener("submit", async function (e) {
+        e.preventDefault();
 
-      try {
-        const res = await fetch("/w/api/risk-diagnosis"), {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
+        const payload = {
+          platform: document.getElementById("risk-platform").value || "",
+          urgency: document.getElementById("risk-urgency").value || "",
+          notice: document.getElementById("risk-notice").value || "",
+          context: document.getElementById("risk-context").value || "",
+          business: document.getElementById("risk-business").value || "",
+          email: document.getElementById("risk-email").value || "",
+          whatsapp: document.getElementById("risk-whatsapp").value || "",
+          extra: document.getElementById("risk-extra").value || "",
+        };
 
-        if (!res.ok) {
-          throw new Error('Network error');
+        if (
+          !payload.notice.trim() ||
+          !payload.context.trim() ||
+          !payload.business.trim() ||
+          !payload.email.trim()
+        ) {
+          statusEl.textContent = "Please fill the required fields first.";
+          return;
         }
 
-        const data = await res.json();
-        const summary = data.summary || 'Diagnosis received, but no details were returned.';
+        btn.disabled = true;
+        const oldText = btn.textContent;
+        btn.textContent = "Analyzing...";
+        statusEl.textContent =
+          "Running an automatic risk diagnosis. This can take 5–15 seconds…";
+        resultBox.style.display = "none";
+        resultText.textContent = "";
 
-        resultText.textContent = summary;
-        resultBox.style.display = 'block';
-        statusEl.textContent = 'Done. This is an automatic diagnosis, not legal or financial advice.';
-      } catch (err) {
-        console.error(err);
-        statusEl.textContent = 'Something went wrong. Please try again later.';
-      } finally {
-        btn.disabled = false;
-        btn.textContent = oldText;
-      }
-    });
+        try {
+          const res = await fetch("/w/api/risk-diagnosis", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
+
+          if (!res.ok) {
+            const errText = await res.text();
+            console.error("risk diagnosis error", res.status, errText);
+            statusEl.textContent =
+              "Something went wrong. Please try again later.";
+            return;
+          }
+
+          const data = await res.json().catch(() => ({}));
+          const text =
+            data.diagnosis || data.message || data.result ||
+            JSON.stringify(data, null, 2) ||
+            "No diagnosis text returned.";
+
+          resultText.textContent = text;
+          resultBox.style.display = "block";
+          statusEl.textContent =
+            "This automatic diagnosis is for your reference. For very high-risk cases we may invite you to a paid appeal pack.";
+        } catch (err) {
+          console.error(err);
+          statusEl.textContent =
+            "Network error. Please check your connection and try again.";
+        } finally {
+          btn.disabled = false;
+          btn.textContent = oldText;
+        }
+      });
+    })();
   </script>
 </body>
 </html>
