@@ -17,14 +17,13 @@
 
     :root {
       --bg: #eef3ff;
-      --bg-soft: rgba(255, 255, 255, 0.92);
+      --bg-soft: rgba(255, 255, 255, 0.94);
       --ink: #0f172a;
       --ink-soft: #64748b;
       --line-soft: rgba(148, 163, 184, 0.55);
       --accent: #2563eb;
       --accent-soft: rgba(37, 99, 235, 0.12);
       --accent-strong: #1d4ed8;
-      --danger: #b91c1c;
       --radius-lg: 26px;
       --radius-md: 18px;
       --radius-pill: 999px;
@@ -180,7 +179,7 @@
     .hero-left {
       padding: 18px 20px 20px;
       border-radius: var(--radius-lg);
-      background: rgba(255, 255, 255, 0.9);
+      background: rgba(255, 255, 255, 0.96);
       box-shadow: var(--shadow-soft);
       border: 1px solid rgba(148, 163, 184, 0.4);
       backdrop-filter: blur(18px);
@@ -286,7 +285,7 @@
       padding: 8px 10px;
       font-size: 13px;
       font-family: inherit;
-      background: rgba(255, 255, 255, 0.9);
+      background: rgba(255, 255, 255, 0.94);
       outline: none;
       transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
     }
@@ -452,7 +451,7 @@
       font-size: 13px;
       line-height: 1.7;
       color: var(--ink);
-      max-height: 7.6rem;  /* desktop: 3–4 lines */
+      max-height: 7.6rem;
       overflow: hidden;
     }
 
@@ -602,7 +601,7 @@
       box-shadow: 0 30px 70px rgba(15, 23, 42, 0.7);
       border: 1px solid rgba(15, 23, 42, 0.75);
       position: relative;
-      overflow: hidden;
+      overflow: visible;      /* 关键：让内容全部展开 */
     }
 
     .full-letter-header {
@@ -630,16 +629,10 @@
       font-size: 13px;
       line-height: 1.8;
       white-space: pre-wrap;
-      max-height: 340px;
-      overflow: auto;
-    }
-
-    .full-letter-body::-webkit-scrollbar {
-      width: 6px;
-    }
-    .full-letter-body::-webkit-scrollbar-thumb {
-      background: rgba(148, 163, 184, 0.8);
-      border-radius: 999px;
+      /* 不再限制高度，不再滚动，整封信全部显示 */
+      max-height: none;
+      height: auto;
+      overflow: visible;
     }
 
     .full-letter-footer {
@@ -684,15 +677,11 @@
       }
 
       .preview-text {
-        max-height: 11rem;  /* more lines on mobile */
+        max-height: 11rem;
       }
 
       .preview-blur {
-        height: 34%;        /* less blur on mobile */
-      }
-
-      .full-letter-body {
-        max-height: 260px;
+        height: 34%;
       }
     }
   </style>
@@ -919,8 +908,8 @@ will receive before paying.
           </button>
 
           <div class="unlock-note">
-            Once payment is confirmed, the full English appeal letter for this case will appear in
-            the dark panel below. Your client can copy it into the platform’s form or export it to a document.
+            After payment is confirmed, the full English appeal letter for this case will appear in the
+            dark panel below. Your client can copy it into the platform’s form or export it to a document.
           </div>
         </div>
 
@@ -946,8 +935,9 @@ Best regards,
 Aurum Account Recovery Desk
           </div>
           <div class="full-letter-footer">
-            Note: we do not log in to your accounts. All work is provided as written letters and
-            explanations that you or your advisors can submit.
+            Note: For compliance and security reasons, Aurum does not log in to your accounts or
+            act on your behalf. All work is provided as written assessments, explanations, and
+            appeal letters that you submit directly to the platform.
           </div>
         </div>
       </section>
