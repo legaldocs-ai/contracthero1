@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Aurum Desk — Terms of Service</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="icon" href="favicon.png" type="image/png" />
+
+  <!-- Google tag (optional: keep same as index) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NEY7RNB5S"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-NEY7RNB5S');
+  </script>
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-deep: #020617;
+      --bg-card: #020617;
+      --bg-soft: #0b1220;
+      --border-subtle: rgba(148,163,184,0.35);
+      --gold: #fbbf24;
+      --gold-soft: rgba(251,191,36,0.16);
+      --text-main: #e5e7eb;
+      --text-soft: #9ca3af;
+      --radius-xl: 26px;
+      --radius-md: 16px;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #0b1120 0%, #020617 55%, #020617 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .page-shell {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 18px 18px 40px;
+      width: 100%;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 6px 2px 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-mark {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background: conic-gradient(
+        from 160deg,
+        #fbbf24,
+        #facc15,
+        #f97316,
+        #fbbf24
+      );
+      box-shadow: 0 0 18px rgba(251,191,36,0.55);
+    }
+
+    .brand-text-main {
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+    }
+
+    .brand-text-sub {
+      font-size: 0.7rem;
+      color: var(--text-soft);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 0.86rem;
+    }
+
+    nav a {
+      color: var(--text-soft);
+      text-decoration: none;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      transition: all 0.16s ease-out;
+      white-space: nowrap;
+    }
+
+    nav a:hover {
+      color: var(--text-main);
+      border-color: rgba(148,163,184,0.35);
+      background: rgba(15,23,42,0.9);
+    }
+
+    nav a.current {
+      color: #0b1120;
+      background: var(--gold);
+      border-color: var(--gold);
+      font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      nav {
+        flex-wrap: wrap;
+        justify-content: flex-start;
+      }
+    }
+
+    main {
+      padding-top: 10px;
+    }
+
+    .page-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.45);
+      background: radial-gradient(circle at 0 0, rgba(251,191,36,0.25), transparent 55%);
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-soft);
+      margin-bottom: 12px;
+    }
+
+    .page-tag-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--gold);
+      box-shadow: 0 0 12px rgba(251,191,36,0.75);
+    }
+
+    .page-title {
+      font-size: clamp(1.9rem, 3vw, 2.3rem);
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      margin-bottom: 6px;
+    }
+
+    .page-subtitle {
+      max-width: 640px;
+      font-size: 0.98rem;
+      color: var(--text-soft);
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .card {
+      background: radial-gradient(circle at top left, #0b1120 0%, #020617 40%);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-subtle);
+      padding: 22px 20px;
+      box-shadow:
+        0 24px 60px rgba(15,23,42,0.9),
+        0 0 0 1px rgba(15,23,42,0.9);
+    }
+
+    .section {
+      padding: 16px 0;
+      border-top: 1px solid rgba(148,163,184,0.3);
+    }
+
+    .section:first-of-type {
+      border-top: none;
+      padding-top: 0;
+    }
+
+    .section h2 {
+      font-size: 1.02rem;
+      margin-bottom: 6px;
+    }
+
+    .section p {
+      font-size: 0.94rem;
+      color: var(--text-soft);
+      line-height: 1.7;
+      margin-bottom: 10px;
+    }
+
+    .section ul {
+      list-style: disc;
+      padding-left: 18px;
+      margin: 6px 0 8px;
+    }
+
+    .section ul li {
+      font-size: 0.94rem;
+      color: var(--text-soft);
+      line-height: 1.6;
+      margin-bottom: 4px;
+    }
+
+    footer {
+      padding: 26px 2px 10px;
+      font-size: 0.8rem;
+      color: #6b7280;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    footer a {
+      color: #9ca3af;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(148,163,184,0.4);
+      padding-bottom: 1px;
+    }
+
+    footer a:hover {
+      color: #e5e7eb;
+      border-bottom-color: #e5e7eb;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-shell">
+    <header>
+      <div class="brand">
+        <div class="brand-mark"></div>
+        <div>
+          <div class="brand-text-main">Aurum Task Desk</div>
+          <div class="brand-text-sub">Private AI Writing & Resolution</div>
+        </div>
+      </div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="diagnosis.html">Diagnosis</a>
+        <a href="platforms.html">Platforms</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="about.html">About</a>
+        <a href="terms.html" class="current">Terms</a>
+      </nav>
+    </header>
+
+    <main>
+      <div class="page-tag">
+        <span class="page-tag-dot"></span>
+        Terms of Service
+      </div>
+      <h1 class="page-title">Aurum Desk Terms of Service</h1>
+      <p class="page-subtitle">
+        Please read these Terms of Service carefully before using Aurum Task Desk
+        (“Aurum Desk”, “we”, “us”). By visiting this website or using any of our
+        AI writing & resolution tools, you agree to these terms.
+      </p>
+
+      <article class="card">
+        <section class="section">
+          <h2>1. Who Aurum Desk is for</h2>
+          <p>
+            Aurum Desk is designed primarily for older professionals in the US, EU
+            and other regions who need assistance drafting calm, structured and
+            well-reasoned letters, appeals and supporting documents. Our tools are
+            intended for individual professionals and small businesses, not for
+            high-volume spam or abusive campaigns.
+          </p>
+        </section>
+
+        <section class="section">
+          <h2>2. No legal, financial or immigration advice</h2>
+          <p>
+            Aurum Desk is an AI-assisted writing desk, not a law firm, financial
+            advisor or immigration consultancy. Nothing on this site or generated
+            by our tools should be treated as professional legal, financial,
+            immigration or medical advice.
+          </p>
+          <p>
+            You are solely responsible for reviewing any draft, checking it
+            against the rules of the relevant platform or authority, and
+            obtaining independent professional advice when necessary.
+          </p>
+        </section>
+
+        <section class="section">
+          <h2>3. Use of AI-generated content</h2>
+          <ul>
+            <li>You remain the owner of the information and stories you provide.</li>
+            <li>
+              You are responsible for the accuracy of facts, dates, documents and
+              evidence mentioned in any draft.
+            </li>
+            <li>
+              You must not use Aurum Desk to create abusive, threatening, hateful,
+              misleading or fraudulent material.
+            </li>
+          </ul>
+          <p>
+            AI systems can occasionally make errors, omit important details or
+            misinterpret instructions. Always review, edit and correct any draft
+            before sending or filing it.
+          </p>
+        </section>
+
+        <section class="section">
+          <h2>4. Payments & pricing</h2>
+          <p>
+            Some Aurum Desk features are free, while others require one-time or
+            recurring payments. Prices, currency and what is included in each
+            plan are described on the Pricing page of this website.
+          </p>
+          <p>
+            Payments are processed through third-party providers
+            (for example Stripe, Wise, PayPal, Paddle or similar services). These
+            providers may have their own terms and privacy policies that apply to
+            your use of their services in addition to these Terms.
+          </p>
+          <p>
+            Unless explicitly stated otherwise, all sales are final. Because
+            access to AI tools and drafts is delivered immediately, we generally
+            do not offer refunds except where required by applicable law.
+          </p>
+        </section>
+
+        <section class="section">
+          <h2>5. Acceptable use</h2>
+          <p>You agree not to use Aurum Desk to:</p>
+          <ul>
+            <li>Violate any law or regulation in your country or region;</li>
+            <li>
+              Harass, threaten, defame or abuse any person, company or platform;
+            </li>
+            <li>
+              Generate large-scale spam, bulk campaigns or deceptive material;
+            </li>
+            <li>
+              Attempt to reverse engineer, attack or overload our systems or the
+              underlying AI infrastructure.
+            </li>
+          </ul>
+        </section>
+
+        <section class="section">
+          <h2>6. Availability and changes</h2>
+          <p>
+            Aurum Desk is a small and evolving project. We may change, suspend or
+            discontinue any part of the service at any time, for example to
+            update models, adjust risk rules or improve security.
+          </p>
+          <p>
+            We may update these Terms from time to time. When we do, we will
+            update the “Last updated” date at the bottom of this page. Your
+            continued use of the website after changes become effective means you
+            accept the new Terms.
+          </p>
+        </section>
+
+        <section class="section">
+          <h2>7. Limitation of liability</h2>
+          <p>
+            To the maximum extent permitted by law, Aurum Desk and its operators
+            are not liable for any indirect, incidental, special or consequential
+            damages, or for loss of profits, opportunities or data, arising out
+            of or in connection with your use of this website or any drafts
+            generated by our tools.
+          </p>
+          <p>
+            In any case, our total liability for any claim related to Aurum Desk
+            will be limited to the amount you paid for the specific service that
+            gave rise to the claim, if any.
+          </p>
+        </section>
+
+        <section class="section">
+          <h2>8. Governing law</h2>
+          <p>
+            These Terms are governed by the laws of the jurisdiction where the
+            operator of Aurum Desk is based, without regard to conflict-of-law
+            principles. Any disputes will be handled by the competent courts in
+            that jurisdiction, unless mandatory local consumer rules give you
+            different rights.
+          </p>
+        </section>
+
+        <section class="section">
+          <h2>9. Contact</h2>
+          <p>
+            If you have questions about these Terms or how Aurum Desk is used in
+            your specific situation, please contact us using the details on the
+            <a href="contact.html">Contact</a> page.
+          </p>
+          <p style="font-size:0.82rem;color:#6b7280;margin-top:6px;">
+            Last updated: 2 December 2025
+          </p>
+        </section>
+      </article>
+    </main>
+
+    <footer>
+      <div>© Aurum Task Desk. All rights reserved.</div>
+      <div>
+        <a href="terms.html">Terms</a> ·
+        <a href="privacy.html">Privacy</a> ·
+        <a href="contact.html">Contact</a>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
