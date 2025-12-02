@@ -2,427 +2,680 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Aurum Desk — Terms of Service</title>
+  <title>Aurum Account Recovery Desk — Terms of Service</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <link rel="icon" href="favicon.png" type="image/png" />
-
-  <!-- Google tag (optional: keep same as index) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NEY7RNB5S"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){ dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', 'G-NEY7RNB5S');
-  </script>
+  <link rel="icon" type="image/png" href="favicon.png" />
 
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg-deep: #020617;
-      --bg-card: #020617;
-      --bg-soft: #0b1220;
-      --border-subtle: rgba(148,163,184,0.35);
-      --gold: #fbbf24;
-      --gold-soft: rgba(251,191,36,0.16);
-      --text-main: #e5e7eb;
-      --text-soft: #9ca3af;
-      --radius-xl: 26px;
-      --radius-md: 16px;
+      --bg-page: #f4f6fb;
+      --bg-soft: #ffffff;
+      --border-subtle: rgba(148, 163, 184, 0.4);
+      --ink: #0f172a;
+      --ink-soft: #4b5563;
+      --ink-softer: #6b7280;
+      --ink-softest: #9ca3af;
+      --accent: #1d4ed8;
+      --gold: #f59e0b;
+      --radius-xl: 28px;
+      --radius-lg: 22px;
+      --radius-pill: 999px;
+      --shadow-card: 0 18px 50px rgba(15, 23, 42, 0.12);
+      --nav-height: 76px;
     }
 
+    html, body { height: 100%; }
+
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
-        "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #0b1120 0%, #020617 55%, #020617 100%);
-      color: var(--text-main);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #e5edff 0%, #f4f6fb 47%, #edf1f8 100%);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      position: relative;
+      overflow: hidden;
     }
 
-    .page-shell {
-      max-width: 1040px;
-      margin: 0 auto;
-      padding: 18px 18px 40px;
+    .bg-orbit {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -2;
+    }
+    .bg-orbit::before,
+    .bg-orbit::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(70px);
+      opacity: 0.6;
+      mix-blend-mode: screen;
+      animation: floatSoft 18s ease-in-out infinite alternate;
+    }
+    .bg-orbit::before {
+      width: 520px;
+      height: 520px;
+      top: -80px;
+      left: -40px;
+      background: radial-gradient(circle at 10% 0%, rgba(56, 189, 248, 0.6), transparent 70%);
+    }
+    .bg-orbit::after {
+      width: 560px;
+      height: 560px;
+      bottom: -120px;
+      right: -40px;
+      background: radial-gradient(circle at 80% 40%, rgba(245, 158, 11, 0.5), transparent 70%);
+      animation-delay: 2s;
+    }
+
+    .bg-grid {
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(148, 163, 184, 0.25) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(148, 163, 184, 0.25) 1px, transparent 1px);
+      background-size: 80px 80px;
+      opacity: 0.18;
+      mask-image: radial-gradient(circle at top, black 0%, transparent 62%);
+      -webkit-mask-image: radial-gradient(circle at top, black 0%, transparent 62%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    @keyframes floatSoft {
+      from { transform: translate3d(0,0,0) scale(1); }
+      to   { transform: translate3d(18px,40px,0) scale(1.03); }
+    }
+
+    /* 顶部信息条 */
+    .top-strip {
+      position: relative;
+      z-index: 30;
+      display: flex;
+      justify-content: center;
+      padding: 8px 16px;
+      font-size: 12px;
+      color: var(--ink-softest);
+    }
+    .top-strip-inner {
+      max-width: 1120px;
       width: 100%;
+      background: linear-gradient(
+        90deg,
+        rgba(37, 99, 235, 0.06),
+        rgba(56, 189, 248, 0.04),
+        rgba(245, 158, 11, 0.06)
+      );
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      padding: 6px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 10px 30px rgba(148, 163, 184, 0.3);
+    }
+    .top-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 2px 9px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.06);
+      color: var(--ink-soft);
+      font-weight: 500;
+      font-size: 11px;
+    }
+    .top-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.4);
+    }
+    .top-strip-text {
+      font-size: 11px;
+      color: var(--ink-soft);
+    }
+    .top-strip-link {
+      color: var(--accent);
+      font-weight: 500;
+      text-decoration: underline;
+      text-underline-offset: 3px;
     }
 
+    /* 导航栏 */
     header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(26px);
+      background: linear-gradient(
+        to bottom,
+        rgba(244, 246, 251, 0.9),
+        rgba(244, 246, 251, 0.75),
+        rgba(244, 246, 251, 0.5)
+      );
+      border-bottom: 1px solid rgba(203, 213, 225, 0.7);
+    }
+    .nav-inner {
+      max-width: 1120px;
+      margin: 0 auto;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
-      padding: 6px 2px 18px;
+      padding: 10px 18px;
+      height: var(--nav-height);
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 18px;
+      background:
+        conic-gradient(
+          from 220deg,
+          rgba(37, 99, 235, 0.06),
+          rgba(37, 99, 235, 0.4),
+          rgba(56, 189, 248, 0.45),
+          rgba(245, 158, 11, 0.85),
+          rgba(37, 99, 235, 0.1)
+        );
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      box-shadow:
+        0 0 0 1px rgba(148, 163, 184, 0.55),
+        0 14px 35px rgba(15, 23, 42, 0.4);
+      overflow: hidden;
+    }
+    .brand-mark::after {
+      content: "A";
+      font-weight: 700;
+      color: #0f172a;
+      font-size: 18px;
+      letter-spacing: 0.03em;
+      text-shadow: 0 3px 8px rgba(15, 23, 42, 0.45);
+    }
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .brand-name {
+      font-size: 16px;
+      font-weight: 650;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: #020617;
+    }
+    .brand-sub {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--ink-softest);
     }
 
-    .brand {
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      font-size: 13px;
+      color: var(--ink-soft);
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: inherit;
+      position: relative;
+      padding-bottom: 2px;
+      cursor: pointer;
+    }
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 1.5px;
+      background: linear-gradient(90deg, var(--accent), var(--gold));
+      transition: width 0.18s ease-out;
+    }
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      width: 100%;
+    }
+
+    .nav-actions {
       display: flex;
       align-items: center;
       gap: 10px;
     }
-
-    .brand-mark {
-      width: 32px;
-      height: 32px;
-      border-radius: 999px;
-      background: conic-gradient(
-        from 160deg,
-        #fbbf24,
-        #facc15,
-        #f97316,
-        #fbbf24
-      );
-      box-shadow: 0 0 18px rgba(251,191,36,0.55);
-    }
-
-    .brand-text-main {
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      font-size: 0.9rem;
-      text-transform: uppercase;
-    }
-
-    .brand-text-sub {
-      font-size: 0.7rem;
-      color: var(--text-soft);
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-    }
-
-    nav {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      font-size: 0.86rem;
-    }
-
-    nav a {
-      color: var(--text-soft);
-      text-decoration: none;
-      padding: 4px 10px;
-      border-radius: 999px;
-      border: 1px solid transparent;
-      transition: all 0.16s ease-out;
-      white-space: nowrap;
-    }
-
-    nav a:hover {
-      color: var(--text-main);
-      border-color: rgba(148,163,184,0.35);
-      background: rgba(15,23,42,0.9);
-    }
-
-    nav a.current {
-      color: #0b1120;
-      background: var(--gold);
-      border-color: var(--gold);
-      font-weight: 600;
-    }
-
-    @media (max-width: 768px) {
-      header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      nav {
-        flex-wrap: wrap;
-        justify-content: flex-start;
-      }
-    }
-
-    main {
-      padding-top: 10px;
-    }
-
-    .page-tag {
+    .btn {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      padding: 3px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.45);
-      background: radial-gradient(circle at 0 0, rgba(251,191,36,0.25), transparent 55%);
-      font-size: 0.72rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--text-soft);
-      margin-bottom: 12px;
+      justify-content: center;
+      gap: 8px;
+      border-radius: var(--radius-pill);
+      border: 1px solid transparent;
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: transform 0.14s ease-out,
+        box-shadow 0.14s ease-out,
+        background 0.14s ease-out,
+        border-color 0.14s ease-out,
+        color 0.14s ease-out;
+      white-space: nowrap;
     }
-
-    .page-tag-dot {
+    .btn-primary {
+      background: radial-gradient(circle at top left, #60a5fa, #1d4ed8);
+      color: #f9fafb;
+      border-color: rgba(30, 64, 175, 0.9);
+      box-shadow: 0 16px 45px rgba(37, 99, 235, 0.55);
+    }
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 22px 60px rgba(37, 99, 235, 0.7);
+      filter: brightness(1.03);
+    }
+    .btn .dot {
       width: 6px;
       height: 6px;
       border-radius: 999px;
-      background: var(--gold);
-      box-shadow: 0 0 12px rgba(251,191,36,0.75);
+      background: #22c55e;
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.5);
     }
 
-    .page-title {
-      font-size: clamp(1.9rem, 3vw, 2.3rem);
-      font-weight: 600;
-      letter-spacing: 0.02em;
+    .hamburger {
+      display: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.8);
+      background: rgba(255, 255, 255, 0.7);
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .hamburger span {
+      width: 16px;
+      height: 2px;
+      background: #020617;
+      border-radius: 999px;
+      position: relative;
+    }
+    .hamburger span::before,
+    .hamburger span::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      width: 16px;
+      height: 2px;
+      background: #020617;
+      border-radius: 999px;
+    }
+    .hamburger span::before { top: -5px; }
+    .hamburger span::after  { top: 5px; }
+
+    .mobile-menu {
+      position: fixed;
+      inset: calc(var(--nav-height) + 8px) 12px auto 12px;
+      background: rgba(255, 255, 255, 0.98);
+      border-radius: 20px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      padding: 12px 14px;
+      box-shadow: 0 18px 60px rgba(15, 23, 42, 0.5);
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 30;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-size: 13px;
+      color: var(--ink-soft);
+      text-decoration: none;
+    }
+    .mobile-menu .btn-primary {
+      width: 100%;
+      justify-content: center;
+    }
+
+    main { flex: 1; }
+
+    .shell {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 26px 18px 60px;
+    }
+
+    /* 法务页主体 */
+    .legal-hero {
+      margin-top: 12px;
+      margin-bottom: 22px;
+    }
+    .legal-kicker {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--ink-softest);
       margin-bottom: 6px;
     }
-
-    .page-subtitle {
-      max-width: 640px;
-      font-size: 0.98rem;
-      color: var(--text-soft);
-      line-height: 1.6;
-      margin-bottom: 24px;
+    .legal-title {
+      font-size: 24px;
+      font-weight: 650;
+      letter-spacing: -0.02em;
+      color: #020617;
+      margin-bottom: 8px;
+    }
+    .legal-subtitle {
+      font-size: 13px;
+      color: var(--ink-softer);
+      max-width: 620px;
+      line-height: 1.7;
     }
 
-    .card {
-      background: radial-gradient(circle at top left, #0b1120 0%, #020617 40%);
+    .legal-card {
+      background: #ffffff;
       border-radius: var(--radius-xl);
-      border: 1px solid var(--border-subtle);
-      padding: 22px 20px;
-      box-shadow:
-        0 24px 60px rgba(15,23,42,0.9),
-        0 0 0 1px rgba(15,23,42,0.9);
+      border: 1px solid rgba(203, 213, 225, 0.9);
+      box-shadow: var(--shadow-card);
+      padding: 20px 20px 18px;
     }
-
-    .section {
-      padding: 16px 0;
-      border-top: 1px solid rgba(148,163,184,0.3);
+    .legal-section {
+      padding: 14px 0;
+      border-top: 1px solid rgba(226, 232, 240, 0.9);
     }
-
-    .section:first-of-type {
+    .legal-section:first-of-type {
       border-top: none;
       padding-top: 0;
     }
 
-    .section h2 {
-      font-size: 1.02rem;
+    .legal-section h2 {
+      font-size: 15px;
+      font-weight: 600;
+      color: #020617;
       margin-bottom: 6px;
     }
-
-    .section p {
-      font-size: 0.94rem;
-      color: var(--text-soft);
-      line-height: 1.7;
-      margin-bottom: 10px;
+    .legal-section p {
+      font-size: 13px;
+      color: var(--ink-softer);
+      line-height: 1.8;
+      margin-bottom: 8px;
     }
-
-    .section ul {
-      list-style: disc;
+    .legal-section ul {
       padding-left: 18px;
-      margin: 6px 0 8px;
+      margin: 4px 0 8px;
     }
-
-    .section ul li {
-      font-size: 0.94rem;
-      color: var(--text-soft);
-      line-height: 1.6;
+    .legal-section ul li {
+      font-size: 13px;
+      color: var(--ink-softer);
+      line-height: 1.7;
       margin-bottom: 4px;
     }
 
+    .legal-meta {
+      font-size: 11px;
+      color: var(--ink-softest);
+      margin-top: 6px;
+    }
+
     footer {
-      padding: 26px 2px 10px;
-      font-size: 0.8rem;
-      color: #6b7280;
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      flex-wrap: wrap;
+      padding: 18px;
+      font-size: 11px;
+      color: var(--ink-softest);
+      text-align: center;
     }
-
+    footer p { margin-bottom: 4px; }
     footer a {
-      color: #9ca3af;
-      text-decoration: none;
-      border-bottom: 1px solid rgba(148,163,184,0.4);
-      padding-bottom: 1px;
+      color: var(--ink-softest);
+      text-decoration: underline;
+      text-underline-offset: 3px;
     }
 
-    footer a:hover {
-      color: #e5e7eb;
-      border-bottom-color: #e5e7eb;
+    /* 响应式 */
+    @media (max-width: 960px) {
+      .nav-links, .nav-actions { display: none; }
+      .hamburger { display: inline-flex; }
+      .shell { padding-inline: 14px; }
+    }
+    @media (max-width: 720px) {
+      .top-strip-inner { flex-direction: column; align-items: flex-start; }
+      .legal-title { font-size: 21px; }
+      .legal-card { padding: 16px 14px 14px; }
     }
   </style>
 </head>
 <body>
-  <div class="page-shell">
-    <header>
-      <div class="brand">
-        <div class="brand-mark"></div>
-        <div>
-          <div class="brand-text-main">Aurum Task Desk</div>
-          <div class="brand-text-sub">Private AI Writing & Resolution</div>
+  <div class="page">
+    <div class="bg-orbit"></div>
+    <div class="bg-grid"></div>
+
+    <!-- Top strip -->
+    <div class="top-strip">
+      <div class="top-strip-inner">
+        <div class="top-pill">
+          <span class="top-dot"></span>
+          <span>Live desk</span>
+        </div>
+        <div class="top-strip-text">
+          3,000+ account owners used Aurum to recover or clarify platform risk.
+          <a class="top-strip-link" href="index.html#how-it-works">See how it works →</a>
         </div>
       </div>
-      <nav>
-        <a href="index.html">Home</a>
-        <a href="diagnosis.html">Diagnosis</a>
-        <a href="platforms.html">Platforms</a>
+    </div>
+
+    <!-- Header -->
+    <header>
+      <div class="nav-inner">
+        <div class="brand">
+          <div class="brand-mark"></div>
+          <div class="brand-text">
+            <div class="brand-name">AURUM DESK</div>
+            <div class="brand-sub">ACCOUNT RECOVERY & APPEALS</div>
+          </div>
+        </div>
+
+        <nav class="nav-links">
+          <a href="index.html#platforms">Platforms</a>
+          <a href="index.html#how-it-works">How it works</a>
+          <a href="index.html#comparison">Why Aurum</a>
+          <a href="index.html#testimonials">Results</a>
+          <a href="pricing.html">Pricing</a>
+        </nav>
+
+        <div class="nav-actions">
+          <button class="btn btn-primary" onclick="window.location.href='diagnosis.html'">
+            <span class="dot"></span>
+            Run free diagnosis
+          </button>
+        </div>
+
+        <button class="hamburger" id="hamburger">
+          <span></span>
+        </button>
+      </div>
+
+      <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html#platforms">Platforms</a>
+        <a href="index.html#how-it-works">How it works</a>
+        <a href="index.html#comparison">Why Aurum</a>
+        <a href="index.html#testimonials">Results</a>
         <a href="pricing.html">Pricing</a>
-        <a href="about.html">About</a>
-        <a href="terms.html" class="current">Terms</a>
-      </nav>
+        <button class="btn btn-primary" onclick="window.location.href='diagnosis.html'">
+          Run free diagnosis
+        </button>
+      </div>
     </header>
 
     <main>
-      <div class="page-tag">
-        <span class="page-tag-dot"></span>
-        Terms of Service
+      <div class="shell">
+        <div class="legal-hero">
+          <div class="legal-kicker">Legal</div>
+          <h1 class="legal-title">Aurum Desk Terms of Service</h1>
+          <p class="legal-subtitle">
+            Please read these Terms of Service carefully before using Aurum Account Recovery Desk
+            (“Aurum Desk”, “we”, “us”). By visiting this website or using any of our tools, you
+            agree to these terms.
+          </p>
+        </div>
+
+        <article class="legal-card">
+          <section class="legal-section">
+            <h2>1. Who Aurum Desk is for</h2>
+            <p>
+              Aurum Desk is designed primarily for older professionals in the US, EU and other
+              regions who depend on high-value accounts for their income. Our tools help you
+              understand platform risk and prepare professional appeals.
+            </p>
+            <p>
+              Aurum Desk is not intended for spam, abusive campaigns or attempts to mislead
+              platforms, authorities or financial institutions.
+            </p>
+          </section>
+
+          <section class="legal-section">
+            <h2>2. No legal, financial or immigration advice</h2>
+            <p>
+              Aurum Desk is an AI-assisted writing desk. We are not a law firm, financial adviser or
+              immigration consultancy, and nothing on this website should be treated as legal,
+              financial, immigration or medical advice.
+            </p>
+            <p>
+              You are responsible for checking any draft against the rules of the relevant
+              platform or authority and for obtaining independent professional advice when needed.
+            </p>
+          </section>
+
+          <section class="legal-section">
+            <h2>3. Use of AI-generated content</h2>
+            <ul>
+              <li>You remain the owner of the information and stories you provide to Aurum Desk.</li>
+              <li>
+                You are responsible for the accuracy of facts, dates, documents and evidence in any
+                draft you send.
+              </li>
+              <li>
+                You must not use Aurum Desk to create abusive, threatening, hateful, misleading or
+                fraudulent material.
+              </li>
+            </ul>
+            <p>
+              AI systems can make mistakes or misunderstand instructions. Always read, edit and
+              correct your letter before sending it.
+            </p>
+          </section>
+
+          <section class="legal-section">
+            <h2>4. Payments & pricing</h2>
+            <p>
+              Some features are free, others require a one-time payment or other fee. Current
+              prices and what is included are described on the Pricing page.
+            </p>
+            <p>
+              Payments are processed through third-party providers (for example Stripe, Wise,
+              PayPal, Paddle or similar). Their own terms and privacy policies apply in addition to
+              these Terms.
+            </p>
+            <p>
+              Because access to AI tools and drafts is delivered immediately, all sales are
+              generally final, except where applicable law requires a different policy.
+            </p>
+          </section>
+
+          <section class="legal-section">
+            <h2>5. Acceptable use</h2>
+            <p>You agree not to use Aurum Desk to:</p>
+            <ul>
+              <li>Violate any law or regulation in your country or region;</li>
+              <li>Harass, threaten, defame or abuse any person, company or platform;</li>
+              <li>Generate large-scale spam or deceptive campaigns;</li>
+              <li>Attack, overload or reverse engineer our systems or the underlying AI.</li>
+            </ul>
+          </section>
+
+          <section class="legal-section">
+            <h2>6. Availability and changes</h2>
+            <p>
+              Aurum Desk is an evolving project. We may change, suspend or discontinue parts of the
+              service at any time, for example to update models, adjust risk rules or improve
+              security.
+            </p>
+            <p>
+              We may update these Terms from time to time. When we do, we will revise the “Last
+              updated” date below. Your continued use of the website after changes means you accept
+              the new Terms.
+            </p>
+          </section>
+
+          <section class="legal-section">
+            <h2>7. Limitation of liability</h2>
+            <p>
+              To the maximum extent permitted by law, Aurum Desk and its operators are not liable
+              for any indirect, incidental, special or consequential damages, or for loss of
+              profits, opportunities or data, arising from your use of this website or any
+              AI-generated drafts.
+            </p>
+            <p>
+              If we are found liable for any claim, our total liability will be limited to the
+              amount you paid for the specific service related to that claim, if any.
+            </p>
+          </section>
+
+          <section class="legal-section">
+            <h2>8. Governing law</h2>
+            <p>
+              These Terms are governed by the laws of the jurisdiction where the operator of Aurum
+              Desk is based, without regard to conflict-of-law rules. Local consumer protection
+              rules that cannot be waived still apply.
+            </p>
+          </section>
+
+          <section class="legal-section">
+            <h2>9. Contact</h2>
+            <p>
+              If you have questions about these Terms or how they apply to your situation, please
+              contact us using the details on the
+              <a href="contact.html">Contact</a> page.
+            </p>
+            <p class="legal-meta">Last updated: 2 December 2025</p>
+          </section>
+        </article>
       </div>
-      <h1 class="page-title">Aurum Desk Terms of Service</h1>
-      <p class="page-subtitle">
-        Please read these Terms of Service carefully before using Aurum Task Desk
-        (“Aurum Desk”, “we”, “us”). By visiting this website or using any of our
-        AI writing & resolution tools, you agree to these terms.
-      </p>
-
-      <article class="card">
-        <section class="section">
-          <h2>1. Who Aurum Desk is for</h2>
-          <p>
-            Aurum Desk is designed primarily for older professionals in the US, EU
-            and other regions who need assistance drafting calm, structured and
-            well-reasoned letters, appeals and supporting documents. Our tools are
-            intended for individual professionals and small businesses, not for
-            high-volume spam or abusive campaigns.
-          </p>
-        </section>
-
-        <section class="section">
-          <h2>2. No legal, financial or immigration advice</h2>
-          <p>
-            Aurum Desk is an AI-assisted writing desk, not a law firm, financial
-            advisor or immigration consultancy. Nothing on this site or generated
-            by our tools should be treated as professional legal, financial,
-            immigration or medical advice.
-          </p>
-          <p>
-            You are solely responsible for reviewing any draft, checking it
-            against the rules of the relevant platform or authority, and
-            obtaining independent professional advice when necessary.
-          </p>
-        </section>
-
-        <section class="section">
-          <h2>3. Use of AI-generated content</h2>
-          <ul>
-            <li>You remain the owner of the information and stories you provide.</li>
-            <li>
-              You are responsible for the accuracy of facts, dates, documents and
-              evidence mentioned in any draft.
-            </li>
-            <li>
-              You must not use Aurum Desk to create abusive, threatening, hateful,
-              misleading or fraudulent material.
-            </li>
-          </ul>
-          <p>
-            AI systems can occasionally make errors, omit important details or
-            misinterpret instructions. Always review, edit and correct any draft
-            before sending or filing it.
-          </p>
-        </section>
-
-        <section class="section">
-          <h2>4. Payments & pricing</h2>
-          <p>
-            Some Aurum Desk features are free, while others require one-time or
-            recurring payments. Prices, currency and what is included in each
-            plan are described on the Pricing page of this website.
-          </p>
-          <p>
-            Payments are processed through third-party providers
-            (for example Stripe, Wise, PayPal, Paddle or similar services). These
-            providers may have their own terms and privacy policies that apply to
-            your use of their services in addition to these Terms.
-          </p>
-          <p>
-            Unless explicitly stated otherwise, all sales are final. Because
-            access to AI tools and drafts is delivered immediately, we generally
-            do not offer refunds except where required by applicable law.
-          </p>
-        </section>
-
-        <section class="section">
-          <h2>5. Acceptable use</h2>
-          <p>You agree not to use Aurum Desk to:</p>
-          <ul>
-            <li>Violate any law or regulation in your country or region;</li>
-            <li>
-              Harass, threaten, defame or abuse any person, company or platform;
-            </li>
-            <li>
-              Generate large-scale spam, bulk campaigns or deceptive material;
-            </li>
-            <li>
-              Attempt to reverse engineer, attack or overload our systems or the
-              underlying AI infrastructure.
-            </li>
-          </ul>
-        </section>
-
-        <section class="section">
-          <h2>6. Availability and changes</h2>
-          <p>
-            Aurum Desk is a small and evolving project. We may change, suspend or
-            discontinue any part of the service at any time, for example to
-            update models, adjust risk rules or improve security.
-          </p>
-          <p>
-            We may update these Terms from time to time. When we do, we will
-            update the “Last updated” date at the bottom of this page. Your
-            continued use of the website after changes become effective means you
-            accept the new Terms.
-          </p>
-        </section>
-
-        <section class="section">
-          <h2>7. Limitation of liability</h2>
-          <p>
-            To the maximum extent permitted by law, Aurum Desk and its operators
-            are not liable for any indirect, incidental, special or consequential
-            damages, or for loss of profits, opportunities or data, arising out
-            of or in connection with your use of this website or any drafts
-            generated by our tools.
-          </p>
-          <p>
-            In any case, our total liability for any claim related to Aurum Desk
-            will be limited to the amount you paid for the specific service that
-            gave rise to the claim, if any.
-          </p>
-        </section>
-
-        <section class="section">
-          <h2>8. Governing law</h2>
-          <p>
-            These Terms are governed by the laws of the jurisdiction where the
-            operator of Aurum Desk is based, without regard to conflict-of-law
-            principles. Any disputes will be handled by the competent courts in
-            that jurisdiction, unless mandatory local consumer rules give you
-            different rights.
-          </p>
-        </section>
-
-        <section class="section">
-          <h2>9. Contact</h2>
-          <p>
-            If you have questions about these Terms or how Aurum Desk is used in
-            your specific situation, please contact us using the details on the
-            <a href="contact.html">Contact</a> page.
-          </p>
-          <p style="font-size:0.82rem;color:#6b7280;margin-top:6px;">
-            Last updated: 2 December 2025
-          </p>
-        </section>
-      </article>
     </main>
 
     <footer>
-      <div>© Aurum Task Desk. All rights reserved.</div>
-      <div>
+      <p>Aurum Account Recovery Desk — Private account appeal & risk diagnosis service.</p>
+      <p>
         <a href="terms.html">Terms</a> ·
         <a href="privacy.html">Privacy</a> ·
         <a href="contact.html">Contact</a>
-      </div>
+      </p>
     </footer>
   </div>
+
+  <script>
+    var hamburger = document.getElementById("hamburger");
+    var mobileMenu = document.getElementById("mobileMenu");
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener("click", function () {
+        mobileMenu.classList.toggle("open");
+      });
+    }
+  </script>
 </body>
 </html>
