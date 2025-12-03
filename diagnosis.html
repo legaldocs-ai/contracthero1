@@ -13,6 +13,7 @@
   <link rel="icon" type="image/png" href="favicon.png?v=3" />
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
+
   <!-- Open Graph (Social Sharing Image) -->
   <meta property="og:title" content="Aurum Account Recovery Desk">
   <meta property="og:description" content="Structured risk diagnosis & professional appeal drafts.">
@@ -269,9 +270,7 @@
       margin-bottom: 10px;
     }
 
-    .field {
-      margin-bottom: 10px;
-    }
+    .field { margin-bottom: 10px; }
 
     label {
       display: block;
@@ -508,9 +507,7 @@
       color: var(--ink-soft);
     }
 
-    .plan-chip strong {
-      color: var(--ink);
-    }
+    .plan-chip strong { color: var(--ink); }
 
     .plan-price {
       font-size: 12px;
@@ -564,9 +561,7 @@
       margin-bottom: 8px;
     }
 
-    .pay-checkbox input {
-      margin-top: 2px;
-    }
+    .pay-checkbox input { margin-top: 2px; }
 
     .btn-unlock {
       margin-top: 4px;
@@ -689,29 +684,21 @@
 
       .nav-links { display: none; }
 
-      .hero-title {
-        font-size: 20px;
-      }
+      .hero-title { font-size: 20px; }
 
       .hero-left {
         padding: 14px 14px 16px;
       }
 
-      .fieldset {
-        padding: 10px 10px 6px;
-      }
+      .fieldset { padding: 10px 10px 6px; }
 
       .field-row {
         grid-template-columns: minmax(0, 1fr);
       }
 
-      .preview-text {
-        max-height: 11rem;
-      }
+      .preview-text { max-height: 11rem; }
 
-      .preview-blur {
-        height: 34%;
-      }
+      .preview-blur { height: 34%; }
 
       .full-letter-actions {
         flex-direction: column;
@@ -937,8 +924,7 @@ will receive before paying.
           <label class="pay-checkbox">
             <input type="checkbox" id="paidCheck" />
             <span>
-              I confirm I’ve completed the payment for this case and want to unlock the full appeal
-              letter on this page.
+              After Payhip confirms payment and sends you back here, this step will unlock automatically.
             </span>
           </label>
 
@@ -946,7 +932,7 @@ will receive before paying.
             Generate full appeal letter
           </button>
 
-          <div class="unlock-note">
+          <div class="unlock-note" id="unlockNote">
             After payment is confirmed, the full English appeal letter for this case will appear in the
             dark panel below. Your client can copy it into the platform’s form or export it to a document.
           </div>
@@ -1015,11 +1001,13 @@ Aurum Account Recovery Desk
 
     const paidCheck = document.getElementById("paidCheck");
     const unlockBtn = document.getElementById("unlockBtn");
+    const unlockNote = document.getElementById("unlockNote");
 
     const copyLetterBtn = document.getElementById("copyLetterBtn");
     const downloadPdfBtn = document.getElementById("downloadPdfBtn");
 
     let lastPayload = null;
+    let paidVerified = false;
 
     const DEFAULT_RISK_TEXT =
       "Here the system will show a written risk assessment: for example whether your case looks more like a hard ban, documentation gap, policy concern or a recoverable misalignment.";
@@ -1033,9 +1021,6 @@ Aurum Account Recovery Desk
       desk: "https://payhip.com/b/OngxG"      // $380 / month ongoing desk
     };
 
-    // 本地存储 key
-    const STORAGE_KEY = "aurum_last_case_v1";
-
     function setRunning(running) {
       if (running) {
         runBtn.disabled = true;
@@ -1047,51 +1032,6 @@ Aurum Account Recovery Desk
         runBtn.disabled = false;
         runBtn.textContent = "Run risk diagnosis";
         runDot.style.animation = "none";
-      }
-    }
-
-    // 保存 / 读取案例到 localStorage
-    function saveCaseToStorage(payload) {
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
-      } catch (e) {
-        console.warn("Could not save case to storage:", e);
-      }
-    }
-
-    function loadCaseFromStorage() {
-      try {
-        const raw = localStorage.getItem(STORAGE_KEY);
-        if (!raw) return null;
-        const payload = JSON.parse(raw);
-
-        // 回填表单
-        if (payload.platform) {
-          document.getElementById("platform").value = payload.platform;
-        }
-        if (payload.region) {
-          document.getElementById("region").value = payload.region;
-        }
-        if (payload.accountUse) {
-          document.getElementById("accountUse").value = payload.accountUse;
-        }
-        if (payload.noticeText) {
-          document.getElementById("noticeText").value = payload.noticeText;
-        }
-        if (payload.whatHappened) {
-          document.getElementById("whatHappened").value = payload.whatHappened;
-        }
-        if (payload.whatYouDid) {
-          document.getElementById("whatYouDid").value = payload.whatYouDid;
-        }
-        if (payload.email) {
-          document.getElementById("email").value = payload.email;
-        }
-
-        return payload;
-      } catch (e) {
-        console.warn("Could not load case from storage:", e);
-        return null;
       }
     }
 
@@ -1123,16 +1063,55 @@ Aurum Account Recovery Desk
       planChipText.textContent = chip;
       planPriceBox.innerHTML = priceHtml;
 
-      // 更新 Payhip 付款链接
-      if (mainPayLink) {
-        mainPayLink.href = payLinkHref;
-      }
-      if (backupPayLink) {
-        backupPayLink.href = payLinkHref;
-      }
+      if (mainPayLink) mainPayLink.href = payLinkHref;
+      if (backupPayLink) backupPayLink.href = payLinkHref;
     }
 
     applyPlan("standard");
+
+    // ===== 自动识别 Payhip 支付成功 =====
+    async function checkPaidFromUrl() {
+      try {
+        const url = new URL(window.location.href);
+        const token = url.searchParams.get("paidToken");
+        if (!token) return;
+
+        const res = await fetch(
+          "https://aurum-task-worker.sophieinbg.workers.dev/api/check-paid?token=" +
+            encodeURIComponent(token)
+        );
+        const data = await res.json().catch(() => ({}));
+
+        if (data && data.ok && data.paid) {
+          paidVerified = true;
+          applyPlan(data.plan || "standard");
+
+          paidCheck.checked = true;
+          paidCheck.disabled = true;
+          unlockBtn.disabled = false;
+
+          const labelSpan = document.querySelector(".pay-checkbox span");
+          if (labelSpan) {
+            labelSpan.textContent =
+              "Payment verified via Payhip. You can now generate the full appeal letter for this case.";
+          }
+          if (unlockNote) {
+            unlockNote.textContent =
+              "Payment was confirmed for this browser session. Generate the full English appeal letter below.";
+          }
+
+          // 清掉 URL 里的 paidToken，防止被分享复用
+          try {
+            url.searchParams.delete("paidToken");
+            window.history.replaceState({}, "", url.toString());
+          } catch (e) {}
+        }
+      } catch (e) {
+        // 静默失败，不打扰用户
+      }
+    }
+
+    checkPaidFromUrl();
 
     // Step 1: diagnosis
     form.addEventListener("submit", async (e) => {
@@ -1150,15 +1129,17 @@ Aurum Account Recovery Desk
       };
 
       lastPayload = payload;
-      saveCaseToStorage(payload);
       setRunning(true);
 
       try {
-        const res = await fetch("https://aurum-task-worker.sophieinbg.workers.dev/api/diagnosis", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        });
+        const res = await fetch(
+          "https://aurum-task-worker.sophieinbg.workers.dev/api/diagnosis",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          }
+        );
 
         const data = await res.json();
 
@@ -1188,27 +1169,44 @@ Aurum Account Recovery Desk
       }
     });
 
-    // Step 2: unlock full letter（手动勾选 + 自动支付识别）
+    // Step 2: checkbox — 不允许手动骗过付费
     paidCheck.addEventListener("change", () => {
+      if (!paidVerified) {
+        paidCheck.checked = false;
+        alert(
+          "Please complete payment via the Payhip checkout link first. After Payhip sends you back here, this step will unlock automatically."
+        );
+        return;
+      }
       unlockBtn.disabled = !paidCheck.checked;
     });
 
+    // Step 2: unlock full letter（必须 paidVerified=true 才能调用）
     unlockBtn.addEventListener("click", async () => {
+      if (!paidVerified) {
+        alert(
+          "We could not confirm payment for this case yet. Please complete the Payhip payment and return via the secure link."
+        );
+        return;
+      }
       if (!paidCheck.checked || !lastPayload || unlockBtn.disabled) return;
 
       unlockBtn.disabled = true;
       unlockBtn.textContent = "Generating full appeal…";
 
       try {
-        const res = await fetch("https://aurum-task-worker.sophieinbg.workers.dev/api/full-letter", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            ...lastPayload,
-            planFromPricing: "client-selected",
-            riskSummary: diagBody.textContent || "",
-          }),
-        });
+        const res = await fetch(
+          "https://aurum-task-worker.sophieinbg.workers.dev/api/full-letter",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              ...lastPayload,
+              planFromPricing: "client-selected",
+              riskSummary: diagBody.textContent || "",
+            }),
+          }
+        );
 
         const data = await res.json();
 
@@ -1223,55 +1221,9 @@ Aurum Account Recovery Desk
           "Network or system error while generating full letter. Please try again later.";
       } finally {
         unlockBtn.textContent = "Generate full appeal letter";
-        unlockBtn.disabled = !paidCheck.checked;
+        unlockBtn.disabled = false;
       }
     });
-
-    // ==== 自动识别 Payhip 支付 ====
-    async function autoCheckPaidAndUnlock() {
-      const url = new URL(window.location.href);
-      const token =
-        url.searchParams.get("paidToken") ||
-        url.searchParams.get("token");
-
-      if (!token) {
-        return;
-      }
-
-      try {
-        const res = await fetch(
-          `https://aurumdesks.com/w/api/check-paid?token=${encodeURIComponent(token)}`
-        );
-        const data = await res.json();
-        console.log("check-paid result:", data);
-
-        if (data.ok && data.paid) {
-          // 根据 KV 里记录的 plan 自动切换价格方案
-          if (data.plan) {
-            applyPlan(data.plan);
-          }
-
-          // 标记为已付款
-          paidCheck.checked = true;
-          unlockBtn.disabled = false;
-
-          // 尝试从 localStorage 取回 lastPayload
-          if (!lastPayload) {
-            const stored = loadCaseFromStorage();
-            if (stored) lastPayload = stored;
-          }
-
-          // 有案例就自动生成完整信件；没有就只帮他打勾
-          if (lastPayload) {
-            unlockBtn.click();
-          } else {
-            console.warn("No case payload found for full-letter generation.");
-          }
-        }
-      } catch (e) {
-        console.warn("check-paid failed:", e);
-      }
-    }
 
     // Copy letter button
     copyLetterBtn.addEventListener("click", async () => {
@@ -1303,7 +1255,7 @@ Aurum Account Recovery Desk
       }
 
       // Remove unsupported characters (防止乱码)
-      text = text.replace(/[^\x00-\x7F]/g, "");  // remove all non-ASCII characters
+      text = text.replace(/[^\x00-\x7F]/g, "");
 
       if (!window.jspdf || !window.jspdf.jsPDF) {
         alert("PDF library is not available. Please try again later.");
@@ -1314,7 +1266,7 @@ Aurum Account Recovery Desk
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF({
           unit: "pt",
-          format: "a4"
+          format: "a4",
         });
 
         doc.setFont("Times", "normal");
@@ -1322,7 +1274,7 @@ Aurum Account Recovery Desk
 
         const marginLeft = 48;
         const marginTop = 64;
-        const maxWidth = 515; // A4 width (595pt) minus margins
+        const maxWidth = 515;
 
         const lines = doc.splitTextToSize(text, maxWidth);
         doc.text(lines, marginLeft, marginTop);
@@ -1332,15 +1284,6 @@ Aurum Account Recovery Desk
         alert("Could not create the PDF. Please try again later.");
       }
     });
-
-    // ======= 页面初始化：读取本地案例 + 自动检查是否刚完成付款 =======
-    (function init() {
-      const stored = loadCaseFromStorage();
-      if (stored) {
-        lastPayload = stored;
-      }
-      autoCheckPaidAndUnlock();
-    })();
   </script>
 </body>
 </html>
